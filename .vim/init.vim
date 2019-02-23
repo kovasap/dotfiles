@@ -1,0 +1,332 @@
+" TO USE NEOVIM run these commands
+" mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+" ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+" ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" autocomplete
+" install: https://github.com/Valloric/YouCompleteMe/blob/master/README.md#full-installation-guide
+" NOTE DO NOT INSTALL USING AN ANACONDA PYTHON!!
+" Plugin 'Valloric/YouCompleteMe'
+" vim autocomplete and RENAMING!
+Plugin 'davidhalter/jedi-vim'
+" Plugin 'autozimu/LanguageClient-neovim'
+" Plugin 'Shougo/deoplete.nvim'
+" directory tree
+Plugin 'scrooloose/nerdtree'
+Plugin 'PhilRunninger/nerdtree-buffer-ops'
+" mercurial integration with nerdtree
+Plugin 'f4t-t0ny/nerdtree-hg-plugin'
+" syntax check
+Plugin 'w0rp/ale'
+" useful to go between errors - may not be necessary any more with ale!
+Plugin 'tpope/vim-unimpaired'
+" python indentation
+Plugin 'Vimjas/vim-python-pep8-indent'
+" themes
+Plugin 'flazz/vim-colorschemes'
+Plugin 'nightsense/simplifysimplify'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
+" status bar
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'bling/vim-bufferline'
+" make it so that when a buffer is deleted, the window stays
+Plugin 'qpkorr/vim-bufkill'
+" easier buffer management
+" Plugin 'jlanzarotta/bufexplorer'
+" easier file opening
+" Plugin 'ctrlpvim/ctrlp.vim'
+" step through colorschemes
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
+" mercurial integration
+Plugin 'ludovicchabant/vim-lawrencium'
+" show changed lines
+Plugin 'mhinz/vim-signify'
+" python highlighing
+Plugin 'vim-python/python-syntax'
+" startup screen
+Plugin 'mhinz/vim-startify'
+
+" python folding
+" Plugin 'tmhedberg/SimpylFold'
+Plugin 'kalekundert/vim-coiled-snake'
+Plugin 'Konfekt/FastFold'
+
+" OSX stupid backspace fix
+set backspace=indent,eol,start
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" google specific stuff
+source /usr/share/vim/google/google.vim
+Glug youcompleteme-google
+Glug codefmt
+Glug codefmt-google
+augroup autoformat_settings
+  autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType jslayout AutoFormatBuffer jslfmt
+  autocmd FileType markdown AutoFormatBuffer mdformat
+  autocmd FileType ncl AutoFormatBuffer nclfmt
+  autocmd FileType python AutoFormatBuffer pyformat
+  autocmd FileType textpb AutoFormatBuffer text-proto-format
+  " autocmd FileType html,css,json AutoFormatBuffer js-beautify
+augroup END
+let g:signify_skip_filename_pattern = ['\.pipertmp.*']
+
+" NERDTree options
+let g:NERDTreeWinSize=50
+
+" NERDTree mercurial options
+" original
+" let g:NERDTreeIndicatorMapCustom = {
+"     \ "Modified"  : "✹",
+"     \ "Staged"    : "✚",
+"     \ "Untracked" : "✭",
+"     \ "Renamed"   : "➜",
+"     \ "Unmerged"  : "═",
+"     \ "Deleted"   : "✖",
+"     \ "Dirty"     : "✗",
+"     \ "Clean"     : "✔︎",
+"     \ "Unknown"   : "?"
+"     \ }
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "mod",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "unt",
+    \ "Renamed"   : "ren",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "del",
+    \ "Dirty"     : "dir",
+    \ "Clean"     : "cln",
+    \ "Unknown"   : "?"
+    \ }
+
+" you complete me options
+let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_server_keep_logfiles = 1
+" let g:ycm_server_log_level = 'debug'
+let g:ycm_confirm_extra_conf = 0
+" map gd :YcmCompleter GoTo<CR>
+" map gc :YcmCompleter GetDoc<CR>
+
+" disable all jedi vim stuff except renaming (since YCM does it all)
+let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = ""
+let g:jedi#goto_assignments_command = "ga"
+let g:jedi#goto_definitions_command = "gd"
+let g:jedi#documentation_command = "gc"
+let g:jedi#usages_command = "gn"
+let g:jedi#completions_command = ""
+let g:jedi#rename_command = "gr"
+
+" map control-p file opening functionality to ctrl-p
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'ra'
+
+" add airline specification
+" let g:airline#extensions#bufferline#enabled = 1
+" let g:bufferline_show_bufnr = 0
+" let g:bufferline_rotate = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#displayed_head_limit = 15
+let g:airline#extensions#ale#enabled = 1
+" in ~/.vim/autoload/airline/themes/earthmin.vim
+let g:airline_theme='earthmin'
+" use :help statusline for customization options here
+let g:airline_section_c = '%f%m'
+" play with this if filename is too long
+" let g:airline#extensions#default#section_truncate_width =
+let g:airline_section_z = ''
+" disables whitespace warnings in bottom right corner
+" let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" enable theme
+" colorscheme jellybeans
+" let g:airline_theme='jellybeans'
+" set background=dark
+let g:python_highlight_all = 1
+let g:python_highlight_class_vars = 1
+syntax enable
+set colorcolumn=80
+" do not change terminal background
+highlight NonText ctermbg=none
+highlight Normal ctermbg=none
+colorscheme landscape_custom
+" colorscheme solarized
+" ALSO TRY: oceandeep osxlike pt_black rainbow_fine_blue sand
+" colorscheme literal_tango
+" colorscheme nedit2
+" map to show what highlight group is under the cursor when key is pressed
+map <C-S> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
+" file specific stuff
+autocmd Filetype markdown setlocal spell spelllang=en_us
+autocmd Filetype latex setlocal spell spelllang=en_us
+
+" switch between buffers without saving
+set hidden
+
+" show line numbers
+set nu
+
+" highlight current line
+" hi clear CursorLine
+" hi CursorLineNR term=bold cterm=bold guibg=Grey40
+" set cursorline
+
+" highlight word occurances
+" :autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
+" don't show scrollbars in macvim
+set guioptions=
+
+" use mouse in terminal
+set mouse=a
+
+" use system clipboard for everything by default
+" see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
+set clipboard=unnamedplus
+
+" wrap lines on word
+:set wrap
+:set linebreak
+:set nolist  " list disables linebreak
+:set textwidth=0
+:set wrapmargin=0
+:set formatoptions+=l
+set formatoptions+=t  " should wrap lines after 80 characters
+au BufNewFile *.tex 0r ~/.vim/tex.skel
+
+" folding
+set foldmethod=syntax
+set foldmethod=indent
+set foldnestmax=2
+" no dashed lines for folds (spaces instead - note space after backslash)
+set fillchars=fold:\ 
+" no highlights for folding
+hi Folded guibg=NONE ctermbg=NONE
+" capital A/F makes unfolding/folding recursive
+" normal mode bind
+nnoremap <space> za
+nnoremap <C-space> zA
+" visual mode bind
+vnoremap <space> zf
+vnoremap <C-space> zF
+
+" key rebindings
+noremap j gj
+noremap k gk
+set scrolloff=0
+nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
+map <S-Left> :vertical resize -1<CR>
+map <S-Right> :vertical resize +1<CR>
+map <C-n> :NERDTreeToggle<CR>
+
+" use ctrl-h to switch between split windows
+nnoremap <C-h> <C-w><C-w>
+
+" use ctrl-j/k to go between buffers (enter closes buffers)
+nnoremap <C-j> :bp<CR>
+nnoremap <C-k> :bn<CR>
+nnoremap <C-w> :BD<CR>
+
+" makes vim faster when making new lines after long lines by preventing syntax
+" highlighting after a certain width
+:set synmaxcol=200
+
+" trim all trailing whitespace in the file
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+command! TrimWhitespace call TrimWhitespace()
+
+" get diff between current buffer and what is saved to disk
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+" ERROR NOTES
+" neovim E667: Fsync failed: operation not supported on socket
+" solved by running :set nofsync
+:set nofsync
+
+:set number
+:set relativenumber
+
+" read same file in multiple vims
+" set autoread
+" set noswapfile
+
+" ale options
+" let g:ale_linters = {'python': ['flake8']}
+" TODO revisit mypy when https://github.com/python/mypy/issues/5772 is
+" resolved
+let g:ale_linters = {'python': ['flake8']} " , 'mypy']}
+" let flake8 handle syntax checking, mypy only typing
+" let g:ale_python_mypy_ignore_invalid_syntax = 1
+" let g:ale_python_mypy_options = '--ignore-missing-imports'
+" E306 requires blank line before inline function definition
+" E402 requires all imports be at top of file
+" E302 requires blank lines before module-level functions
+let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
+" move between errors
+nnoremap <C-u> :ALENextWrap<CR>
+nnoremap <C-y> :ALEPreviousWrap<CR>
+
+" correct indentation setup
+set expandtab
+set shiftwidth=4
+set autoindent
+filetype plugin indent on
+" show tabs
+set list
+set listchars=tab:>-
+set tabstop=4
+" see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
+" issue
