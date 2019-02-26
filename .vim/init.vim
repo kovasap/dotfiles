@@ -3,6 +3,14 @@
 " ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 " ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
+" TO DEBUG SLOW PLUGINS
+" :profile start profile.log
+" :profile func *
+" :profile file *
+" " At this point do slow actions
+" :profile pause
+" :noautocmd qall!
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -18,11 +26,16 @@ Plugin 'VundleVim/Vundle.vim'
 " autocomplete
 " install: https://github.com/Valloric/YouCompleteMe/blob/master/README.md#full-installation-guide
 " NOTE DO NOT INSTALL USING AN ANACONDA PYTHON!!
-" Plugin 'Valloric/YouCompleteMe'
-" vim autocomplete and RENAMING!
-Plugin 'davidhalter/jedi-vim'
-" Plugin 'autozimu/LanguageClient-neovim'
-" Plugin 'Shougo/deoplete.nvim'
+if isdirectory("/google")
+  Plugin 'prabirshrestha/async.vim'
+  Plugin 'prabirshrestha/vim-lsp'
+else
+  Plugin 'Valloric/YouCompleteMe'
+  " vim autocomplete and RENAMING!
+  Plugin 'davidhalter/jedi-vim'
+  " Plugin 'autozimu/LanguageClient-neovim'
+  " Plugin 'Shougo/deoplete.nvim'
+endif
 " directory tree
 Plugin 'scrooloose/nerdtree'
 Plugin 'PhilRunninger/nerdtree-buffer-ops'
@@ -84,26 +97,31 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" google specific stuff
-source /usr/share/vim/google/google.vim
-Glug youcompleteme-google
-Glug codefmt
-Glug codefmt-google
-augroup autoformat_settings
-  autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType jslayout AutoFormatBuffer jslfmt
-  autocmd FileType markdown AutoFormatBuffer mdformat
-  autocmd FileType ncl AutoFormatBuffer nclfmt
-  autocmd FileType python AutoFormatBuffer pyformat
-  autocmd FileType textpb AutoFormatBuffer text-proto-format
-  " autocmd FileType html,css,json AutoFormatBuffer js-beautify
-augroup END
-let g:signify_skip_filename_pattern = ['\.pipertmp.*']
+if isdirectory("/google")
+  " google specific stuff
+  source /usr/share/vim/google/google.vim
+  Glug youcompleteme-google
+  Glug codefmt
+  Glug codefmt-google
+  augroup autoformat_settings
+    autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
+    autocmd FileType bzl AutoFormatBuffer buildifier
+    autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+    autocmd FileType dart AutoFormatBuffer dartfmt
+    autocmd FileType go AutoFormatBuffer gofmt
+    autocmd FileType java AutoFormatBuffer google-java-format
+    autocmd FileType jslayout AutoFormatBuffer jslfmt
+    autocmd FileType markdown AutoFormatBuffer mdformat
+    autocmd FileType ncl AutoFormatBuffer nclfmt
+    autocmd FileType python AutoFormatBuffer pyformat
+    autocmd FileType textpb AutoFormatBuffer text-proto-format
+    " autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  augroup END
+  let g:signify_skip_filename_pattern = ['\.pipertmp.*']
+endif
+
+" see https://github.com/mhinz/vim-startify/issues/149
+let g:startify_enable_unsafe = 1
 
 " NERDTree options
 let g:NERDTreeWinSize=50
@@ -141,15 +159,28 @@ let g:ycm_confirm_extra_conf = 0
 " map gd :YcmCompleter GoTo<CR>
 " map gc :YcmCompleter GetDoc<CR>
 
+if isdirectory("/google")
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'Kythe Language Server',
+      \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
+      \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto'],
+      \})
+
+  nnoremap gd :<C-u>LspDefinition<CR>
+  nnoremap gn :<C-u>LspReferences<CR>
+endif
+
 " disable all jedi vim stuff except renaming (since YCM does it all)
-let g:jedi#completions_enabled = 0
-let g:jedi#goto_command = ""
-let g:jedi#goto_assignments_command = "ga"
-let g:jedi#goto_definitions_command = "gd"
-let g:jedi#documentation_command = "gc"
-let g:jedi#usages_command = "gn"
-let g:jedi#completions_command = ""
-let g:jedi#rename_command = "gr"
+if !isdirectory("/google")
+  let g:jedi#completions_enabled = 0
+  let g:jedi#goto_command = ""
+  let g:jedi#goto_assignments_command = "ga"
+  let g:jedi#goto_definitions_command = "gd"
+  let g:jedi#documentation_command = "gc"
+  let g:jedi#usages_command = "gn"
+  let g:jedi#completions_command = ""
+  let g:jedi#rename_command = "gr"
+endif
 
 " map control-p file opening functionality to ctrl-p
 " let g:ctrlp_map = '<c-p>'
@@ -304,17 +335,27 @@ com! DiffSaved call s:DiffWithSaved()
 " set noswapfile
 
 " ale options
-" let g:ale_linters = {'python': ['flake8']}
-" TODO revisit mypy when https://github.com/python/mypy/issues/5772 is
-" resolved
-let g:ale_linters = {'python': ['flake8']} " , 'mypy']}
-" let flake8 handle syntax checking, mypy only typing
-" let g:ale_python_mypy_ignore_invalid_syntax = 1
-" let g:ale_python_mypy_options = '--ignore-missing-imports'
-" E306 requires blank line before inline function definition
-" E402 requires all imports be at top of file
-" E302 requires blank lines before module-level functions
-let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
+if isdirectory("/google")
+  " we are in google land
+  let g:ale_linters = {'python': ['gpylint']}
+  " By default, ale attempts to traverse up the file directory to find a
+  " virtualenv installation. This can cause high latency (~15s) in citc clients
+  " when opening Python files. Setting the following flag to `1` disables that.
+  let g:ale_python_gpylint_use_global = 1
+  let g:ale_virtualenv_dir_names = []
+else
+  let g:ale_linters = {'python': ['flake8']}
+  " TODO revisit mypy when https://github.com/python/mypy/issues/5772 is
+  " resolved, or if it is needed for the project
+  " let g:ale_linters = {'python': ['flake8', 'mypy']}
+  " let flake8 handle syntax checking, mypy only typing
+  " let g:ale_python_mypy_ignore_invalid_syntax = 1
+  " let g:ale_python_mypy_options = '--ignore-missing-imports'
+  " E306 requires blank line before inline function definition
+  " E402 requires all imports be at top of file
+  " E302 requires blank lines before module-level functions
+  " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
+endif
 " move between errors
 nnoremap <C-u> :ALENextWrap<CR>
 nnoremap <C-y> :ALEPreviousWrap<CR>
