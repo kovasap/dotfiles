@@ -300,6 +300,17 @@ nnoremap <C-j> :bp<CR>
 nnoremap <C-k> :bn<CR>
 nnoremap <C-w> :BD<CR>
 
+" once the last buffer is closed, quit vim
+fun! s:quitiflast()
+    BD
+    let bufcnt = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+    if bufcnt < 2
+        echo 'shutting everything down'
+        quit
+    endif
+endfun
+command! BD :call s:quitiflast()
+
 " makes vim faster when making new lines after long lines by preventing syntax
 " highlighting after a certain width
 :set synmaxcol=200

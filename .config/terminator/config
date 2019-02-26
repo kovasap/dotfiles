@@ -3,6 +3,8 @@
   inactive_color_offset = 0.905303030303
   title_transmit_bg_color = "#4e9a06"
 [keybindings]
+  line_down = <Primary><Shift>j
+  line_up = <Primary><Shift>k
   page_down_half = Page_Down
   page_up_half = Page_Up
 [layouts]
