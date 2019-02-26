@@ -8,6 +8,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.EZConfig
 import XMonad.Util.Dzen
 import XMonad.Layout.Reflect
+import XMonad.Layout.MultiToggle
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Grid
@@ -50,12 +51,16 @@ alert = dzenConfig return . show
 myConfig = defaultConfig
     { terminal    = "terminator"
     , handleEventHook = myEventHook
-    , layoutHook = mouseResizableTile{fracIncrement=0.02}
-                   ||| reflectHoriz mouseResizableTile{fracIncrement=0.02}
-                   ||| mouseResizableTile{nmaster=2, fracIncrement=0.02}
-                   ||| mouseResizableTile{nmaster=3, fracIncrement=0.02}
-                   ||| mouseResizableTileMirrored{fracIncrement=0.02}
-                   -- Grid
+    , layoutHook = mkToggle (single REFLECTX) $
+                   mkToggle (single REFLECTY) $
+                   (mouseResizableTile{fracIncrement=0.02}
+                    ||| mouseResizableTile{nmaster=2, fracIncrement=0.02}
+                    ||| mouseResizableTile{nmaster=3, fracIncrement=0.02}
+                    ||| mouseResizableTileMirrored{fracIncrement=0.02}
+                    )
+                   -- ||| reflectHoriz mouseResizableTile{fracIncrement=0.02}
+                   -- ||| reflectVert mouseResizableTileMirrored{fracIncrement=0.02}
+                   -- ||| Grid
                    -- ||| Full
     , manageHook = myManageHook
     , focusedBorderColor = "#006400"
@@ -79,5 +84,8 @@ myConfig = defaultConfig
     -- master (horizontal when in tall mode) resizing in resizableTile layout
     , ((controlMask .|. mod1Mask, xK_h), sendMessage Shrink)
     , ((controlMask .|. mod1Mask, xK_l), sendMessage Expand)
-    , ((mod1Mask, xK_l), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
+    -- reflect layouts
+    , ((mod1Mask, xK_h), sendMessage $ Toggle REFLECTX)
+    , ((mod1Mask, xK_l), sendMessage $ Toggle REFLECTY)
+    , ((mod1Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
     ]

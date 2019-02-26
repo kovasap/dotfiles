@@ -354,6 +354,9 @@ if isdirectory("/google")
   " when opening Python files. Setting the following flag to `1` disables that.
   let g:ale_python_gpylint_use_global = 1
   let g:ale_virtualenv_dir_names = []
+  " see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale
+  let g:ale_python_gpylint_executable = 'bash'
+  let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
 else
   let g:ale_linters = {'python': ['flake8']}
   " TODO revisit mypy when https://github.com/python/mypy/issues/5772 is
@@ -373,7 +376,7 @@ nnoremap <C-y> :ALEPreviousWrap<CR>
 
 " correct indentation setup
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 set autoindent
 filetype plugin indent on
 " show tabs

@@ -1,3 +1,6 @@
+" see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale for
+" modifications to allow linting before saving file to disk
+
 call ale#Set('python_gpylint_executable', 'gpylint')
 call ale#Set('python_gpylint_options', '')
 call ale#Set('python_gpylint_use_global', get(g:, 'ale_use_global_executables', 0))
@@ -22,7 +25,7 @@ function! ale_linters#python#gpylint#GetCommand(buffer) abort
     \   . ale#Escape(l:executable) . l:exec_args
     \   . ' ' . ale#Var(a:buffer, 'python_gpylint_options')
     \   . ' --output-format=text --msg-template="{path}:{line}:{column}: {msg_id} ({symbol}) {msg}" --reports=n'
-    \   . ' %s'
+"    \   . ' %s'
 endfunction
 
 call ale#linter#Define('python', {
@@ -30,5 +33,5 @@ call ale#linter#Define('python', {
 \   'executable_callback': 'ale_linters#python#gpylint#GetExecutable',
 \   'command_callback': 'ale_linters#python#gpylint#GetCommand',
 \   'callback': 'ale_linters#python#pylint#Handle',
-\   'lint_file': 1,
 \})
+"\   'lint_file': 1,

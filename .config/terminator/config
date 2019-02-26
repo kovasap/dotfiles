@@ -5,8 +5,10 @@
 [keybindings]
   line_down = <Primary><Shift>j
   line_up = <Primary><Shift>k
-  page_down_half = Page_Down
-  page_up_half = Page_Up
+  page_down = Page_Down
+  page_down_half = <Primary><Shift>l
+  page_up = Page_Up
+  page_up_half = <Primary><Shift>h
 [layouts]
   [[default]]
     [[[child1]]]
