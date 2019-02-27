@@ -72,6 +72,7 @@ myConfig = defaultConfig
     -- useful reference: http://web.mit.edu/nelhage/Public/xmonad.hs
     [ (mod1Mask, xK_h)
     , (mod1Mask, xK_l)
+    , (mod1Mask, xK_p)
     ] `additionalKeys`
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
     , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
@@ -88,4 +89,5 @@ myConfig = defaultConfig
     , ((mod1Mask, xK_h), sendMessage $ Toggle REFLECTX)
     , ((mod1Mask, xK_l), sendMessage $ Toggle REFLECTY)
     , ((mod1Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
+    , ((mod1Mask, xK_p), spawn "j4-dmenu-desktop")
     ]
