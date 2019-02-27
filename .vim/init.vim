@@ -73,6 +73,8 @@ Plugin 'mhinz/vim-signify'
 Plugin 'vim-python/python-syntax'
 " startup screen
 Plugin 'mhinz/vim-startify'
+" indent detection
+Plugin 'tpope/vim-sleuth'
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
@@ -103,6 +105,7 @@ if isdirectory("/google")
   Glug youcompleteme-google
   Glug codefmt
   Glug codefmt-google
+  Glug corpweb
   augroup autoformat_settings
     autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
     autocmd FileType bzl AutoFormatBuffer buildifier
@@ -374,12 +377,10 @@ endif
 nnoremap <C-u> :ALENextWrap<CR>
 nnoremap <C-y> :ALEPreviousWrap<CR>
 
-" correct indentation setup
-set expandtab
-set shiftwidth=2
+" make new lines indent automatically
 set autoindent
 filetype plugin indent on
-" show tabs
+" show tabs as actual characters
 set list
 set listchars=tab:>-
 set tabstop=4
