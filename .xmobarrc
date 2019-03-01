@@ -110,9 +110,10 @@ Config {
 
         -- , Run Com "getgputemp" [] "gputemp" 10
 
-        -- time and date indicator 
+        -- time and date indicator
+		-- see strftime formatting for more options
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<fc=#ABABAB>%F (%a) %l:%M:%S %p</fc>" "date" 10
 
         , Run StdinReader
 
