@@ -64,6 +64,13 @@ vc_prompt() {
   cd - > /dev/null
 } && bc::cache vc_prompt PWD
 
+virtualenv_prompt() {
+  if [[ $VIRTUAL_ENV != "" ]]; then
+    # Strip out the path and just leave the env name
+    echo "(${VIRTUAL_ENV##*/})"
+  fi
+}
+
 # Prints the current screen session, if in one
 screen_prompt() {
   if [[ -n "$STY" ]]; then
