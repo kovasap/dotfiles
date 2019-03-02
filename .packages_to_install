@@ -1,0 +1,17 @@
+j4-dmenu-desktop
+xmonad
+xmobar
+libghc-xmonad-contrib-dev
+libghc-xmonad-contrib-doc
+libghc-xmonad-dev
+libghc-xmonad-doc
+libghc-xmonad-extras-dev
+cmake
+terminator
+meld
+neovim
+python3
+visidata
+virtualenvwrapper
+# through pip install:
+# neovim

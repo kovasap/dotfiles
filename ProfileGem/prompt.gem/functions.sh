@@ -110,14 +110,14 @@ short_pwd() {
   pwd | sed -f <(for script in "${HIDE_PATHS[@]}"; do echo "$script"; done)
 }
 
-# Given a directory name (like .hg or .git) look through the pwd for such a repo
+# find the first .hg or .git directory looking backward from the current dir
 _find_repo() {
-  local dir repoMarker
+  local dir
   dir=$PWD
-  repoMarker=${1:?Must specify the marker that indicates a repo}
   while [[ "$dir" != "/" ]]
   do
-    [[ -e "$dir/$repoMarker" ]] && echo "$dir" && return
+    [[ -e "$dir/.git" ]] && echo "${dir}-git" && return
+    [[ -e "$dir/.hg" ]] && echo "${dir}-hg" && return
     dir="$(dirname "$dir")"
   done
   return 1

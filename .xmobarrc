@@ -13,7 +13,7 @@ Config {
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
    -- , template = " %StdinReader% }{ %coretemp% | %gputemp% | %memory% | %disku% | %dynnetwork% | %date% " -- | %multicpu% | %KBFI% | %coretemp% || %kbd% "
-   , template = " %StdinReader% }{ %memory% | %disku% | %dynnetwork% | %vol% | %date% " -- | %multicpu% | %KBFI%  || %kbd% "
+   , template = " %StdinReader% }{ %memory% | %disku% | %dynnetwork% | %vol% | %battery% | %date% " -- | %multicpu% | %KBFI%  || %kbd% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -92,21 +92,22 @@ Config {
         , Run Com "/bin/bash" ["-c", "~/.xmonad/get-volume.sh"]  "vol" 1
 
         -- battery monitor
-        -- , Run Battery        [ "--template" , "Batt: <acstatus>"
-        --                      , "--Low"      , "10"        -- units: %
-        --                      , "--High"     , "80"        -- units: %
-        --                      , "--low"      , "darkred"
-        --                      , "--normal"   , "darkorange"
-        --                      , "--high"     , "darkgreen"
+        , Run Battery        [ "--template" , "<left>% <watts>W"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkgreen"
 
-        --                      , "--" -- battery specific options
-        --                                -- discharging status
-        --                                , "-o"	, "<left>% (<timeleft>)"
-        --                                -- AC "on" status
-        --                                , "-O"	, "<fc=#dAA520>Charging</fc>"
-        --                                -- charged status
-        --                                , "-i"	, "<fc=#006000>Charged</fc>"
-        --                      ] 50
+                             , "--" -- battery specific options
+                             , "-p"         , "darkgreen"
+							 -- -- discharging status
+							 -- , "-o"	, "<left>%"
+							 -- -- AC "on" status
+							 -- , "-O"	, "<fc=#006000><left>%</fc>"
+							 -- -- charged status
+							 -- , "-i"	, "<fc=#006000><left>%</fc>"
+                             ] 50
 
         -- , Run Com "getgputemp" [] "gputemp" 10
 

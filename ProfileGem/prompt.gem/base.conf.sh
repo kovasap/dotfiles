@@ -18,7 +18,8 @@ HIDE_PATHS=()
 # Callback functions used to construct the window title
 TITLE_INFO=(hostname_title)
 # Callback functions used to construct the prompt
-ENV_INFO=()
+ENV_INFO+=("virtualenv_prompt")
+ENV_INFO+=("vc_prompt")
 # Callback functions invoked when a command has finished
 COMMAND_FINISHED_CALLBACKS=()
 

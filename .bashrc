@@ -94,6 +94,9 @@ bind -m vi -x '"yy": _xyank'
 # load gem config
 source ~/ProfileGem/load.sh
 
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+eval $(ssh-agent)
 
 ##################################
 # GOOGLE SPECIFIC OPTIONS
