@@ -106,6 +106,7 @@ if isdirectory("/google")
   Glug codefmt
   Glug codefmt-google
   Glug corpweb
+  Glug csearch
   augroup autoformat_settings
     autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
     autocmd FileType bzl AutoFormatBuffer buildifier
@@ -301,7 +302,7 @@ nnoremap <C-h> <C-w><C-w>
 " use ctrl-j/k to go between buffers (enter closes buffers)
 nnoremap <C-j> :bp<CR>
 nnoremap <C-k> :bn<CR>
-nnoremap <C-w> :BD<CR>
+nnoremap <C-w> :BDandquit<CR>
 
 " once the last buffer is closed, quit vim
 fun! s:quitiflast()
@@ -312,7 +313,7 @@ fun! s:quitiflast()
         quit
     endif
 endfun
-command! BD :call s:quitiflast()
+command! BDandquit :call s:quitiflast()
 
 " makes vim faster when making new lines after long lines by preventing syntax
 " highlighting after a certain width
@@ -384,5 +385,6 @@ filetype plugin indent on
 set list
 set listchars=tab:>-
 set tabstop=4
+autocmd FileType taml setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue

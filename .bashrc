@@ -70,6 +70,8 @@ HISTSIZE=
 HISTFILESIZE=
 # ignore duplicate commands in history
 HISTCONTROL=ignoreboth:erasedups
+# always give option to edit history commands before executing them
+shopt -s histverify
 
 export PATH=$PATH:~/bin
 
