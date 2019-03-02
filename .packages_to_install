@@ -7,6 +7,7 @@ libghc-xmonad-doc
 libghc-xmonad-extras-dev
 cmake
 terminator
+meld
 neovim
 python3
 visidata
