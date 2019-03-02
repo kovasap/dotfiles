@@ -92,6 +92,7 @@ bind -m vi -x '"yy": _xyank'
 # load gem config
 source ~/ProfileGem/load.sh
 
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 ##################################
 # GOOGLE SPECIFIC OPTIONS

@@ -12,4 +12,4 @@ xinput --set-prop 9 154 0.7 0.0 0.0 0.0 0.7 0.0 0.0 0.0 1.0
 xautolock -time 5 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh &
 
 # set up multiple monitors
-xrandr --output DP-2 --auto --output DP-4 --auto --right-of DP-2
+# xrandr --output DP-2 --auto --output DP-4 --auto --right-of DP-2

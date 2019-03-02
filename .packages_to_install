@@ -1,0 +1,15 @@
+xmonad
+xmobar
+libghc-xmonad-contrib-dev
+libghc-xmonad-contrib-doc
+libghc-xmonad-dev
+libghc-xmonad-doc
+libghc-xmonad-extras-dev
+cmake
+terminator
+neovim
+python3
+visidata
+virtualenvwrapper
+# through pip install:
+# neovim
