@@ -1,1 +1,6 @@
 set show-mode-in-prompt on
+# make cursor change between modes
+set vi-ins-mode-string "\1\e[5 q\2"
+set vi-cmd-mode-string "\1\e[2 q\2"
+# makes it so that switching to command mode is faster
+set keyseq-timeout 0
