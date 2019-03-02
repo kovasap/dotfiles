@@ -96,6 +96,8 @@ source ~/ProfileGem/load.sh
 
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+eval $(ssh-agent)
+
 ##################################
 # GOOGLE SPECIFIC OPTIONS
 ##################################
