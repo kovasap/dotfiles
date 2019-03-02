@@ -92,7 +92,7 @@ Config {
         , Run Com "/bin/bash" ["-c", "~/.xmonad/get-volume.sh"]  "vol" 1
 
         -- battery monitor
-        , Run Battery        [ "--template" , "<left>% <watts>"
+        , Run Battery        [ "--template" , "<left>% <watts>W"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
