@@ -113,6 +113,8 @@ if [ -d /google ]; then
   # prompt for prodaccess if needed
   prodcertstatus --quiet || { printf '\nNeed to prodaccess...\n'; prodaccess; }
 
+  export P4MERGE=vimdiff
+
   alias perfgate=/google/data/ro/teams/perfgate/perfgate
   alias build_copier=/google/data/ro/projects/build_copier/build_copier
   alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob

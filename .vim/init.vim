@@ -297,7 +297,8 @@ map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " use ctrl-h to switch between split windows
-nnoremap <C-h> <C-w><C-w>
+nnoremap <C-h> <C-w>w
+nnoremap <C-l> <C-w>W
 
 " use ctrl-j/k to go between buffers (enter closes buffers)
 nnoremap <C-j> :bp<CR>
