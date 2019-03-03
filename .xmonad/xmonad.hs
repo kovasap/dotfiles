@@ -79,6 +79,7 @@ myConfig = defaultConfig
     , (mod1Mask, xK_l)
     , (mod1Mask, xK_p)
     ] `additionalKeys`
+    -- see /usr/include/X11/keysymdef.h for names of keys!
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
     , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
     , ((0, xK_F7), toggleMute >> return())
