@@ -96,7 +96,11 @@ source ~/ProfileGem/load.sh
 
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+# fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
+
+# ssh into google work desktop
+alias sd='ssh mrc.sea.corp.google.com'
 
 ##################################
 # GOOGLE SPECIFIC OPTIONS
