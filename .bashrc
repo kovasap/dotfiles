@@ -97,10 +97,15 @@ source ~/ProfileGem/load.sh
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
-eval $(ssh-agent)
+eval $(ssh-agent &> /dev/null)
 
 # ssh into google work desktop
 alias sd='ssh mrc.sea.corp.google.com'
+
+# for personal server
+if [ "$(hostname)" = "kserv" ]; then
+  export PATH=$HOME/.rccontrol-profile/bin:$PATH  # added by rccontrol installer
+fi
 
 ##################################
 # GOOGLE SPECIFIC OPTIONS
