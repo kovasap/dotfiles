@@ -85,6 +85,7 @@ myConfig = defaultConfig
     , (mod1Mask, xK_p)
     , (mod1Mask, xK_w)
     , (mod1Mask, xK_e)
+    , (mod1Mask, xK_r)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h for names of keys!
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
@@ -99,13 +100,13 @@ myConfig = defaultConfig
     , ((controlMask .|. mod1Mask, xK_h), sendMessage Shrink)
     , ((controlMask .|. mod1Mask, xK_l), sendMessage Expand)
     -- reflect layouts
-    , ((mod1Mask, xK_h), sendMessage $ Toggle REFLECTX)
-    , ((mod1Mask, xK_l), sendMessage $ Toggle REFLECTY)
+    , ((mod1Mask, xK_e), sendMessage $ Toggle REFLECTX)
+    , ((mod1Mask, xK_r), sendMessage $ Toggle REFLECTY)
     , ((mod1Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
     , ((mod1Mask, xK_p), spawn "j4-dmenu-desktop")
     , ((mod1Mask, xK_Return), spawn "terminator")
     , ((mod1Mask, xK_backslash), spawn "google-chrome")
-    , ((mod1Mask, xK_w), nextScreen)
-    , ((mod1Mask, xK_e), prevScreen)
+    , ((mod1Mask, xK_h), nextScreen)
+    , ((mod1Mask, xK_l), prevScreen)
     -- , ((mod1Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
