@@ -100,7 +100,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 eval $(ssh-agent &> /dev/null)
 
 # ssh into google work desktop
-alias sd='ssh mrc.sea.corp.google.com'
+alias sd='ssh -o ServerAliveInterval=60 mrc.sea.corp.google.com'
 
 # for personal server
 if [ "$(hostname)" = "kserv" ]; then

@@ -2,21 +2,26 @@ import qualified Data.Map as M
 
 import XMonad
 import XMonad.Actions.Volume
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.EZConfig
 import XMonad.Util.Dzen
+import XMonad.Util.Run
 import XMonad.Layout.Reflect
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Grid
+import XMonad.Layout.IndependentScreens
 -- import qualified XMonad.Layout.Spacing as S
 -- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- The main function.
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
+main = do
+    config <- statusBar myBar myPP toggleStrutsKey myConfig
+    xmonad config
 
 -- Command to launch the bar.
 myBar = "xmobar"
@@ -78,6 +83,8 @@ myConfig = defaultConfig
     [ (mod1Mask, xK_h)
     , (mod1Mask, xK_l)
     , (mod1Mask, xK_p)
+    , (mod1Mask, xK_w)
+    , (mod1Mask, xK_e)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h for names of keys!
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
@@ -98,5 +105,7 @@ myConfig = defaultConfig
     , ((mod1Mask, xK_p), spawn "j4-dmenu-desktop")
     , ((mod1Mask, xK_Return), spawn "terminator")
     , ((mod1Mask, xK_backslash), spawn "google-chrome")
+    , ((mod1Mask, xK_w), nextScreen)
+    , ((mod1Mask, xK_e), prevScreen)
     -- , ((mod1Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
