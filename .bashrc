@@ -9,7 +9,6 @@ case $- in
       *) return;;
 esac
 
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -106,6 +105,11 @@ alias sd='ssh -o ServerAliveInterval=60 mrc.sea.corp.google.com'
 if [ "$(hostname)" = "kserv" ]; then
   export PATH=$HOME/.rccontrol-profile/bin:$PATH  # added by rccontrol installer
 fi
+
+##################################
+# TIPS (should move to more visible place)
+##################################
+# use pmount/pumount to mount usb sticks
 
 ##################################
 # GOOGLE SPECIFIC OPTIONS
