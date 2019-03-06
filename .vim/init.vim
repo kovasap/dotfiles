@@ -297,8 +297,8 @@ map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " use ctrl-h to switch between split windows
-nnoremap <C-h> <C-w>w
-nnoremap <C-l> <C-w>W
+nnoremap <C-h> <C-w>W
+nnoremap <C-l> <C-w>w
 
 " use ctrl-j/k to go between buffers (enter closes buffers)
 nnoremap <C-j> :bp<CR>
@@ -309,7 +309,7 @@ nnoremap <C-w> :BDandquit<CR>
 fun! s:quitiflast()
     BD
     let bufcnt = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-    if bufcnt < 2
+    if bufcnt < 1
         echo 'shutting everything down'
         quit
     endif
