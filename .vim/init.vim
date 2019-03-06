@@ -262,12 +262,12 @@ set mouse=a
 set clipboard=unnamedplus
 
 " wrap lines on word
-:set wrap
-:set linebreak
-:set nolist  " list disables linebreak
-:set textwidth=0
-:set wrapmargin=0
-:set formatoptions+=l
+set wrap
+set linebreak
+set nolist  " list disables linebreak
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
@@ -341,10 +341,10 @@ com! DiffSaved call s:DiffWithSaved()
 " ERROR NOTES
 " neovim E667: Fsync failed: operation not supported on socket
 " solved by running :set nofsync
-:set nofsync
+set nofsync
 
-:set number
-:set relativenumber
+set number
+set relativenumber
 
 " read same file in multiple vims
 " set autoread
@@ -386,6 +386,6 @@ filetype plugin indent on
 set list
 set listchars=tab:>-
 set tabstop=4
-autocmd FileType taml setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue
