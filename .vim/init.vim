@@ -36,13 +36,14 @@ else
   " Plugin 'autozimu/LanguageClient-neovim'
   " Plugin 'Shougo/deoplete.nvim'
 endif
+" go to definition tags
+Plugin 'ludovicchabant/vim-gutentags'
 " directory tree
 Plugin 'scrooloose/nerdtree'
 Plugin 'PhilRunninger/nerdtree-buffer-ops'
 " mercurial integration with nerdtree
 Plugin 'f4t-t0ny/nerdtree-hg-plugin'
-" syntax check
-Plugin 'w0rp/ale'
+" syntax check Plugin 'w0rp/ale'
 " useful to go between errors - may not be necessary any more with ale!
 Plugin 'tpope/vim-unimpaired'
 " python indentation
@@ -157,11 +158,12 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " you complete me options
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 " let g:ycm_server_keep_logfiles = 1
 " let g:ycm_server_log_level = 'debug'
 let g:ycm_confirm_extra_conf = 0
-" map gd :YcmCompleter GoTo<CR>
-" map gc :YcmCompleter GetDoc<CR>
+map gd :YcmCompleter GoTo<CR>
+map gc :YcmCompleter GetDoc<CR>
 
 if isdirectory("/google")
   au User lsp_setup call lsp#register_server({
