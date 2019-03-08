@@ -40,8 +40,8 @@ highlight Define term=none ctermfg=37 gui=none guifg=#00afaf
 highlight Macro term=none ctermfg=36 gui=none guifg=#00af87
 highlight PreCondit term=none ctermfg=35 gui=none guifg=#00af5f
 
-highlight Type term=none ctermfg=207 ctermbg=none gui=none guifg=#ff9fff
-highlight StorageClass term=none ctermfg=201 ctermbg=none gui=none guifg=#ff7fff
+highlight Type term=none ctermfg=39 ctermbg=none gui=none guifg=#ff9fff
+highlight StorageClass term=none ctermfg=130 ctermbg=none gui=none guifg=#ff7fff
 highlight Typedef term=none ctermfg=199 ctermbg=none gui=none guifg=#ff7faf
 " highlight Structure term=none ctermfg=200 ctermbg=none gui=none guifg=#ff7fdf
 " highlight Structure term=none ctermfg=115 ctermbg=none gui=none guifg=#ff7fdf
