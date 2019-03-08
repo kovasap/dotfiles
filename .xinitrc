@@ -11,5 +11,6 @@ xinput --set-prop 9 154 0.7 0.0 0.0 0.0 0.7 0.0 0.0 0.0 1.0
 # exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
 xautolock -time 5 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh &
 
-# set up multiple monitors
-# xrandr --output DP-2 --auto --output DP-4 --auto --right-of DP-2
+# start redshift
+redshift -O 4000
+~/bin/setup-monitors.bash

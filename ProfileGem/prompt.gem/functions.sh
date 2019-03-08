@@ -116,8 +116,8 @@ _find_repo() {
   dir=$PWD
   while [[ "$dir" != "/" ]]
   do
-    [[ -e "$dir/.git" ]] && echo "${dir}-git" && return
-    [[ -e "$dir/.hg" ]] && echo "${dir}-hg" && return
+    [[ -e "$dir/.git" ]] && echo "${dir}+git" && return
+    [[ -e "$dir/.hg" ]] && echo "${dir}+hg" && return
     dir="$(dirname "$dir")"
   done
   return 1

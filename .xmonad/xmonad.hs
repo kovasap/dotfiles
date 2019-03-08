@@ -1,6 +1,7 @@
 import qualified Data.Map as M
 
 import XMonad
+import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
@@ -9,6 +10,8 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.EZConfig
 import XMonad.Util.Dzen
 import XMonad.Util.Run
+-- TODO use this when xmonad-extras is upgraded to 0.15
+-- import XMonad.Util.Brightness as Bright
 import XMonad.Layout.Reflect
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.ResizableTile
@@ -87,12 +90,18 @@ myConfig = defaultConfig
     , (mod1Mask, xK_e)
     , (mod1Mask, xK_r)
     ] `additionalKeys`
-    -- see /usr/include/X11/keysymdef.h for names of keys!
+    -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
+    -- names of keys!  also try using "xev" in terminal and press keys
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
     , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
-    , ((0, xK_F7), toggleMute >> return())
-    , ((0, xK_F8), lowerVolume 4 >>= alert)
-    , ((0, xK_F9), raiseVolume 4 >>= alert)
+    , ((0, xF86XK_AudioMute), toggleMute >> return())
+    , ((0, xF86XK_AudioLowerVolume), lowerVolume 4 >>= alert)
+    , ((0, xF86XK_AudioRaiseVolume), raiseVolume 4 >>= alert)
+    , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
+    , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
+    -- use this when xmonad extras is upgraded
+    -- , ((0, xF86XK_MonBrightnessUp), Bright.increase)
+    -- , ((0, xF86XK_MonBrightnessDown), Bright.decrease)
     -- slave (vertical when in tall mode) resizing in resizableTile layout
     , ((controlMask .|. mod1Mask, xK_k), sendMessage ShrinkSlave)
     , ((controlMask .|. mod1Mask, xK_j), sendMessage ExpandSlave)

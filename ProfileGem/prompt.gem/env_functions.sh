@@ -20,8 +20,8 @@ time_prompt() {
 vc_prompt() {
   local repo vc vc_and_repo
   vc_and_repo=$(_find_repo) || return 0
-  repo=$(echo $vc_and_repo | cut -f1 -d-)
-  vc=$(echo $vc_and_repo | cut -f2 -d-)
+  repo=$(echo $vc_and_repo | cut -f1 -d+)
+  vc=$(echo $vc_and_repo | cut -f2 -d+)
   cd "$repo" || return # so Mercurial/git don't have to do the same find we just did
   if [[ "$vc" == "hg" ]]; then
     local branch num_heads heads
