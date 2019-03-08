@@ -1,3 +1,5 @@
+# https://github.com/Ventto/lux
+alsa-utils	# for get_volume xmobar script
 j4-dmenu-desktop
 xmonad
 xmobar
