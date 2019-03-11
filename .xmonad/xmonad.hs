@@ -24,7 +24,7 @@ import XMonad.Layout.IndependentScreens
 -- The main function.
 main = do
     config <- statusBar myBar myPP toggleStrutsKey myConfig
-    xmonad config
+    xmonad config {modMask = mod4Mask}
 
 -- Command to launch the bar.
 myBar = "xmobar"
@@ -33,7 +33,7 @@ myBar = "xmobar"
 myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 
 -- Key binding to toggle the gap for the bar.
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (mod4Mask, xK_b)
 
 -- For fullscreen stuff
 myEventHook = ewmhDesktopsEventHook <+> fullscreenEventHook -- <+> E.fullscreenEventHook 
@@ -83,12 +83,12 @@ myConfig = defaultConfig
     } `removeKeys`
     -- we want to override these keys, so we remove their default actions here
     -- useful reference: http://web.mit.edu/nelhage/Public/xmonad.hs
-    [ (mod1Mask, xK_h)
-    , (mod1Mask, xK_l)
-    , (mod1Mask, xK_p)
-    , (mod1Mask, xK_w)
-    , (mod1Mask, xK_e)
-    , (mod1Mask, xK_r)
+    [ (mod4Mask, xK_h)
+    , (mod4Mask, xK_l)
+    , (mod4Mask, xK_p)
+    , (mod4Mask, xK_w)
+    , (mod4Mask, xK_e)
+    , (mod4Mask, xK_r)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
     -- names of keys!  also try using "xev" in terminal and press keys
@@ -103,19 +103,19 @@ myConfig = defaultConfig
     -- , ((0, xF86XK_MonBrightnessUp), Bright.increase)
     -- , ((0, xF86XK_MonBrightnessDown), Bright.decrease)
     -- slave (vertical when in tall mode) resizing in resizableTile layout
-    , ((controlMask .|. mod1Mask, xK_k), sendMessage ShrinkSlave)
-    , ((controlMask .|. mod1Mask, xK_j), sendMessage ExpandSlave)
+    , ((controlMask .|. mod4Mask, xK_k), sendMessage ShrinkSlave)
+    , ((controlMask .|. mod4Mask, xK_j), sendMessage ExpandSlave)
     -- master (horizontal when in tall mode) resizing in resizableTile layout
-    , ((controlMask .|. mod1Mask, xK_h), sendMessage Shrink)
-    , ((controlMask .|. mod1Mask, xK_l), sendMessage Expand)
+    , ((controlMask .|. mod4Mask, xK_h), sendMessage Shrink)
+    , ((controlMask .|. mod4Mask, xK_l), sendMessage Expand)
     -- reflect layouts
-    , ((mod1Mask, xK_e), sendMessage $ Toggle REFLECTX)
-    , ((mod1Mask, xK_r), sendMessage $ Toggle REFLECTY)
-    , ((mod1Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
-    , ((mod1Mask, xK_p), spawn "j4-dmenu-desktop")
-    , ((mod1Mask, xK_Return), spawn "terminator")
-    , ((mod1Mask, xK_backslash), spawn "google-chrome")
-    , ((mod1Mask, xK_h), nextScreen)
-    , ((mod1Mask, xK_l), prevScreen)
-    -- , ((mod1Mask, xK_f), sendMessage TL.ToggleLayout)
+    , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
+    , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
+    , ((mod4Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
+    , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
+    , ((mod4Mask, xK_Return), spawn "terminator")
+    , ((mod4Mask, xK_backslash), spawn "google-chrome")
+    , ((mod4Mask, xK_h), nextScreen)
+    , ((mod4Mask, xK_l), prevScreen)
+    -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
