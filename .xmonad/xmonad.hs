@@ -4,6 +4,8 @@ import XMonad
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
+import qualified XMonad.StackSet as W
+import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
@@ -115,7 +117,9 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
     , ((mod4Mask, xK_Return), spawn "terminator")
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
-    , ((mod4Mask, xK_h), nextScreen)
-    , ((mod4Mask, xK_l), prevScreen)
+    -- , ((mod4Mask, xK_h), nextScreen)
+    -- , ((mod4Mask, xK_l), prevScreen)
+    , ((mod4Mask, xK_h), onPrevNeighbour W.view)
+    , ((mod4Mask, xK_l), onNextNeighbour W.view)
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
