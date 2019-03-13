@@ -303,8 +303,8 @@ nnoremap <C-h> <C-w>W
 nnoremap <C-l> <C-w>w
 
 " use ctrl-j/k to go between buffers (enter closes buffers)
-nnoremap <C-j> :bp<CR>
-nnoremap <C-k> :bn<CR>
+nnoremap <A-j> :bp<CR>
+nnoremap <A-k> :bn<CR>
 nnoremap <C-w> :BDandquit<CR>
 
 " once the last buffer is closed, quit vim
