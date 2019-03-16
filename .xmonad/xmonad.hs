@@ -80,7 +80,7 @@ myConfig = defaultConfig
     , manageHook = myManageHook
     , focusedBorderColor = "#006400"
     , normalBorderColor = "#191919"
-    , borderWidth = 1
+    , borderWidth = 3
     -- , keys = myKeys
     } `removeKeys`
     -- we want to override these keys, so we remove their default actions here

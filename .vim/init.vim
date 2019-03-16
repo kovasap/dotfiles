@@ -82,6 +82,13 @@ Plugin 'tpope/vim-sleuth'
 Plugin 'kalekundert/vim-coiled-snake'
 Plugin 'Konfekt/FastFold'
 
+" clojure stuff
+Plugin 'guns/vim-sexp'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
+Plugin 'kien/rainbow_parentheses.vim'
+
 " OSX stupid backspace fix
 set backspace=indent,eol,start
 
@@ -276,6 +283,8 @@ au BufNewFile *.tex 0r ~/.vim/tex.skel
 " folding
 set foldmethod=syntax
 set foldmethod=indent
+" disable folding for these filetypes
+autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,clojure normal zR
 set foldnestmax=2
 " no dashed lines for folds (spaces instead - note space after backslash)
 set fillchars=fold:\ 
@@ -391,3 +400,9 @@ set tabstop=4
 autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue
+
+" rainbow parens!
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
