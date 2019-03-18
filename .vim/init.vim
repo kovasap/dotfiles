@@ -76,6 +76,8 @@ Plugin 'vim-python/python-syntax'
 Plugin 'mhinz/vim-startify'
 " indent detection
 Plugin 'tpope/vim-sleuth'
+" sorting shortcuts
+Plugin 'christoomey/vim-sort-motion'
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
@@ -131,6 +133,9 @@ if isdirectory("/google")
   augroup END
   let g:signify_skip_filename_pattern = ['\.pipertmp.*']
 endif
+
+" update signify whenever we get focus, not just on save
+let g:signify_update_on_focusgained = 1
 
 " see https://github.com/mhinz/vim-startify/issues/149
 let g:startify_enable_unsafe = 1
