@@ -9,6 +9,7 @@ libghc-xmonad-dev
 libghc-xmonad-doc
 libghc-xmonad-extras-dev
 cmake
+fzf
 terminator
 meld
 neovim

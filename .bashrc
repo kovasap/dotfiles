@@ -95,6 +95,8 @@ source ~/ProfileGem/load.sh
 
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+source ~/.fzf.bash
+
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent &> /dev/null)
 
