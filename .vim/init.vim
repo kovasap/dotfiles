@@ -78,6 +78,8 @@ Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-sleuth'
 " sorting shortcuts
 Plugin 'christoomey/vim-sort-motion'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
@@ -246,7 +248,6 @@ map <C-S> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-
 " file specific stuff
 autocmd Filetype markdown setlocal spell spelllang=en_us
 autocmd Filetype latex setlocal spell spelllang=en_us
@@ -312,14 +313,26 @@ map <S-Left> :vertical resize -1<CR>
 map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
-" use ctrl-h to switch between split windows
+nnoremap K :Ag<CR>
+nnoremap E :Files<CR>
+
+" use ctrl-h/l to switch between split windows
 nnoremap <C-h> <C-w>W
 nnoremap <C-l> <C-w>w
 
-" use ctrl-j/k to go between buffers (enter closes buffers)
-nnoremap <A-j> :bp<CR>
-nnoremap <A-k> :bn<CR>
-nnoremap <C-w> :BDandquit<CR>
+" use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
+nnoremap <C-j> 7<C-e>\|M
+nnoremap <C-k> 7<C-y>\|M
+
+" remap vim-sexp commands that conflict with my alt mappings
+let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
+                     \ 'sexp_swap_list_forward' : '<M-e>'}
+autocmd FileType g:sexp_filetypes unmap <M-j>
+autocmd FileType g:sexp_filetypes unmap <M-k>
+" use alt-j/k to go between buffers (ctrl-w closes buffers)
+nmap <A-j> :bp<CR>
+nmap <A-k> :bn<CR>
+nmap <C-w> :BDandquit<CR>
 
 " once the last buffer is closed, quit vim
 fun! s:quitiflast()
@@ -392,8 +405,8 @@ else
   " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
 endif
 " move between errors
-nnoremap <C-u> :ALENextWrap<CR>
-nnoremap <C-y> :ALEPreviousWrap<CR>
+" nnoremap <C-u> :ALENextWrap<CR>
+" nnoremap <C-y> :ALEPreviousWrap<CR>
 
 " make new lines indent automatically
 set autoindent
