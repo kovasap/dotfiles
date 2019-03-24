@@ -14,6 +14,9 @@ HOST_COLOR=NONE
 # sed replacements of the PWD, generally to shorten it for commonly-used paths
 HIDE_PATHS=()
 [[ -n "$HOME" ]] && HIDE_PATHS+=("s|^${HOME}|~|")
+# this is a hack - should instead resolve why google.gem does not load this
+# correctly
+# HIDE_PATHS+=('s|.*/google3/\?|//|' 's|^/google/src/cloud/[^/]*/[^/]*|CitC|')
 
 # Callback functions used to construct the window title
 TITLE_INFO=(hostname_title)
