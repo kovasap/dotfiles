@@ -89,6 +89,8 @@ Plugin 'Konfekt/FastFold'
 " clojure stuff
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-salve'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -329,6 +331,8 @@ let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
                      \ 'sexp_swap_list_forward' : '<M-e>'}
 autocmd FileType g:sexp_filetypes unmap <M-j>
 autocmd FileType g:sexp_filetypes unmap <M-k>
+let g:sexp_enable_insert_mode_mappings = 0
+
 " use alt-j/k to go between buffers (ctrl-w closes buffers)
 nmap <A-j> :bp<CR>
 nmap <A-k> :bn<CR>
