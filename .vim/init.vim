@@ -81,6 +81,9 @@ Plugin 'christoomey/vim-sort-motion'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
+" hex color highlighting
+Plugin 'chrisbra/Colorizer'
+
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
 Plugin 'kalekundert/vim-coiled-snake'
