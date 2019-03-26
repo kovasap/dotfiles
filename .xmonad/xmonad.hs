@@ -115,7 +115,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
     , ((mod4Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
     , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
-    , ((mod4Mask, xK_Return), spawn "terminator")
+    , ((mod4Mask, xK_Return), spawn "~/.local/kitty.app/bin/kitty")
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_h), nextScreen)
     -- , ((mod4Mask, xK_l), prevScreen)
