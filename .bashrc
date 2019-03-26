@@ -100,6 +100,8 @@ source ~/.fzf.bash
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent &> /dev/null)
 
+# kitty ssh fix
+alias ssh='kitty +kitten ssh'
 # ssh into google work desktop
 alias sd='ssh -o ServerAliveInterval=60 mrc.sea.corp.google.com'
 
