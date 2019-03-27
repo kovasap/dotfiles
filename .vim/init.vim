@@ -240,6 +240,7 @@ let g:python_highlight_all = 1
 let g:python_highlight_class_vars = 1
 syntax enable
 set colorcolumn=80
+" set termguicolors
 " do not change terminal background
 highlight NonText ctermbg=none
 highlight Normal ctermbg=none
