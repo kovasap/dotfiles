@@ -14,3 +14,6 @@ xautolock -time 5 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh &
 # start redshift
 redshift -O 4000
 ~/bin/setup-monitors.bash
+
+# fix for gcert SSH_AUTH_SOCK not defined problem
+eval $(ssh-agent)

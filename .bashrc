@@ -97,9 +97,6 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 source ~/.fzf.bash
 
-# fix for gcert SSH_AUTH_SOCK not defined problem
-eval $(ssh-agent &> /dev/null)
-
 # kitty ssh fix
 alias ssh='kitty +kitten ssh'
 # ssh into google work desktop
