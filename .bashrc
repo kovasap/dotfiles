@@ -97,8 +97,10 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 source ~/.fzf.bash
 
-# kitty ssh fix
-alias ssh='kitty +kitten ssh'
+# kitty ssh fix (if kitty is installed)
+if [ -x "$(which kitty)" ]; then
+  alias ssh='kitty +kitten ssh'
+fi
 # ssh into google work desktop
 alias sd='ssh -o ServerAliveInterval=60 mrc.sea.corp.google.com'
 
