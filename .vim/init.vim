@@ -92,7 +92,9 @@ Plugin 'Konfekt/FastFold'
 " clojure stuff
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-fireplace'
+" use this until my PR is merged
+Plugin 'kovasap/vim-fireplace'
 " Plugin 'tpope/vim-salve'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
@@ -319,8 +321,8 @@ map <S-Left> :vertical resize -1<CR>
 map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
-nnoremap K :Ag<CR>
-nnoremap E :Files<CR>
+nnoremap <C-p> :Ag<CR>
+nnoremap <C-e> :Files<CR>
 
 " use ctrl-h/l to switch between split windows
 nnoremap <C-h> <C-w>W
@@ -432,3 +434,6 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" clojure goto declarations
+autocmd FileType clojure nnoremap <buffer> gd :normal [<c-d><cr>
