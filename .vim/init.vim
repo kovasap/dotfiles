@@ -192,7 +192,7 @@ if isdirectory("/google")
       \})
 
   nnoremap gd :<C-u>LspDefinition<CR>
-  nnoremap gn :<C-u>LspReferences<CR>
+  nnoremap ga :<C-u>LspReferences<CR>
 endif
 
 " disable all jedi vim stuff except renaming (since YCM does it all)
@@ -202,7 +202,7 @@ if !isdirectory("/google")
   let g:jedi#goto_assignments_command = "ga"
   let g:jedi#goto_definitions_command = "gd"
   let g:jedi#documentation_command = "gc"
-  let g:jedi#usages_command = "gn"
+  let g:jedi#usages_command = "ga"
   let g:jedi#completions_command = ""
   let g:jedi#rename_command = "gr"
 endif
