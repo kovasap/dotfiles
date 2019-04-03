@@ -292,7 +292,6 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
-set formatoptions+=a  " autoformat
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding

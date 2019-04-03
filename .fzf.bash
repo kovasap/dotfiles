@@ -115,7 +115,7 @@ else
 
   # ALT-C - cd into the selected directory
   bind '"\ec": "\C-x\C-addi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
-  bind -m vi-command '"\ec": "ddi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
+  bind -m vi-command '"c": "ddi`__fzf_cd__`\C-x\C-e\C-x\C-r\C-m"'
 fi
 
 fi
