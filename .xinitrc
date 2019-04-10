@@ -6,6 +6,9 @@
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration
 xinput --set-prop 9 154 0.7 0.0 0.0 0.0 0.7 0.0 0.0 0.0 1.0
 
+# natural scrolling for thinkpad touchpad
+xinput --set-prop 13 288 1
+
 # auto lock screen using securelock after a certain time
 # https://g3doc.corp.google.com/company/teams/i3/index.md?cl=head#locking-your-screen
 # exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
