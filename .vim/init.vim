@@ -437,3 +437,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " clojure goto declarations
 autocmd FileType clojure nnoremap <buffer> gd :normal [<c-d><cr>
+" clojure reload into repl on save
+autocmd BufWritePost *.clj silent !Require
+autocmd BufWritePost *.cljc silent !Require
+autocmd BufWritePost *.cljs silent !Require
