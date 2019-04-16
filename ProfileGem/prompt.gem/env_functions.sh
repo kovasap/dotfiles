@@ -18,6 +18,10 @@ time_prompt() {
 
 # Prints the current branch, colored by status, of a Mercurial/Git repo
 vc_prompt() {
+  # do not try to get repo status when in citc clients - is very slow!
+  if [[ $(pwd) == /google/src/cloud* ]]; then
+    return 0
+  fi
   local repo vc vc_and_repo
   vc_and_repo=$(_find_repo) || return 0
   repo=$(echo $vc_and_repo | cut -f1 -d+)
