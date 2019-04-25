@@ -90,7 +90,7 @@ history() {
   _bash_history_sync
   builtin history "$@"
 }
-PROMPT_COMMAND=_bash_history_sync
+PROMPT_COMMAND+="_bash_history_sync;$PROMPT_COMMAND"
 
 export PATH=$PATH:~/bin
 
