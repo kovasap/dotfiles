@@ -72,6 +72,26 @@ HISTCONTROL=ignoreboth:erasedups
 # always give option to edit history commands before executing them
 shopt -s histverify
 
+# this code makes it so that commands are appended to history right after
+# execution, so that new shells will always have the most up to date history
+# possible
+# see
+# https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+# for more detail
+_bash_history_sync() {
+  builtin history -a
+  HISTFILESIZE=$HISTSIZE
+  # uncomment these to make existing shells sync with each other (as opposed to
+  # just new shells syncing with all currently open ones)
+  # builtin history -c
+  # builtin history -r
+}
+history() {
+  _bash_history_sync
+  builtin history "$@"
+}
+PROMPT_COMMAND=_bash_history_sync
+
 export PATH=$PATH:~/bin
 
 # use vi mode for command line editing
