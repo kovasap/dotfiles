@@ -1,6 +1,7 @@
 # example user config (see 'hg help config' for more info)
 [ui]
 username = kovas <kovas.palunas@gmail.com>
+# ssh = ssh -C   # ssh compression for faster file transfer
 
 # We recommend enabling tweakdefaults to get slight improvements to
 # the UI over time. Make sure to set HGPLAIN in the environment when

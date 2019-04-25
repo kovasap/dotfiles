@@ -4,6 +4,7 @@ alsa-utils	# for get_volume xmobar script
 j4-dmenu-desktop
 xmonad
 xmobar
+xautolock
 libghc-xmonad-contrib-dev
 libghc-xmonad-contrib-doc
 libghc-xmonad-dev

@@ -288,7 +288,7 @@ set clipboard=unnamedplus
 set wrap
 set linebreak
 set nolist  " list disables linebreak
-set textwidth=0
+set textwidth=80
 set wrapmargin=0
 set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
