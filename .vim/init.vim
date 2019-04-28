@@ -324,9 +324,9 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap <C-p> :Ag<CR>
 nnoremap <C-e> :Files<CR>
 
-" use ctrl-h/l to switch between split windows
-nnoremap <C-h> <C-w>W
-nnoremap <C-l> <C-w>w
+" use alt-h/l to switch between split windows
+nnoremap <A-h> <C-w>W
+nnoremap <A-l> <C-w>w
 
 " use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
 nnoremap <C-j> 7<C-e>\|M
