@@ -68,7 +68,7 @@ alias hgrep='history | grep'
 HISTSIZE= 
 HISTFILESIZE=
 # ignore duplicate commands in history
-HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth:erasedups
 # always give option to edit history commands before executing them
 shopt -s histverify
 
@@ -80,6 +80,7 @@ shopt -s histverify
 # for more detail
 _bash_history_sync() {
   builtin history -a
+  python ~/filter_history.py
   HISTFILESIZE=$HISTSIZE
   # uncomment these to make existing shells sync with each other (as opposed to
   # just new shells syncing with all currently open ones)
