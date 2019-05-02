@@ -23,6 +23,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" TODO check this out  https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+
+
 " autocomplete
 " install: https://github.com/Valloric/YouCompleteMe/blob/master/README.md#full-installation-guide
 " NOTE DO NOT INSTALL USING AN ANACONDA PYTHON!!
@@ -99,6 +102,10 @@ Plugin 'kovasap/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
+
+Plugin 'powerman/vim-plugin-AnsiEsc'
+
+Plugin 'rkitover/vimpager'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
