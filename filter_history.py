@@ -6,7 +6,11 @@ hist_fname = expanduser('~/.bash_history')
 with open(hist_fname, 'r') as f:
     it = iter(f)
     for row in it:
-        num, cmd = row, next(it)
+        try:
+            num, cmd = row, next(it)
+        except:
+            print(row)
+            raise
         if cmd not in unique_cmds:
             unique_cmds.add(cmd)
             filtered.append(num)

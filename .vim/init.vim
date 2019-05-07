@@ -51,24 +51,14 @@ Plugin 'f4t-t0ny/nerdtree-hg-plugin'
 Plugin 'tpope/vim-unimpaired'
 " python indentation
 Plugin 'Vimjas/vim-python-pep8-indent'
-" themes
-Plugin 'flazz/vim-colorschemes'
-Plugin 'nightsense/simplifysimplify'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'altercation/vim-colors-solarized'
 " status bar
 Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'bling/vim-bufferline'
 " make it so that when a buffer is deleted, the window stays
 Plugin 'qpkorr/vim-bufkill'
 " easier buffer management
 " Plugin 'jlanzarotta/bufexplorer'
-" easier file opening
-" Plugin 'ctrlpvim/ctrlp.vim'
-" step through colorschemes
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-colorscheme-switcher'
 " mercurial integration
 Plugin 'ludovicchabant/vim-lawrencium'
 " show changed lines
@@ -106,6 +96,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 
 Plugin 'rkitover/vimpager'
+
+Plugin 'NLKNguyen/papercolor-theme'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
@@ -229,8 +221,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#ale#enabled = 1
-" in ~/.vim/autoload/airline/themes/earthmin.vim
-let g:airline_theme='earthmin'
+" in ~/.vim/autoload/airline/themes/terminal.vim
+let g:airline_theme='terminal'
 " use :help statusline for customization options here
 let g:airline_section_c = '%f%m'
 " play with this if filename is too long
@@ -242,23 +234,17 @@ let g:airline_section_z = ''
 " let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " enable theme
-" colorscheme jellybeans
-" let g:airline_theme='jellybeans'
-" set background=dark
+set background=dark
 let g:python_highlight_all = 1
 let g:python_highlight_class_vars = 1
 syntax enable
 set colorcolumn=80
-" set termguicolors
 " do not change terminal background
-highlight NonText ctermbg=none
-highlight Normal ctermbg=none
-colorscheme landscape_custom
-" colorscheme solarized
-" ALSO TRY: oceandeep osxlike pt_black rainbow_fine_blue sand
-" colorscheme literal_tango
-" colorscheme nedit2
-" map to show what highlight group is under the cursor when key is pressed
+" highlight NonText ctermbg=none
+" highlight Normal ctermbg=none
+colorscheme terminal
+" map to show what highlight group is under the cursor when key is pressed,
+" useful for debugging colorscheme issues
 map <C-S> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
