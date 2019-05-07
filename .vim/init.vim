@@ -32,6 +32,7 @@ Plugin 'VundleVim/Vundle.vim'
 if isdirectory("/google")
   Plugin 'prabirshrestha/async.vim'
   Plugin 'prabirshrestha/vim-lsp'
+  Plugin 'file:///usr/local/google/home/kovas/vim-csearch'
 else
   Plugin 'Valloric/YouCompleteMe'
   " vim autocomplete and RENAMING!
