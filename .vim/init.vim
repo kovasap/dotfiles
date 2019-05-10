@@ -321,6 +321,8 @@ nnoremap <C-e> :Files<CR>
 " use alt-h/l to switch between split windows
 nnoremap <A-h> <C-w>W
 nnoremap <A-l> <C-w>w
+" close windwos with alt-w
+nnoremap <A-w> <C-w>c
 
 " use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
 nnoremap <C-j> 7<C-e>\|M
@@ -422,6 +424,17 @@ set tabstop=4
 autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue
+
+" auto close brackets
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {}     {}
+inoremap [      []<Left>
+inoremap [<CR>  [<CR>]<Esc>O
+inoremap []     []
+inoremap (      ()<Left>
+inoremap (<CR>  (<CR>)<Esc>O
+inoremap ()     ()
 
 " rainbow parens!
 au VimEnter * RainbowParenthesesToggle

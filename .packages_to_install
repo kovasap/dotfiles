@@ -18,5 +18,6 @@ neovim
 python3
 visidata
 virtualenvwrapper
+ranger
 # through pip install:
 # neovim

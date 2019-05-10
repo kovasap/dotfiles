@@ -8,6 +8,8 @@ endif
 
 highlight Normal ctermfg=7
 highlight Comment ctermfg=8
+highlight default link shComment Comment
+highlight default link vimLineComment Comment
 highlight Constant ctermfg=4
 highlight String ctermfg=2
 highlight Character ctermfg=10
@@ -26,13 +28,13 @@ highlight default link Keyword Statement
 highlight default link Exception Statement
 highlight Operator ctermfg=13
 
-highlight PreProc ctermfg=9
+highlight PreProc ctermfg=2
 highlight Include ctermfg=9
 highlight Define ctermfg=9
 highlight Macro ctermfg=9
 highlight PreCondit ctermfg=9
 
-highlight Type ctermfg=9
+highlight Type ctermfg=6
 highlight StorageClass ctermfg=9
 highlight Typedef ctermfg=9
 highlight Structure ctermfg=9
