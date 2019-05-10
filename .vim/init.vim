@@ -145,6 +145,7 @@ endif
 
 " update signify whenever we get focus, not just on save
 let g:signify_update_on_focusgained = 1
+" TODO check this out: https://github.com/mhinz/vim-signify/issues/284
 
 " see https://github.com/mhinz/vim-startify/issues/149
 let g:startify_enable_unsafe = 1

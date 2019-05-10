@@ -55,7 +55,7 @@ highlight Underlined cterm=underline
 highlight Error ctermfg=1 ctermbg=1   
 highlight WarningMsg ctermfg=3 ctermbg=1
 highlight WildMenu  ctermbg=1
-highlight Todo cterm=underline ctermfg=1
+highlight Todo cterm=underline ctermfg=15 ctermbg=none
 highlight DiffAdd cterm=none ctermfg=none ctermbg=6
 highlight DiffChange cterm=none ctermfg=none ctermbg=8
 highlight DiffDelete cterm=none ctermfg=none ctermbg=5
