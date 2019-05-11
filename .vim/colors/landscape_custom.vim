@@ -6,77 +6,77 @@ if exists('syntax_on')
   syntax reset
 endif
 
-highlight Normal gui=none guifg=#dddddd guibg=grey0
-highlight Comment term=none ctermfg=243 ctermbg=none gui=none guifg=#767676
-highlight Constant term=none ctermfg=111 gui=none guifg=#87afff
+highlight Normal   
+highlight Comment term=none ctermfg=243 ctermbg=none  
+highlight Constant term=none ctermfg=111  
 " try also 2 (green), 13 (light brown), original was 215
-highlight String term=none ctermfg=2 ctermbg=none gui=none guifg=#ffaf5f
-highlight Character term=none ctermfg=214 ctermbg=none gui=none guifg=#ffaf00
+highlight String term=none ctermfg=2 ctermbg=none  
+highlight Character term=none ctermfg=214 ctermbg=none  
 " try also 81 (blue)
-highlight Number term=none ctermfg=12 ctermbg=none gui=none guifg=#5fdfff
+highlight Number term=none ctermfg=12 ctermbg=none  
 " try also 227 (yellow)
-highlight Boolean term=none ctermfg=12 ctermbg=none gui=none guifg=#ffff5f
-highlight Float term=none ctermfg=12 ctermbg=none gui=none guifg=#5fffaf
+highlight Boolean term=none ctermfg=12 ctermbg=none  
+highlight Float term=none ctermfg=12 ctermbg=none  
 
-highlight Identifier term=none cterm=none ctermfg=117 ctermbg=none gui=none guifg=#87dfff
-" highlight Function term=none ctermfg=123 ctermbg=none gui=none guifg=#5fffff
-highlight Function term=none ctermfg=39 ctermbg=none gui=none guifg=#5fffff
+highlight Identifier term=none cterm=none ctermfg=117 ctermbg=none  
+" highlight Function term=none ctermfg=123 ctermbg=none  
+highlight Function term=none ctermfg=39 ctermbg=none  
 
 " try also 10 (bgreen), 202, original was 76
-highlight Statement term=none ctermfg=13 ctermbg=none gui=none guifg=#5fdf00
-highlight Conditional term=none ctermfg=13 ctermbg=none gui=none guifg=#ef7f00
+highlight Statement term=none ctermfg=13 ctermbg=none  
+highlight Conditional term=none ctermfg=13 ctermbg=none  
 " highlight default link Conditional Statement
 highlight default link Repeat Statement
 highlight default link Label Statement
-" highlight Operator term=none ctermfg=220 ctermbg=none gui=none guifg=#ffdf00
-highlight Operator term=none ctermfg=13 ctermbg=none gui=none guifg=#ffdf00
+" highlight Operator term=none ctermfg=220 ctermbg=none  
+highlight Operator term=none ctermfg=13 ctermbg=none  
 highlight default link Keyword Statement
 highlight default link Exception Statement
 
-highlight PreProc term=none ctermfg=39 gui=none guifg=#00afff
-" highlight Include term=none ctermfg=38 gui=none guifg=#00afdf
-highlight Include term=none ctermfg=147 gui=none guifg=#00afdf
-highlight Define term=none ctermfg=37 gui=none guifg=#00afaf
-highlight Macro term=none ctermfg=36 gui=none guifg=#00af87
-highlight PreCondit term=none ctermfg=35 gui=none guifg=#00af5f
+highlight PreProc term=none ctermfg=39  
+" highlight Include term=none ctermfg=38  
+highlight Include term=none ctermfg=147  
+highlight Define term=none ctermfg=37  
+highlight Macro term=none ctermfg=36  
+highlight PreCondit term=none ctermfg=35  
 
-highlight Type term=none ctermfg=39 ctermbg=none gui=none guifg=#ff9fff
-highlight StorageClass term=none ctermfg=130 ctermbg=none gui=none guifg=#ff7fff
-highlight Typedef term=none ctermfg=199 ctermbg=none gui=none guifg=#ff7faf
-" highlight Structure term=none ctermfg=200 ctermbg=none gui=none guifg=#ff7fdf
-" highlight Structure term=none ctermfg=115 ctermbg=none gui=none guifg=#ff7fdf
-highlight Structure term=none ctermfg=39 ctermbg=none gui=none guifg=#ff7fdf
+highlight Type term=none ctermfg=39 ctermbg=none  
+highlight StorageClass term=none ctermfg=130 ctermbg=none  
+highlight Typedef term=none ctermfg=199 ctermbg=none  
+" highlight Structure term=none ctermfg=200 ctermbg=none  
+" highlight Structure term=none ctermfg=115 ctermbg=none  
+highlight Structure term=none ctermfg=39 ctermbg=none  
 
-highlight Special term=none ctermfg=178 gui=none guifg=orange
-highlight SpecialChar term=none ctermfg=208 gui=none guifg=orange
-highlight Tag term=none ctermfg=180 gui=none guifg=orange
-highlight Delimiter term=none ctermfg=181 gui=none guifg=orange
-highlight SpecialComment term=none ctermfg=182 gui=none guifg=violet
-highlight Debug term=none ctermfg=183 gui=none guifg=violet
+highlight Special term=none ctermfg=178  
+highlight SpecialChar term=none ctermfg=208  
+highlight Tag term=none ctermfg=180  
+highlight Delimiter term=none ctermfg=181  
+highlight SpecialComment term=none ctermfg=182  
+highlight Debug term=none ctermfg=183  
 
-highlight TabLine ctermfg=253 ctermbg=241 guifg=#dadada guibg=#606060
-highlight TabLineFill ctermfg=253 ctermbg=241 guifg=#dadada guibg=#606060
-highlight TabLineSel cterm=bold ctermfg=253 guifg=#dadada
-highlight Visual term=none ctermbg=240 guibg=#585858
+highlight TabLine ctermfg=253 ctermbg=241  
+highlight TabLineFill ctermfg=253 ctermbg=241  
+highlight TabLineSel cterm=bold ctermfg=253 
+highlight Visual term=none ctermbg=240 
 highlight default link VisualNOS Visual
-highlight Underlined term=underline ctermfg=45 gui=underline guifg=#00dfff
-highlight Error term=none ctermfg=15 ctermbg=124 gui=none guifg=#ffffff guibg=#af0000
-highlight WarningMsg term=none ctermfg=7 ctermbg=0 gui=none guifg=#c0c0c0 guibg=#000000
-highlight WildMenu guibg=#ffaf00 ctermbg=214
-highlight Todo cterm=underline ctermfg=141 ctermbg=none gui=reverse guifg=#dfdf5f guibg=#000000
-highlight DiffAdd term=none cterm=none ctermfg=none ctermbg=22 guifg=fg guibg=#005f00
-highlight DiffChange term=none cterm=none ctermfg=none ctermbg=52 guifg=fg guibg=#5f0000
-highlight DiffDelete term=none cterm=none ctermfg=none ctermbg=88 guifg=fg guibg=#870000
-highlight DiffText term=none cterm=none ctermfg=none ctermbg=160 guifg=fg guibg=#df0000
-highlight DiffFile term=none cterm=none ctermfg=47 ctermbg=none guifg=#00ff5f guibg=bg
-highlight DiffNewFile term=none cterm=none ctermfg=199 ctermbg=none guifg=#ff00af guibg=bg
+highlight Underlined term=underline ctermfg=45  
+highlight Error term=none ctermfg=15 ctermbg=124   
+highlight WarningMsg term=none ctermfg=7 ctermbg=0   
+highlight WildMenu  ctermbg=214
+highlight Todo cterm=underline ctermfg=141 ctermbg=none   
+highlight DiffAdd term=none cterm=none ctermfg=none ctermbg=22  
+highlight DiffChange term=none cterm=none ctermfg=none ctermbg=52  
+highlight DiffDelete term=none cterm=none ctermfg=none ctermbg=88  
+highlight DiffText term=none cterm=none ctermfg=none ctermbg=160  
+highlight DiffFile term=none cterm=none ctermfg=47 ctermbg=none  
+highlight DiffNewFile term=none cterm=none ctermfg=199 ctermbg=none  
 highlight default link DiffRemoved DiffDelete
-highlight DiffLine term=none cterm=none ctermfg=129 ctermbg=none guifg=#af00ff guibg=bg
+highlight DiffLine term=none cterm=none ctermfg=129 ctermbg=none  
 highlight default link DiffAdded DiffAdd
 highlight default link ErrorMsg Error
 highlight default link FullSpace Error
-highlight Ignore ctermbg=none gui=none guifg=bg
-highlight ModeMsg ctermfg=none guifg=bg guibg=bg
+highlight Ignore ctermbg=none  
+highlight ModeMsg ctermfg=none  
 
 highlight ALEError cterm=underline ctermbg=88
 highlight ALEWarning cterm=underline ctermbg=0
@@ -90,35 +90,35 @@ highlight ALEInfoSign ctermbg=4
 highlight ALEStyleErrorSign ctermbg=166
 highlight ALEStyleWarningSign ctermbg=166
 
-highlight VertSplit term=none gui=none guifg=black guibg=darkgray gui=none ctermfg=black ctermbg=darkgray cterm=none
-highlight Folded term=none ctermfg=247 ctermbg=235 guifg=#9e9e9e guibg=#262626
-highlight FoldColumn term=none ctermfg=247 ctermbg=235 guifg=#9e9e9e guibg=#262626
-highlight SignColumn term=none ctermfg=247 ctermbg=235 guifg=#9e9e9e guibg=#262626
-highlight SpecialKey term=underline ctermfg=237 gui=none guifg=darkgray
-highlight NonText term=none ctermfg=black gui=none guifg=black
-highlight StatusLine term=none gui=none guifg=#1c1c1c guibg=#eeeeee gui=none ctermfg=234 ctermbg=255 cterm=none
-highlight StatusLineNC term=none gui=none guifg=#262626 guibg=#585858 gui=none ctermfg=235 ctermbg=240 cterm=none
+highlight VertSplit term=none     ctermfg=black ctermbg=darkgray cterm=none
+highlight Folded term=none ctermfg=247 ctermbg=235  
+highlight FoldColumn term=none ctermfg=247 ctermbg=235  
+highlight SignColumn term=none ctermfg=247 ctermbg=235  
+highlight SpecialKey term=underline ctermfg=237  
+highlight NonText term=none ctermfg=black  
+highlight StatusLine term=none     ctermfg=234 ctermbg=255 cterm=none
+highlight StatusLineNC term=none     ctermfg=235 ctermbg=240 cterm=none
 if version >= 700
   if get(g:, 'landscape_cursorline', 1)
-    highlight CursorLine term=none cterm=none ctermbg=235 gui=none guibg=#262626
-    highlight CursorLineNr term=underline cterm=bold ctermfg=148 ctermbg=235 gui=bold guifg=#afdf00 guibg=#262626
+    highlight CursorLine term=none cterm=none ctermbg=235  
+    highlight CursorLineNr term=underline cterm=bold ctermfg=148 ctermbg=235   
   else
     highlight clear CursorLine
-    highlight CursorLineNr term=NONE ctermbg=NONE guibg=NONE
+    highlight CursorLineNr term=NONE ctermbg=NONE 
   endif
-  highlight ColorColumn term=none cterm=none ctermbg=239 gui=none guibg=#4e4e4e
-  highlight Cursor term=reverse cterm=reverse gui=reverse guifg=NONE guibg=NONE
-  highlight CursorColumn term=none cterm=none ctermbg=235 gui=none guibg=#262626
-  highlight LineNr term=none ctermfg=58 ctermbg=none guifg=#5f5f00 guibg=bg
-  highlight MatchParen ctermfg=none ctermbg=238 guibg=#4e4e4e
-  highlight Pmenu ctermfg=233 ctermbg=249 gui=none guifg=#121212 guibg=#b2b2b2
-  highlight PmenuSel ctermfg=233 ctermbg=242 gui=none guifg=#121212 guibg=#666666
-  highlight PmenuSbar ctermfg=233 ctermbg=244 gui=none guifg=#121212 guibg=#808080
-  highlight PmenuThumb ctermfg=233 ctermbg=239 gui=none guifg=#121212 guibg=#4e4e4e
+  highlight ColorColumn term=none cterm=none ctermbg=239  
+  highlight Cursor term=reverse cterm=reverse   
+  highlight CursorColumn term=none cterm=none ctermbg=235  
+  highlight LineNr term=none ctermfg=58 ctermbg=none  
+  highlight MatchParen ctermfg=none ctermbg=238 
+  highlight Pmenu ctermfg=233 ctermbg=249   
+  highlight PmenuSel ctermfg=233 ctermbg=242   
+  highlight PmenuSbar ctermfg=233 ctermbg=244   
+  highlight PmenuThumb ctermfg=233 ctermbg=239   
 endif
-" highlight Search cterm=reverse ctermfg=220 ctermbg=234 gui=reverse guifg=#ffdf00 guibg=#1c1c1c
+" highlight Search cterm=reverse ctermfg=220 ctermbg=234   
 highlight Search ctermfg=none ctermbg=22 cterm=underline
-highlight IncSearch cterm=reverse ctermfg=136 ctermbg=236 gui=reverse guifg=#af8700 guibg=#303030
+highlight IncSearch cterm=reverse ctermfg=136 ctermbg=236   
 
 if exists('*getmatches')
 
@@ -146,7 +146,7 @@ if exists('*getmatches')
 
 endif
 
-highlight SpellBad term=none cterm=none ctermbg=52 gui=none guibg=#5f0000
+highlight SpellBad term=none cterm=none ctermbg=52  
 highlight default link SpellCap SpellBad
 highlight default link SpellLocal SpellBad
 highlight default link SpellRare SpellBad
@@ -167,8 +167,8 @@ highlight default link Link Constant
 highlight default link Exe Statement
 highlight default link Prompt PreCondit
 highlight default link Icon LineNr
-highlight Time ctermfg=141 ctermbg=none gui=none guifg=#af87ff
-highlight Date ctermfg=140 ctermbg=none gui=none guifg=#af87df
+highlight Time ctermfg=141 ctermbg=none  
+highlight Date ctermfg=140 ctermbg=none  
 highlight default link DateToday Special
 highlight default link DateWeek Identifier
 highlight default link DateOld Comment
@@ -178,7 +178,7 @@ highlight default link Title Identifier
 
 " Conceal
 " CursorIM
-highlight Directory term=none ctermfg=2 ctermbg=none gui=none guifg=#ffaf5f
+highlight Directory term=none ctermfg=2 ctermbg=none  
 " ModeMsg
 " MoreMsg
 " Question
