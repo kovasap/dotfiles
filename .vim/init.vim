@@ -321,13 +321,9 @@ map <C-n> :NERDTreeToggle<CR>
 " fzf options
 nnoremap <C-p> :Ag<CR>
 nnoremap <C-e> :Files<CR>
-function! s:list_cmd()
-  let base = fnamemodify(expand('%'), ':h:.:S')
-  return base == '.' ? 'fd -t f' : printf('find * -type f | proximity-sort %s', expand('%'))
-endfunction
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " use alt-h/l to switch between split windows
