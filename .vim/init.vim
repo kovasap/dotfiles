@@ -319,9 +319,35 @@ map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " fzf options
-nnoremap <C-p> :Ag<CR>
-nnoremap <C-e> :Files<CR>
+" search in files starting from directory with current buffer and working way up
+" query, [[ag options], options]
+let s:TYPE = {'dict': type({}), 'funcref': type(function('call')),
+      \       'string': type(''), 'list': type([])}
+function! s:warn(message)
+  echohl WarningMsg
+  echom a:message
+  echohl None
+  return 0
+endfunction
+function! s:myag(query, ...)
+  if type(a:query) != s:TYPE.string
+    return s:warn('Invalid query argument')
+  endif
+  let query = empty(a:query) ? '^(?=.)' : a:query
+  let args = copy(a:000)
+  let ag_opts = len(args) > 1 && type(args[0]) == s:TYPE.string ? remove(args, 0) : ''
+  let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
+        \ printf('$(find_up.bash %s -type f)',
+        \        expand('%:h')) 
+  " return s:warn(command)
+  return call('fzf#vim#ag_raw', insert(args, command, 0))
+endfunction
+command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
+nnoremap <C-p> :MyAg<CR>
 
+" search for files starting from directory with current buffer and working way
+" up
+nnoremap <C-e> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
