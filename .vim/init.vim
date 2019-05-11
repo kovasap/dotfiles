@@ -43,10 +43,12 @@ endif
 " go to definition tags
 Plugin 'ludovicchabant/vim-gutentags'
 " directory tree
-Plugin 'scrooloose/nerdtree'
-Plugin 'PhilRunninger/nerdtree-buffer-ops'
-" mercurial integration with nerdtree
-Plugin 'f4t-t0ny/nerdtree-hg-plugin'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'PhilRunninger/nerdtree-buffer-ops'
+" " mercurial integration with nerdtree
+" Plugin 'f4t-t0ny/nerdtree-hg-plugin'
+" netrw enhancement - TODO decide between nerdtree and this
+Plugin 'tpope/vim-vinegar'
 " syntax check Plugin 'w0rp/ale'
 " useful to go between errors - may not be necessary any more with ale!
 Plugin 'tpope/vim-unimpaired'
