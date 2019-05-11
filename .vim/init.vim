@@ -69,7 +69,7 @@ Plugin 'mhinz/vim-signify'
 " python highlighing
 Plugin 'vim-python/python-syntax'
 " startup screen
-Plugin 'mhinz/vim-startify'
+" Plugin 'mhinz/vim-startify'
 " indent detection
 Plugin 'tpope/vim-sleuth'
 " sorting shortcuts
@@ -127,7 +127,7 @@ if isdirectory("/google")
   Glug codefmt
   Glug codefmt-google
   Glug corpweb
-  Glug csearch
+  " Glug csearch
   augroup autoformat_settings
     autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
     autocmd FileType bzl AutoFormatBuffer buildifier
@@ -150,7 +150,7 @@ let g:signify_update_on_focusgained = 1
 " TODO check this out: https://github.com/mhinz/vim-signify/issues/284
 
 " see https://github.com/mhinz/vim-startify/issues/149
-let g:startify_enable_unsafe = 1
+" let g:startify_enable_unsafe = 1
 
 " NERDTree options
 let g:NERDTreeWinSize=50
@@ -318,8 +318,17 @@ map <S-Left> :vertical resize -1<CR>
 map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
+" fzf options
 nnoremap <C-p> :Ag<CR>
 nnoremap <C-e> :Files<CR>
+function! s:list_cmd()
+  let base = fnamemodify(expand('%'), ':h:.:S')
+  return base == '.' ? 'fd -t f' : printf('find . | proximity-sort %s', expand('%'))
+endfunction
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+  \                               'options': '--tiebreak=index'}, <bang>0)
 
 " use alt-h/l to switch between split windows
 nnoremap <A-h> <C-w>W
