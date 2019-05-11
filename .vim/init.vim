@@ -323,7 +323,7 @@ nnoremap <C-p> :Ag<CR>
 nnoremap <C-e> :Files<CR>
 function! s:list_cmd()
   let base = fnamemodify(expand('%'), ':h:.:S')
-  return base == '.' ? 'fd -t f' : printf('find . | proximity-sort %s', expand('%'))
+  return base == '.' ? 'fd -t f' : printf('find * -type f | proximity-sort %s', expand('%'))
 endfunction
 
 command! -bang -nargs=? -complete=dir Files
