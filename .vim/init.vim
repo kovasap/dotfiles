@@ -337,13 +337,12 @@ function! s:myag(query, ...)
   let args = copy(a:000)
   let ag_opts = len(args) > 1 && type(args[0]) == s:TYPE.string ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
-        \ printf('$(find_up.bash %s -type f)',
+        \ printf('$(find_up.bash %s -type f | head -n 1000)',
         \        expand('%:h')) 
-  " return s:warn(command)
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
-nnoremap <C-p> :MyAg<CR>
+nnoremap <C-p> :MyAg 
 
 " search for files starting from directory with current buffer and working way
 " up
