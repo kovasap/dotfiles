@@ -49,7 +49,8 @@ Plugin 'ludovicchabant/vim-gutentags'
 " Plugin 'f4t-t0ny/nerdtree-hg-plugin'
 " netrw enhancement - TODO decide between nerdtree and this
 Plugin 'tpope/vim-vinegar'
-" syntax check Plugin 'w0rp/ale'
+" syntax check 
+Plugin 'w0rp/ale'
 " useful to go between errors - may not be necessary any more with ale!
 Plugin 'tpope/vim-unimpaired'
 " python indentation
@@ -314,8 +315,6 @@ noremap j gj
 noremap k gk
 set scrolloff=0
 nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
-map <S-Left> :vertical resize -1<CR>
-map <S-Right> :vertical resize +1<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " fzf options
@@ -337,7 +336,7 @@ function! s:myag(query, ...)
   let args = copy(a:000)
   let ag_opts = len(args) > 1 && type(args[0]) == s:TYPE.string ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
-        \ printf('$(find_up.bash %s -type f | head -n 1000)',
+        \ printf('$(find_up.bash %s -type f | head -n 100)',
         \        expand('%:h')) 
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
@@ -354,7 +353,12 @@ command! -bang -nargs=? -complete=dir Files
 " use alt-h/l to switch between split windows
 nnoremap <A-h> <C-w>W
 nnoremap <A-l> <C-w>w
-" close windwos with alt-w
+" use alt-shift-h/l to resize vertial split windows
+nnoremap <A-H> :vertical resize +1<CR>
+nnoremap <A-L> :vertical resize -1<CR>
+" make vertical split with alt-v
+nnoremap <A-v> :vsplit<CR>
+" close windows with alt-w
 nnoremap <A-w> <C-w>c
 
 " use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
@@ -431,7 +435,8 @@ if isdirectory("/google")
   let g:ale_python_gpylint_executable = 'bash'
   let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
 else
-  let g:ale_linters = {'python': ['flake8']}
+  let g:ale_linters = {'python': ['flake8'],
+    \                  'clojure': 'all'}
   " TODO revisit mypy when https://github.com/python/mypy/issues/5772 is
   " resolved, or if it is needed for the project
   " let g:ale_linters = {'python': ['flake8', 'mypy']}
@@ -481,3 +486,5 @@ autocmd FileType clojure nnoremap <buffer> gd :normal [<c-d><cr>
 autocmd BufWritePost *.clj silent !Require
 autocmd BufWritePost *.cljc silent !Require
 autocmd BufWritePost *.cljs silent !Require
+" treat joke files are clojure files
+autocmd BufEnter *.joke :setlocal filetype=clojure
