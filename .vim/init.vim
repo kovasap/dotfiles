@@ -41,7 +41,7 @@ else
   " Plugin 'Shougo/deoplete.nvim'
 endif
 " go to definition tags
-Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'ludovicchabant/vim-gutentags'
 " directory tree
 " Plugin 'scrooloose/nerdtree'
 " Plugin 'PhilRunninger/nerdtree-buffer-ops'
