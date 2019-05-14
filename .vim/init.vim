@@ -81,6 +81,7 @@ Plugin 'junegunn/fzf.vim'
 
 " hex color highlighting
 Plugin 'chrisbra/Colorizer'
+let g:colorizer_auto_color = 1
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
@@ -308,6 +309,9 @@ set mouse=a
 " use system clipboard for everything by default
 " see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus
+
+" copy filename to clipboard shortcut
+nnoremap cp :let @+ = expand("%:p")<CR>
 
 " wrap lines on word
 set wrap

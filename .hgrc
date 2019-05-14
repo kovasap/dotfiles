@@ -1,6 +1,7 @@
 # example user config (see 'hg help config' for more info)
 [ui]
 username = kovas <kovas.palunas@gmail.com>
+merge = vimdiff
 # ssh = ssh -C   # ssh compression for faster file transfer
 
 # We recommend enabling tweakdefaults to get slight improvements to
@@ -27,5 +28,7 @@ status.relative = False
 # churn =
 
 [merge-tools]
-meld.priority = 100
-meld.premerge = True
+vimdiff.executable = nvim
+vimdiff.args = -d $local $other
+# meld.priority = 100
+# meld.premerge = True
