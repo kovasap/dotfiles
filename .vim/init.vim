@@ -48,7 +48,8 @@ endif
 " " mercurial integration with nerdtree
 " Plugin 'f4t-t0ny/nerdtree-hg-plugin'
 " netrw enhancement - TODO decide between nerdtree and this
-Plugin 'tpope/vim-vinegar'
+" Plugin 'tpope/vim-vinegar'
+Plugin 'justinmk/vim-dirvish'
 " syntax check 
 Plugin 'w0rp/ale'
 " useful to go between errors - may not be necessary any more with ale!
@@ -150,8 +151,33 @@ endif
 let g:signify_update_on_focusgained = 1
 " TODO check this out: https://github.com/mhinz/vim-signify/issues/284
 
+" diff against older revision for signify gutter
+let g:target_commit = 0
+command! SignifyOlder call ChangeTargetCommit('older')
+command! SignifyNewer call ChangeTargetCommit('younger')
+
+function ChangeTargetCommit(older_or_younger)
+  if a:older_or_younger ==# 'older'
+    let g:target_commit += 1
+  elseif g:target_commit==#0
+    echom 'No timetravel! Cannot diff against HEAD~-1'
+    return
+  else
+    let g:target_commit -= 1
+  endif
+  g:signify_vcs_cmds.git = printf('%s%d%s', 'git diff --no-color --no-ext-diff -U0 HEAD~', g:target_commit, ' -- %f')
+  g:signify_vcs_cmds.hg = printf('%s%d%s', 'hg diff --config extensions.color=! --config defaults.diff= --nodates -U0 -r ', g:target_commit, ':. -- %f')
+  let l:output_msg = printf('%s%d', 'Now diffing against HEAD~', g:target_commit)
+  echom l:output_msg
+endfunction
+
 " see https://github.com/mhinz/vim-startify/issues/149
 " let g:startify_enable_unsafe = 1
+
+" toggle hg diff
+" TODO use something like this to make this act on the target_commit used above
+" execute 'nnoremap <C-d> :Hgvdiff -r ' . g:target_commit . ':.<CR>'
+nnoremap <C-d> :Hgvdiff<CR>
 
 " NERDTree options
 let g:NERDTreeWinSize=50
@@ -187,18 +213,19 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " let g:ycm_server_keep_logfiles = 1
 " let g:ycm_server_log_level = 'debug'
 let g:ycm_confirm_extra_conf = 0
-map gd :YcmCompleter GoTo<CR>
-map gc :YcmCompleter GetDoc<CR>
+nmap gd :YcmCompleter GoTo<CR>
+nmap gc :YcmCompleter GetDoc<CR>
 
 if isdirectory("/google")
   au User lsp_setup call lsp#register_server({
       \ 'name': 'Kythe Language Server',
       \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
-      \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto'],
+      \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto', 'bzl'],
       \})
 
   nnoremap gd :<C-u>LspDefinition<CR>
   nnoremap ga :<C-u>LspReferences<CR>
+  autocmd Filetype python nmap <buffer> gd :YcmCompleter GoTo<CR>
 endif
 
 " disable all jedi vim stuff except renaming (since YCM does it all)
@@ -309,6 +336,12 @@ nnoremap <C-space> zA
 " visual mode bind
 vnoremap <space> zf
 vnoremap <C-space> zF
+" do not refold when saving file
+augroup remember_folds
+  autocmd!
+  au BufWinLeave ?* mkview 1
+  au BufWinEnter ?* silent! loadview 1
+augroup END
 
 " key rebindings
 noremap j gj
@@ -425,7 +458,7 @@ set relativenumber
 " ale options
 if isdirectory("/google")
   " we are in google land
-  let g:ale_linters = {'python': ['gpylint']}
+  let g:ale_linters = {'python': ['gpylint'], 'java': []}
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
   " when opening Python files. Setting the following flag to `1` disables that.
