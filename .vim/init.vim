@@ -380,6 +380,10 @@ endfunction
 command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
 nnoremap <C-p> :MyAg 
 
+if isdirectory("/google")
+  nnoremap <C-P> :CSearch 
+endif
+
 " search for files starting from directory with current buffer and working way
 " up
 nnoremap <C-e> :Files<CR>
@@ -399,8 +403,8 @@ nnoremap <A-v> :vsplit<CR>
 nnoremap <A-w> <C-w>c
 
 " use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
-nnoremap <C-j> 7<C-e>\|M
-nnoremap <C-k> 7<C-y>\|M
+nnoremap <C-j> M\|7<C-e>\|M
+nnoremap <C-k> M\|7<C-y>\|M
 
 " remap vim-sexp commands that conflict with my alt mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
@@ -486,8 +490,8 @@ else
   " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
 endif
 " move between errors
-" nnoremap <C-u> :ALENextWrap<CR>
-" nnoremap <C-y> :ALEPreviousWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
+nnoremap [e :ALEPreviousWrap<CR>
 
 " make new lines indent automatically
 set autoindent
