@@ -88,6 +88,9 @@ let g:colorizer_auto_color = 1
 Plugin 'kalekundert/vim-coiled-snake'
 Plugin 'Konfekt/FastFold'
 
+" attempt to make folding more persistant
+Plugin 'zhimsel/vim-stay'
+
 " clojure stuff
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
@@ -459,9 +462,8 @@ set nofsync
 set number
 set relativenumber
 
-" read same file in multiple vims
-" set autoread
-" set noswapfile
+" reread file if it's changed on disk
+set autoread
 
 " ale options
 if isdirectory("/google")
