@@ -53,7 +53,7 @@ Plugin 'justinmk/vim-dirvish'
 " syntax check 
 Plugin 'w0rp/ale'
 " useful to go between errors - may not be necessary any more with ale!
-Plugin 'tpope/vim-unimpaired'
+" Plugin 'tpope/vim-unimpaired'
 " python indentation
 Plugin 'Vimjas/vim-python-pep8-indent'
 " status bar
@@ -81,11 +81,15 @@ Plugin 'junegunn/fzf.vim'
 
 " hex color highlighting
 Plugin 'chrisbra/Colorizer'
+let g:colorizer_auto_color = 1
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
 Plugin 'kalekundert/vim-coiled-snake'
 Plugin 'Konfekt/FastFold'
+
+" attempt to make folding more persistant
+Plugin 'zhimsel/vim-stay'
 
 " clojure stuff
 Plugin 'guns/vim-sexp'
@@ -309,6 +313,9 @@ set mouse=a
 " see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus
 
+" copy filename to clipboard shortcut
+nnoremap cp :let @+ = expand("%:p")<CR>
+
 " wrap lines on word
 set wrap
 set linebreak
@@ -376,6 +383,10 @@ endfunction
 command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
 nnoremap <C-p> :MyAg 
 
+if isdirectory("/google")
+  nnoremap <C-P> :CSearch 
+endif
+
 " search for files starting from directory with current buffer and working way
 " up
 nnoremap <C-e> :Files<CR>
@@ -395,8 +406,8 @@ nnoremap <A-v> :vsplit<CR>
 nnoremap <A-w> <C-w>c
 
 " use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
-nnoremap <C-j> 7<C-e>\|M
-nnoremap <C-k> 7<C-y>\|M
+nnoremap <C-j> M\|7<C-e>\|M
+nnoremap <C-k> M\|7<C-y>\|M
 
 " remap vim-sexp commands that conflict with my alt mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
@@ -451,9 +462,8 @@ set nofsync
 set number
 set relativenumber
 
-" read same file in multiple vims
-" set autoread
-" set noswapfile
+" reread file if it's changed on disk
+set autoread
 
 " ale options
 if isdirectory("/google")
@@ -482,8 +492,8 @@ else
   " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
 endif
 " move between errors
-" nnoremap <C-u> :ALENextWrap<CR>
-" nnoremap <C-y> :ALEPreviousWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
+nnoremap [e :ALEPreviousWrap<CR>
 
 " make new lines indent automatically
 set autoindent
@@ -512,6 +522,25 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+" change order here (format is [termcolor, guicolor])
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['red',         'firebrick3'],
+    \ ['brown',       'firebrick3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ]
 
 " clojure goto declarations
 autocmd FileType clojure nnoremap <buffer> gd :normal [<c-d><cr>

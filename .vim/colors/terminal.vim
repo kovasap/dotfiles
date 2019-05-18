@@ -11,14 +11,14 @@ highlight Comment ctermfg=8
 highlight default link shComment Comment
 highlight default link vimLineComment Comment
 highlight Constant ctermfg=4
-highlight String ctermfg=2
+highlight String ctermfg=6
 highlight Character ctermfg=10
 highlight Number ctermfg=12
 highlight Boolean ctermfg=5
 highlight Float ctermfg=12
 
 highlight Identifier ctermfg=3
-highlight Function ctermfg=4
+highlight Function ctermfg=2
 
 highlight Statement ctermfg=13
 highlight Conditional ctermfg=13
@@ -29,17 +29,17 @@ highlight default link Exception Statement
 highlight Operator ctermfg=13
 
 highlight PreProc ctermfg=2
-highlight Include ctermfg=9
-highlight Define ctermfg=9
-highlight Macro ctermfg=9
-highlight PreCondit ctermfg=9
+highlight Include ctermfg=11
+highlight Define ctermfg=11
+highlight Macro ctermfg=11
+highlight PreCondit ctermfg=11
 
 highlight Type ctermfg=6
-highlight StorageClass ctermfg=9
-highlight Typedef ctermfg=9
-highlight Structure ctermfg=9
+highlight StorageClass ctermfg=5
+highlight Typedef ctermfg=5
+highlight Structure ctermfg=5
 
-highlight Special ctermfg=1
+highlight Special ctermfg=10
 highlight SpecialChar ctermfg=1
 highlight Tag ctermfg=1
 highlight Delimiter ctermfg=1
@@ -56,10 +56,10 @@ highlight Error ctermfg=1 ctermbg=1
 highlight WarningMsg ctermfg=3 ctermbg=1
 highlight WildMenu  ctermbg=1
 highlight Todo cterm=underline ctermfg=15 ctermbg=none
-highlight DiffAdd cterm=none ctermfg=none ctermbg=6
-highlight DiffChange cterm=none ctermfg=none ctermbg=8
-highlight DiffDelete cterm=none ctermfg=none ctermbg=5
-highlight DiffText cterm=none ctermfg=none ctermbg=0
+highlight DiffAdd cterm=none ctermfg=14 ctermbg=none
+highlight DiffChange cterm=none ctermfg=11 ctermbg=none
+highlight DiffDelete cterm=none ctermfg=9 ctermbg=none
+highlight DiffText cterm=none ctermfg=7 ctermbg=none
 highlight DiffFile cterm=none ctermfg=6 ctermbg=none  
 highlight DiffNewFile cterm=none ctermfg=6 ctermbg=none  
 highlight default link DiffRemoved DiffDelete
@@ -70,22 +70,24 @@ highlight default link FullSpace Error
 highlight Ignore ctermbg=none  
 highlight ModeMsg ctermfg=none  
 
+" this is what gets overlaid on the bad text
 highlight ALEError cterm=underline ctermbg=5
 highlight ALEWarning cterm=underline ctermbg=0
 highlight ALEInfo cterm=underline ctermbg=0
 highlight ALEStyleError cterm=underline ctermbg=5
 highlight ALEStyleWarning cterm=underline ctermbg=0
 
-highlight ALEErrorSign ctermbg=5
-highlight ALEWarningSign ctermbg=3
-highlight ALEInfoSign ctermbg=3
-highlight ALEStyleErrorSign ctermbg=5
-highlight ALEStyleWarningSign ctermbg=3
+" this is what gets put in the gutter on the left of the line numbers
+highlight ALEErrorSign cterm=bold ctermfg=5 ctermbg=8
+highlight ALEWarningSign cterm=bold ctermfg=3 ctermbg=8
+highlight ALEInfoSign cterm=bold ctermfg=3 ctermbg=8
+highlight ALEStyleErrorSign cterm=bold ctermfg=5 ctermbg=8
+highlight ALEStyleWarningSign cterm=bold ctermfg=3 ctermbg=8
 
 highlight VertSplit ctermfg=0 ctermbg=0
-highlight Folded ctermfg=8 ctermbg=0
-highlight FoldColumn ctermfg=8 ctermbg=0
-highlight SignColumn ctermfg=8 ctermbg=0
+highlight Folded ctermfg=8 ctermbg=none
+highlight FoldColumn ctermfg=8 ctermbg=none
+highlight SignColumn ctermfg=8 ctermbg=none
 highlight SpecialKey term=underline ctermfg=8
 highlight NonText ctermfg=0
 highlight StatusLine ctermfg=0 ctermbg=15 cterm=none
@@ -100,7 +102,7 @@ if version >= 700
   highlight ColorColumn ctermbg=8
   highlight Cursor term=reverse cterm=reverse   
   highlight CursorColumn ctermbg=8
-  highlight LineNr ctermfg=5
+  highlight LineNr ctermfg=8
   highlight MatchParen ctermbg=8
   highlight Pmenu ctermfg=8 ctermbg=0
   highlight PmenuSel ctermfg=8 ctermbg=6
