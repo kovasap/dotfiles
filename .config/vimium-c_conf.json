@@ -1,49 +1,16 @@
 {
 	"name": "Vimium C",
-	"@time": "4/11/2019, 2:06:21 PM",
-	"time": 1555005981112,
+	"@time": "5/17/2019, 9:59:17 AM",
+	"time": 1558112357439,
 	"environment": {
-		"extension": "1.73.6",
+		"extension": "1.75.0",
 		"platform": "linux",
-		"chrome": 73
+		"chrome": 74
 	},
-	"exclusionRules": [
-		{
-			"pattern": "^https?://mail.google.com/*",
-			"passKeys": "# / ? c d e h i l l l m n p r s u x "
-		},
-		{
-			"pattern": "^https?://www\\.mymeq\\.com/*",
-			"passKeys": "0 1 2 3 4 5 6 7 8 9 "
-		},
-		{
-			"pattern": "^https?://cs\\.corp\\.google\\.com/*",
-			"passKeys": "b h r "
-		},
-		{
-			"pattern": "^https?://cider\\.corp\\.google\\.com/*",
-			"passKeys": ""
-		},
-		{
-			"pattern": "^https?://critique\\.corp\\.google\\.com/*",
-			"passKeys": "c j k n p r "
-		},
-		{
-			"pattern": "^https?://about:blank*/",
-			"passKeys": "t "
-		}
-	],
-	"extWhiteList": [
-		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",
-		"ekohaelnhhdhbccgefjmjpdjoijhojgd",
-		"hdnehngglnbnehkfcidabjckinphnief",
-		"nacjakoppgmdcpemlfnfegmlhipddanj",
-		"lcopgfbpbmionefhhgbamgmejggljpbb",
-		""
-	],
 	"keyMappings": [
 		"map <a-c-j> moveTabLeft",
 		"map <a-c-k> moveTabRight",
+		"map <a-c-l> moveTabToNextWindow",
 		"",
 		"map <a-j> previousTab",
 		"map <a-k> nextTab",
@@ -55,5 +22,40 @@
 		"unmap L",
 		""
 	],
-	"showAdvancedOptions": true
+	"extWhiteList": [
+		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",
+		"ekohaelnhhdhbccgefjmjpdjoijhojgd",
+		"hdnehngglnbnehkfcidabjckinphnief",
+		"nacjakoppgmdcpemlfnfegmlhipddanj",
+		"lcopgfbpbmionefhhgbamgmejggljpbb",
+		""
+	],
+	"showAdvancedOptions": true,
+	"exclusionRules": [
+		{
+			"pattern": "^https?://mail.google.com/*",
+			"passKeys": "# / ? c d e h i l l l m n p r s u x "
+		},
+		{
+			"pattern": "^https?://www\\.mymeq\\.com/*",
+			"passKeys": "0 1 2 3 4 5 6 7 8 9 "
+		},
+		{
+			"pattern": "^https?://cs\\.corp\\.google\\.com/*",
+			"passKeys": "? b h l r "
+		},
+		{
+			"pattern": "^https?://cider\\.corp\\.google\\.com/*",
+			"passKeys": ""
+		},
+		{
+			"pattern": "^https?://critique\\.corp\\.google\\.com/*",
+			"passKeys": "c n p r "
+		},
+		{
+			"pattern": "^https?://about:blank*/",
+			"passKeys": "t "
+		}
+	],
+	"showAdvancedCommands": true
 }
