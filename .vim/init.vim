@@ -79,9 +79,11 @@ Plugin 'christoomey/vim-sort-motion'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
-" hex color highlighting
-Plugin 'chrisbra/Colorizer'
-let g:colorizer_auto_color = 1
+" hex color highlighting - this is currently slow
+" Plugin 'chrisbra/Colorizer'
+" let g:colorizer_auto_color = 1
+" faster version?
+Plugin 'RRethy/vim-hexokinase'
 
 " python folding
 " Plugin 'tmhedberg/SimpylFold'
@@ -504,15 +506,15 @@ autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 " issue
 
 " auto close brackets
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {}     {}
-inoremap [      []<Left>
-inoremap [<CR>  [<CR>]<Esc>O
-inoremap []     []
-inoremap (      ()<Left>
-inoremap (<CR>  (<CR>)<Esc>O
-inoremap ()     ()
+" inoremap {      {}<Left>
+" inoremap {<CR>  {<CR>}<Esc>O
+" inoremap {}     {}
+" inoremap [      []<Left>
+" inoremap [<CR>  [<CR>]<Esc>O
+" inoremap []     []
+" inoremap (      ()<Left>
+" inoremap (<CR>  (<CR>)<Esc>O
+" inoremap ()     ()
 
 " rainbow parens!
 au VimEnter * RainbowParenthesesToggle
@@ -547,3 +549,5 @@ autocmd BufWritePost *.cljc silent !Require
 autocmd BufWritePost *.cljs silent !Require
 " treat joke files are clojure files
 autocmd BufEnter *.joke :setlocal filetype=clojure
+
+let g:AutoPairsFlyMode = 1
