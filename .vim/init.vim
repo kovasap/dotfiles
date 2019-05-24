@@ -246,11 +246,6 @@ if !isdirectory("/google")
   let g:jedi#rename_command = "gr"
 endif
 
-" map control-p file opening functionality to ctrl-p
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'ra'
-
 " add airline specification
 " let g:airline#extensions#bufferline#enabled = 1
 " let g:bufferline_show_bufnr = 0
@@ -386,7 +381,7 @@ command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
 nnoremap <C-p> :MyAg 
 
 if isdirectory("/google")
-  nnoremap <C-P> :CSearch 
+  nnoremap <C-A-p> :CSearch 
 endif
 
 " search for files starting from directory with current buffer and working way
