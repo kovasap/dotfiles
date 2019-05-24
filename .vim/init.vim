@@ -102,11 +102,13 @@ Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
 
+" auto pair parens
+Plugin 'jiangmiao/auto-pairs'
+
+" attmpts to make vim better when reading terminal data from kitty TODO finish
+" making this owrk
 Plugin 'powerman/vim-plugin-AnsiEsc'
-
 Plugin 'rkitover/vimpager'
-
-Plugin 'NLKNguyen/papercolor-theme'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
