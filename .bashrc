@@ -161,6 +161,11 @@ if [ -d /google ]; then
   # go to citc clients
   alias cdg='cd /google/src/cloud/kovas'
 
+  # open all changed files in fig citc client (wrt last submitted code)
+  nvc() {
+    nvim $(hg st -n --rev $(hg log -r smart --template '{node}\n' | tail -1))
+  }
+
   # prompt for prodaccess if needed
   prodcertstatus --quiet || { printf '\nNeed to prodaccess...\n'; prodaccess; }
 
