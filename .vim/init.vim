@@ -90,6 +90,13 @@ Plugin 'RRethy/vim-hexokinase'
 Plugin 'kalekundert/vim-coiled-snake'
 Plugin 'Konfekt/FastFold'
 
+" Plugin 'benknoble/vim-auto-origami'
+" augroup autofoldcolumn
+"   au!
+"   " Or whatever autocmd-events you want
+"   au CursorHold,BufWinEnter,WinEnter * AutoOrigamiFoldColumn
+" augroup END
+
 " attempt to make folding more persistant
 Plugin 'zhimsel/vim-stay'
 
@@ -105,7 +112,11 @@ Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
 
 " auto pair parens
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'jiangmiao/auto-pairs'
+" this version does not auto-pair if the next character is non-whitespace (with
+" given option below)
+Plugin 'eapache/auto-pairs'
+let g:AutoPairsOnlyWhitespace = 1
 
 " attmpts to make vim better when reading terminal data from kitty TODO finish
 " making this owrk
@@ -334,8 +345,6 @@ autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,clojure normal zR
 set foldnestmax=2
 " no dashed lines for folds (spaces instead - note space after backslash)
 set fillchars=fold:\ 
-" no highlights for folding
-hi Folded guibg=NONE ctermbg=NONE
 " capital A/F makes unfolding/folding recursive
 " normal mode bind
 nnoremap <space> za
@@ -344,11 +353,11 @@ nnoremap <C-space> zA
 vnoremap <space> zf
 vnoremap <C-space> zF
 " do not refold when saving file
-augroup remember_folds
-  autocmd!
-  au BufWinLeave ?* mkview 1
-  au BufWinEnter ?* silent! loadview 1
-augroup END
+" augroup remember_folds
+"   autocmd!
+"   au BufWinLeave ?* mkview 1
+"   au BufWinEnter ?* silent! loadview 1
+" augroup END
 
 " key rebindings
 noremap j gj
