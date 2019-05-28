@@ -328,6 +328,7 @@ au BufNewFile *.tex 0r ~/.vim/tex.skel
 " folding
 set foldmethod=syntax
 set foldmethod=indent
+set foldcolumn=1
 " disable folding for these filetypes
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,clojure normal zR
 set foldnestmax=2

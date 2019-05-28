@@ -109,6 +109,7 @@ if version >= 700
   highlight PmenuSbar ctermfg=8 ctermbg=5
   highlight PmenuThumb ctermfg=8 ctermbg=7
 endif
+highlight FoldColumn ctermfg=3
 highlight Search ctermbg=2 cterm=underline
 highlight IncSearch cterm=reverse ctermbg=2
 
