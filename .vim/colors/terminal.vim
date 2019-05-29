@@ -57,9 +57,9 @@ highlight WarningMsg ctermfg=3 ctermbg=1
 highlight WildMenu  ctermbg=1
 highlight Todo cterm=underline ctermfg=15 ctermbg=none
 highlight DiffAdd cterm=none ctermfg=14 ctermbg=none
-highlight DiffChange cterm=none ctermfg=11 ctermbg=none
+highlight DiffChange cterm=none ctermfg=12 ctermbg=none
 highlight DiffDelete cterm=none ctermfg=9 ctermbg=none
-highlight DiffText cterm=none ctermfg=7 ctermbg=none
+highlight DiffText cterm=none ctermfg=12 ctermbg=none
 highlight DiffFile cterm=none ctermfg=6 ctermbg=none
 highlight DiffNewFile cterm=none ctermfg=6 ctermbg=none
 highlight default link DiffRemoved DiffDelete

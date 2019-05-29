@@ -184,10 +184,11 @@ function ChangeTargetCommit(older_or_younger)
   else
     let g:target_commit -= 1
   endif
-  g:signify_vcs_cmds.git = printf('%s%d%s', 'git diff --no-color --no-ext-diff -U0 HEAD~', g:target_commit, ' -- %f')
-  g:signify_vcs_cmds.hg = printf('%s%d%s', 'hg diff --config extensions.color=! --config defaults.diff= --nodates -U0 -r ', g:target_commit, ':. -- %f')
+  let g:signify_vcs_cmds.git = printf('%s%d%s', 'git diff --no-color --no-ext-diff -U0 HEAD~', g:target_commit, ' -- %f')
+  let g:signify_vcs_cmds.hg = printf('%s%d%s', 'hg diff --config extensions.color=! --config defaults.diff= --nodates -U0 -r ', g:target_commit, ':. -- %f')
   let l:output_msg = printf('%s%d', 'Now diffing against HEAD~', g:target_commit)
   echom l:output_msg
+  :SignifyRefresh
 endfunction
 
 " see https://github.com/mhinz/vim-startify/issues/149
@@ -225,6 +226,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "cln",
     \ "Unknown"   : "?"
     \ }
+" map <C-n> :NERDTreeToggle<CR>
 
 " you complete me options
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -364,7 +366,6 @@ noremap j gj
 noremap k gk
 set scrolloff=0
 nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
-map <C-n> :NERDTreeToggle<CR>
 
 " fzf options
 " search in files starting from directory with current buffer and working way up
@@ -397,10 +398,10 @@ if isdirectory("/google")
 endif
 
 " search for files starting from directory with current buffer and working way
-" up
+" up, limiting search to 1000 files
 nnoremap <C-e> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f', expand('%:h')),
+  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 1000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " use alt-h/l to switch between split windows
@@ -543,12 +544,12 @@ let g:rbpt_colorpairs = [
     \ ['black',       'SeaGreen3'],
     \ ['Darkblue',    'firebrick3'],
     \ ['red',         'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
     \ ['brown',       'firebrick3'],
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['darkred',     'DarkOrchid3'],
-    \ ['darkgreen',   'RoyalBlue3'],
     \ ['gray',        'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
     \ ]
 
 " clojure goto declarations
