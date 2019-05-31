@@ -32,6 +32,7 @@ Plugin 'VundleVim/Vundle.vim'
 if isdirectory("/google")
   Plugin 'prabirshrestha/async.vim'
   Plugin 'prabirshrestha/vim-lsp'
+  " gotten by doing git clone sso://user/mcdermottm/vim-csearch
   Plugin 'file:///usr/local/google/home/kovas/vim-csearch'
 else
   Plugin 'Valloric/YouCompleteMe'
@@ -159,7 +160,7 @@ if isdirectory("/google")
     autocmd FileType jslayout AutoFormatBuffer jslfmt
     autocmd FileType markdown AutoFormatBuffer mdformat
     autocmd FileType ncl AutoFormatBuffer nclfmt
-    autocmd FileType python AutoFormatBuffer pyformat
+    " autocmd FileType python AutoFormatBuffer pyformat
     autocmd FileType textpb AutoFormatBuffer text-proto-format
     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
   augroup END
@@ -169,6 +170,14 @@ endif
 " update signify whenever we get focus, not just on save
 let g:signify_update_on_focusgained = 1
 " TODO check this out: https://github.com/mhinz/vim-signify/issues/284
+
+" TODO store the current hg revision in target_commit
+" call SignifyDiff! using <C-d>
+" bind keys to easily switch the target_commit revision
+" print target_commit value when switching (and potentially commit message)
+" make it easy to diff again last committed revision for google stuff, as found
+" by this command:
+" hg log -r smart --template '{node}\n' | tail -1
 
 " diff against older revision for signify gutter
 let g:target_commit = 0
