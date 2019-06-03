@@ -87,6 +87,8 @@ myConfig = defaultConfig
     -- useful reference: http://web.mit.edu/nelhage/Public/xmonad.hs
     [ (mod4Mask, xK_h)
     , (mod4Mask, xK_l)
+    , (mod4Mask, xK_j)
+    , (mod4Mask, xK_k)
     , (mod4Mask, xK_p)
     , (mod4Mask, xK_w)
     , (mod4Mask, xK_e)
@@ -110,6 +112,10 @@ myConfig = defaultConfig
     -- master (horizontal when in tall mode) resizing in resizableTile layout
     , ((controlMask .|. mod4Mask, xK_h), sendMessage Shrink)
     , ((controlMask .|. mod4Mask, xK_l), sendMessage Expand)
+    , ((mod4Mask, xK_h), windows W.focusUp)
+    , ((mod4Mask, xK_l), windows W.focusDown)
+    , ((mod4Mask, xK_k), windows W.swapUp)
+    , ((mod4Mask, xK_j), windows W.swapDown)
     -- reflect layouts
     , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
@@ -119,7 +125,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_h), nextScreen)
     -- , ((mod4Mask, xK_l), prevScreen)
-    , ((mod4Mask, xK_h), onPrevNeighbour W.view)
-    , ((mod4Mask, xK_l), onNextNeighbour W.view)
+    , ((shiftMask .|. mod4Mask, xK_h), onPrevNeighbour W.view)
+    , ((shiftMask .|. mod4Mask, xK_l), onNextNeighbour W.view)
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
