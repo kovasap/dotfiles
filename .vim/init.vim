@@ -168,13 +168,12 @@ if isdirectory("/google")
 endif
 
 " update signify whenever we get focus, not just on save
-let g:signify_update_on_focusgained = 1
-" TODO check this out: https://github.com/mhinz/vim-signify/issues/284
+" let g:signify_update_on_focusgained = 1
+let g:signify_realtime = 1
+let g:signify_cursorhold_insert = 0
+let g:signify_cursorhold_normal = 0
 
 " TODO store the current hg revision in target_commit
-" call SignifyDiff! using <C-d>
-" bind keys to easily switch the target_commit revision
-" print target_commit value when switching (and potentially commit message)
 " make it easy to diff again last committed revision for google stuff, as found
 " by this command:
 " hg log -r smart --template '{node}\n' | tail -1
@@ -183,7 +182,12 @@ let g:signify_update_on_focusgained = 1
 let g:target_commit = 0
 command! SignifyOlder call ChangeTargetCommit('older')
 command! SignifyNewer call ChangeTargetCommit('younger')
+nnoremap ]r :SignifyOlder<CR>
+nnoremap [r :SignifyNewer<CR>
+" TODO supply specific revision
+" command! -nargs=1 SignifyRev call ChangeTargetCommit(<args>)
 
+" taken from https://github.com/mhinz/vim-signify/issues/284
 function ChangeTargetCommit(older_or_younger)
   if a:older_or_younger ==# 'older'
     let g:target_commit += 1
@@ -194,19 +198,26 @@ function ChangeTargetCommit(older_or_younger)
     let g:target_commit -= 1
   endif
   let g:signify_vcs_cmds.git = printf('%s%d%s', 'git diff --no-color --no-ext-diff -U0 HEAD~', g:target_commit, ' -- %f')
-  let g:signify_vcs_cmds.hg = printf('%s%d%s', 'hg diff --config extensions.color=! --config defaults.diff= --nodates -U0 -r ', g:target_commit, ':. -- %f')
-  let l:output_msg = printf('%s%d', 'Now diffing against HEAD~', g:target_commit)
+  let g:signify_vcs_cmds.hg = printf('%s%d%s', 'hg diff --config extensions.color=! --config defaults.diff= --nodates -U0 --rev .~', g:target_commit, ' -- %f')
+  let g:signify_vcs_cmds_diffmode.hg = printf('%s%d %s', 'hg cat --rev .~', g:target_commit, '%f')
+  let l:cur_rev_cmd = printf('hg log --rev .~%d --template ''{node|short} {fill(desc, "50")|firstline}\n''', g:target_commit)
+  let l:cur_rev = system(l:cur_rev_cmd)
+  let l:output_msg = printf('%s%d %s', 'Now diffing against HEAD~', g:target_commit, l:cur_rev)
   echom l:output_msg
   :SignifyRefresh
 endfunction
 
+" toggle hg diff
+function HgDiffTarget()
+  let l:cur_rev_cmd = printf('hg log --rev .~%d --template ''{node}''', g:target_commit)
+  let l:cur_rev = system(l:cur_rev_cmd)
+  execute 'Hgvdiff' l:cur_rev
+endfunction
+command! HgDiffTargetCmd call HgDiffTarget()
+nnoremap <C-d> :HgDiffTargetCmd<CR>
+
 " see https://github.com/mhinz/vim-startify/issues/149
 " let g:startify_enable_unsafe = 1
-
-" toggle hg diff
-" TODO use something like this to make this act on the target_commit used above
-" execute 'nnoremap <C-d> :Hgvdiff -r ' . g:target_commit . ':.<CR>'
-nnoremap <C-d> :Hgvdiff<CR>
 
 " NERDTree options
 let g:NERDTreeWinSize=50
@@ -410,7 +421,7 @@ endif
 " up, limiting search to 1000 files
 nnoremap <C-e> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 1000', expand('%:h')),
+  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " use alt-h/l to switch between split windows

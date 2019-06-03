@@ -163,7 +163,10 @@ if [ -d /google ]; then
 
   # open all changed files in fig citc client (wrt last submitted code)
   nvc() {
-    nvim $(hg st -n --rev $(hg log -r smart --template '{node}\n' | tail -1))
+    # '\'' closes string, appends single quote, then opens string again
+    # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
+    base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
+    nvim $(hg st -n --rev $(eval $base_cl_cmd))
   }
 
   # prompt for prodaccess if needed
