@@ -60,6 +60,8 @@ myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
 alert = dzenConfig return . show
 
 -- Main configuration, override the defaults to your liking.
+-- see https://wiki.haskell.org/Xmonad/Config_archive/Template_xmonad.hs_(0.9)
+-- for reference
 myConfig = defaultConfig
     { terminal    = "terminator"
     , handleEventHook = myEventHook
@@ -87,10 +89,13 @@ myConfig = defaultConfig
     -- useful reference: http://web.mit.edu/nelhage/Public/xmonad.hs
     [ (mod4Mask, xK_h)
     , (mod4Mask, xK_l)
+    , (mod4Mask, xK_j)
+    , (mod4Mask, xK_k)
     , (mod4Mask, xK_p)
     , (mod4Mask, xK_w)
     , (mod4Mask, xK_e)
     , (mod4Mask, xK_r)
+    , (mod4Mask, xK_space)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
     -- names of keys!  also try using "xev" in terminal and press keys
@@ -110,6 +115,11 @@ myConfig = defaultConfig
     -- master (horizontal when in tall mode) resizing in resizableTile layout
     , ((controlMask .|. mod4Mask, xK_h), sendMessage Shrink)
     , ((controlMask .|. mod4Mask, xK_l), sendMessage Expand)
+    , ((mod4Mask, xK_h), windows W.focusUp)
+    , ((mod4Mask, xK_l), windows W.focusDown)
+    , ((mod4Mask, xK_k), windows W.swapUp)
+    , ((mod4Mask, xK_j), windows W.swapDown)
+    , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)
     -- reflect layouts
     , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
@@ -119,7 +129,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_h), nextScreen)
     -- , ((mod4Mask, xK_l), prevScreen)
-    , ((mod4Mask, xK_h), onPrevNeighbour W.view)
-    , ((mod4Mask, xK_l), onNextNeighbour W.view)
+    , ((shiftMask .|. mod4Mask, xK_h), onPrevNeighbour W.view)
+    , ((shiftMask .|. mod4Mask, xK_l), onNextNeighbour W.view)
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
