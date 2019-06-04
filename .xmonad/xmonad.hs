@@ -95,7 +95,7 @@ myConfig = defaultConfig
     , (mod4Mask, xK_w)
     , (mod4Mask, xK_e)
     , (mod4Mask, xK_r)
-    , (mod4Mask, xK_space)
+    -- , (mod4Mask, xK_space)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
     -- names of keys!  also try using "xev" in terminal and press keys
@@ -115,11 +115,14 @@ myConfig = defaultConfig
     -- master (horizontal when in tall mode) resizing in resizableTile layout
     , ((controlMask .|. mod4Mask, xK_h), sendMessage Shrink)
     , ((controlMask .|. mod4Mask, xK_l), sendMessage Expand)
-    , ((mod4Mask, xK_h), windows W.focusUp)
-    , ((mod4Mask, xK_l), windows W.focusDown)
-    , ((mod4Mask, xK_k), windows W.swapUp)
-    , ((mod4Mask, xK_j), windows W.swapDown)
-    , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)
+    , ((mod4Mask, xK_k), windows W.focusUp)
+    , ((mod4Mask, xK_j), windows W.focusDown)
+    -- show next/previous screen (for multi monitor setup)
+    , ((shiftMask .|. mod4Mask, xK_k), onPrevNeighbour W.view)
+    , ((shiftMask .|. mod4Mask, xK_j), onNextNeighbour W.view)
+    , ((mod4Mask, xK_h), windows W.swapUp)
+    , ((mod4Mask, xK_l), windows W.swapDown)
+    -- , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)
     -- reflect layouts
     , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
@@ -127,9 +130,5 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
     , ((mod4Mask, xK_Return), spawn "~/.local/kitty.app/bin/kitty")
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
-    -- , ((mod4Mask, xK_h), nextScreen)
-    -- , ((mod4Mask, xK_l), prevScreen)
-    , ((shiftMask .|. mod4Mask, xK_h), onPrevNeighbour W.view)
-    , ((shiftMask .|. mod4Mask, xK_l), onNextNeighbour W.view)
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
