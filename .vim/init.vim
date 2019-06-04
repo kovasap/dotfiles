@@ -118,6 +118,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 " given option below)
 Plugin 'eapache/auto-pairs'
 let g:AutoPairsOnlyWhitespace = 1
+let g:AutoPairsMultilineClose = 0
+let g:AutoPairsWildClosedPair = ''
 
 " attmpts to make vim better when reading terminal data from kitty TODO finish
 " making this owrk
@@ -153,10 +155,11 @@ if isdirectory("/google")
   augroup autoformat_settings
     autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
     autocmd FileType bzl AutoFormatBuffer buildifier
-    autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+    " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+    autocmd FileType proto AutoFormatBuffer clang-format
     autocmd FileType dart AutoFormatBuffer dartfmt
-    autocmd FileType go AutoFormatBuffer gofmt
-    autocmd FileType java AutoFormatBuffer google-java-format
+    " autocmd FileType go AutoFormatBuffer gofmt
+    " autocmd FileType java AutoFormatBuffer google-java-format
     autocmd FileType jslayout AutoFormatBuffer jslfmt
     autocmd FileType markdown AutoFormatBuffer mdformat
     autocmd FileType ncl AutoFormatBuffer nclfmt
