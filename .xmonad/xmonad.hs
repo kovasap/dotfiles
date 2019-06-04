@@ -60,6 +60,8 @@ myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
 alert = dzenConfig return . show
 
 -- Main configuration, override the defaults to your liking.
+-- see https://wiki.haskell.org/Xmonad/Config_archive/Template_xmonad.hs_(0.9)
+-- for reference
 myConfig = defaultConfig
     { terminal    = "terminator"
     , handleEventHook = myEventHook
@@ -93,6 +95,7 @@ myConfig = defaultConfig
     , (mod4Mask, xK_w)
     , (mod4Mask, xK_e)
     , (mod4Mask, xK_r)
+    , (mod4Mask, xK_space)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
     -- names of keys!  also try using "xev" in terminal and press keys
@@ -116,6 +119,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_l), windows W.focusDown)
     , ((mod4Mask, xK_k), windows W.swapUp)
     , ((mod4Mask, xK_j), windows W.swapDown)
+    , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)
     -- reflect layouts
     , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
