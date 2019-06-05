@@ -309,6 +309,9 @@ set background=dark
 let g:python_highlight_all = 1
 let g:python_highlight_class_vars = 1
 syntax enable
+" refresh syntax whenever entering a buffer, useful to fix problems by just
+" flipping between buffers
+autocmd BufEnter * :syntax sync fromstart
 set colorcolumn=80
 " do not change terminal background
 " highlight NonText ctermbg=none
@@ -427,12 +430,12 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
-" use alt-h/l to switch between split windows
-nnoremap <A-h> <C-w>W
-nnoremap <A-l> <C-w>w
-" use alt-shift-h/l to resize vertial split windows
-nnoremap <A-H> :vertical resize +1<CR>
-nnoremap <A-L> :vertical resize -1<CR>
+" use alt-shift-j/k to switch between split windows
+nnoremap <A-K> <C-w>W
+nnoremap <A-J> <C-w>w
+" use alt-h/l to resize vertial split windows
+nnoremap <A-h> :vertical resize +1<CR>
+nnoremap <A-l> :vertical resize -1<CR>
 " make vertical split with alt-v
 nnoremap <A-v> :vsplit<CR>
 " close windows with alt-w
