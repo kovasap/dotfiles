@@ -568,12 +568,11 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'SeaGreen3'],
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['black',       'SeaGreen3'],
-    \ ['Darkblue',    'firebrick3'],
     \ ['red',         'firebrick3'],
     \ ['darkgreen',   'RoyalBlue3'],
     \ ['darkcyan',    'SeaGreen3'],
+    \ ['Darkblue',    'firebrick3'],
     \ ['brown',       'firebrick3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
     \ ['darkred',     'DarkOrchid3'],
     \ ['gray',        'RoyalBlue3'],
     \ ]
