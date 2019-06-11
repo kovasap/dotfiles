@@ -81,7 +81,7 @@ shopt -s histverify
 # for more detail
 _bash_history_sync() {
   builtin history -a
-  python ~/filter_history.py
+  python3 ~/filter_history.py
   HISTFILESIZE=$HISTSIZE
   # uncomment these to make existing shells sync with each other (as opposed to
   # just new shells syncing with all currently open ones)
@@ -93,6 +93,9 @@ history() {
   builtin history "$@"
 }
 PROMPT_COMMAND+="_bash_history_sync;$PROMPT_COMMAND"
+
+# on startup, write bash history to backup file
+python3 ~/filter_history.py ~/.bash_history.bak
 
 export PATH=$PATH:~/bin
 
