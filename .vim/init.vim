@@ -153,18 +153,18 @@ if isdirectory("/google")
   Glug corpweb
   " Glug csearch
   augroup autoformat_settings
-    autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-    autocmd FileType bzl AutoFormatBuffer buildifier
+    " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
+    " autocmd FileType bzl AutoFormatBuffer buildifier
     " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-    autocmd FileType proto AutoFormatBuffer clang-format
-    autocmd FileType dart AutoFormatBuffer dartfmt
+    " autocmd FileType proto AutoFormatBuffer clang-format
+    " autocmd FileType dart AutoFormatBuffer dartfmt
     " autocmd FileType go AutoFormatBuffer gofmt
     " autocmd FileType java AutoFormatBuffer google-java-format
-    autocmd FileType jslayout AutoFormatBuffer jslfmt
-    autocmd FileType markdown AutoFormatBuffer mdformat
-    autocmd FileType ncl AutoFormatBuffer nclfmt
+    " autocmd FileType jslayout AutoFormatBuffer jslfmt
+    " autocmd FileType markdown AutoFormatBuffer mdformat
+    " autocmd FileType ncl AutoFormatBuffer nclfmt
     " autocmd FileType python AutoFormatBuffer pyformat
-    autocmd FileType textpb AutoFormatBuffer text-proto-format
+    " autocmd FileType textpb AutoFormatBuffer text-proto-format
     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
   augroup END
   let g:signify_skip_filename_pattern = ['\.pipertmp.*']
@@ -539,6 +539,7 @@ set list
 set listchars=tab:>-
 set tabstop=4
 autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
+autocmd FileType bzl setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue
 
