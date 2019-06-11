@@ -95,7 +95,7 @@ history() {
 PROMPT_COMMAND+="_bash_history_sync;$PROMPT_COMMAND"
 
 # on startup, write bash history to backup file
-python3 ~/filter_history.py ~/.bash_history.bak
+python3 ~/filter_history.py ~/.bash_history.bak &
 
 export PATH=$PATH:~/bin
 
