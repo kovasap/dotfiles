@@ -423,6 +423,8 @@ if isdirectory("/google")
   nnoremap <C-A-p> :CSearch 
 endif
 
+nnoremap <A-/> :Buffers<CR>
+
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
 nnoremap <C-e> :Files<CR>
@@ -538,6 +540,8 @@ filetype plugin indent on
 set list
 set listchars=tab:>-
 set tabstop=4
+set shiftwidth=4
+set expandtab
 autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
 autocmd FileType bzl setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
