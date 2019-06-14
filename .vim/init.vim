@@ -368,8 +368,8 @@ au BufNewFile *.tex 0r ~/.vim/tex.skel
 set foldmethod=syntax
 set foldmethod=indent
 " set foldcolumn=1
-" disable folding for these filetypes
-autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,clojure normal zR
+" unfolded by default
+set foldlevelstart=99
 set foldnestmax=2
 " no dashed lines for folds (spaces instead - note space after backslash)
 set fillchars=fold:\ 
@@ -427,7 +427,7 @@ nnoremap <A-/> :Buffers<CR>
 
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
-nnoremap <C-e> :Files<CR>
+nnoremap <C-/> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
@@ -443,9 +443,11 @@ nnoremap <A-v> :vsplit<CR>
 " close windows with alt-w
 nnoremap <A-w> <C-w>c
 
-" use ctrl-j/k to scroll quickly, and recenter the screen after each scroll
-nnoremap <C-j> M\|7<C-e>\|M
-nnoremap <C-k> M\|7<C-y>\|M
+" use ctrl-j/k to scroll quickly, and recenter the screen before and after each
+" scroll.  do not change the jumplist when doing this, since it is supposed to
+" emulate scrolling
+nnoremap <C-j> :keepjumps normal 7jzz<CR>
+nnoremap <C-k> :keepjumps normal 7kzz<CR>
 
 " remap vim-sexp commands that conflict with my alt mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
