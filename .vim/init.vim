@@ -116,10 +116,12 @@ Plugin 'kien/rainbow_parentheses.vim'
 " Plugin 'jiangmiao/auto-pairs'
 " this version does not auto-pair if the next character is non-whitespace (with
 " given option below)
-Plugin 'eapache/auto-pairs'
-let g:AutoPairsOnlyWhitespace = 1
-let g:AutoPairsMultilineClose = 0
-let g:AutoPairsWildClosedPair = ''
+" Plugin 'eapache/auto-pairs'
+" let g:AutoPairsOnlyWhitespace = 1
+" let g:AutoPairsMultilineClose = 0
+" let g:AutoPairsWildClosedPair = ''
+Plugin 'cohama/lexima.vim'
+Plugin 'tpope/vim-surround'
 
 " attmpts to make vim better when reading terminal data from kitty TODO finish
 " making this owrk
@@ -447,7 +449,9 @@ nnoremap <A-w> <C-w>c
 " scroll.  do not change the jumplist when doing this, since it is supposed to
 " emulate scrolling
 nnoremap <C-j> :keepjumps normal 7jzz<CR>
+vnoremap <C-j> 7jzz
 nnoremap <C-k> :keepjumps normal 7kzz<CR>
+vnoremap <C-k> 7kzz
 
 " remap vim-sexp commands that conflict with my alt mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
