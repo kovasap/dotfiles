@@ -13,7 +13,7 @@ Config {
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
    -- , template = " %StdinReader% }{ %coretemp% | %gputemp% | %memory% | %disku% | %dynnetwork% | %date% " -- | %multicpu% | %KBFI% | %coretemp% || %kbd% "
-   , template = " %StdinReader% }{ %memory% | %disku% | <action=`python -m xnm`>%dynnetwork%</action> | %vol% | %battery% | %date% "
+   , template = " %StdinReader% }{ %multicpu% | %memory% | %disku% | <action=`python -m xnm`>%dynnetwork%</action> | %vol% | %battery% | %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
