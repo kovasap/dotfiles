@@ -423,6 +423,7 @@ nnoremap <C-p> :MyAg
 
 if isdirectory("/google")
   nnoremap <C-A-p> :CSearch 
+  nnoremap <C-p> :Lines<CR>
 endif
 
 nnoremap <A-/> :Buffers<CR>
@@ -434,9 +435,9 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
-" use alt-shift-j/k to switch between split windows
-nnoremap <A-K> <C-w>W
-nnoremap <A-J> <C-w>w
+" use alt-j/k to switch between split windows
+nnoremap <A-k> <C-w>W
+nnoremap <A-j> <C-w>w
 " use alt-h/l to resize vertial split windows
 nnoremap <A-h> :vertical resize +1<CR>
 nnoremap <A-l> :vertical resize -1<CR>
@@ -460,9 +461,9 @@ autocmd FileType g:sexp_filetypes unmap <M-j>
 autocmd FileType g:sexp_filetypes unmap <M-k>
 let g:sexp_enable_insert_mode_mappings = 0
 
-" use alt-j/k to go between buffers (ctrl-w closes buffers)
-nmap <A-k> :bp<CR>
-nmap <A-j> :bn<CR>
+" use alt-shift-j/k to go between buffers (ctrl-w closes buffers)
+nmap <A-K> :bp<CR>
+nmap <A-J> :bn<CR>
 nmap <C-w> :BDandquit<CR>
 
 " once the last buffer is closed, quit vim
