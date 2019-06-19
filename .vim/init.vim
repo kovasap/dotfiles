@@ -461,8 +461,8 @@ autocmd FileType g:sexp_filetypes unmap <M-k>
 let g:sexp_enable_insert_mode_mappings = 0
 
 " use alt-j/k to go between buffers (ctrl-w closes buffers)
-nmap <A-j> :bp<CR>
-nmap <A-k> :bn<CR>
+nmap <A-k> :bp<CR>
+nmap <A-j> :bn<CR>
 nmap <C-w> :BDandquit<CR>
 
 " once the last buffer is closed, quit vim
