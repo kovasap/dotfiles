@@ -1,7 +1,7 @@
 {
 	"name": "Vimium C",
-	"@time": "6/19/2019, 11:30:26 AM",
-	"time": 1560969026157,
+	"@time": "6/19/2019, 3:53:02 PM",
+	"time": 1560984782327,
 	"environment": {
 		"extension": "1.75.7",
 		"platform": "linux",
@@ -13,6 +13,7 @@
 		"map <a-c-l> moveTabToNextWindow",
 		"",
 		"map <a-/> Vomnibar.activateTabSelection",
+		"map <c-/> Vomnibar.activateInNewTab",
 		"",
 		"map <a-k> previousTab",
 		"map <a-j> nextTab",
