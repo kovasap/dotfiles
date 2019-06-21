@@ -1,19 +1,22 @@
 {
 	"name": "Vimium C",
-	"@time": "5/17/2019, 9:59:17 AM",
-	"time": 1558112357439,
+	"@time": "6/19/2019, 3:53:02 PM",
+	"time": 1560984782327,
 	"environment": {
-		"extension": "1.75.0",
+		"extension": "1.75.7",
 		"platform": "linux",
-		"chrome": 74
+		"chrome": 75
 	},
 	"keyMappings": [
-		"map <a-c-j> moveTabLeft",
-		"map <a-c-k> moveTabRight",
+		"map <a-c-k> moveTabLeft",
+		"map <a-c-j> moveTabRight",
 		"map <a-c-l> moveTabToNextWindow",
 		"",
-		"map <a-j> previousTab",
-		"map <a-k> nextTab",
+		"map <a-/> Vomnibar.activateTabSelection",
+		"map <c-/> Vomnibar.activateInNewTab",
+		"",
+		"map <a-k> previousTab",
+		"map <a-j> nextTab",
 		"map <a-h> goBack",
 		"map <a-l> goForward",
 		"unmap J",
