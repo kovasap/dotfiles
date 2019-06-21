@@ -169,6 +169,9 @@ highlight default link DateOld Comment
 highlight default link Path Preproc
 highlight default link Marked StorageClass
 highlight default link Title Identifier
+highlight default link markdownH1 Identifier
+highlight default link markdownH2 String
+highlight default link markdownH3 Type
 
 " Conceal
 " CursorIM
