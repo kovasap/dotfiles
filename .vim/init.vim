@@ -98,6 +98,9 @@ Plugin 'Konfekt/FastFold'
 "   au CursorHold,BufWinEnter,WinEnter * AutoOrigamiFoldColumn
 " augroup END
 
+" markdown folding
+Plugin 'masukomi/vim-markdown-folding'
+
 " attempt to make folding more persistant
 Plugin 'zhimsel/vim-stay'
 
@@ -367,8 +370,9 @@ set formatoptions+=t  " should wrap lines after 80 characters
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding
-set foldmethod=syntax
+" set foldmethod=syntax
 set foldmethod=indent
+autocmd FileType markdown set foldmethod=expr
 " set foldcolumn=1
 " unfolded by default
 set foldlevelstart=99
