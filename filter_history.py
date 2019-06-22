@@ -1,11 +1,10 @@
 import sys
-from os.path import expanduser
+from os.path import expanduser, getsize
 
-def read_write_hist(outfile: str=None):
+def read_write_hist(infile: str, outfile: str):
     unique_cmds = set()
     filtered = []
-    hist_fname = expanduser('~/.bash_history')
-    with open(hist_fname, 'r') as f:
+    with open(infile, 'r') as f:
         it = iter(f)
         for row in it:
             try:
@@ -17,9 +16,20 @@ def read_write_hist(outfile: str=None):
                 unique_cmds.add(cmd)
                 filtered.append(num)
                 filtered.append(cmd)
-
-    with open(outfile if outfile is not None else hist_fname, 'w') as f:
+    with open(outfile, 'w') as f:
         f.writelines(filtered)
 
 if __name__ == '__main__':
-    read_write_hist(sys.argv[1] if len(sys.argv) == 2 else None)
+    hist_fname = expanduser('~/.bash_history')
+    if len(sys.argv) == 2:
+        backup_fname = expanduser(sys.argv[1])
+        backup_size = getsize(backup_fname)
+        hist_size = getsize(hist_fname)
+        if backup_size > hist_size:
+            raise Exception(
+                f'Attempting to overwrite backup file {backup_fname}, which is '
+                'larger than the current history!')
+    else:
+        backup_fname = hist_fname
+
+    read_write_hist(hist_fname, backup_fname)
