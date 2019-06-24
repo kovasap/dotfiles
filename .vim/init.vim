@@ -115,6 +115,8 @@ Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
 
+Plugin 'RRethy/vim-illuminate'
+
 " auto pair parens
 " Plugin 'jiangmiao/auto-pairs'
 " this version does not auto-pair if the next character is non-whitespace (with
@@ -526,6 +528,8 @@ if isdirectory("/google")
   " see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale
   let g:ale_python_gpylint_executable = 'bash'
   let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
+  " TODO remove this once https://github.com/w0rp/ale/issues/2613 is resolved
+  let g:ale_enabled = 0
 else
   let g:ale_linters = {'python': ['flake8'],
     \                  'clojure': 'all'}
