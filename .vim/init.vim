@@ -158,6 +158,9 @@ if isdirectory("/google")
   Glug codefmt
   Glug codefmt-google
   Glug corpweb
+  " see https://user.git.corp.google.com/lerm/glint-ale/?pli=1
+  Glug glug sources+=`$HOME . '/.vim/local'`
+  Glug glint-ale
   " Glug csearch
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
@@ -520,7 +523,13 @@ set autoread
 " ale options
 if isdirectory("/google")
   " we are in google land
-  let g:ale_linters = {'python': ['gpylint'], 'java': []}
+  let g:ale_linters = {'python': ['gpylint'],
+                     \ 'java': ['glint'],
+                     \ 'markdown': ['glint'],
+                     \ 'javascript': ['glint'],
+                     \ 'proto': ['glint'],
+                     \ 'c': ['glint'],
+                     \ }
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
   " when opening Python files. Setting the following flag to `1` disables that.
