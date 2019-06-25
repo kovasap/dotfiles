@@ -17,7 +17,7 @@ highlight Number ctermfg=12
 highlight Boolean ctermfg=5
 highlight Float ctermfg=12
 
-highlight Identifier ctermfg=3
+highlight Identifier cterm=none ctermfg=3
 highlight Function ctermfg=10
 
 highlight Statement ctermfg=13
@@ -83,6 +83,9 @@ highlight ALEWarningSign cterm=bold ctermfg=3 ctermbg=8
 highlight ALEInfoSign cterm=bold ctermfg=3 ctermbg=8
 highlight ALEStyleErrorSign cterm=bold ctermfg=5 ctermbg=8
 highlight ALEStyleWarningSign cterm=bold ctermfg=3 ctermbg=8
+
+" what will be used to highlight similar words
+highlight illuminatedWord cterm=bold
 
 highlight VertSplit ctermfg=0 ctermbg=0
 highlight Folded ctermfg=6 ctermbg=none

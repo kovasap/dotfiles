@@ -1,7 +1,7 @@
 " see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale for
 " modifications to allow linting before saving file to disk
 
-call ale#Set('python_gpylint_executable', 'gpylint')
+call ale#Set('python_gpylint_executable', 'gpylint3')
 call ale#Set('python_gpylint_options', '')
 call ale#Set('python_gpylint_use_global', get(g:, 'ale_use_global_executables', 0))
 call ale#Set('python_gpylint_change_directory', 1)

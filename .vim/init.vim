@@ -436,7 +436,8 @@ nnoremap <A-/> :Buffers<CR>
 
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
-nnoremap <C-/> :Files<CR>
+" strangely, C-/ gets recognized as C-_ by vim in the terminal
+nnoremap <C-_> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
