@@ -529,6 +529,7 @@ if isdirectory("/google")
                      \ 'javascript': ['glint'],
                      \ 'proto': ['glint'],
                      \ 'c': ['glint'],
+                     \ 'go': ['govet'],
                      \ }
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
@@ -539,7 +540,9 @@ if isdirectory("/google")
   let g:ale_python_gpylint_executable = 'bash'
   let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint3 "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
   " TODO remove this once https://github.com/w0rp/ale/issues/2613 is resolved
-  let g:ale_enabled = 0
+  " let g:ale_enabled = 0
+  let g:ale_use_global_executables = 1 " https://groups.google.com/a/google.com/d/msg/vi-users/Ib0esClj_5k/1yqQEonwBwAJ
+  let g:ale_cache_executable_check_failures = 1
 else
   let g:ale_linters = {'python': ['flake8'],
     \                  'clojure': 'all'}
