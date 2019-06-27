@@ -525,7 +525,7 @@ if isdirectory("/google")
   " we are in google land
   let g:ale_linters = {'python': ['gpylint'],
                      \ 'java': ['glint'],
-                     \ 'markdown': ['glint'],
+                     \ 'markdown': ['gmdlint'],
                      \ 'javascript': ['glint'],
                      \ 'proto': ['glint'],
                      \ 'c': ['glint'],
