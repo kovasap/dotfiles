@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " see
-" https://github.com/vim-airline/vim-airline/blob/master/autoload/airline/themes/terminal.vim
+" https://github.com/vim-airline/vim-airline/blob/master/autoload/airline/themes/dark.vim
 " for explanation
 let g:airline#themes#terminal#palette = {}
 
@@ -11,7 +11,8 @@ let s:airline_b_normal   = [ '', '', 7, 0 ]
 let s:airline_c_normal   = [ '', '', 7, 0 ]
 let g:airline#themes#terminal#palette.normal = airline#themes#generate_color_map(s:airline_a_normal, s:airline_b_normal, s:airline_c_normal)
 let g:airline#themes#terminal#palette.normal_modified = {
-      \ 'airline_c': [ '', '', 7, 0, 'bold'] ,
+      \ 'airline_b': [ '', '', 2, 0, 'bold'] ,
+      \ 'airline_c': [ '', '', 2, 0, 'bold'] ,
       \ }
 
 let g:airline#themes#terminal#palette.insert = copy(g:airline#themes#terminal#palette.normal)
@@ -34,3 +35,8 @@ let g:airline#themes#terminal#palette.inactive_modified = g:airline#themes#termi
 let g:airline#themes#terminal#palette.commandline = copy(g:airline#themes#terminal#palette.normal)
 let g:airline#themes#terminal#palette.commandline.airline_a = [ '', '', 7, 0 ]
 let g:airline#themes#terminal#palette.commandline_modified = g:airline#themes#terminal#palette.normal_modified
+
+let g:airline#themes#terminal#palette.tabline = {
+      \ 'airline_tabmod': ['', '', 2, 8, 'bold'],
+      \ 'airline_tabmod_unsel': ['', '', 2, 0, 'bold'],
+      \ }

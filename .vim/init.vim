@@ -98,6 +98,9 @@ Plugin 'Konfekt/FastFold'
 "   au CursorHold,BufWinEnter,WinEnter * AutoOrigamiFoldColumn
 " augroup END
 
+" markdown folding
+Plugin 'masukomi/vim-markdown-folding'
+
 " attempt to make folding more persistant
 Plugin 'zhimsel/vim-stay'
 
@@ -111,6 +114,8 @@ Plugin 'kovasap/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'kien/rainbow_parentheses.vim'
+
+Plugin 'RRethy/vim-illuminate'
 
 " auto pair parens
 " Plugin 'jiangmiao/auto-pairs'
@@ -153,6 +158,9 @@ if isdirectory("/google")
   Glug codefmt
   Glug codefmt-google
   Glug corpweb
+  " see https://user.git.corp.google.com/lerm/glint-ale/?pli=1
+  Glug glug sources+=`$HOME . '/.vim/local'`
+  Glug glint-ale
   " Glug csearch
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
@@ -367,8 +375,9 @@ set formatoptions+=t  " should wrap lines after 80 characters
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding
-set foldmethod=syntax
+" set foldmethod=syntax
 set foldmethod=indent
+autocmd FileType markdown set foldmethod=expr
 " set foldcolumn=1
 " unfolded by default
 set foldlevelstart=99
@@ -430,7 +439,8 @@ nnoremap <A-/> :Buffers<CR>
 
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
-nnoremap <C-/> :Files<CR>
+" strangely, C-/ gets recognized as C-_ by vim in the terminal
+nnoremap <C-_> :Files<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
@@ -513,7 +523,14 @@ set autoread
 " ale options
 if isdirectory("/google")
   " we are in google land
-  let g:ale_linters = {'python': ['gpylint'], 'java': []}
+  let g:ale_linters = {'python': ['gpylint'],
+                     \ 'java': ['glint'],
+                     \ 'markdown': ['gmdlint'],
+                     \ 'javascript': ['glint'],
+                     \ 'proto': ['glint'],
+                     \ 'c': ['glint'],
+                     \ 'go': ['govet'],
+                     \ }
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
   " when opening Python files. Setting the following flag to `1` disables that.
@@ -521,7 +538,11 @@ if isdirectory("/google")
   let g:ale_virtualenv_dir_names = []
   " see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale
   let g:ale_python_gpylint_executable = 'bash'
-  let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
+  let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint3 "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
+  " TODO remove this once https://github.com/w0rp/ale/issues/2613 is resolved
+  " let g:ale_enabled = 0
+  let g:ale_use_global_executables = 1 " https://groups.google.com/a/google.com/d/msg/vi-users/Ib0esClj_5k/1yqQEonwBwAJ
+  let g:ale_cache_executable_check_failures = 1
 else
   let g:ale_linters = {'python': ['flake8'],
     \                  'clojure': 'all'}
