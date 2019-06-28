@@ -164,7 +164,7 @@ if isdirectory("/google")
   " Glug csearch
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-    " autocmd FileType bzl AutoFormatBuffer buildifier
+    autocmd FileType bzl AutoFormatBuffer buildifier
     " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
     " autocmd FileType proto AutoFormatBuffer clang-format
     " autocmd FileType dart AutoFormatBuffer dartfmt
@@ -532,6 +532,7 @@ if isdirectory("/google")
   let g:ale_linters.bzl = ['glint']
   " we use go/ycm and clangd for linting
   let g:ale_linters.c = []
+  let g:ale_linters.cpp = []
   let g:ale_linters.go = ['govet']
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
