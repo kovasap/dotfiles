@@ -18,7 +18,7 @@ function! ale#handlers#gmdlint#Handle(buffer, lines) abort
             \})
             let l:last_was_line=1
         elseif l:last_was_line
-            let l:output[-1].text = l:line
+            let l:output[-1].text = trim(l:line)
         endif
     endfor
 

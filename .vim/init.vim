@@ -162,9 +162,16 @@ if isdirectory("/google")
   Glug glug sources+=`$HOME . '/.vim/local'`
   Glug glint-ale
   " Glug csearch
+  " Fix BUILD dependencies when writing file
+  " Glug blazedeps
+  " augroup FixBuild
+  "   autocmd FileType go,java,c,cpp,python
+  "       \ autocmd! FixBuild BufWritePost <buffer> BlazeDepsUpdate
+  " augroup END
+  " Autoformat files on write
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-    " autocmd FileType bzl AutoFormatBuffer buildifier
+    autocmd FileType bzl AutoFormatBuffer buildifier
     " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
     " autocmd FileType proto AutoFormatBuffer clang-format
     " autocmd FileType dart AutoFormatBuffer dartfmt
@@ -451,8 +458,8 @@ nnoremap <A-j> <C-w>w
 " use alt-h/l to resize vertial split windows
 nnoremap <A-h> :vertical resize +1<CR>
 nnoremap <A-l> :vertical resize -1<CR>
-" make vertical split with alt-v
-nnoremap <A-v> :vsplit<CR>
+" make vertical split with alt-v and move to next split
+nnoremap <A-v> :vsplit \| wincmd w<CR>
 " close windows with alt-w
 nnoremap <A-w> <C-w>c
 
@@ -523,14 +530,17 @@ set autoread
 " ale options
 if isdirectory("/google")
   " we are in google land
-  let g:ale_linters = {'python': ['gpylint'],
-                     \ 'java': ['glint'],
-                     \ 'markdown': ['gmdlint'],
-                     \ 'javascript': ['glint'],
-                     \ 'proto': ['glint'],
-                     \ 'c': ['glint'],
-                     \ 'go': ['govet'],
-                     \ }
+  let g:ale_linters = {}
+  let g:ale_linters.python = ['gpylint']
+  let g:ale_linters.java = ['glint']
+  let g:ale_linters.markdown = ['gmdlint']
+  let g:ale_linters.javascript = ['glint']
+  let g:ale_linters.proto = ['glint']
+  let g:ale_linters.bzl = ['glint']
+  " we use go/ycm and clangd for linting
+  let g:ale_linters.c = []
+  let g:ale_linters.cpp = []
+  let g:ale_linters.go = ['govet']
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients
   " when opening Python files. Setting the following flag to `1` disables that.
