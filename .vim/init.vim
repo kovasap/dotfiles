@@ -162,6 +162,13 @@ if isdirectory("/google")
   Glug glug sources+=`$HOME . '/.vim/local'`
   Glug glint-ale
   " Glug csearch
+  " Fix BUILD dependencies when writing file
+  " Glug blazedeps
+  " augroup FixBuild
+  "   autocmd FileType go,java,c,cpp,python
+  "       \ autocmd! FixBuild BufWritePost <buffer> BlazeDepsUpdate
+  " augroup END
+  " Autoformat files on write
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
     autocmd FileType bzl AutoFormatBuffer buildifier
