@@ -1,9 +1,12 @@
 import qualified Data.Map as M
+import Data.Char
+import Data.List
 
 import XMonad
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
+import XMonad.Actions.SwapWorkspaces
 import qualified XMonad.StackSet as W
 import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
@@ -26,7 +29,8 @@ import XMonad.Layout.IndependentScreens
 -- The main function.
 main = do
     config <- statusBar myBar myPP toggleStrutsKey myConfig
-    xmonad config {modMask = mod4Mask}
+    xmonad $ ewmh $ config {modMask = mod4Mask}
+-- See https://bbs.archlinux.org/viewtopic.php?id=184406
 
 -- Command to launch the bar.
 myBar = "xmobar"
@@ -39,7 +43,14 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (mod4Mask, xK_b)
 
 -- For fullscreen stuff
 myEventHook = ewmhDesktopsEventHook <+> fullscreenEventHook -- <+> E.fullscreenEventHook 
-myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
+myManageHook = composeAll
+    [ isFullscreen --> doFullFloat
+    -- windows that have "Hello" in their X class name will float be default
+    , fmap ("Hello" `isInfixOf`) className --> doFloat
+    ]
+-- myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
+
+    -- , className =? "Gvim" --> doFloat
 
 -- Better Tall layout with vertical resizing
 -- Two master panes, 1/10th resize increment, only show master
@@ -79,7 +90,7 @@ myConfig = defaultConfig
                    -- ||| reflectVert mouseResizableTileMirrored{fracIncrement=0.02}
                    -- ||| Grid
                    -- ||| Full
-    , manageHook = myManageHook
+    , manageHook = myManageHook <+> manageHook defaultConfig
     , focusedBorderColor = "#006400"
     , normalBorderColor = "#191919"
     , borderWidth = 3
@@ -104,6 +115,35 @@ myConfig = defaultConfig
     , ((0, xF86XK_AudioMute), toggleMute >> return())
     , ((0, xF86XK_AudioLowerVolume), lowerVolume 4 >>= alert)
     , ((0, xF86XK_AudioRaiseVolume), raiseVolume 4 >>= alert)
+    -- TODO trying using this bash script instead of lux:
+    -- #!/bin/sh
+    --
+    -- # this directory is a symlink on my machine:
+    -- KEYS_DIR=/sys/class/backlight/intel_backlight
+    -- INC=10
+    -- MUL=2
+    --  
+    -- test -d $KEYS_DIR || exit 0
+    --  
+    -- MIN=1
+    -- MAX=$(cat $KEYS_DIR/max_brightness)
+    -- VAL=$(cat $KEYS_DIR/brightness)
+    --  
+    -- if [ "$1" = down ]; then
+    -- # VAL=$((VAL-$INC))
+    --   VAL=$((VAL*2/3))
+    -- else
+    -- # VAL=$((VAL+$INC))
+    --   VAL=$((VAL*3/2+1))
+    -- fi
+    --  
+    -- if [ "$VAL" -lt $MIN ]; then
+    --   VAL=$MIN
+    -- elif [ "$VAL" -gt $MAX ]; then
+    --   VAL=$MAX
+    -- fi
+    --  
+    -- echo $VAL > $KEYS_DIR/brightness
     , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
     , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
     -- use this when xmonad extras is upgraded
@@ -132,3 +172,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
+    -- see http://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Actions-SwapWorkspaces.html
+    -- ++ 
+    -- [((controlMask .|. mod4Mask, k), windows $ swapWithCurrent i)
+    --         | (i, k) <- zip workspaces [xK_1 ..]]
