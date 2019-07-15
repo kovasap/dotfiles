@@ -115,6 +115,35 @@ myConfig = defaultConfig
     , ((0, xF86XK_AudioMute), toggleMute >> return())
     , ((0, xF86XK_AudioLowerVolume), lowerVolume 4 >>= alert)
     , ((0, xF86XK_AudioRaiseVolume), raiseVolume 4 >>= alert)
+    -- TODO trying using this bash script instead of lux:
+    -- #!/bin/sh
+    --
+    -- # this directory is a symlink on my machine:
+    -- KEYS_DIR=/sys/class/backlight/intel_backlight
+    -- INC=10
+    -- MUL=2
+    --  
+    -- test -d $KEYS_DIR || exit 0
+    --  
+    -- MIN=1
+    -- MAX=$(cat $KEYS_DIR/max_brightness)
+    -- VAL=$(cat $KEYS_DIR/brightness)
+    --  
+    -- if [ "$1" = down ]; then
+    -- # VAL=$((VAL-$INC))
+    --   VAL=$((VAL*2/3))
+    -- else
+    -- # VAL=$((VAL+$INC))
+    --   VAL=$((VAL*3/2+1))
+    -- fi
+    --  
+    -- if [ "$VAL" -lt $MIN ]; then
+    --   VAL=$MIN
+    -- elif [ "$VAL" -gt $MAX ]; then
+    --   VAL=$MAX
+    -- fi
+    --  
+    -- echo $VAL > $KEYS_DIR/brightness
     , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
     , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
     -- use this when xmonad extras is upgraded
