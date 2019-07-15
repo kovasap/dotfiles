@@ -32,3 +32,6 @@ vimdiff.executable = nvim
 vimdiff.args = -d $local $other
 # meld.priority = 100
 # meld.premerge = True
+
+[trainingwheels]
+prevent-update-noarg = False

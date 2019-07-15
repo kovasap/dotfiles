@@ -163,7 +163,7 @@ if isdirectory("/google")
   Glug glint-ale
   " Glug csearch
   " Fix BUILD dependencies when writing file
-  " Glug blazedeps
+  Glug blazedeps
   " augroup FixBuild
   "   autocmd FileType go,java,c,cpp,python
   "       \ autocmd! FixBuild BufWritePost <buffer> BlazeDepsUpdate
