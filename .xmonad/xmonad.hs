@@ -1,9 +1,12 @@
 import qualified Data.Map as M
+import Data.Char
+import Data.List
 
 import XMonad
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
+import XMonad.Actions.SwapWorkspaces
 import qualified XMonad.StackSet as W
 import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
@@ -26,7 +29,8 @@ import XMonad.Layout.IndependentScreens
 -- The main function.
 main = do
     config <- statusBar myBar myPP toggleStrutsKey myConfig
-    xmonad config {modMask = mod4Mask}
+    xmonad $ ewmh $ config {modMask = mod4Mask}
+-- See https://bbs.archlinux.org/viewtopic.php?id=184406
 
 -- Command to launch the bar.
 myBar = "xmobar"
@@ -39,7 +43,14 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (mod4Mask, xK_b)
 
 -- For fullscreen stuff
 myEventHook = ewmhDesktopsEventHook <+> fullscreenEventHook -- <+> E.fullscreenEventHook 
-myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
+myManageHook = composeAll
+    [ isFullscreen --> doFullFloat
+    -- windows that have "Hello" in their X class name will float be default
+    , fmap ("Hello" `isInfixOf`) className --> doFloat
+    ]
+-- myManageHook = manageHook defaultConfig <+> (isFullscreen --> doFullFloat)
+
+    -- , className =? "Gvim" --> doFloat
 
 -- Better Tall layout with vertical resizing
 -- Two master panes, 1/10th resize increment, only show master
@@ -79,7 +90,7 @@ myConfig = defaultConfig
                    -- ||| reflectVert mouseResizableTileMirrored{fracIncrement=0.02}
                    -- ||| Grid
                    -- ||| Full
-    , manageHook = myManageHook
+    , manageHook = myManageHook <+> manageHook defaultConfig
     , focusedBorderColor = "#006400"
     , normalBorderColor = "#191919"
     , borderWidth = 3
@@ -132,3 +143,7 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]
+    -- see http://hackage.haskell.org/package/xmonad-contrib-0.15/docs/XMonad-Actions-SwapWorkspaces.html
+    -- ++ 
+    -- [((controlMask .|. mod4Mask, k), windows $ swapWithCurrent i)
+    --         | (i, k) <- zip workspaces [xK_1 ..]]
