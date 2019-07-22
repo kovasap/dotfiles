@@ -163,7 +163,7 @@ if isdirectory("/google")
   Glug glint-ale
   " Glug csearch
   " Fix BUILD dependencies when writing file
-  " Glug blazedeps
+  Glug blazedeps
   " augroup FixBuild
   "   autocmd FileType go,java,c,cpp,python
   "       \ autocmd! FixBuild BufWritePost <buffer> BlazeDepsUpdate
@@ -369,7 +369,20 @@ set mouse=a
 set clipboard=unnamedplus
 
 " copy filename to clipboard shortcut
-nnoremap cp :let @+ = expand("%:p")<CR>
+if isdirectory("/google")
+  " get path relative to google3 root
+  function GetGoogle3RelativePath(path)
+    let split_path = split(a:path, "google3/")
+    if len(split_path) == 2
+      return split_path[1]
+    else
+      return a:path
+    endif
+  endfunction
+  nnoremap cp :let @+ = GetGoogle3RelativePath(expand("%:p"))<CR>
+else
+  nnoremap cp :let @+ = expand("%:p")<CR>
+endif
 
 " wrap lines on word
 set wrap
