@@ -133,6 +133,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'rkitover/vimpager'
 
+Plugin 'dart-lang/dart-vim-plugin'
+
 " OSX stupid backspace fix
 set backspace=indent,eol,start
 
