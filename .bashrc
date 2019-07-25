@@ -97,7 +97,7 @@ PROMPT_COMMAND+="_bash_history_sync;$PROMPT_COMMAND"
 # on startup, write bash history to backup file
 python3 ~/filter_history.py ~/.bash_history.bak &
 
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bin:~/.local/bin
 
 # use vi mode for command line editing
 set -o vi
