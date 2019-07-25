@@ -172,6 +172,9 @@ if [ -d /google ]; then
     nvim $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
   }
 
+
+  alias hgw='watch --color -n 1 '\''hg xl --color always; echo; hg st --color always'\'
+
   # prompt for prodaccess if needed
   prodcertstatus --quiet || { printf '\nNeed to prodaccess...\n'; prodaccess; }
 
