@@ -103,6 +103,9 @@ Plugin 'masukomi/vim-markdown-folding'
 
 " attempt to make folding more persistant
 Plugin 'zhimsel/vim-stay'
+" stay/view will annoyingly remember to change working dirs when opening files
+" sometimes, this should prevent that
+set noautochdir
 
 " clojure stuff
 Plugin 'guns/vim-sexp'
@@ -237,6 +240,10 @@ function HgDiffTarget()
 endfunction
 command! HgDiffTargetCmd call HgDiffTarget()
 nnoremap <C-d> :HgDiffTargetCmd<CR>
+
+" make obtain/put commands in diff mode auto jump to the next change
+nnoremap do do]c
+nnoremap dp dp]c
 
 " see https://github.com/mhinz/vim-startify/issues/149
 " let g:startify_enable_unsafe = 1

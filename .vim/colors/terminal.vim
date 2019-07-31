@@ -143,7 +143,7 @@ highlight IncSearch cterm=reverse ctermbg=2
 "
 " endif
 
-highlight SpellBad cterm=none ctermbg=5
+highlight SpellBad cterm=none ctermfg=5 ctermbg=none cterm=underline
 highlight default link SpellCap SpellBad
 highlight default link SpellLocal SpellBad
 highlight default link SpellRare SpellBad

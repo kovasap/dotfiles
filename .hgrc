@@ -35,3 +35,6 @@ vimdiff.args = -d $local $other
 
 [trainingwheels]
 prevent-update-noarg = False
+
+[alias]
+ua = uploadall
