@@ -107,13 +107,22 @@ _xyank() {
 }
 bind -m vi -x '"yy": _xyank'
 
-# useful tip about dmenu
-# since starting last month, I've noticed that dmenu is often very slow to start. From reading /var/log/apt/history.log and /var/log/dpkg.log, it seems like some apt or dpkg command is automatically run between 30 and 100 times per day - some significant percent of those modify binaries. dmenu keeps a cache and, if any directory in your path has changed since that file was last written, it updates the cache at that time. You can read the dmenu_path script to see the details.
-# so, the trivial solution is just to run dmenu_path after every dpkg invocation. Run this to tell dpkg to to update your dmenu cache every time something installs a package.
+# useful tip about dmenu since starting last month, I've noticed that dmenu is
+# often very slow to start. From reading /var/log/apt/history.log and
+# /var/log/dpkg.log, it seems like some apt or dpkg command is automatically run
+# between 30 and 100 times per day - some significant percent of those modify
+# binaries. dmenu keeps a cache and, if any directory in your path has changed
+# since that file was last written, it updates the cache at that time. You can
+# read the dmenu_path script to see the details.  so, the trivial solution is
+# just to run dmenu_path after every dpkg invocation. Run this to tell dpkg to
+# to update your dmenu cache every time something installs a package.
 #
 # echo "post-invoke='sudo -u $USER dmenu_path > /dev/null'" > /etc/dpkg/dpkg.cfg.d/dmenu-path-update-hook
 #
-# That seems to have solved the problem for me. Some sort of inotify watch would be more thorough as it would catch changes due to reasons other than package installs, so if you heavily use (e.g.) hackage, you may want that. This has been good enough for me lately.
+# That seems to have solved the problem for me. Some sort of inotify watch would
+# be more thorough as it would catch changes due to reasons other than package
+# installs, so if you heavily use (e.g.) hackage, you may want that. This has
+# been good enough for me lately.
 
 # load gem config
 source ~/ProfileGem/load.sh
@@ -183,4 +192,5 @@ if [ -d /google ]; then
   alias perfgate=/google/data/ro/teams/perfgate/perfgate
   alias build_copier=/google/data/ro/projects/build_copier/build_copier
   alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob
+  g4d chamber_regression_replication
 fi
