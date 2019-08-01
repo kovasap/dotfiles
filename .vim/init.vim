@@ -190,7 +190,22 @@ if isdirectory("/google")
     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
   augroup END
   let g:signify_skip_filename_pattern = ['\.pipertmp.*']
+
+  " open all buffers that have changed since the root fig revision
+  function OpenFigFiles()
+    bufdo bwipeout
+    let base_cl_cmd = 'hg log -r p4base --template "{node}\n"'
+    let files_to_open_cmd = 'hg st -n --rev $(eval '''.base_cl_cmd.''') | sed ''s/^google3\///'''
+    let files_to_open = system(files_to_open_cmd)
+    echo files_to_open_cmd
+    for i in split(files_to_open)
+      execute "e ".i
+    endfor
+  endfunction
+  command! OpenFigFiles call OpenFigFiles()
+  nnoremap <C-a> :OpenFigFiles<CR>
 endif
+
 
 " update signify whenever we get focus, not just on save
 " let g:signify_update_on_focusgained = 1
