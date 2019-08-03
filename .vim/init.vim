@@ -503,10 +503,10 @@ nnoremap <A-w> <C-w>c
 " use ctrl-j/k to scroll quickly, and recenter the screen before and after each
 " scroll.  do not change the jumplist when doing this, since it is supposed to
 " emulate scrolling
-nnoremap <C-j> :keepjumps normal 7jzz<CR>
-vnoremap <C-j> 7jzz
-nnoremap <C-k> :keepjumps normal 7kzz<CR>
-vnoremap <C-k> 7kzz
+nnoremap <C-j> :keepjumps normal 10jzz<CR>
+vnoremap <C-j> 10jzz
+nnoremap <C-k> :keepjumps normal 10kzz<CR>
+vnoremap <C-k> 10kzz
 
 " remap vim-sexp commands that conflict with my alt mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
@@ -617,7 +617,7 @@ set listchars=tab:>-
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType yaml setlocal shiftwidth=4 tabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType bzl setlocal shiftwidth=4 tabstop=4
 " see https://yaqs.googleplex.com/eng/q/5883314352685056 for golang 8 width tab
 " issue
