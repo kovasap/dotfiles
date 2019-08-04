@@ -14,8 +14,11 @@ xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled
 # exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
 xautolock -time 10 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh &
 
-# start redshift
-redshift -O 4000
+# change brightness and color temperature
+redshift -O 3000 -b 0.7:0.7
+# dim google chrome windows an extra amount
+compton --glx-prog-win-rule ~/compton/compton-chg-saturate-brightness-contrast.glsl:'class_g="Google-chrome"' --backend glx -b
+
 ~/bin/setup-monitors.bash forked
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
