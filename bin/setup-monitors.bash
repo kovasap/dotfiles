@@ -38,6 +38,8 @@ elif [ -n "$conDP1" ]; then
     xrandr_cmd="$xrandr_cmd --output DP-1 --auto --right-of eDP-1"
 fi
 
+pkill compton
 xrandr --auto
 echo $xrandr_cmd
 eval $xrandr_cmd
+~kovas/bin/run-compton.bash

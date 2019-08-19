@@ -12,12 +12,14 @@ xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled
 # auto lock screen using securelock after a certain time
 # https://g3doc.corp.google.com/company/teams/i3/index.md?cl=head#locking-your-screen
 # exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
-xautolock -time 10 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh &
+xautolock -time 10 -locker ~/bin/screensaver.sh &
 
 # change brightness and color temperature
-redshift -O 3000 -b 0.7:0.7
-# dim google chrome windows an extra amount
-compton --glx-prog-win-rule ~/compton/compton-chg-saturate-brightness-contrast.glsl:'class_g="Google-chrome"' --backend glx -b
+redshift -O 3000 -b 0.9:0.9
+bash ~/bin/run-compton.bash
+
+# hide mouse point after idling for 3 seconds
+unclutter -idle 3 -root &
 
 ~/bin/setup-monitors.bash forked
 
