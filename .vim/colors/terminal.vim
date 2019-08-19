@@ -52,7 +52,7 @@ highlight TabLineSel cterm=bold ctermfg=1
 highlight Visual ctermbg=8
 highlight default link VisualNOS Visual
 highlight Underlined cterm=underline
-highlight Error ctermfg=1 ctermbg=1
+highlight Error ctermbg=1
 highlight WarningMsg ctermfg=3 ctermbg=1
 highlight WildMenu  ctermbg=1
 highlight Todo cterm=underline ctermfg=15 ctermbg=none
