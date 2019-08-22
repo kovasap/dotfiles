@@ -18,8 +18,8 @@ xautolock -time 10 -locker ~/bin/screensaver.sh &
 redshift -O 3000 -b 0.9:0.9
 bash ~/bin/run-compton.bash
 
-# hide mouse point after idling for 3 seconds
-unclutter -idle 3 -root &
+# hide mouse pointer after idling
+unclutter -idle 10 -root -grab &
 
 ~/bin/setup-monitors.bash forked
 
