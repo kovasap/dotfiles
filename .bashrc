@@ -178,7 +178,8 @@ if [ -d /google ]; then
     # '\'' closes string, appends single quote, then opens string again
     # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
     base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
-    nv $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
+    # -O4 opens in 4 vertical split windows
+    nv -O4 $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
   }
 
 

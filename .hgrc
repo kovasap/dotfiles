@@ -38,3 +38,10 @@ prevent-update-noarg = False
 
 [alias]
 ua = uploadall
+
+[experimental]
+# makes it so that private revisions are prefixed with an "x", making revisions
+# I am working on have more unique prefixes (less characters are needed to
+# uniquely identify them)
+# See https://groups.google.com/a/google.com/forum/#!searchin/fig-users/kovas%7Csort:date/fig-users/z7aUho8Re6k/K4NzsYrpCgAJ
+revisions.prefixhexnode = True
