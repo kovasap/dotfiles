@@ -138,6 +138,12 @@ Plugin 'rkitover/vimpager'
 
 Plugin 'dart-lang/dart-vim-plugin'
 
+Plugin 'ron89/thesaurus_query.vim'
+" curl http://www.gutenberg.org/files/3202/files/mthesaur.txt >
+" ~/.vim/thesaurus/mthesaur.txt
+" to get offline thesaurus
+nnoremap zt :ThesaurusQueryReplaceCurrentWord<CR>
+
 Plugin 'tikhomirov/vim-glsl'
 
 " OSX stupid backspace fix
@@ -420,6 +426,7 @@ set textwidth=80
 set wrapmargin=0
 set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
+set formatoptions+=a  " should reformat paragraphs whenever typing in them (not just at the end)
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding
