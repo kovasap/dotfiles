@@ -166,7 +166,7 @@ myConfig = defaultConfig
     -- reflect layouts
     , ((mod4Mask, xK_e), sendMessage $ Toggle REFLECTX)
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
-    , ((mod4Mask, xK_Escape), spawn "/usr/share/goobuntu-desktop-files/xsecurelock.sh")
+    , ((mod4Mask, xK_Escape), spawn "~/bin/screensaver.sh")
     , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
     , ((mod4Mask, xK_Return), spawn "~/.local/kitty.app/bin/kitty")
     , ((shiftMask .|. mod4Mask, xK_Return),

@@ -12,9 +12,9 @@ libghc-xmonad-dev
 libghc-xmonad-doc
 libghc-xmonad-extras-dev
 cmake
+# https://github.com/hakerdefo/cmus-lyrics
+cmus
 fzf
-terminator
-meld
 neovim
 python3
 visidata

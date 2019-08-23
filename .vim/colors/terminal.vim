@@ -144,9 +144,9 @@ highlight IncSearch cterm=reverse ctermbg=2
 " endif
 
 highlight SpellBad cterm=none ctermfg=5 ctermbg=none cterm=underline
-highlight default link SpellCap SpellBad
-highlight default link SpellLocal SpellBad
-highlight default link SpellRare SpellBad
+highlight SpellCap cterm=none ctermfg=5 ctermbg=none cterm=underline
+highlight SpellLocal cterm=none ctermfg=5 ctermbg=none cterm=underline
+highlight SpellRare cterm=none ctermfg=5 ctermbg=none cterm=underline
 
 highlight default link vimCmplxRepeat Normal
 

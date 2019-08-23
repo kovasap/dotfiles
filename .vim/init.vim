@@ -138,6 +138,8 @@ Plugin 'rkitover/vimpager'
 
 Plugin 'dart-lang/dart-vim-plugin'
 
+Plugin 'tikhomirov/vim-glsl'
+
 " OSX stupid backspace fix
 set backspace=indent,eol,start
 
