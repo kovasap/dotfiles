@@ -138,6 +138,12 @@ Plugin 'rkitover/vimpager'
 
 Plugin 'dart-lang/dart-vim-plugin'
 
+Plugin 'ron89/thesaurus_query.vim'
+" curl http://www.gutenberg.org/files/3202/files/mthesaur.txt >
+" ~/.vim/thesaurus/mthesaur.txt
+" to get offline thesaurus
+nnoremap zt :ThesaurusQueryReplaceCurrentWord<CR>
+
 Plugin 'tikhomirov/vim-glsl'
 
 " OSX stupid backspace fix
@@ -170,11 +176,13 @@ if isdirectory("/google")
   Glug glint-ale
   " Glug csearch
   " Fix BUILD dependencies when writing file
-  Glug blazedeps
-  " augroup FixBuild
-  "   autocmd FileType go,java,c,cpp,python
-  "       \ autocmd! FixBuild BufWritePost <buffer> BlazeDepsUpdate
-  " augroup END
+  " not sure why this doesn't work and i have to call
+  " build_cleaner myself
+  " Glug blazedeps
+  augroup FixBuild
+    autocmd FileType go,java,c,cpp,python
+        \ autocmd! FixBuild BufWritePost <buffer> silent !build_cleaner %:p &> /tmp/build_cleaner.log &
+  augroup END
   " Autoformat files on write
   augroup autoformat_settings
     " autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
@@ -418,6 +426,7 @@ set textwidth=80
 set wrapmargin=0
 set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
+autocmd FileType markdown set formatoptions+=a  " should reformat paragraphs whenever typing in them (not just at the end)
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding
@@ -475,6 +484,20 @@ function! s:myag(query, ...)
 endfunction
 command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
 nnoremap <C-p> :MyAg 
+
+function! s:dirag(query, ...)
+  if type(a:query) != s:TYPE.string
+    return s:warn('Invalid query argument')
+  endif
+  let query = empty(a:query) ? '^(?=.)' : a:query
+  let args = copy(a:000)
+  let ag_opts = len(args) > 1 && type(args[0]) == s:TYPE.string ? remove(args, 0) : ''
+  let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' . expand('%:h')
+  return call('fzf#vim#ag_raw', insert(args, command, 0))
+endfunction
+command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
+autocmd FileType dirvish nnoremap <buffer> <C-p> :DirAg<CR>
+
 
 if isdirectory("/google")
   nnoremap <C-A-p> :CSearch 
@@ -563,8 +586,14 @@ set nofsync
 set number
 set relativenumber
 
-" reread file if it's changed on disk
-set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " ale options
 if isdirectory("/google")
