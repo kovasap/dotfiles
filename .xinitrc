@@ -19,7 +19,7 @@ redshift -O 3000 -b 0.9:0.9
 bash ~/bin/run-compton.bash
 
 # hide mouse pointer after idling
-unclutter -idle 10 -root -grab &
+# unclutter -idle 10 -root -grab &
 
 ~/bin/setup-monitors.bash forked
 
