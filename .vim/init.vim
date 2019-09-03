@@ -213,7 +213,7 @@ if isdirectory("/google")
     endfor
   endfunction
   command! OpenFigFiles call OpenFigFiles()
-  nnoremap <C-a> :OpenFigFiles<CR>
+  " nnoremap <C-a> :OpenFigFiles<CR>
 endif
 
 
@@ -426,7 +426,10 @@ set textwidth=80
 set wrapmargin=0
 set formatoptions+=l
 set formatoptions+=t  " should wrap lines after 80 characters
-autocmd FileType markdown set formatoptions+=a  " should reformat paragraphs whenever typing in them (not just at the end)
+" should reformat paragraphs whenever typing in them (not just at the end)
+set formatoptions+=a
+command AutoWrapToggle if &fo =~ 'a' | set fo-=a | else | set fo+=a | endif
+nnoremap <C-a> :AutoWrapToggle<CR>
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " folding
