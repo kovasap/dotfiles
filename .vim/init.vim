@@ -184,6 +184,8 @@ function! TrimWhitespace()
 endfunction
 command! TrimWhitespace call TrimWhitespace()
 
+Plugin 'tpope/vim-abolish'
+
 
 " --- File Indent Type Detection ---
 Plugin 'tpope/vim-sleuth'
@@ -289,8 +291,6 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
-
-
 " --- Window Management ---
 " use alt-j/k to switch between split windows
 nnoremap <A-k> <C-w>W
@@ -302,7 +302,6 @@ nnoremap <A-l> :vertical resize -1<CR>
 nnoremap <A-v> :vsplit \| wincmd w<CR>
 " close windows with alt-w
 nnoremap <A-w> <C-w>c
-
 
 
 " --- Searching ---
@@ -357,15 +356,11 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
-
-
 " --- Persistance ---
 Plugin 'zhimsel/vim-stay'
 " stay/view will annoyingly remember to change working dirs when opening files
 " sometimes, this should prevent that
 set noautochdir
-
-
 
 
 " --- File Browsing ---
@@ -374,6 +369,7 @@ autocmd FileType dirvish nnoremap <buffer> <C-p> :DirAg<CR>
 
 
 " --- Showing Changes and Diffing ---
+Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'mhinz/vim-signify'
 " update signify whenever we get focus, not just on save
 " let g:signify_update_on_focusgained = 1
@@ -438,11 +434,9 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 
-
-
-
 " --- Motions ---
 Plugin 'christoomey/vim-sort-motion'
+Plugin 'justinmk/vim-sneak'
 
 
 " --- Parenthesis ---
