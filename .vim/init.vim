@@ -250,6 +250,8 @@ vnoremap <C-j> 10jzz
 nnoremap <C-k> :keepjumps normal 10kzz<CR>
 vnoremap <C-k> 10kzz
 
+nnoremap <C-b> <C-v>
+
 
 " --- Clipboard ---
 " use system clipboard for everything by default
