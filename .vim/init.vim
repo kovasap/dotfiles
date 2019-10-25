@@ -165,7 +165,6 @@ set formatoptions+=t  " should wrap lines after 80 characters
 " make new lines indent automatically
 set autoindent
 " should reformat paragraphs whenever typing in them (not just at the end)
-set formatoptions+=a
 command AutoWrapToggle if &fo =~ 'a' | set fo-=a | else | set fo+=a | endif
 nnoremap <C-a> :AutoWrapToggle<CR>
 filetype plugin indent on
