@@ -1,3 +1,3 @@
 /usr/share/goobuntu-desktop-files/xsecurelock.sh
 pkill compton
-run-compton.bash
+~/bin/run-compton.bash
