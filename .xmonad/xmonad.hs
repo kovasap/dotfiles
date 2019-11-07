@@ -26,6 +26,10 @@ import XMonad.Layout.IndependentScreens
 -- import qualified XMonad.Layout.Spacing as S
 -- import qualified XMonad.Layout.ToggleLayouts as TL
 
+-- TODO try using barCreator/barDestroyer from
+-- https://github.com/0/.../blob/master/xmonad/xmonad.hs for a xmobar on each
+-- screen
+
 -- The main function.
 main = do
     config <- statusBar myBar myPP toggleStrutsKey myConfig
