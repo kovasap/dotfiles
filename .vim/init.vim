@@ -124,8 +124,6 @@ let g:ale_linters.clojure = 'all'
 " folding
 Plugin 'masukomi/vim-markdown-folding'
 autocmd Filetype markdown setlocal spell spelllang=en_us
-" should reformat paragraphs whenever typing in them (not just at the end)
-autocmd FileType markdown set formatoptions+=a
 autocmd FileType markdown set foldmethod=expr
 
 " --- LaTeX ---

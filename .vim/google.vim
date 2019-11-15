@@ -15,8 +15,6 @@ if isdirectory("/google")
   Glug glint-ale
   " Glug csearch
   " Fix BUILD dependencies when writing file
-  " not sure why this doesn't work and i have to call
-  " build_cleaner myself
   " Glug blazedeps
   augroup FixBuild
     autocmd FileType go,java,c,cpp,python
@@ -86,6 +84,20 @@ if isdirectory("/google")
 
   nnoremap <C-A-p> :CSearch 
   nnoremap <C-p> :Lines<CR>
+
+  " auto-correct imports
+  " trim trailing whitespace
+  " collapse any excessive blank lines to a maximum of 2
+  function Fiximports ()
+    let save_cursor = getpos(".")
+    silent %!/google/bin/releases/python-team/public/importorder --reformat_imports --filein %:p
+    %s/\\s\\+$//e
+    %s/\n\\{4,}/\\r\\r\\r/e
+    call setpos('.', save_cursor)
+  endfunction
+  command Fiximports call Fiximports ()
+  " Fiximports just before the buffer is written
+  autocmd BufWritePost *.py call Fiximports ()
 
   let g:ale_linters = {}
   let g:ale_linters.python = ['gpylint']
