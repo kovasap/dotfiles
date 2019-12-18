@@ -7,6 +7,7 @@ import Graphics.X11.ExtraTypes.XF86
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 import XMonad.Actions.SwapWorkspaces
+import XMonad.Actions.WorkspaceNames
 import qualified XMonad.StackSet as W
 import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
@@ -29,6 +30,9 @@ import XMonad.Layout.IndependentScreens
 -- TODO try using barCreator/barDestroyer from
 -- https://github.com/0/.../blob/master/xmonad/xmonad.hs for a xmobar on each
 -- screen
+--
+-- TODO try this:
+-- http://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-WorkspaceNames.html
 
 -- The main function.
 main = do
@@ -40,6 +44,7 @@ main = do
 myBar = "xmobar"
 
 -- Custom PP, configure it as you like. It determines what is being written to the bar.
+-- myPP = workspaceNamesPP xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 
 -- Key binding to toggle the gap for the bar.
@@ -110,11 +115,13 @@ myConfig = defaultConfig
     , (mod4Mask, xK_w)
     , (mod4Mask, xK_e)
     , (mod4Mask, xK_r)
+    , (mod4Mask .|. shiftMask, xK_r)
     -- , (mod4Mask, xK_space)
     ] `additionalKeys`
     -- see /usr/include/X11/keysymdef.h or /usr/include/X11/XF86keysym.h for
     -- names of keys!  also try using "xev" in terminal and press keys
     [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
+    , ((mod4Mask .|. shiftMask, xK_r      ), renameWorkspace def)
     , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
     , ((0, xF86XK_AudioMute), toggleMute >> return())
     , ((0, xF86XK_AudioLowerVolume), lowerVolume 4 >>= alert)
