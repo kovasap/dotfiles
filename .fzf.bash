@@ -1,13 +1,13 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */usr/local/google/home/kovas/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/usr/local/google/home/kovas/.fzf/bin"
+if [[ ! "$PATH" == */home/kovas/.fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}/home/kovas/.fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/usr/local/google/home/kovas/.fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/home/kovas/.fzf/shell/completion.bash" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/usr/local/google/home/kovas/.fzf/shell/key-bindings.bash"
+source "/home/kovas/.fzf/shell/key-bindings.bash"
