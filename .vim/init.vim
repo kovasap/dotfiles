@@ -14,15 +14,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
+call plug#begin()
 
 " --- Folding ---
 set foldmethod=indent
@@ -48,24 +40,97 @@ vnoremap <C-space> zF
 
 
 " --- Language features (autocomplete and go to definition) ---
-if !isdirectory("/google")
-  Plugin 'Valloric/YouCompleteMe'
-endif
-" install: https://github.com/Valloric/YouCompleteMe/blob/master/README.md#full-installation-guide
-" NOTE DO NOT INSTALL USING AN ANACONDA PYTHON!!
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_server_keep_logfiles = 1
-" let g:ycm_server_log_level = 'debug'
-let g:ycm_confirm_extra_conf = 0
-nmap gd :YcmCompleter GoTo<CR>
-nmap gc :YcmCompleter GetDoc<CR>
+" if !isdirectory("/google")
+"   Plug 'Valloric/YouCompleteMe'
+" endif
+" " install: https://github.com/Valloric/YouCompleteMe/blob/master/README.md#full-installation-guide
+" " NOTE DO NOT INSTALL USING AN ANACONDA PYTHON!!
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" " let g:ycm_server_keep_logfiles = 1
+" " let g:ycm_server_log_level = 'debug'
+" let g:ycm_confirm_extra_conf = 0
+" nmap gd :YcmCompleter GoTo<CR>
+" nmap gc :YcmCompleter GetDoc<CR>
+" CoC and settings
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+" Better display for messages
+set cmdheight=2
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+
 " Highlight current word with cursor on it across whole buffer
-Plugin 'RRethy/vim-illuminate'
+" Plug 'RRethy/vim-illuminate'
+" Snippits!
+" THIS WILL NOT WORK UNLESS THE NEOVIM PYTHON3 LIBRARY IS INSTALLED
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<c-h>"
+let g:UltiSnipsJumpForwardTrigger="<c-tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-s-tab>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 " --- Linting ---
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 let g:ale_linters = {}
 " move between errors
 nnoremap ]e :ALENextWrap<CR>
@@ -73,7 +138,7 @@ nnoremap [e :ALEPreviousWrap<CR>
 
 
 " --- Python ---
-Plugin 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = ""
 let g:jedi#goto_assignments_command = "ga"
@@ -82,13 +147,13 @@ let g:jedi#documentation_command = "gc"
 let g:jedi#usages_command = "ga"
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = "gr"
-Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'vim-python/python-syntax'
 let g:python_highlight_all = 1
 let g:python_highlight_class_vars = 1
 " folding
-Plugin 'kalekundert/vim-coiled-snake'
-Plugin 'Konfekt/FastFold'
+Plug 'kalekundert/vim-coiled-snake'
+Plug 'Konfekt/FastFold'
 let g:ale_linters.python = ['flake8']
 " E306 requires blank line before inline function definition
 " E402 requires all imports be at top of file
@@ -96,17 +161,17 @@ let g:ale_linters.python = ['flake8']
 " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
 
 " --- Clojure ---
-Plugin 'guns/vim-sexp'
+Plug 'guns/vim-sexp'
 " remap vim-sexp commands that conflict with my other mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
                      \ 'sexp_swap_list_forward' : '<M-e>'}
 autocmd FileType g:sexp_filetypes unmap <M-j>
 autocmd FileType g:sexp_filetypes unmap <M-k>
 let g:sexp_enable_insert_mode_mappings = 0
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-" Plugin 'tpope/vim-fireplace'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'tpope/vim-fireplace'
 " use this until my PR is merged
-Plugin 'kovasap/vim-fireplace'
+Plug 'kovasap/vim-fireplace'
 " clojure goto declarations
 autocmd FileType clojure nnoremap <buffer> gd :normal [<c-d><cr>
 " clojure reload into repl on save
@@ -115,14 +180,14 @@ autocmd BufWritePost *.cljc silent !Require
 autocmd BufWritePost *.cljs silent !Require
 " treat joke files are clojure files
 autocmd BufEnter *.joke :setlocal filetype=clojure
-" Plugin 'tpope/vim-salve'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
+" Plug 'tpope/vim-salve'
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-highlight'
 let g:ale_linters.clojure = 'all'
 
 " --- Markdown ---
 " folding
-Plugin 'masukomi/vim-markdown-folding'
+Plug 'masukomi/vim-markdown-folding'
 autocmd Filetype markdown setlocal spell spelllang=en_us
 autocmd FileType markdown set foldmethod=expr
 
@@ -131,17 +196,17 @@ autocmd Filetype latex setlocal spell spelllang=en_us
 au BufNewFile *.tex 0r ~/.vim/tex.skel
 
 " --- General Writing ---
-Plugin 'ron89/thesaurus_query.vim'
+Plug 'ron89/thesaurus_query.vim'
 " curl http://www.gutenberg.org/files/3202/files/mthesaur.txt >
 " ~/.vim/thesaurus/mthesaur.txt
 " to get offline thesaurus
 nnoremap zt :ThesaurusQueryReplaceCurrentWord<CR>
 
 " --- GLSL ---
-Plugin 'tikhomirov/vim-glsl'
+Plug 'tikhomirov/vim-glsl'
 
 " --- Dart ---
-Plugin 'dart-lang/dart-vim-plugin'
+Plug 'dart-lang/dart-vim-plugin'
 
 " --- YAML ---
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
@@ -181,15 +246,15 @@ function! TrimWhitespace()
 endfunction
 command! TrimWhitespace call TrimWhitespace()
 
-Plugin 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 
 
 " --- File Indent Type Detection ---
-Plugin 'tpope/vim-sleuth'
+Plug 'tpope/vim-sleuth'
 
 
 " --- UI ---
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#displayed_head_limit = 15
@@ -260,9 +325,9 @@ nnoremap cp :let @+ = expand("%:p")<CR>
 
 " --- Buffer management ---
 " make it so that when a buffer is deleted, the window stays
-Plugin 'qpkorr/vim-bufkill'
+Plug 'qpkorr/vim-bufkill'
 " easier buffer management
-Plugin 'xolox/vim-misc'
+Plug 'xolox/vim-misc'
 " switch between buffers without saving
 set hidden
 " use alt-shift-j/k to go between buffers (ctrl-w closes buffers)
@@ -304,8 +369,8 @@ nnoremap <A-w> <C-w>c
 
 
 " --- Searching ---
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " search in files starting from directory with current buffer and working way up
 " query, [[ag options], options]
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')),
@@ -344,8 +409,20 @@ function! s:dirag(query, ...)
 endfunction
 command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 
-" Search current buffer names (to switch buffers)
-nnoremap <A-/> :Buffers<CR>
+" Search current buffer names (to switch buffers) and recently opened files
+command! FZFMru call fzf#run({
+\ 'source':  reverse(s:all_files()),
+\ 'sink':    'edit',
+\ 'options': '-m -x --tiebreak=end',
+\ 'down':    '40%' })
+nnoremap <A-/> :FZFMru<CR>
+
+function! s:all_files()
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
 
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
@@ -356,20 +433,20 @@ command! -bang -nargs=? -complete=dir Files
   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " --- Persistance ---
-Plugin 'zhimsel/vim-stay'
+Plug 'zhimsel/vim-stay'
 " stay/view will annoyingly remember to change working dirs when opening files
 " sometimes, this should prevent that
 set noautochdir
 
 
 " --- File Browsing ---
-Plugin 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-dirvish'
 autocmd FileType dirvish nnoremap <buffer> <C-p> :DirAg<CR>
 
 
 " --- Showing Changes and Diffing ---
-Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'mhinz/vim-signify'
+Plug 'ludovicchabant/vim-lawrencium'
+Plug 'mhinz/vim-signify'
 " update signify whenever we get focus, not just on save
 " let g:signify_update_on_focusgained = 1
 let g:signify_realtime = 1
@@ -434,12 +511,12 @@ com! DiffSaved call s:DiffWithSaved()
 
 
 " --- Motions ---
-Plugin 'christoomey/vim-sort-motion'
-Plugin 'justinmk/vim-sneak'
+Plug 'christoomey/vim-sort-motion'
+Plug 'justinmk/vim-sneak'
 
 
 " --- Parenthesis ---
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -462,21 +539,23 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['gray',        'RoyalBlue3'],
     \ ]
-Plugin 'tpope/vim-surround'
-Plugin 'cohama/lexima.vim'
+Plug 'tpope/vim-surround'
+Plug 'cohama/lexima.vim'
+let g:lexima_enable_basic_rules = 0
 
 
 " --- Color Code Highlighting ---
-Plugin 'RRethy/vim-hexokinase'
+"  requires termguicolors
+" Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " hex color highlighting - this is currently slow
-" Plugin 'chrisbra/Colorizer'
+" Plug 'chrisbra/Colorizer'
 " let g:colorizer_auto_color = 1
 
 
 " --- Reading Terminal Output ---
 " attmpts to make vim better when reading terminal data from kitty
-Plugin 'powerman/vim-plugin-AnsiEsc'
-Plugin 'rkitover/vimpager'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'rkitover/vimpager'
 
 
 " --- Bugfixes ---
@@ -487,21 +566,25 @@ set backspace=indent,eol,start
 set nofsync
 
 
+" -- Create directories on write if they don't already exist --
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+
 " --- Google ---
 source ~/.vim/google.vim
 
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line

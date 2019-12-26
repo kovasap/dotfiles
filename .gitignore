@@ -1,2 +1,3 @@
-.vim
 .steam
+.vim/bundle
+.ssh/id_rsa*

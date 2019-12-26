@@ -1,15 +1,52 @@
 if isdirectory("/google")
-  Plugin 'prabirshrestha/async.vim'
-  Plugin 'prabirshrestha/vim-lsp'
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
   " gotten by doing git clone sso://user/mcdermottm/vim-csearch
-  Plugin 'file:///usr/local/google/home/kovas/vim-csearch'
+  Plug 'file:///usr/local/google/home/kovas/vim-csearch'
 
-  set runtimepath-=~/.vim/bundle/YouCompleteMe
+  let g:coc_user_config = {
+    \ 'languageserver': {
+    \   'ciderlsp': {
+    \     'command': '/google/bin/releases/editor-devtools/ciderlsp',
+    \     'args': [
+    \       '--tooltag=coc-nvim',
+    \       '--noforward_sync_responses',
+    \       '-hub_addr=blade:languageservices-staging',
+    \     ],
+    \     'filetypes': [
+    \       'c',
+    \       'cpp',
+    \       'proto',
+    \       'textproto',
+    \       'go',
+    \       'python',
+    \       'java',
+    \       'borg'
+    \     ]
+    \   },
+    \   'kythe': {
+    \     'command': '/google/bin/releases/grok/tools/kythe_languageserver',
+    \     'args': [
+    \       '--google3'
+    \     ],
+    \     'filetypes': [
+    \       'python',
+    \       'go',
+    \       'java',
+    \       'cpp',
+    \       'proto'
+    \     ]
+    \   }
+    \ }
+    \}
+
+  " set runtimepath-=~/.vim/bundle/YouCompleteMe
   source /usr/share/vim/google/google.vim
-  Glug youcompleteme-google
+  " Glug youcompleteme-google
   Glug codefmt
   Glug codefmt-google
   Glug corpweb
+  Glug ultisnips-google
   " see https://user.git.corp.google.com/lerm/glint-ale/?pli=1
   Glug glug sources+=`$HOME . '/.vim/local'`
   Glug glint-ale
@@ -52,14 +89,14 @@ if isdirectory("/google")
   command! OpenFigFiles call OpenFigFiles()
   " nnoremap <C-a> :OpenFigFiles<CR>
 
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'Kythe Language Server',
-      \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
-      \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto', 'bzl'],
-      \})
-  nnoremap gd :<C-u>LspDefinition<CR>
-  nnoremap ga :<C-u>LspReferences<CR>
-  autocmd Filetype python nmap <buffer> gd :YcmCompleter GoTo<CR>
+  " au User lsp_setup call lsp#register_server({
+  "     \ 'name': 'Kythe Language Server',
+  "     \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
+  "     \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto', 'bzl'],
+  "     \})
+  " nnoremap gd :<C-u>LspDefinition<CR>
+  " nnoremap ga :<C-u>LspReferences<CR>
+  " autocmd Filetype python nmap <buffer> gd :YcmCompleter GoTo<CR>
   " disable jedi features in google land
   let g:jedi#completions_enabled = 0
   let g:jedi#goto_command = ""
