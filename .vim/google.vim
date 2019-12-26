@@ -4,8 +4,7 @@ if isdirectory("/google")
   " gotten by doing git clone sso://user/mcdermottm/vim-csearch
   Plug 'file:///usr/local/google/home/kovas/vim-csearch'
 
-  let g:coc_user_config = {
-    \ 'languageserver': {
+  let g:coc_user_config.languageserver = {
     \   'ciderlsp': {
     \     'command': '/google/bin/releases/editor-devtools/ciderlsp',
     \     'args': [
@@ -38,7 +37,6 @@ if isdirectory("/google")
     \     ]
     \   }
     \ }
-    \}
 
   " set runtimepath-=~/.vim/bundle/YouCompleteMe
   source /usr/share/vim/google/google.vim
@@ -155,8 +153,7 @@ if isdirectory("/google")
   " see https://sites.google.com/a/google.com/woodylin/gpylint-buffered-ale
   let g:ale_python_gpylint_executable = 'bash'
   let g:ale_python_gpylint_options = ' -c '."'".'tf=$(mktemp /tmp/tmp.gpylint.XXXXXX) ; trap "rm -rf $tf" 0 ; cat > $tf ; gpylint3 "$@" $tf'."'".' dummycmd --no-docstring-rgx=.'
-  " TODO remove this once https://github.com/w0rp/ale/issues/2613 is resolved
-  " let g:ale_enabled = 0
+  " see https://github.com/w0rp/ale/issues/2613
   let g:ale_use_global_executables = 1 " https://groups.google.com/a/google.com/d/msg/vi-users/Ib0esClj_5k/1yqQEonwBwAJ
   let g:ale_cache_executable_check_failures = 1
 

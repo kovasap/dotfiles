@@ -54,6 +54,7 @@ vnoremap <C-space> zF
 " nmap gc :YcmCompleter GetDoc<CR>
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_user_config = {}
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -130,7 +131,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 " --- Linting ---
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 let g:ale_linters = {}
 " move between errors
 nnoremap ]e :ALENextWrap<CR>
@@ -138,6 +139,7 @@ nnoremap [e :ALEPreviousWrap<CR>
 
 
 " --- Python ---
+Plug 'neoclide/coc-python'
 Plug 'davidhalter/jedi-vim'
 let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = ""
@@ -161,6 +163,8 @@ let g:ale_linters.python = ['flake8']
 " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
 
 " --- Clojure ---
+" Check out this init.vim for inspiration on configuration options:
+" https://github.com/nirrub/dotfiles/blob/master/init.vim
 Plug 'guns/vim-sexp'
 " remap vim-sexp commands that conflict with my other mappings
 let g:sexp_mappings = {'sexp_swap_list_backward': '<M-w>',
@@ -423,6 +427,10 @@ function! s:all_files()
   \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
+
+" The '1000 part of this will make it so that 1000 oldfiles are remembered (the
+" last 1000 files will be available with the FZFMru command)
+set shada=!,'1000,<50,s10,h
 
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
