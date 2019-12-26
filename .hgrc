@@ -26,6 +26,8 @@ status.relative = False
 # (see 'hg help extensions' for more info)
 #
 # churn =
+rebase =
+# evolve =
 
 [merge-tools]
 vimdiff.executable = nvim
