@@ -1,0 +1,3 @@
+[submodule "ProfileGem/kovas.gem"]
+	path = ProfileGem/kovas.gem
+	url = git@github.com:kovasap/kovas.gem.git
