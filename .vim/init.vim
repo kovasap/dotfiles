@@ -128,13 +128,13 @@ augroup end
 " Plug 'RRethy/vim-illuminate'
 " Snippits!
 " THIS WILL NOT WORK UNLESS THE NEOVIM PYTHON3 LIBRARY IS INSTALLED
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-h>"
-let g:UltiSnipsJumpForwardTrigger="<c-tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-s-tab>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" let g:UltiSnipsExpandTrigger="<c-h>"
+" let g:UltiSnipsJumpForwardTrigger="<c-tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-s-tab>"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
 
 
 " --- Linting ---
