@@ -14,11 +14,13 @@ libghc-xmonad-extras-dev
 cmake
 # https://github.com/hakerdefo/cmus-lyrics
 cmus
+feh
 fzf
 neovim
 python3
 visidata
 virtualenvwrapper
 ranger
+# https://dystroy.org/broot/documentation/usage/
 # through pip install:
 # neovim
