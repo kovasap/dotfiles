@@ -125,7 +125,7 @@ augroup end
 
 
 " Highlight current word with cursor on it across whole buffer
-" Plug 'RRethy/vim-illuminate'
+Plug 'RRethy/vim-illuminate'
 " Snippits!
 " THIS WILL NOT WORK UNLESS THE NEOVIM PYTHON3 LIBRARY IS INSTALLED
 " Plug 'SirVer/ultisnips'

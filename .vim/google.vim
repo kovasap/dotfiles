@@ -43,6 +43,8 @@ if isdirectory("/google")
   " Glug youcompleteme-google
   Glug codefmt
   Glug codefmt-google
+  nnoremap gqq :FormatLines<CR>
+  vnoremap gq :FormatLines<CR>
   Glug corpweb
   Glug ultisnips-google
   " see https://user.git.corp.google.com/lerm/glint-ale/?pli=1
