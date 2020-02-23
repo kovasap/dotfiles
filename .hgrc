@@ -47,3 +47,6 @@ ua = uploadall
 # uniquely identify them)
 # See https://groups.google.com/a/google.com/forum/#!searchin/fig-users/kovas%7Csort:date/fig-users/z7aUho8Re6k/K4NzsYrpCgAJ
 revisions.prefixhexnode = True
+
+[google]
+show-export-client-info-in-sponge = True

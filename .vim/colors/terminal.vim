@@ -20,13 +20,13 @@ highlight Float ctermfg=12
 highlight Identifier cterm=none ctermfg=3
 highlight Function ctermfg=10
 
-highlight Statement ctermfg=13
-highlight Conditional ctermfg=13
+highlight Statement ctermfg=5
+highlight Conditional ctermfg=5
 highlight default link Repeat Statement
 highlight default link Label Statement
 highlight default link Keyword Statement
 highlight default link Exception Statement
-highlight Operator ctermfg=13
+highlight Operator ctermfg=5
 
 highlight PreProc ctermfg=2
 highlight Include ctermfg=11

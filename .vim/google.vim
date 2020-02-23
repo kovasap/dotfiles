@@ -1,6 +1,6 @@
 if isdirectory("/google")
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
+  " Plug 'prabirshrestha/async.vim'
+  " Plug 'prabirshrestha/vim-lsp'
   " gotten by doing git clone sso://user/mcdermottm/vim-csearch
   Plug 'file:///usr/local/google/home/kovas/vim-csearch'
 
@@ -20,6 +20,7 @@ if isdirectory("/google")
     \       'go',
     \       'python',
     \       'java',
+    \       'bzl',
     \       'borg'
     \     ]
     \   },
@@ -33,6 +34,7 @@ if isdirectory("/google")
     \       'go',
     \       'java',
     \       'cpp',
+    \       'bzl',
     \       'proto'
     \     ]
     \   }
@@ -43,13 +45,20 @@ if isdirectory("/google")
   " Glug youcompleteme-google
   Glug codefmt
   Glug codefmt-google
-  nnoremap gqq :FormatLines<CR>
-  vnoremap gq :FormatLines<CR>
+  nnoremap gll :FormatLines<CR>
+  vnoremap gl :FormatLines<CR>
   Glug corpweb
   Glug ultisnips-google
   " see https://user.git.corp.google.com/lerm/glint-ale/?pli=1
   Glug glug sources+=`$HOME . '/.vim/local'`
   Glug glint-ale
+
+  " go/include-fixer
+  "Normal mode.
+  nnoremap <leader>cf :let g:clang_include_fixer_query_mode=0<cr>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
+  "Query mode.
+  nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<cr>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
+
   " Glug csearch
   " Fix BUILD dependencies when writing file
   " Glug blazedeps
@@ -143,9 +152,8 @@ if isdirectory("/google")
   let g:ale_linters.javascript = ['glint']
   let g:ale_linters.proto = ['glint']
   let g:ale_linters.bzl = ['glint']
-  " we use go/ycm and clangd for linting
-  let g:ale_linters.c = []
-  let g:ale_linters.cpp = []
+  let g:ale_linters.c = ['glint']
+  let g:ale_linters.cpp = ['glint']
   let g:ale_linters.go = ['govet']
   " By default, ale attempts to traverse up the file directory to find a
   " virtualenv installation. This can cause high latency (~15s) in citc clients

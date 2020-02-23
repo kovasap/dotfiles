@@ -307,6 +307,12 @@ set mouse=a
 " line numbering
 set number
 set relativenumber
+" Animation!
+Plug 'camspiers/animate.vim'
+" Hightlight variable names differently
+Plug 'jaxbot/semantic-highlight.vim'
+" Hint for key maps
+" Plug 'liuchengxu/vim-which-key'
 
 
 " --- Navigation ---
@@ -324,6 +330,14 @@ nnoremap <C-k> :keepjumps normal 10kzz<CR>
 vnoremap <C-k> 10kzz
 
 nnoremap <C-b> <C-v>
+
+" Text objects/motions for moving between indented blocks.
+" Key bindings	Description
+" <count>ai	An Indentation level and line above.
+" <count>ii	Inner Indentation level (no line above).
+" <count>aI	An Indentation level and lines above/below.
+" <count>iI	Inner Indentation level (no lines above/below).
+Plug 'michaeljsmith/vim-indent-object'
 
 
 " --- Clipboard ---
@@ -364,6 +378,18 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+" Switch between h/cc files (and other related files)
+Plug 'kana/vim-altr'
+nmap <A-L> <Plug>(altr-forward)
+nmap <A-H> <Plug>(altr-back)
+" Do this in an autocommand so that the function is actually loaded before it is
+" called.
+" This currently goes through all py and BUILD files in a directory - not
+" exactly what we want.
+" au VimEnter * call altr#define('%/*.py', '%/BUILD')
+" Goes to BUILD file in same directory as current file to first line with
+" current filename
+nnoremap gb :execute 'e +/' . escape(escape(expand('%:t'), '.'), '.') . ' %:h/BUILD'<CR>
 
 
 " --- Window Management ---
@@ -382,6 +408,9 @@ nnoremap <A-w> <C-w>c
 " --- Searching ---
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+let g:fzf_layout = {
+ \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
+\ }
 " search in files starting from directory with current buffer and working way up
 " query, [[ag options], options]
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')),
