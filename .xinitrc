@@ -18,13 +18,13 @@ xautolock -time 10 -locker ~/bin/screensaver.sh &
 redshift -O 3000 -b 0.9:0.9
 bash ~/bin/run-compton.bash
 
-# set background image
-feh --bg-fill ~/wallpaper.jpg
-
 # hide mouse pointer after idling
 # unclutter -idle 10 -root -grab &
 
 ~/bin/setup-monitors.bash forked
+
+# set background image
+feh --bg-fill ~/wallpaper.jpg
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)

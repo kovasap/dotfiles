@@ -179,9 +179,9 @@ myConfig = defaultConfig
     , ((mod4Mask, xK_r), sendMessage $ Toggle REFLECTY)
     , ((mod4Mask, xK_Escape), spawn "~/bin/screensaver.sh")
     , ((mod4Mask, xK_p), spawn "j4-dmenu-desktop")
-    , ((mod4Mask, xK_Return), spawn "~/.local/kitty.app/bin/kitty")
+    , ((mod4Mask, xK_Return), spawn "~/bin/kitty")
     , ((shiftMask .|. mod4Mask, xK_Return),
-       spawn "~/.local/kitty.app/bin/kitty /bin/bash --rcfile ~/google_desktop.bash")
+       spawn "~/bin/kitty /bin/bash --rcfile ~/google_desktop.bash")
     , ((mod4Mask, xK_backslash), spawn "google-chrome")
     -- , ((mod4Mask, xK_f), sendMessage TL.ToggleLayout)
     ]

@@ -1,39 +1,12 @@
 {
 	"name": "Vimium C",
-	"@time": "6/19/2019, 3:53:02 PM",
-	"time": 1560984782327,
+	"@time": "2/10/2020, 11:08:46 AM",
+	"time": 1581361726314,
 	"environment": {
-		"extension": "1.75.7",
+		"extension": "1.80.1",
 		"platform": "linux",
-		"chrome": 75
+		"chrome": 79
 	},
-	"keyMappings": [
-		"map <a-c-k> moveTabLeft",
-		"map <a-c-j> moveTabRight",
-		"map <a-c-l> moveTabToNextWindow",
-		"",
-		"map <a-/> Vomnibar.activateTabSelection",
-		"map <c-/> Vomnibar.activateInNewTab",
-		"",
-		"map <a-k> previousTab",
-		"map <a-j> nextTab",
-		"map <a-h> goBack",
-		"map <a-l> goForward",
-		"unmap J",
-		"unmap K",
-		"unmap H",
-		"unmap L",
-		""
-	],
-	"extWhiteList": [
-		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",
-		"ekohaelnhhdhbccgefjmjpdjoijhojgd",
-		"hdnehngglnbnehkfcidabjckinphnief",
-		"nacjakoppgmdcpemlfnfegmlhipddanj",
-		"lcopgfbpbmionefhhgbamgmejggljpbb",
-		""
-	],
-	"showAdvancedOptions": true,
 	"exclusionRules": [
 		{
 			"pattern": "^https?://mail.google.com/*",
@@ -58,7 +31,46 @@
 		{
 			"pattern": "^https?://about:blank*/",
 			"passKeys": "t "
+		},
+		{
+			"pattern": ":https://plx.corp.google.com/",
+			"passKeys": ""
+		},
+		{
+			"pattern": ":https://colab.corp.google.com/",
+			"passKeys": ""
+		},
+		{
+			"pattern": ":https://calendar.google.com/",
+			"passKeys": "/ ? c e j k "
 		}
 	],
-	"showAdvancedCommands": true
+	"extAllowList": [
+		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",
+		"ekohaelnhhdhbccgefjmjpdjoijhojgd",
+		"hdnehngglnbnehkfcidabjckinphnief",
+		"nacjakoppgmdcpemlfnfegmlhipddanj",
+		"lcopgfbpbmionefhhgbamgmejggljpbb",
+		""
+	],
+	"keyMappings": [
+		"map <a-c-k> moveTabLeft",
+		"map <a-c-j> moveTabRight",
+		"map <a-c-l> moveTabToNextWindow",
+		"",
+		"map <a-/> Vomnibar.activateTabSelection",
+		"map <c-/> Vomnibar.activateInNewTab",
+		"",
+		"map <a-k> previousTab",
+		"map <a-j> nextTab",
+		"map <a-h> goBack",
+		"map <a-l> goForward",
+		"unmap J",
+		"unmap K",
+		"unmap H",
+		"unmap L",
+		""
+	],
+	"showAdvancedCommands": true,
+	"showAdvancedOptions": true
 }
