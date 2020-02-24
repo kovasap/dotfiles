@@ -26,5 +26,8 @@ bash ~/bin/run-compton.bash
 # set background image
 feh --bg-fill ~/wallpaper.jpg
 
+# Start selfspy
+nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
+
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
