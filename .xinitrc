@@ -24,7 +24,7 @@ bash ~/bin/run-compton.bash
 ~/bin/setup-monitors.bash forked
 
 # set background image
-feh --bg-fill ~/wallpaper.jpg
+feh --bg-fill ~/wallpaper
 
 # Start selfspy
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &

@@ -24,7 +24,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Grid
 import XMonad.Layout.IndependentScreens
--- import qualified XMonad.Layout.Spacing as S
+import XMonad.Layout.Spacing
 -- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- TODO try using barCreator/barDestroyer from
@@ -88,7 +88,11 @@ myConfig = defaultConfig
     , layoutHook = mkToggle (single REFLECTX) $
                    mkToggle (single REFLECTY) $
                    -- to add spacing around windows
-                   -- S.smartSpacing 0 $
+                   -- Arguments:
+                   -- (add space only for 2+ windows)
+                   -- (Border around screen) (Border enabled?)
+                   -- (Border around windows) (Border enabled?)
+                   spacingRaw False (Border 0 2 2 2) True (Border 3 3 3 3) True $
                    (mouseResizableTile{fracIncrement=0.02, draggerType=BordersDragger}
                     ||| Full
                     ||| mouseResizableTile{nmaster=2, fracIncrement=0.02, draggerType=BordersDragger}
