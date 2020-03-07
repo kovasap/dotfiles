@@ -232,10 +232,10 @@ autocmd FileType bzl setlocal shiftwidth=4 tabstop=4
 set wrap
 set linebreak
 set nolist  " list disables linebreak
-set textwidth=80
+set textwidth=79
 set wrapmargin=0
 set formatoptions+=l
-set formatoptions+=t  " should wrap lines after 80 characters
+set formatoptions+=t  " should wrap lines after 79 characters
 " make new lines indent automatically
 set autoindent
 " should reformat paragraphs whenever typing in them (not just at the end)
