@@ -1,0 +1,34 @@
+# Packages to install via apt or other distro-based package manager.
+alsa-utils	# for get_volume xmobar script
+j4-dmenu-desktop
+xmonad
+xmobar
+xautolock
+libghc-xmonad-contrib-dev
+libghc-xmonad-contrib-doc
+libghc-xmonad-dev
+libghc-xmonad-doc
+libghc-xmonad-extras-dev
+cmake
+cmus
+feh
+fzf
+neovim
+python3
+visidata
+virtualenvwrapper
+# Chrome extensions:
+# https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom
+# https://chrome.google.com/webstore/detail/vimium-c-all-by-keyboard/hfjbmagddngcpeloejdejnfgbamkjaeg?hl=en
+# https://chrome.google.com/webstore/detail/url-in-title/ignpacbgnbnkaiooknalneoeladjnfgb - useful for selfspy link saving
+# Python packages to get via pip:
+# neovim
+# Packages to install from github or online download:
+# https://github.com/Ventto/lux
+# https://github.com/iheanyi/bandcamp-dl
+# https://sw.kovidgoyal.net/kitty/
+# https://github.com/hakerdefo/cmus-lyrics
+# https://github.com/kovasap/selfspy
+# https://github.com/kovasap/compton
+# Android apps
+# App Usage - https://play.google.com/store/apps/details?id=com.a0soft.gphone.uninstaller&hl=en_US
