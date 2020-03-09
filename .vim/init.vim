@@ -61,6 +61,7 @@ vnoremap <C-space> zF
 " nmap gc :YcmCompleter GetDoc<CR>
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-lines'
 let g:coc_user_config = {}
 " Some servers have issues with backup files, see #649
 set nobackup

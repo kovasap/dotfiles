@@ -29,5 +29,10 @@ feh --bg-fill ~/wallpaper
 rm ~/.selfspy/selfspy.pid.lock
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
 
+# Mount Google Drive
+# See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
+rclone mount googledrive: ~/google-drive/ &
+# To unmount, do `fusermount -uz /data`
+
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
