@@ -25,6 +25,7 @@ import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Grid
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.Spacing
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 -- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- TODO try using barCreator/barDestroyer from
@@ -175,6 +176,11 @@ myConfig = defaultConfig
     -- show next/previous screen (for multi monitor setup)
     , ((shiftMask .|. mod4Mask, xK_k), onPrevNeighbour def W.view)
     , ((shiftMask .|. mod4Mask, xK_j), onNextNeighbour def W.view)
+    -- cycle through workspaces ignoring those already displayed on other
+    -- monitors
+    , ((shiftMask .|. mod4Mask, xK_h), DO.moveTo Prev HiddenNonEmptyWS)
+    , ((shiftMask .|. mod4Mask, xK_l), DO.moveTo Next HiddenNonEmptyWS)
+    -- move windows around in a single workspace
     , ((mod4Mask, xK_h), windows W.swapUp)
     , ((mod4Mask, xK_l), windows W.swapDown)
     -- , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)
