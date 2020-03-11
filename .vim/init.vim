@@ -168,6 +168,59 @@ let g:ale_linters.python = ['flake8']
 " E402 requires all imports be at top of file
 " E302 requires blank lines before module-level functions
 " let g:ale_python_flake8_options = ' --ignore=E306,E402,E302 '
+" From https://vi.stackexchange.com/questions/839/how-can-i-reformat-a-multi-line-string-in-vim-when-using-the-python-filetype
+function ReformatMultiLines()
+  let brx = '^\s*"'
+  let erx = '"\s*$'
+  let fullrx = brx . '\(.\+\)' . erx
+  let startLine = line(".")
+  let endLine   = line(".")
+  while getline(startLine) =~ fullrx
+    let startLine -= 1
+  endwhile
+  if getline(endLine) =~ erx
+    let endLine += 1
+  endif
+  while getline(endLine) =~ fullrx
+    let endLine += 1
+  endwhile
+  if startLine != endLine
+    exec endLine . ' s/' . brx . '//'
+    exec startLine . ' s/' . erx . '//'
+    exec startLine . ',' . endLine . ' s/' . fullrx . '/\1/'
+    exec startLine . ',' . endLine . ' join'
+  endif
+  exec startLine
+  let orig_tw = &tw
+  if &tw == 0
+    let &tw = &columns
+    if &tw > 79
+      let &tw = 79
+    endif
+  endif
+  let &tw -= 3 " Adjust for missing quotes and space characters
+  exec "normal A%-%\<Esc>gqq"
+  let &tw = orig_tw
+  let endLine = search("%-%$")
+  exec endLine . ' s/%-%$//'
+  if startLine == endLine
+    return
+  endif
+  exec endLine
+  exec "normal I'"
+  exec startLine
+  exec "normal A '"
+  if endLine - startLine == 1
+    return
+  endif
+  let startLine += 1
+  while startLine != endLine
+    exec startLine
+    exec "normal I'"
+    exec "normal A '"
+    let startLine += 1
+  endwhile
+endfunction
 
 " --- Clojure ---
 " Check out this init.vim for inspiration on configuration options:
