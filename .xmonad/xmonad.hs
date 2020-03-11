@@ -24,7 +24,8 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Grid
 import XMonad.Layout.IndependentScreens
--- import qualified XMonad.Layout.Spacing as S
+import XMonad.Layout.Spacing
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 -- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- TODO try using barCreator/barDestroyer from
@@ -88,7 +89,11 @@ myConfig = defaultConfig
     , layoutHook = mkToggle (single REFLECTX) $
                    mkToggle (single REFLECTY) $
                    -- to add spacing around windows
-                   -- S.smartSpacing 0 $
+                   -- Arguments:
+                   -- (add space only for 2+ windows)
+                   -- (Border around screen) (Border enabled?)
+                   -- (Border around windows) (Border enabled?)
+                   spacingRaw False (Border 0 2 2 2) True (Border 3 3 3 3) True $
                    (mouseResizableTile{fracIncrement=0.02, draggerType=BordersDragger}
                     ||| Full
                     ||| mouseResizableTile{nmaster=2, fracIncrement=0.02, draggerType=BordersDragger}
@@ -171,6 +176,11 @@ myConfig = defaultConfig
     -- show next/previous screen (for multi monitor setup)
     , ((shiftMask .|. mod4Mask, xK_k), onPrevNeighbour def W.view)
     , ((shiftMask .|. mod4Mask, xK_j), onNextNeighbour def W.view)
+    -- cycle through workspaces ignoring those already displayed on other
+    -- monitors
+    , ((shiftMask .|. mod4Mask, xK_h), DO.moveTo Prev HiddenNonEmptyWS)
+    , ((shiftMask .|. mod4Mask, xK_l), DO.moveTo Next HiddenNonEmptyWS)
+    -- move windows around in a single workspace
     , ((mod4Mask, xK_h), windows W.swapUp)
     , ((mod4Mask, xK_l), windows W.swapDown)
     -- , ((shiftMask .|. mod4Mask, xK_j), sendMessage NextLayout)

@@ -16,7 +16,6 @@ xautolock -time 10 -locker ~/bin/screensaver.sh &
 
 # change brightness and color temperature
 redshift -O 3000 -b 0.9:0.9
-bash ~/bin/run-compton.bash
 
 # hide mouse pointer after idling
 # unclutter -idle 10 -root -grab &
@@ -24,10 +23,16 @@ bash ~/bin/run-compton.bash
 ~/bin/setup-monitors.bash forked
 
 # set background image
-feh --bg-fill ~/wallpaper.jpg
+feh --bg-fill ~/wallpaper
 
 # Start selfspy
+rm ~/.selfspy/selfspy.pid.lock
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
+
+# Mount Google Drive
+# See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
+rclone mount googledrive: ~/google-drive/ &
+# To unmount, do `fusermount -uz /data`
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
