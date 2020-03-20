@@ -504,10 +504,13 @@ endfunction
 command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 
 " Search current buffer names (to switch buffers) and recently opened files
+" See https://github.com/junegunn/fzf/issues/926 for discussion about options
+" field.  Here I set it up so that open buffers (ones without absolute paths
+" generally) will be listed first in the fzf results.
 command! FZFMru call fzf#run({
 \ 'source':  reverse(s:all_files()),
 \ 'sink':    'edit',
-\ 'options': '-m -x --tiebreak=end',
+\ 'options': '-m -x --tiebreak=length --nth=-1,.. --delimiter=/',
 \ 'down':    '40%' })
 nnoremap <A-/> :FZFMru<CR>
 
