@@ -367,6 +367,10 @@ Plug 'camspiers/animate.vim'
 Plug 'jaxbot/semantic-highlight.vim'
 " Hint for key maps
 " Plug 'liuchengxu/vim-which-key'
+" Indentation line hints
+Plug 'Yggdroot/indentLine'
+let g:indentLine_color_term = 0
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " Set title of (e.g. X11) window vim is in
 set title
 
