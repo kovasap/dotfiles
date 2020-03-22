@@ -367,6 +367,8 @@ Plug 'camspiers/animate.vim'
 Plug 'jaxbot/semantic-highlight.vim'
 " Hint for key maps
 " Plug 'liuchengxu/vim-which-key'
+" Set title of (e.g. X11) window vim is in
+set title
 
 
 " --- Navigation ---
