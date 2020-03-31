@@ -46,6 +46,10 @@ vnoremap <C-space> zF
 " augroup END
 
 
+" --- Editing Shortcuts ---
+nnoremap cW :%s/\<<C-r><C-w>\>/
+
+
 " --- Language features (autocomplete and go to definition) ---
 " if !isdirectory("/google")
 "   Plug 'Valloric/YouCompleteMe'
@@ -468,6 +472,11 @@ nnoremap <A-w> <C-w>c
 " --- Searching ---
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = {
  \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
 \ }
