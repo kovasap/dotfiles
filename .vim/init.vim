@@ -46,6 +46,10 @@ vnoremap <C-space> zF
 " augroup END
 
 
+" --- Editing Shortcuts ---
+nnoremap cW :%s/\<<C-r><C-w>\>/
+
+
 " --- Language features (autocomplete and go to definition) ---
 " if !isdirectory("/google")
 "   Plug 'Valloric/YouCompleteMe'
@@ -373,6 +377,7 @@ let g:indentLine_color_term = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " Set title of (e.g. X11) window vim is in
 set title
+" see :h statusline for info about how to customize this
 set titlestring=%t\ (%{expand('%:~:.:h')})\ -\ NVIM
 
 
@@ -469,6 +474,11 @@ nnoremap <A-w> <C-w>c
 " --- Searching ---
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = {
  \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
 \ }
