@@ -38,8 +38,6 @@ mod = "mod4"
 keys = [
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "j", lazy.layout.down()),
-    Key([mod], "h", lazy.layout.left()),
-    Key([mod], "l", lazy.layout.right()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -51,8 +49,8 @@ keys = [
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
-    Key([mod, "control"], "k", lazy.prev_screen()),
-    Key([mod, "control"], "j", lazy.next_screen()),
+    Key([mod], "h", lazy.prev_screen()),
+    Key([mod], "l", lazy.next_screen()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -101,13 +99,13 @@ layout_theme = {
 }
 
 layouts = [
-    layout.Max(),
-    layout.Stack(num_stacks=2),
+    layout.Max(**layout_theme),
+    # layout.Stack(num_stacks=2, **layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    layout.MonadTall(),
+    layout.MonadTall(**layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
