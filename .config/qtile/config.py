@@ -29,7 +29,12 @@ from Xlib import display as xdisplay
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
+
+# Log location is at ~/.local/share/qtile/qtile.log
+from libqtile.log_utils import logger
+
+
 
 mod = "mod4"
 
@@ -38,6 +43,13 @@ mod = "mod4"
 keys = [
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "j", lazy.layout.down()),
+
+    # Skip managed ignores groups already on a screen.
+    Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
+    Key([mod], "l", lazy.screen.next_group(skip_managed=True, skip_empty=True)),
+
+    Key([mod], "n", lazy.prev_screen()),
+    Key([mod], "m", lazy.next_screen()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -49,8 +61,6 @@ keys = [
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
-    Key([mod], "h", lazy.prev_screen()),
-    Key([mod], "l", lazy.next_screen()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -65,6 +75,7 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+
     Key([mod], "Return", lazy.spawn("kitty")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
 
@@ -180,6 +191,14 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
+
+@hook.subscribe.client_new
+def floating_dialogs(window):
+    # logger.warning(str(window.window.get_wm_class()))
+    # logger.warning(str(window.window.get_name()))
+    # logger.warning(str(window.window.get_wm_type()))
+    if 'Godot' == window.window.get_wm_class()[1]:
+        window.floating = True
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
