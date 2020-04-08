@@ -66,7 +66,7 @@ nnoremap cW :%s/\<<C-r><C-w>\>/
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-lines'
-let g:coc_user_config = {}
+let g:coc_user_config = {'languageserver': {}}
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -231,12 +231,10 @@ endfunction
 " See https://github.com/godotengine/godot/issues/34523#issuecomment-582144661
 Plug 'calviken/vim-gdscript3'
 let g:coc_user_config.languageserver.godot = {
-    'godot': {
-      'host': '127.0.0.1',
-      'filetypes': ['gd', 'gdscript3'],
-      'port': 6008
-    }
-}
+ \    'host': '127.0.0.1',
+ \    'filetypes': ['gd', 'gdscript3'],
+ \    'port': 6008
+ \  }
 
 
 " --- Clojure ---
