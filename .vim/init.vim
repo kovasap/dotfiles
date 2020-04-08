@@ -161,7 +161,9 @@ let g:jedi#documentation_command = "gc"
 let g:jedi#usages_command = "ga"
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = "gr"
-Plug 'Vimjas/vim-python-pep8-indent'
+if !isdirectory("/google")
+  Plug 'Vimjas/vim-python-pep8-indent'
+endif
 Plug 'vim-python/python-syntax'
 let g:python_highlight_all = 1
 let g:python_highlight_class_vars = 1
