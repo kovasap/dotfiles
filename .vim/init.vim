@@ -71,7 +71,7 @@ let g:coc_user_config = {'languageserver': {}}
 set nobackup
 set nowritebackup
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 " don't give |ins-completion-menu| messages.
@@ -114,7 +114,7 @@ function! s:show_documentation()
   endif
 endfunction
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * if !bufexists("[Command Line]") | silent call CocActionAsync('highlight') | endif
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 " Remap for format selected region
@@ -450,7 +450,7 @@ command! BDandquit :call s:quitiflast()
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
@@ -669,6 +669,8 @@ let g:rbpt_colorpairs = [
     \ ['gray',        'RoyalBlue3'],
     \ ]
 Plug 'tpope/vim-surround'
+" So that you can repeat surround commands with '.'
+Plug 'tpope/vim-repeat'
 Plug 'cohama/lexima.vim'
 let g:lexima_enable_basic_rules = 0
 
