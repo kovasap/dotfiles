@@ -102,7 +102,6 @@ keys = [
     # , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
     # , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
 
-
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
 
