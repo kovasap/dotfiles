@@ -227,6 +227,18 @@ function ReformatMultiLines()
   endwhile
 endfunction
 
+" --- GDScript ---
+" See https://github.com/godotengine/godot/issues/34523#issuecomment-582144661
+Plug 'calviken/vim-gdscript3'
+let g:coc_user_config.languageserver.godot = {
+    'godot': {
+      'host': '127.0.0.1',
+      'filetypes': ['gd', 'gdscript3'],
+      'port': 6008
+    }
+}
+
+
 " --- Clojure ---
 " Check out this init.vim for inspiration on configuration options:
 " https://github.com/nirrub/dotfiles/blob/master/init.vim
