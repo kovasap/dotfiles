@@ -150,6 +150,14 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+graph_args = dict(
+    samples=100,
+    graph_color='#7C8A16',
+    fill_color='#7C8A16.3',
+    border_color='5E5118.5',
+    width=40,
+)
+
 
 def get_widgets():
     return [
@@ -157,22 +165,29 @@ def get_widgets():
         widget.GroupBox(),
         widget.WindowName(),
         widget.TextBox(" | ", name="separator"),
-        widget.Clipboard(max_width=300, timeout=None),
+        widget.Clipboard(max_width=50, timeout=None),
         widget.TextBox(" | ", name="separator"),
         widget.TextBox("CPU", name="cpu_label"),
-        widget.CPUGraph(),
+        widget.CPUGraph(**graph_args),
         widget.TextBox("Mem", name="memory_label"),
-        widget.MemoryGraph(),
+        widget.MemoryGraph(**graph_args),
         widget.TextBox("Net", name="net_label"),
-        widget.NetGraph(),
+        widget.NetGraph(**graph_args),
+        widget.TextBox("Dsk", name="disk_label"),
+        widget.HDDBusyGraph(**graph_args),
+        widget.HDDGraph(**graph_args),
+        widget.TextBox(" | ", name="separator"),
         widget.TextBox("Vol", name="volume_label"),
         widget.Volume(),
-        widget.Battery(format='Bat {percent:2.0%} {char}{watt:.2f}W',
+        widget.TextBox(" | ", name="separator"),
+        widget.Battery(format='Bat {percent:2.0%} {char}{watt:.1f}W',
                        charge_char='+', discharge_char='-',
                        update_interval=15,  # seconds
                        ),
-        widget.TextBox("Brt", name="brightness_label"),
-        widget.Backlight(backlight_name='intel_backlight'),
+        widget.TextBox(" | ", name="separator"),
+        widget.Backlight(format='Brt {percent: 2.0%}',
+                         backlight_name='intel_backlight'),
+        widget.TextBox(" | ", name="separator"),
         widget.Systray(),
         widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
     ]
