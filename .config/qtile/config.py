@@ -23,6 +23,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import subprocess
 from typing import List  # noqa: F401
 
 from Xlib import display as xdisplay
@@ -158,6 +159,10 @@ graph_args = dict(
     width=40,
 )
 
+def qdirstat_callback(qt):
+    logger.warning('qditstating')
+    return subprocess.Popen('qdirstat', shell=True)
+
 
 def get_widgets():
     return [
@@ -173,7 +178,9 @@ def get_widgets():
         widget.MemoryGraph(**graph_args),
         widget.TextBox("Net", name="net_label"),
         widget.NetGraph(**graph_args),
-        widget.TextBox("Dsk", name="disk_label"),
+        widget.TextBox("Dsk",
+                       mouse_callbacks={'Button1': qdirstat_callback},
+                       name="disk_label"),
         widget.HDDBusyGraph(**graph_args),
         widget.HDDGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
