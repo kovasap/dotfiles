@@ -26,6 +26,7 @@ redshift -O 3000 -b 0.9:0.9
 feh --bg-fill ~/wallpaper
 
 # Start selfspy
+pkill selfspy
 rm ~/.selfspy/selfspy.pid.lock
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
 

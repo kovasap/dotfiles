@@ -68,39 +68,11 @@ keys = [
     Key([], "XF86AudioMute",
         lazy.spawn("amixer sset Master toggle")),
 
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightness.sh up")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightness.sh down")),
+
     # ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
     # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
-    # -- TODO trying using this bash script instead of lux:
-    # -- #!/bin/sh
-    # --
-    # -- # this directory is a symlink on my machine:
-    # -- KEYS_DIR=/sys/class/backlight/intel_backlight
-    # -- INC=10
-    # -- MUL=2
-    # --  
-    # -- test -d $KEYS_DIR || exit 0
-    # --  
-    # -- MIN=1
-    # -- MAX=$(cat $KEYS_DIR/max_brightness)
-    # -- VAL=$(cat $KEYS_DIR/brightness)
-    # --  
-    # -- if [ "$1" = down ]; then
-    # -- # VAL=$((VAL-$INC))
-    # --   VAL=$((VAL*2/3))
-    # -- else
-    # -- # VAL=$((VAL+$INC))
-    # --   VAL=$((VAL*3/2+1))
-    # -- fi
-    # --  
-    # -- if [ "$VAL" -lt $MIN ]; then
-    # --   VAL=$MIN
-    # -- elif [ "$VAL" -gt $MAX ]; then
-    # --   VAL=$MAX
-    # -- fi
-    # --  
-    # -- echo $VAL > $KEYS_DIR/brightness
-    # , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
-    # , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -116,10 +88,13 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
-    Key([mod], "Escape", lazy.spawn("~/bin/screensaver.sh")),
+    Key([mod], "c", lazy.spawn('copyq previous')),
+    Key([mod], "v", lazy.spawn('copyq next')),
+
+    Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod], "Return", lazy.spawn("kitty")),
     Key([mod, 'shift'], "Return",
-        lazy.spawn("~/bin/kitty /bin/bash --rcfile ~/google_desktop.bash")),
+        lazy.spawn("kitty /bin/bash --rcfile ~/google_desktop.bash")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
 
     # Toggle between different layouts as defined below
@@ -180,12 +155,26 @@ def get_widgets():
     return [
         widget.CurrentLayout(),
         widget.GroupBox(),
-        widget.Prompt(),
         widget.WindowName(),
-        widget.TextBox("default config", name="default"),
+        widget.TextBox(" | ", name="separator"),
+        widget.Clipboard(max_width=300, timeout=None),
+        widget.TextBox(" | ", name="separator"),
+        widget.TextBox("CPU", name="cpu_label"),
+        widget.CPUGraph(),
+        widget.TextBox("Mem", name="memory_label"),
+        widget.MemoryGraph(),
+        widget.TextBox("Net", name="net_label"),
+        widget.NetGraph(),
+        widget.TextBox("Vol", name="volume_label"),
+        widget.Volume(),
+        widget.Battery(format='Bat {percent:2.0%} {char}{watt:.2f}W',
+                       charge_char='+', discharge_char='-',
+                       update_interval=15,  # seconds
+                       ),
+        widget.TextBox("Brt", name="brightness_label"),
+        widget.Backlight(backlight_name='intel_backlight'),
         widget.Systray(),
         widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-        widget.QuickExit(),
     ]
 
 bar_config = dict(
