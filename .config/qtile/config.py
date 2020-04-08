@@ -61,6 +61,47 @@ keys = [
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
+    Key([], "XF86AudioRaiseVolume",
+        lazy.spawn("amixer sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume",
+        lazy.spawn("amixer sset Master 5%-")),
+    Key([], "XF86AudioMute",
+        lazy.spawn("amixer sset Master toggle")),
+
+    # ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
+    # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
+    # -- TODO trying using this bash script instead of lux:
+    # -- #!/bin/sh
+    # --
+    # -- # this directory is a symlink on my machine:
+    # -- KEYS_DIR=/sys/class/backlight/intel_backlight
+    # -- INC=10
+    # -- MUL=2
+    # --  
+    # -- test -d $KEYS_DIR || exit 0
+    # --  
+    # -- MIN=1
+    # -- MAX=$(cat $KEYS_DIR/max_brightness)
+    # -- VAL=$(cat $KEYS_DIR/brightness)
+    # --  
+    # -- if [ "$1" = down ]; then
+    # -- # VAL=$((VAL-$INC))
+    # --   VAL=$((VAL*2/3))
+    # -- else
+    # -- # VAL=$((VAL+$INC))
+    # --   VAL=$((VAL*3/2+1))
+    # -- fi
+    # --  
+    # -- if [ "$VAL" -lt $MIN ]; then
+    # --   VAL=$MIN
+    # -- elif [ "$VAL" -gt $MAX ]; then
+    # --   VAL=$MAX
+    # -- fi
+    # --  
+    # -- echo $VAL > $KEYS_DIR/brightness
+    # , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
+    # , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
+
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -76,7 +117,10 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
+    Key([mod], "Escape", lazy.spawn("~/bin/screensaver.sh")),
     Key([mod], "Return", lazy.spawn("kitty")),
+    Key([mod, 'shift'], "Return",
+        lazy.spawn("~/bin/kitty /bin/bash --rcfile ~/google_desktop.bash")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
 
     # Toggle between different layouts as defined below
@@ -85,7 +129,7 @@ keys = [
 
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawncmd()),
+    Key([mod], "r", lazy.spawn("j4-dmenu-desktop")),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -216,6 +260,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'notification'},
     {'wmclass': 'splash'},
     {'wmclass': 'toolbar'},
+    {'wname': 'meet.google.com is sharing a window.'},
     {'wmclass': 'confirmreset'},  # gitk
     {'wmclass': 'makebranch'},  # gitk
     {'wmclass': 'maketag'},  # gitk

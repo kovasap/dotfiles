@@ -375,6 +375,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'Yggdroot/indentLine'
 let g:indentLine_color_term = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_setConceal = 0
 " Set title of (e.g. X11) window vim is in
 set title
 " see :h statusline for info about how to customize this
