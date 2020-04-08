@@ -1,6 +1,8 @@
 # Packages to install via apt or other distro-based package manager.
 alsa-utils	# for get_volume xmobar script
 j4-dmenu-desktop
+copyq
+qdirstat
 xmonad
 xmobar
 xautolock
