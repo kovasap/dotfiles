@@ -59,6 +59,8 @@ keys = [
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
+    Key([mod, "shift"], "equal", lazy.layout.maximize()),
+    Key([mod, "shift"], "minus", lazy.layout.minimize()),
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
@@ -135,7 +137,9 @@ layouts = [
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    layout.MonadTall(**layout_theme),
+    # This max_ratio is just enough for a 80-char wide vim window on a 1080p
+    # screen.
+    layout.MonadTall(max_ratio=0.67, **layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -182,7 +186,8 @@ def get_widgets():
         widget.DF(mouse_callbacks={'Button1': qdirstat_callback},
                   format='{uf}/{s}{m} free on {p}',
                   visible_on_warn=False),
-        widget.HDDBusyGraph(**graph_args),
+        # TODO figure out why this doesn't work
+        # widget.HDDBusyGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
         widget.TextBox("Vol", name="volume_label"),
         widget.Volume(),

@@ -433,8 +433,8 @@ Plug 'xolox/vim-misc'
 " switch between buffers without saving
 set hidden
 " use alt-shift-j/k to go between buffers (ctrl-w closes buffers)
-nmap <A-K> :bp<CR>
-nmap <A-J> :bn<CR>
+nmap <A-h> :bp<CR>
+nmap <A-l> :bn<CR>
 nmap <C-w> :BDandquit<CR>
 " once the last buffer is closed, quit vim
 " TODO this doesn't always work yet...
@@ -474,8 +474,8 @@ nnoremap gb :execute 'e +/' . escape(escape(expand('%:t'), '.'), '.') . ' %:h/BU
 nnoremap <A-k> <C-w>W
 nnoremap <A-j> <C-w>w
 " use alt-h/l to resize vertial split windows
-nnoremap <A-h> :vertical resize +1<CR>
-nnoremap <A-l> :vertical resize -1<CR>
+" nnoremap <A-h> :vertical resize +1<CR>
+" nnoremap <A-l> :vertical resize -1<CR>
 " make vertical split with alt-v and move to next split
 nnoremap <A-v> :vsplit \| wincmd w<CR>
 " close windows with alt-w
