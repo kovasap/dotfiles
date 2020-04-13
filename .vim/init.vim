@@ -408,6 +408,32 @@ vnoremap <C-j> 10jzz
 nnoremap <C-k> :keepjumps normal 10kzz<CR>
 vnoremap <C-k> 10kzz
 
+function! GoBackToRecentBuffer()
+  let startName = bufname('%')
+  while 1
+    exe "normal! \<c-o>"
+    let nowName = bufname('%')
+    if nowName != startName
+      break
+    endif
+  endwhile
+endfunction
+
+" TODO fix this - doesn't work for some reason currently
+function! GoForwardToRecentBuffer()
+  let startName = bufname('%')
+  while 1
+    exe "normal! <TAB>"
+    let nowName = bufname('%')
+    if nowName != startName
+      break
+    endif
+  endwhile
+endfunction
+
+nnoremap <silent> <C-a-o> :call GoBackToRecentBuffer()<Enter>
+nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
+
 nnoremap <C-b> <C-v>
 
 " Text objects/motions for moving between indented blocks.
