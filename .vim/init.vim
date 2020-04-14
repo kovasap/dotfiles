@@ -32,12 +32,6 @@ set foldnestmax=2
 " no dashed lines for folds (spaces instead - note space after backslash)
 set fillchars=fold:\ 
 " capital A/F makes unfolding/folding recursive
-" normal mode bind
-nnoremap <space> za
-nnoremap <C-space> zA
-" visual mode bind
-vnoremap <space> zf
-vnoremap <C-space> zF
 " do not refold when saving file
 " augroup remember_folds
 "   autocmd!
@@ -72,7 +66,8 @@ Plug 'flwyd/vim-conjoin'
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_user_config = {'languageserver': {}}
-Plug 'fannheyward/coc-lines'
+" Install this with :CocInstall coc-lines
+" Plug 'fannheyward/coc-lines'
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -95,8 +90,15 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Snippits!
+" See https://github.com/neoclide/coc-snippets for docs
+" Run :CocInstall coc-snippets before using
+Plug 'honza/vim-snippets'
+let g:coc_snippet_next = '<tab>'
+
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -137,16 +139,6 @@ augroup end
 
 " Highlight current word with cursor on it across whole buffer
 Plug 'RRethy/vim-illuminate'
-" Snippits!
-" THIS WILL NOT WORK UNLESS THE NEOVIM PYTHON3 LIBRARY IS INSTALLED
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" let g:UltiSnipsExpandTrigger="<c-h>"
-" let g:UltiSnipsJumpForwardTrigger="<c-tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-s-tab>"
-" " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
-
 
 " --- Linting ---
 Plug 'dense-analysis/ale'
@@ -157,7 +149,6 @@ nnoremap [e :ALEPreviousWrap<CR>
 
 
 " --- Python ---
-Plug 'neoclide/coc-python'
 Plug 'davidhalter/jedi-vim'
 let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = ""
@@ -408,13 +399,15 @@ noremap k gk
 " this mapping makes it so that the screen moves with the cursor (toggle)
 set scrolloff=0
 nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
-" use ctrl-j/k to scroll quickly, and recenter the screen before and after each
+" use space to scroll quickly, and recenter the screen before and after each
 " scroll.  do not change the jumplist when doing this, since it is supposed to
 " emulate scrolling
-nnoremap <C-j> :keepjumps normal 10jzz<CR>
-vnoremap <C-j> 10jzz
-nnoremap <C-k> :keepjumps normal 10kzz<CR>
-vnoremap <C-k> 10kzz
+" nnoremap <space> :keepjumps normal 10jzz<CR>
+nnoremap <space> 10<C-e>10j
+vnoremap <space> 10<C-e>10j
+" nnoremap <C-space> :keepjumps normal 10kzz<CR>
+nnoremap <C-space> 10<C-y>10k
+vnoremap <C-space> 10<C-y>10k
 
 function! GoBackToRecentBuffer()
   let startName = bufname('%')
