@@ -744,6 +744,9 @@ augroup END
 source ~/.vim/google.vim
 
 
+" --- Browser Interop ---
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 filetype plugin indent on    " required
