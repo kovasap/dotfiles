@@ -48,6 +48,12 @@ vnoremap <C-space> zF
 
 " --- Editing Shortcuts ---
 nnoremap cW :%s/\<<C-r><C-w>\>/
+Plug 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nmap SJ :SplitjoinJoin<cr>
+nmap SS :SplitjoinSplit<cr>
+Plug 'flwyd/vim-conjoin'
 
 
 " --- Language features (autocomplete and go to definition) ---
@@ -65,8 +71,8 @@ nnoremap cW :%s/\<<C-r><C-w>\>/
 " nmap gc :YcmCompleter GetDoc<CR>
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fannheyward/coc-lines'
 let g:coc_user_config = {'languageserver': {}}
+Plug 'fannheyward/coc-lines'
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -392,6 +398,8 @@ let g:indentLine_setConceal = 0
 set title
 " see :h statusline for info about how to customize this
 set titlestring=%t\ (%{expand('%:~:.:h')})\ -\ NVIM
+" Neat, but not sure how useful this is
+" Plug 'severin-lemaignan/vim-minimap'
 
 
 " --- Navigation ---
