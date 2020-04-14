@@ -23,6 +23,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import os
 import subprocess
 from typing import List  # noqa: F401
 
@@ -35,6 +36,19 @@ from libqtile import layout, bar, widget, hook
 # Log location is at ~/.local/share/qtile/qtile.log
 from libqtile.log_utils import logger
 
+
+# Get colors from currently active kitty terminal theme
+colors = {}
+theme_filepath = None
+with open(os.path.expanduser('~/.config/kitty/kitty.conf'), 'r') as f:
+    for line in f:
+        if line.startswith('include') and 'theme' in line:
+            theme_filepath = os.path.join(
+                os.path.expanduser('~/.config/kitty'), line.split()[1])
+if theme_filepath:
+    with open(theme_filepath, 'r') as f:
+        for line in f:
+            colors[line.split()[0]] = line.split()[1].upper()
 
 
 mod = "mod4"
@@ -126,8 +140,8 @@ for i in groups:
 layout_theme = {
     "border_width": 2,
     "margin": 3,
-    "border_focus": "#7C8A16",
-    "border_normal": "#1D1808"
+    "border_focus": colors['color2'],
+    "border_normal": colors['background'],
 }
 
 layouts = [
@@ -157,9 +171,9 @@ extension_defaults = widget_defaults.copy()
 
 graph_args = dict(
     samples=100,
-    graph_color='#7C8A16',
-    fill_color='#7C8A16.3',
-    border_color='5E5118.5',
+    graph_color=colors['color2'],
+    fill_color=colors['color2'] + '.3',
+    border_color=colors['background'] + '.5',
     width=40,
 )
 
