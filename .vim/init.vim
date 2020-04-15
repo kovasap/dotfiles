@@ -402,12 +402,12 @@ nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
 " use space to scroll quickly, and recenter the screen before and after each
 " scroll.  do not change the jumplist when doing this, since it is supposed to
 " emulate scrolling
-" nnoremap <space> :keepjumps normal 10jzz<CR>
-nnoremap <space> 10<C-e>10j
-vnoremap <space> 10<C-e>10j
-" nnoremap <C-space> :keepjumps normal 10kzz<CR>
-nnoremap <C-space> 10<C-y>10k
-vnoremap <C-space> 10<C-y>10k
+" nnoremap <space> :keepjumps normal 7jzz<CR>
+nnoremap <space> 7<C-e>7j
+vnoremap <space> 7<C-e>7j
+" nnoremap <C-space> :keepjumps normal 7kzz<CR>
+nnoremap <C-space> 7<C-y>7k
+vnoremap <C-space> 7<C-y>7k
 
 function! GoBackToRecentBuffer()
   let startName = bufname('%')
