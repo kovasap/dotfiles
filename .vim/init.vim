@@ -66,8 +66,9 @@ Plug 'flwyd/vim-conjoin'
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_user_config = {'languageserver': {}}
-" Install this with :CocInstall coc-lines
-" Plug 'fannheyward/coc-lines'
+autocmd VimEnter * CocInstall coc-lines
+autocmd VimEnter * CocInstall coc-dictionary
+autocmd VimEnter * CocInstall coc-word
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -564,12 +565,16 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " See https://github.com/junegunn/fzf/issues/926 for discussion about options
 " field.  Here I set it up so that open buffers (ones without absolute paths
 " generally) will be listed first in the fzf results.
-command! FZFMru call fzf#run({
-\ 'source':  reverse(s:all_files()),
-\ 'sink':    'edit',
-\ 'options': '-m -x --tiebreak=length --nth=-1,.. --delimiter=/',
-\ 'down':    '40%' })
+" command! FZFMru call fzf#run({
+" \ 'source':  reverse(s:all_files()),
+" \ 'sink':    'edit',
+" \ 'options': '-m -x --tiebreak=length --nth=-1,.. --delimiter=/',
+" \ 'down':    '40%' })
+Plug 'pbogut/fzf-mru.vim'
 nnoremap <A-/> :FZFMru<CR>
+" Plug 'tweekmonster/fzf-filemru'
+" nnoremap <A-/> :FilesMru -m -x --tiebreak=lenth --nth=-1,.. --delimiter=/<CR>
+" nnoremap <A-/> :FilesMru<CR>
 
 function! s:all_files()
   return extend(
