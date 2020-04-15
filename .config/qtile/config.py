@@ -139,10 +139,52 @@ for i in groups:
 
 layout_theme = {
     "border_width": 2,
+    "fullscreen_border_width": 2,
+    "max_border_width": 2,
     "margin": 3,
-    "border_focus": colors['color2'],
+    "border_focus": colors['color10'],
     "border_normal": colors['background'],
 }
+
+class CustomMonadTall(layout.MonadTall):
+    def configure(self, client, screen):
+        """Position client based on order and sizes."""
+        # if no sizes or normalize flag is set, normalize
+        if not self.relative_sizes or self.do_normalize:
+            self.cmd_normalize(False)
+
+        # if client not in this layout
+        if not self.clients or client not in self.clients:
+            client.hide()
+            return
+
+        # determine focus border-color
+        if client.has_focus:
+            # Make kitty window border darker in color, since kitty windows
+            # are not dimmed by compton.
+            if 'kitty' in client.window.get_wm_class():
+                px = self.group.qtile.color_pixel(colors['color2'])
+            else:
+                px = self.group.qtile.color_pixel(self.border_focus)
+        else:
+            px = self.group.qtile.color_pixel(self.border_normal)
+
+        # single client - fullscreen
+        if len(self.clients) == 1:
+            client.place(
+                self.group.screen.dx,
+                self.group.screen.dy,
+                self.group.screen.dwidth - 2 * self.single_border_width,
+                self.group.screen.dheight - 2 * self.single_border_width,
+                self.single_border_width,
+                px,
+                margin=self.single_margin,
+            )
+            client.unhide()
+            return
+        cidx = self.clients.index(client)
+        self._configure_specific(client, screen, px, cidx)
+        client.unhide()
 
 layouts = [
     layout.Max(**layout_theme),
@@ -153,7 +195,7 @@ layouts = [
     # layout.Matrix(),
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
-    layout.MonadTall(max_ratio=0.67, **layout_theme),
+    CustomMonadTall(max_ratio=0.67, **layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
