@@ -30,7 +30,7 @@ set foldmethod=indent
 set foldlevelstart=99
 set foldnestmax=2
 " no dashed lines for folds (spaces instead - note space after backslash)
-set fillchars=fold:\ 
+set fillchars=fold:\ ,vert:/
 " capital A/F makes unfolding/folding recursive
 " do not refold when saving file
 " augroup remember_folds
@@ -353,13 +353,13 @@ set background=dark
 syntax enable
 " makes vim faster when making new lines after long lines by preventing syntax
 " highlighting after a certain width
-:set synmaxcol=200
+set synmaxcol=200
 " show line numbers
 set nu
 " defined in ~/.vim/colors
 colorscheme terminal
-" make line at 80 characters in to avoid making lines too long
-set colorcolumn=80
+" make line at textwidth characters in to avoid making lines too long
+set colorcolumn=+1
 " refresh syntax whenever entering a buffer, useful to fix problems by just
 " flipping between buffers
 autocmd BufEnter * :syntax sync fromstart
