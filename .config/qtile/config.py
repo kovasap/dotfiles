@@ -105,8 +105,8 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
-    Key([mod], "c", lazy.spawn('copyq previous')),
-    Key([mod], "v", lazy.spawn('copyq next')),
+    Key([mod], "c", lazy.spawn('copyq next')),
+    Key([mod], "v", lazy.spawn('copyq previous')),
 
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod], "Return", lazy.spawn("kitty")),
