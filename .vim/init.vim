@@ -342,8 +342,15 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline_theme='terminal'
 " use :help statusline for customization options here
 let g:airline_section_c = '%f%m'
-" play with this if filename is too long
-" let g:airline#extensions#default#section_truncate_width =
+" See https://github.com/vim-airline/vim-airline/issues/694 for some explanation
+let g:airline#extensions#default#section_truncate_width = {
+    \ 'a': 40,
+    \ 'b': 40,
+    \ 'c': 50,
+    \ 'x': 110,
+    \ 'y': 110,
+    \ 'z': 110,
+    \ }
 let g:airline_section_z = ''
 " disables whitespace warnings in bottom right corner
 " let g:airline#extensions#whitespace#enabled = 0
@@ -571,7 +578,7 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " \ 'options': '-m -x --tiebreak=length --nth=-1,.. --delimiter=/',
 " \ 'down':    '40%' })
 Plug 'pbogut/fzf-mru.vim'
-nnoremap <A-/> :FZFMru<CR>
+nnoremap <A-/> :FZFMru -m -x --tiebreak=length --nth=-1,.. --delimiter=/ <CR>
 " Plug 'tweekmonster/fzf-filemru'
 " nnoremap <A-/> :FilesMru -m -x --tiebreak=lenth --nth=-1,.. --delimiter=/<CR>
 " nnoremap <A-/> :FilesMru<CR>
