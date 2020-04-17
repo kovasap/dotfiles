@@ -334,7 +334,7 @@ Plug 'tpope/vim-sleuth'
 
 " --- UI ---
 Plug 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#ale#enabled = 1
@@ -383,7 +383,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 " Plug 'liuchengxu/vim-which-key'
 " Indentation line hints
 Plug 'Yggdroot/indentLine'
-let g:indentLine_color_term = 0
+let g:indentLine_color_term = 17
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_setConceal = 0
 " Set title of (e.g. X11) window vim is in
