@@ -11,8 +11,8 @@ let s:airline_b_normal   = [ '', '', 7, 17 ]
 let s:airline_c_normal   = [ '', '', 7, 17 ]
 let g:airline#themes#terminal#palette.normal = airline#themes#generate_color_map(s:airline_a_normal, s:airline_b_normal, s:airline_c_normal)
 let g:airline#themes#terminal#palette.normal_modified = {
-      \ 'airline_b': [ '', '', 2, 17, 'bold'] ,
-      \ 'airline_c': [ '', '', 2, 17, 'bold'] ,
+      \ 'airline_b': [ '', '', 2, 17, 'underline'] ,
+      \ 'airline_c': [ '', '', 2, 17, 'underline'] ,
       \ }
 
 let g:airline#themes#terminal#palette.insert = copy(g:airline#themes#terminal#palette.normal)
