@@ -63,8 +63,8 @@ keys = [
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
     Key([mod], "l", lazy.screen.next_group(skip_managed=True, skip_empty=True)),
 
-    Key([mod], "g", lazy.prev_screen()),
-    Key([mod], "semicolon", lazy.next_screen()),
+    Key([mod], "comma", lazy.prev_screen()),
+    Key([mod], "period", lazy.next_screen()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -73,8 +73,6 @@ keys = [
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
-    Key([mod, "shift"], "equal", lazy.layout.maximize()),
-    Key([mod, "shift"], "minus", lazy.layout.minimize()),
     Key([mod], "m", lazy.layout.maximize()),
     Key([mod], "n", lazy.layout.minimize()),
     # Key([mod, "control"], "h", lazy.layout.grow_left()),

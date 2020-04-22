@@ -69,6 +69,7 @@ let g:coc_user_config = {'languageserver': {}}
 autocmd VimEnter * CocInstall coc-lines
 autocmd VimEnter * CocInstall coc-dictionary
 autocmd VimEnter * CocInstall coc-word
+autocmd VimEnter * CocInstall coc-snippets
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -235,6 +236,8 @@ let g:coc_user_config.languageserver.godot = {
  \    'filetypes': ['gd', 'gdscript3'],
  \    'port': 6008
  \  }
+" TODO remove when Godot 3.2.2 is released
+autocmd VimEnter * CocInstall coc-godot
 
 
 " --- Clojure ---
