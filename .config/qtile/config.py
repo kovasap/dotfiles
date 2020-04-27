@@ -63,8 +63,8 @@ keys = [
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
     Key([mod], "l", lazy.screen.next_group(skip_managed=True, skip_empty=True)),
 
-    Key([mod], "n", lazy.prev_screen()),
-    Key([mod], "m", lazy.next_screen()),
+    Key([mod], "comma", lazy.prev_screen()),
+    Key([mod], "period", lazy.next_screen()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -73,8 +73,8 @@ keys = [
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
-    Key([mod, "shift"], "equal", lazy.layout.maximize()),
-    Key([mod, "shift"], "minus", lazy.layout.minimize()),
+    Key([mod], "m", lazy.layout.maximize()),
+    Key([mod], "n", lazy.layout.minimize()),
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
@@ -187,15 +187,15 @@ class CustomMonadTall(layout.MonadTall):
         client.unhide()
 
 layouts = [
+    # This max_ratio is just enough for a 80-char wide vim window on a 1080p
+    # screen.
+    CustomMonadTall(max_ratio=0.67, **layout_theme),
     layout.Max(**layout_theme),
     # layout.Stack(num_stacks=2, **layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    # This max_ratio is just enough for a 80-char wide vim window on a 1080p
-    # screen.
-    CustomMonadTall(max_ratio=0.67, **layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
