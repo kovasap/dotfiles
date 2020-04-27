@@ -48,6 +48,8 @@ let g:splitjoin_join_mapping = ''
 nmap SJ :SplitjoinJoin<cr>
 nmap SS :SplitjoinSplit<cr>
 Plug 'flwyd/vim-conjoin'
+" Delete until the next 'closing' character (quote or brace)
+nmap d' d/[\]\}\)'"]<CR>:let @/ = ""<CR>
 
 
 " --- Language features (autocomplete and go to definition) ---
