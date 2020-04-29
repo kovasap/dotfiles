@@ -161,6 +161,41 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 
+# ------------------------- Google -------------------------
+
+# go to citc clients
+alias cdg='cd /google/src/cloud/kovas'
+
+# fig status window
+alias hgw='watch --color -n 1 '\''hg st --color always; echo; hg xl --color always'\'
+
+# google tools
+alias perfgate=/google/data/ro/teams/perfgate/perfgate
+alias build_copier=/google/data/ro/projects/build_copier/build_copier
+alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob
+alias pyfactor=/google/data/ro/teams/youtube-code-health/pyfactor
+alias chamber_runner=/google/data/ro/teams/chamber/runner/live/runner.par
+
+# add gcloud stuff to PATH
+# source /usr/local/google/home/kovas/google-cloud-sdk/path.bash.inc
+
+alias bb="blaze build"
+alias bt="blaze test"
+
+# open all changed files in fig citc client (wrt last submitted code)
+function nvc() {
+  # '\'' closes string, appends single quote, then opens string again
+  # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
+  base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
+  num_splits=$(($COLUMNS / 80))
+  # -ON opens in N vertical split windows
+  nv -O$num_splits $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
+}
+
+export P4MERGE=vimdiff
+
+export START_DIRECTORY=$(p4 g4d chamber_regression_replication)
+
 # ------------------------- Miscellaneous -------------------------
 
 alias nv='nvim'
