@@ -265,6 +265,11 @@ bar_config = dict(
     opacity=0.8
 )
 
+# Restart qtile when a new monitor is plugged in.
+@hook.subscribe.screen_change
+def restart_on_randr(qtile, ev):
+    qtile.cmd_restart()
+
 # See https://github.com/qtile/qtile/wiki/screens
 def get_num_monitors():
     num_monitors = 0
