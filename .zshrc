@@ -8,7 +8,6 @@ export ZSH="/home/kovas/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -65,12 +64,41 @@ source ~/.zplug/init.zsh
 plugins+=(git)
 plugins+=(vi-mode)
 plugins+=(history-substring-search)
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+plugins+=(zsh-autosuggestions)
 
+DISABLE_AUTO_TITLE="true"
+ZSH_THEME=agkozak
 source $ZSH/oh-my-zsh.sh
 
+# --------------------------- Window Title -----------------------------------
 
+function precmd () {
+  # Show last commit's description for mercurial repositories
+  hg_name=$(hg log -r . --template "{desc}" 2>/dev/null)
+  # Show repo name for git repositories
+  git_name=$(git config --local remote.origin.url 2>/dev/null | sed -n 's#.*/\([^.]*\)\.git#\1#p')
+  # Print window title
+  print -Pn "\e]0;$hg_name$git_name - $(hostname)\a"
+}
 
-# User configuration
+# --------------------------- Prompt -----------------------------------
+
+AGKOZAK_CMD_EXEC_TIME=1
+AGKOZAK_LEFT_PROMPT_ONLY=1
+
+# ------------------------- Completion -------------------------------
+
+# shift-tab accept the current suggestion
+bindkey '^[[Z' autosuggest-accept
+
+# ------------------------- Fuzzy Searching (FZF) ------------------------- 
+
+source ~/.fzf/shell/completion.zsh
+source ~/.fzf/shell/key-bindings.zsh
+bindkey -r "^T"
+bindkey -r "^[c"
+bindkey "^ " fzf-history-widget
 
 # ------------------------- Command History ------------------------- 
 
@@ -136,6 +164,9 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 # ------------------------- Miscellaneous -------------------------
 
 alias nv='nvim'
+# Make neovim the default editor for everything.
+export VISUAL=nvim
+export EDITOR=nvim
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -146,7 +177,6 @@ alias sd='ssh -o ServerAliveInterval=60 kovas.c.googlers.com'
 
 # faster google certification
 alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
-
 
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
