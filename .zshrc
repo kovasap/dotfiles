@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/kovas/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load ------------------------- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -84,6 +84,10 @@ function precmd () {
 
 # --------------------------- Prompt -----------------------------------
 
+# Install with
+# [[ ! -d $ZSH_CUSTOM/themes ]] && mkdir $ZSH_CUSTOM/themes
+# git clone https://github.com/agkozak/agkozak-zsh-prompt $ZSH_CUSTOM/themes/agkozak
+# ln -s $ZSH_CUSTOM/themes/agkozak/agkozak-zsh-prompt.plugin.zsh $ZSH_CUSTOM/themes/agkozak.zsh-theme
 AGKOZAK_CMD_EXEC_TIME=1
 AGKOZAK_LEFT_PROMPT_ONLY=1
 
@@ -163,38 +167,46 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # ------------------------- Google -------------------------
 
-# go to citc clients
-alias cdg='cd /google/src/cloud/kovas'
+# Prompt
+if [[ -d /google ]]; then
+  source ~/zsh-async/async.zsh
+  source ~/goog_prompt.zsh
 
-# fig status window
-alias hgw='watch --color -n 1 '\''hg st --color always; echo; hg xl --color always'\'
+  # go to citc clients
+  alias cdg='cd /google/src/cloud/kovas'
 
-# google tools
-alias perfgate=/google/data/ro/teams/perfgate/perfgate
-alias build_copier=/google/data/ro/projects/build_copier/build_copier
-alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob
-alias pyfactor=/google/data/ro/teams/youtube-code-health/pyfactor
-alias chamber_runner=/google/data/ro/teams/chamber/runner/live/runner.par
+  # fig status window
+  alias hgw='watch --color -n 1 '\''hg st --color always; echo; hg xl --color always'\'
 
-# add gcloud stuff to PATH
-# source /usr/local/google/home/kovas/google-cloud-sdk/path.bash.inc
+  # google tools
+  alias perfgate=/google/data/ro/teams/perfgate/perfgate
+  alias build_copier=/google/data/ro/projects/build_copier/build_copier
+  alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob
+  alias pyfactor=/google/data/ro/teams/youtube-code-health/pyfactor
+  alias chamber_runner=/google/data/ro/teams/chamber/runner/live/runner.par
 
-alias bb="blaze build"
-alias bt="blaze test"
+  # add gcloud stuff to PATH
+  # source /usr/local/google/home/kovas/google-cloud-sdk/path.bash.inc
 
-# open all changed files in fig citc client (wrt last submitted code)
-function nvc() {
-  # '\'' closes string, appends single quote, then opens string again
-  # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
-  base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
-  num_splits=$(($COLUMNS / 80))
-  # -ON opens in N vertical split windows
-  nv -O$num_splits $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
-}
+  alias bb="blaze build"
+  alias bt="blaze test"
 
-export P4MERGE=vimdiff
+  # open all changed files in fig citc client (wrt last submitted code)
+  function nvc() {
+    # '\'' closes string, appends single quote, then opens string again
+    # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
+    base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
+    num_splits=$(($COLUMNS / 80))
+    # -ON opens in N vertical split windows
+    nv -O$num_splits $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
+  }
 
-export START_DIRECTORY=$(p4 g4d chamber_regression_replication)
+  export P4MERGE=vimdiff
+
+  export START_DIRECTORY=$(p4 g4d chamber_regression_replication)
+
+  source /etc/bash_completion.d/g4d
+fi
 
 # ------------------------- Miscellaneous -------------------------
 
@@ -222,6 +234,9 @@ function gp {
     git commit -m "$1"
     git push
 }
+
+# Don't feed long commands to a pager program.
+unset LESS
 
 
 # export MANPATH="/usr/local/man:$MANPATH"
