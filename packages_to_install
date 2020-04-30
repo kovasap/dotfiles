@@ -1,5 +1,6 @@
 # Packages to install via apt or other distro-based package manager.
 alsa-utils	# for get_volume xmobar script
+bat # https://github.com/sharkdp/bat
 j4-dmenu-desktop
 copyq
 qdirstat
