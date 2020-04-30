@@ -1,26 +1,12 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load ------------------------- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -28,43 +14,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
 
 source ~/.zplug/init.zsh
 
@@ -75,7 +24,9 @@ plugins+=(history-substring-search)
 plugins+=(zsh-autosuggestions)
 
 DISABLE_AUTO_TITLE="true"
+
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
 source $ZSH/oh-my-zsh.sh
 
 # --------------------------- Window Title -----------------------------------
@@ -172,43 +123,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # Prompt
 if [[ -d /google ]]; then
-  source ~/zsh-async/async.zsh
-  source ~/goog_prompt.zsh
-
-  # go to citc clients
-  alias cdg='cd /google/src/cloud/kovas'
-
-  # fig status window
-  alias hgw='watch --color -n 1 '\''hg st --color always; echo; hg xl --color always'\'
-
-  # google tools
-  alias perfgate=/google/data/ro/teams/perfgate/perfgate
-  alias build_copier=/google/data/ro/projects/build_copier/build_copier
-  alias lljob=/google/data/ro/projects/latencylab/clt/bin/lljob
-  alias pyfactor=/google/data/ro/teams/youtube-code-health/pyfactor
-  alias chamber_runner=/google/data/ro/teams/chamber/runner/live/runner.par
-
-  # add gcloud stuff to PATH
-  # source /usr/local/google/home/kovas/google-cloud-sdk/path.bash.inc
-
-  alias bb="blaze build"
-  alias bt="blaze test"
-
-  # open all changed files in fig citc client (wrt last submitted code)
-  function nvc() {
-    # '\'' closes string, appends single quote, then opens string again
-    # base_cl_cmd='hg log -r smart --template '\''{node}\n'\' | tail -1'
-    base_cl_cmd='hg log -r p4base --template '\''{node}\n'\'
-    num_splits=$(($COLUMNS / 80))
-    # -ON opens in N vertical split windows
-    nv -O$num_splits $(hg st -n --rev $(eval $base_cl_cmd) | sed 's/^google3\///')
-  }
-
-  export P4MERGE=vimdiff
-
-  export START_DIRECTORY=$(p4 g4d chamber_regression_replication)
-
-  source /etc/bash_completion.d/g4d
+  source ~/google-zshrc
 fi
 
 # ------------------------- Miscellaneous -------------------------
@@ -232,6 +147,7 @@ alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
 alias hg='chg'
 
 # Faster git add/commit/push
+unalias gp
 function gp {
     git add -u
     git commit -m "$1"
