@@ -40,7 +40,10 @@ function precmd () {
   print -Pn "\e]0;$hg_name$git_name - $(hostname)\a"
 }
 
-# --------------------------- Prompt -----------------------------------
+# --------------------------- P10K Prompt -----------------------------------
+
+# Install:
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -123,7 +126,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # Prompt
 if [[ -d /google ]]; then
-  source ~/google-zshrc
+  source ~/.google-zshrc
 fi
 
 # ------------------------- Miscellaneous -------------------------

@@ -41,6 +41,9 @@ set fillchars=fold:\ ,vert:/
 
 
 " --- Editing Shortcuts ---
+"  Rename word and prime to replace other occurances
+nnoremap ct *Ncw<C-r>"
+"  Rename word across file
 nnoremap cW :%s/\<<C-r><C-w>\>/
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''
@@ -450,6 +453,9 @@ nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
 
 nnoremap <C-b> <C-v>
 
+Plug 'easymotion/vim-easymotion'
+map s <Plug>(easymotion-prefix)
+
 " Text objects/motions for moving between indented blocks.
 " Key bindings	Description
 " <count>ai	An Indentation level and line above.
@@ -457,6 +463,8 @@ nnoremap <C-b> <C-v>
 " <count>aI	An Indentation level and lines above/below.
 " <count>iI	Inner Indentation level (no lines above/below).
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'christoomey/vim-sort-motion'
+" Plug 'justinmk/vim-sneak'
 
 
 " --- Clipboard ---
@@ -683,11 +691,6 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
-
-
-" --- Motions ---
-Plug 'christoomey/vim-sort-motion'
-Plug 'justinmk/vim-sneak'
 
 
 " --- Parenthesis ---

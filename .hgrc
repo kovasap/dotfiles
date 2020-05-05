@@ -21,14 +21,6 @@ merge = vimdiff
 # important for fig to work properly with vim plugins
 status.relative = False
 
-[extensions]
-# uncomment these lines to enable some popular extensions
-# (see 'hg help extensions' for more info)
-#
-# churn =
-rebase =
-# evolve =
-
 [merge-tools]
 vimdiff.executable = nvim
 vimdiff.args = -d $local $other
@@ -50,3 +42,15 @@ revisions.prefixhexnode = True
 
 [google]
 show-export-client-info-in-sponge = True
+
+[extensions]
+figstatus = ~/fig_status.py
+rebase =
+
+[figstatus]
+modified_str = m
+added_str = a
+deleted_str = d
+unknown_str = u
+unexported_str = l
+obsolete_str = o
