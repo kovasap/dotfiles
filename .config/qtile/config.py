@@ -65,6 +65,7 @@ keys = [
 
     Key([mod], "comma", lazy.prev_screen()),
     Key([mod], "period", lazy.next_screen()),
+    Key([mod], "x", lazy.swap_screens()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -295,12 +296,12 @@ def get_num_monitors():
 
 num_monitors = get_num_monitors()
 
-screens = [Screen(bottom=bar.Bar(get_widgets(), **bar_config))]
+screens = [Screen(top=bar.Bar(get_widgets(), **bar_config))]
 
 if num_monitors > 1:
     for m in range(num_monitors - 1):
         screens.append(
-            Screen(bottom=bar.Bar(get_widgets(), **bar_config))
+            Screen(top=bar.Bar(get_widgets(), **bar_config))
         )
 
 # Drag floating layouts.

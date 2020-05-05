@@ -762,7 +762,9 @@ augroup END
 
 
 " --- Google ---
-source ~/.vim/google.vim
+if isdirectory('/google')
+  source ~/.vim/google.vim
+endif
 
 
 " --- Browser Interop ---

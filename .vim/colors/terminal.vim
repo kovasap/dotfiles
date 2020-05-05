@@ -13,20 +13,20 @@ highlight default link vimLineComment Comment
 highlight Constant ctermfg=4
 highlight String ctermfg=2
 highlight Character ctermfg=10
-highlight Number ctermfg=12
-highlight Boolean ctermfg=5
-highlight Float ctermfg=12
+highlight Number ctermfg=3
+highlight Boolean ctermfg=3
+highlight Float ctermfg=3
 
-highlight Identifier cterm=none ctermfg=3
-highlight Function ctermfg=10
+highlight Identifier cterm=none ctermfg=12
+highlight Function ctermfg=5
 
-highlight Statement ctermfg=5
-highlight Conditional ctermfg=5
+highlight Statement ctermfg=1
+highlight Conditional ctermfg=1
 highlight default link Repeat Statement
 highlight default link Label Statement
 highlight default link Keyword Statement
 highlight default link Exception Statement
-highlight Operator ctermfg=5
+highlight default link Operator Statement
 
 highlight PreProc ctermfg=2
 highlight Include ctermfg=11
