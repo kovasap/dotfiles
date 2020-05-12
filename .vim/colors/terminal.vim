@@ -97,17 +97,17 @@ highlight SpecialKey term=underline ctermfg=8
 highlight NonText ctermfg=0
 highlight StatusLine ctermfg=6 ctermbg=15 cterm=none
 highlight StatusLineNC ctermfg=6 ctermbg=15 cterm=none
+highlight CursorLine cterm=none ctermbg=17
+highlight CursorColumn cterm=none ctermbg=17
 if version >= 700
   " uncomment if you want a cursorline
-  " highlight CursorLine cterm=none ctermbg=235
+  highlight CursorLine cterm=none ctermbg=17
   " highlight CursorLineNr term=underline cterm=bold ctermfg=148 ctermbg=235
-  highlight clear CursorLine
   highlight CursorLineNr term=NONE ctermbg=NONE
 
   " Kitty color 17 is set to be ALMOST the background color of the terminal
   highlight ColorColumn ctermbg=17
   highlight Cursor term=reverse cterm=reverse
-  highlight CursorColumn ctermbg=8
   highlight LineNr ctermfg=8
   highlight MatchParen ctermbg=8
   highlight Pmenu ctermfg=8 ctermbg=0
