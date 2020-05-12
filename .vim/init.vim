@@ -23,6 +23,76 @@ endif
 
 call plug#begin()
 
+" --- Navigation ---
+noremap j gj
+noremap k gk
+" this mapping makes it so that the screen moves with the cursor (toggle)
+set scrolloff=0
+nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
+" use space to scroll quickly, and recenter the screen before and after each
+" scroll.  do not change the jumplist when doing this, since it is supposed to
+" emulate scrolling
+" nnoremap <space> :keepjumps normal 7jzz<CR>
+" nnoremap <space> 7<C-e>7j
+" vnoremap <space> 7<C-e>7j
+" nnoremap <C-space> :keepjumps normal 7kzz<CR>
+" nnoremap <C-space> 7<C-y>7k
+" vnoremap <C-space> 7<C-y>7k
+
+" Smooth scrolling 
+Plug 'yuttie/comfortable-motion.vim'
+nnoremap <silent> <space> :call comfortable_motion#flick(200)<CR>
+nnoremap <silent> <tab> :call comfortable_motion#flick(-200)<CR>
+
+function! GoBackToRecentBuffer()
+  let startName = bufname('%')
+  while 1
+    exe "normal! \<c-o>"
+    let nowName = bufname('%')
+    if nowName != startName
+      break
+    endif
+  endwhile
+endfunction
+
+" TODO fix this - doesn't work for some reason currently
+function! GoForwardToRecentBuffer()
+  let startName = bufname('%')
+  while 1
+    exe "normal! <TAB>"
+    let nowName = bufname('%')
+    if nowName != startName
+      break
+    endif
+  endwhile
+endfunction
+
+nnoremap <silent> <C-a-o> :call GoBackToRecentBuffer()<Enter>
+nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
+
+nnoremap <C-b> <C-v>
+
+Plug 'easymotion/vim-easymotion'
+map s <Plug>(easymotion-prefix)
+
+" Text objects/motions for moving between indented blocks.
+" Key bindings	Description
+" <count>ai	An Indentation level and line above.
+" <count>ii	Inner Indentation level (no line above).
+" <count>aI	An Indentation level and lines above/below.
+" <count>iI	Inner Indentation level (no lines above/below).
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'christoomey/vim-sort-motion'
+" Plug 'justinmk/vim-sneak'
+
+" Smooth scrolling 
+Plug 'yuttie/comfortable-motion.vim'
+let g:comfortable_motion_no_default_key_mappings = 1
+nnoremap <silent> <space> :call comfortable_motion#flick(100)<CR>L
+nnoremap <silent> <tab> :call comfortable_motion#flick(-100)<CR>H
+
+
+
 " --- Folding ---
 set foldmethod=indent
 " set foldcolumn=1
@@ -407,64 +477,8 @@ set title
 set titlestring=%t\ (%{expand('%:~:.:h')})\ -\ NVIM
 " Neat, but not sure how useful this is
 " Plug 'severin-lemaignan/vim-minimap'
-
-
-" --- Navigation ---
-noremap j gj
-noremap k gk
-" this mapping makes it so that the screen moves with the cursor (toggle)
-set scrolloff=0
-nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
-" use space to scroll quickly, and recenter the screen before and after each
-" scroll.  do not change the jumplist when doing this, since it is supposed to
-" emulate scrolling
-" nnoremap <space> :keepjumps normal 7jzz<CR>
-nnoremap <space> 7<C-e>7j
-vnoremap <space> 7<C-e>7j
-" nnoremap <C-space> :keepjumps normal 7kzz<CR>
-nnoremap <C-space> 7<C-y>7k
-vnoremap <C-space> 7<C-y>7k
-
-function! GoBackToRecentBuffer()
-  let startName = bufname('%')
-  while 1
-    exe "normal! \<c-o>"
-    let nowName = bufname('%')
-    if nowName != startName
-      break
-    endif
-  endwhile
-endfunction
-
-" TODO fix this - doesn't work for some reason currently
-function! GoForwardToRecentBuffer()
-  let startName = bufname('%')
-  while 1
-    exe "normal! <TAB>"
-    let nowName = bufname('%')
-    if nowName != startName
-      break
-    endif
-  endwhile
-endfunction
-
-nnoremap <silent> <C-a-o> :call GoBackToRecentBuffer()<Enter>
-nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
-
-nnoremap <C-b> <C-v>
-
-Plug 'easymotion/vim-easymotion'
-map s <Plug>(easymotion-prefix)
-
-" Text objects/motions for moving between indented blocks.
-" Key bindings	Description
-" <count>ai	An Indentation level and line above.
-" <count>ii	Inner Indentation level (no line above).
-" <count>aI	An Indentation level and lines above/below.
-" <count>iI	Inner Indentation level (no lines above/below).
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'christoomey/vim-sort-motion'
-" Plug 'justinmk/vim-sneak'
+set cursorline
+" set cursorcolumn
 
 
 " --- Clipboard ---
