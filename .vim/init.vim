@@ -38,11 +38,13 @@ nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
 " nnoremap <C-space> :keepjumps normal 7kzz<CR>
 " nnoremap <C-space> 7<C-y>7k
 " vnoremap <C-space> 7<C-y>7k
-
 " Smooth scrolling 
 Plug 'yuttie/comfortable-motion.vim'
-nnoremap <silent> <space> :call comfortable_motion#flick(200)<CR>
-nnoremap <silent> <tab> :call comfortable_motion#flick(-200)<CR>
+let g:comfortable_motion_no_default_key_mappings = 1
+nnoremap <silent> <space> :call comfortable_motion#flick(50)<CR>10j
+nnoremap <silent> <tab> :call comfortable_motion#flick(-50)<CR>10k
+" noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+" noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 function! GoBackToRecentBuffer()
   let startName = bufname('%')
@@ -73,7 +75,10 @@ nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
 nnoremap <C-b> <C-v>
 
 Plug 'easymotion/vim-easymotion'
-map s <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_smartcase = 1 " Turn on case-insensitive feature
+
+map s <Plug>(easymotion-s)
 
 " Text objects/motions for moving between indented blocks.
 " Key bindings	Description
@@ -84,13 +89,6 @@ map s <Plug>(easymotion-prefix)
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'christoomey/vim-sort-motion'
 " Plug 'justinmk/vim-sneak'
-
-" Smooth scrolling 
-Plug 'yuttie/comfortable-motion.vim'
-let g:comfortable_motion_no_default_key_mappings = 1
-nnoremap <silent> <space> :call comfortable_motion#flick(100)<CR>L
-nnoremap <silent> <tab> :call comfortable_motion#flick(-100)<CR>H
-
 
 
 " --- Folding ---
@@ -140,7 +138,11 @@ nmap d' d/[\]\}\)'"]<CR>:let @/ = ""<CR>
 " nmap gc :YcmCompleter GetDoc<CR>
 " CoC and settings
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_user_config = {'languageserver': {}}
+let g:coc_user_config = {
+    \'languageserver': {},
+    \'coc.source.lines.startOfLineOnly': v:false
+    \}
+let g:coc_user_config.source = {'lines': {'startOfLineOnly': 'false'}}
 autocmd VimEnter * CocInstall coc-lines
 autocmd VimEnter * CocInstall coc-dictionary
 autocmd VimEnter * CocInstall coc-word
@@ -779,6 +781,11 @@ augroup END
 if isdirectory('/google')
   source ~/.vim/google.vim
 endif
+
+
+" --- Misc ---
+" Open files at specified lines using file:line syntax
+Plug 'wsdjeg/vim-fetch'
 
 
 " --- Browser Interop ---
