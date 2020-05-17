@@ -42,6 +42,7 @@ nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
 Plug 'yuttie/comfortable-motion.vim'
 let g:comfortable_motion_no_default_key_mappings = 1
 nnoremap <silent> <space> :call comfortable_motion#flick(50)<CR>10j
+nnoremap <C-u> <tab>
 nnoremap <silent> <tab> :call comfortable_motion#flick(-50)<CR>10k
 " noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 " noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
@@ -607,6 +608,7 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " \ 'options': '-m -x --tiebreak=length --nth=-1,.. --delimiter=/',
 " \ 'down':    '40%' })
 Plug 'pbogut/fzf-mru.vim'
+let g:fzf_mru_max = 100000
 nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 " Plug 'tweekmonster/fzf-filemru'
 " nnoremap <A-/> :FilesMru -m -x --tiebreak=lenth --nth=-1,.. --delimiter=/<CR>
