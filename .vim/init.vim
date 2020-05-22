@@ -112,6 +112,7 @@ set fillchars=fold:\ ,vert:/
 " --- Editing Shortcuts ---
 "  Rename word and prime to replace other occurances
 nnoremap ct *Ncw<C-r>"
+nnoremap cT *Ncw
 "  Rename word across file
 nnoremap cW :%s/\<<C-r><C-w>\>/
 Plug 'AndrewRadev/splitjoin.vim'
@@ -502,7 +503,7 @@ set hidden
 " use alt-shift-j/k to go between buffers (ctrl-w closes buffers)
 nmap <A-h> :bp<CR>
 nmap <A-l> :bn<CR>
-nmap <C-w> :BDandquit<CR>
+nmap <C-w> :BDandquit<CR>:bn<CR>
 " once the last buffer is closed, quit vim
 " TODO this doesn't always work yet...
 fun! s:quitiflast()
@@ -583,7 +584,8 @@ function! s:myag(query, ...)
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* MyAg call s:myag(<q-args>, <bang>0)
-nnoremap <C-p> :MyAg 
+nnoremap , :MyAg 
+nnoremap ; :Lines<CR>
 
 " Search through all files in the current buffer's directory
 function! s:dirag(query, ...)
@@ -609,7 +611,8 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " \ 'down':    '40%' })
 Plug 'pbogut/fzf-mru.vim'
 let g:fzf_mru_max = 100000
-nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
+" nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
+nnoremap ' :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 " Plug 'tweekmonster/fzf-filemru'
 " nnoremap <A-/> :FilesMru -m -x --tiebreak=lenth --nth=-1,.. --delimiter=/<CR>
 " nnoremap <A-/> :FilesMru<CR>
@@ -642,7 +645,7 @@ set noautochdir
 
 " --- File Browsing ---
 Plug 'justinmk/vim-dirvish'
-autocmd FileType dirvish nnoremap <buffer> <C-p> :DirAg<CR>
+autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 
 
 " --- Showing Changes and Diffing ---
@@ -719,22 +722,17 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 " change order here (format is [termcolor, guicolor])
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['red',         'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['brown',       'firebrick3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['gray',        'RoyalBlue3'],
+    \ ['1',       'RoyalBlue3'],
+    \ ['3',       'RoyalBlue3'],
+    \ ['4',       'RoyalBlue3'],
+    \ ['1',       'RoyalBlue3'],
+    \ ['3',       'RoyalBlue3'],
+    \ ['4',       'RoyalBlue3'],
+    \ ['1',       'RoyalBlue3'],
+    \ ['3',       'RoyalBlue3'],
+    \ ['4',       'RoyalBlue3'],
     \ ]
+
 Plug 'tpope/vim-surround'
 " So that you can repeat surround commands with '.'
 Plug 'tpope/vim-repeat'
