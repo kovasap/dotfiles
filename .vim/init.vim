@@ -484,6 +484,12 @@ set titlestring=%t\ (%{expand('%:~:.:h')})\ -\ NVIM
 set cursorline
 " set cursorcolumn
 
+" highlight yanked lines after you yank them
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+augroup END
+
 
 " --- Clipboard ---
 " use system clipboard for everything by default
