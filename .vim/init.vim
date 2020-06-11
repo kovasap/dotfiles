@@ -44,6 +44,9 @@ let g:comfortable_motion_no_default_key_mappings = 1
 nnoremap <silent> <space> :call comfortable_motion#flick(50)<CR>10j
 nnoremap <C-u> <tab>
 nnoremap <silent> <tab> :call comfortable_motion#flick(-50)<CR>10k
+vnoremap <silent> <space> :call comfortable_motion#flick(50)<CR>10j
+vnoremap <C-u> <tab>
+vnoremap <silent> <tab> :call comfortable_motion#flick(-50)<CR>10k
 " noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 " noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
