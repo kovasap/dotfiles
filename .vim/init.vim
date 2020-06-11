@@ -145,12 +145,13 @@ nmap d' d/[\]\}\)'"]<CR>:let @/ = ""<CR>
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_user_config = {
     \'languageserver': {},
-    \'coc.source.lines.startOfLineOnly': v:false
+    \'coc.source.lines.startOfLineOnly': v:false,
+    \'coc.source.lines.fromAllBuffers': v:true
     \}
 let g:coc_user_config.source = {'lines': {'startOfLineOnly': 'false'}}
 autocmd VimEnter * CocInstall coc-lines
-autocmd VimEnter * CocInstall coc-dictionary
-autocmd VimEnter * CocInstall coc-word
+" autocmd VimEnter * CocInstall coc-dictionary
+" autocmd VimEnter * CocInstall coc-word
 autocmd VimEnter * CocInstall coc-snippets
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -486,6 +487,12 @@ set titlestring=%t\ (%{expand('%:~:.:h')})\ -\ NVIM
 " Plug 'severin-lemaignan/vim-minimap'
 set cursorline
 " set cursorcolumn
+
+" highlight yanked lines after you yank them
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+augroup END
 
 
 " --- Clipboard ---
