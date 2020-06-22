@@ -28,6 +28,7 @@ import subprocess
 from typing import List  # noqa: F401
 
 from Xlib import display as xdisplay
+import shlex
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
@@ -52,6 +53,9 @@ if theme_filepath:
 
 
 mod = "mod4"
+
+def hard_restart(qt):
+    qt.cmd_restart()
 
 # See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
 # reference.
@@ -120,6 +124,7 @@ keys = [
     Key([mod], "w", lazy.window.kill()),
 
     Key([mod, "control"], "r", lazy.restart()),
+    Key([mod, "control"], "t", lazy.function(hard_restart)),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawn("j4-dmenu-desktop")),
 ]
@@ -132,7 +137,7 @@ for i in groups:
         Key([mod], i.name, lazy.group[i.name].toscreen()),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
@@ -267,20 +272,29 @@ bar_config = dict(
 )
 
 # Restart qtile when a new monitor is plugged in.
-@hook.subscribe.screen_change
-def restart_on_randr(qtile, ev):
-    qtile.cmd_restart()
+# @hook.subscribe.screen_change
+# def restart_on_randr(qtile, ev):
+#     qtile.cmd_restart()
+
+# def run(cmdline):
+#     subprocess.Popen(shlex.split(cmdline))
+# 
+# @hook.subscribe.startup
+# def startup():
+#     run("~kovas/bin/setup-monitors.bash")
+
+def get_monitors():
+    display = xdisplay.Display()
+    screen = display.screen()
+    resources = screen.root.xrandr_get_screen_resources()
+    return [display.xrandr_get_output_info(output, resources.config_timestamp)
+            for output in resources.outputs]
 
 # See https://github.com/qtile/qtile/wiki/screens
 def get_num_monitors():
     num_monitors = 0
     try:
-        display = xdisplay.Display()
-        screen = display.screen()
-        resources = screen.root.xrandr_get_screen_resources()
-
-        for output in resources.outputs:
-            monitor = display.xrandr_get_output_info(output, resources.config_timestamp)
+        for monitor in get_monitors():
             preferred = False
             if hasattr(monitor, "preferred"):
                 preferred = monitor.preferred
@@ -303,6 +317,7 @@ if num_monitors > 1:
         screens.append(
             Screen(top=bar.Bar(get_widgets(), **bar_config))
         )
+logger.warning(screens)
 
 # Drag floating layouts.
 mouse = [
