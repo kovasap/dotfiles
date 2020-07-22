@@ -29,7 +29,7 @@ echo $conDP1
 # The useful part: check what the connection status is, and run some other commands
 xrandr_cmd="xrandr --output eDP-1 --primary --auto"
 if [ -n "$conHdmi" -a -n "$conDP2" ]; then
-    xrandr_cmd="$xrandr_cmd --output HDMI-1 --auto --above eDP-1 --output DP-2 --right-of HDMI-1"
+    xrandr_cmd="$xrandr_cmd --output DP-2 --auto --left-of eDP-1 --output HDMI-1 --auto --left-of DP-2"
 elif [ -n "$conHdmi" ]; then
     xrandr_cmd="$xrandr_cmd --output HDMI-1 --auto --right-of eDP-1"
 elif [ -n "$conDP2" ]; then
@@ -39,7 +39,7 @@ elif [ -n "$conDP1" ]; then
 fi
 
 pkill compton
-xrandr --auto
+# xrandr --auto
 echo $xrandr_cmd
 eval $xrandr_cmd
 ~kovas/bin/run-compton.bash
