@@ -197,7 +197,7 @@ class CustomMonadTall(layout.MonadTall):
 layouts = [
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
-    CustomMonadTall(ratio=0.67, min_secondary_size=500, **layout_theme),
+    CustomMonadTall(ratio=0.67, min_secondary_size=100, **layout_theme),
     layout.Max(**layout_theme),
     # layout.Stack(num_stacks=2, **layout_theme),
     # Try more layouts by unleashing below layouts.
