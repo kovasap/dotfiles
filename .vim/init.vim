@@ -311,6 +311,11 @@ function ReformatMultiLines()
   endwhile
 endfunction
 
+
+" --- CSV ---
+Plug 'mechatroner/rainbow_csv'
+
+
 " --- GDScript ---
 " See https://github.com/godotengine/godot/issues/34523#issuecomment-582144661
 Plug 'calviken/vim-gdscript3'
