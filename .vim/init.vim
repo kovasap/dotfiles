@@ -626,6 +626,7 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " \ 'down':    '40%' })
 Plug 'pbogut/fzf-mru.vim'
 let g:fzf_mru_max = 100000
+let g:fzf_mru_store_relative = 1
 " nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 nnoremap ' :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 " Plug 'tweekmonster/fzf-filemru'
