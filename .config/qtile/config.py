@@ -112,11 +112,13 @@ keys = [
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
+    Key([mod], "b", lazy.spawn('copyq menu')),
 
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
+    Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
     Key([mod], "Return", lazy.spawn("kitty")),
     Key([mod, 'shift'], "Return",
-        lazy.spawn("kitty /bin/bash --rcfile ~/google_desktop.bash")),
+        lazy.spawn("kitty /bin/zsh -c -i sd")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
 
     # Toggle between different layouts as defined below
@@ -195,7 +197,7 @@ class CustomMonadTall(layout.MonadTall):
 layouts = [
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
-    CustomMonadTall(max_ratio=0.67, **layout_theme),
+    CustomMonadTall(ratio=0.67, min_secondary_size=100, **layout_theme),
     layout.Max(**layout_theme),
     # layout.Stack(num_stacks=2, **layout_theme),
     # Try more layouts by unleashing below layouts.

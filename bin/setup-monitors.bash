@@ -31,11 +31,11 @@ xrandr_cmd="xrandr --output eDP-1 --primary --auto"
 if [ -n "$conHdmi" -a -n "$conDP2" ]; then
     xrandr_cmd="$xrandr_cmd --output DP-2 --auto --left-of eDP-1 --output HDMI-1 --auto --left-of DP-2"
 elif [ -n "$conHdmi" ]; then
-    xrandr_cmd="$xrandr_cmd --output HDMI-1 --auto --right-of eDP-1"
+    xrandr_cmd="$xrandr_cmd --output HDMI-1 --auto --left-of eDP-1 --output DP-2 --off"
 elif [ -n "$conDP2" ]; then
-    xrandr_cmd="$xrandr_cmd --output DP-2 --auto --right-of eDP-1"
+    xrandr_cmd="$xrandr_cmd --output DP-2 --auto --right-of eDP-1 --output HDMI-1 --off"
 elif [ -n "$conDP1" ]; then
-    xrandr_cmd="$xrandr_cmd --output DP-1 --auto --right-of eDP-1"
+    xrandr_cmd="$xrandr_cmd --output DP-1 --auto --right-of eDP-1 --output HDMI-1 --off"
 fi
 
 pkill compton

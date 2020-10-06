@@ -187,7 +187,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias sd='ssh -o ServerAliveInterval=60 kovas.c.googlers.com'
 
 # faster google certification
-alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
+alias gcert='gcert; ssh kovas.c.googlers.com gcert'
 
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
