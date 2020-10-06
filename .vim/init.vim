@@ -661,6 +661,7 @@ set noautochdir
 " --- File Browsing ---
 Plug 'justinmk/vim-dirvish'
 autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
+Plug 'tpope/vim-eunuch'
 
 
 " --- Showing Changes and Diffing ---
