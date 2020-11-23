@@ -131,7 +131,7 @@ keys = [
     Key([mod], "r", lazy.spawn("j4-dmenu-desktop")),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in "asdfuiop1234"]
 
 for i in groups:
     keys.extend([
