@@ -228,6 +228,7 @@ unset LESS
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
 

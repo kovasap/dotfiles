@@ -353,6 +353,7 @@ autocmd BufEnter *.joke :setlocal filetype=clojure
 " Plug 'tpope/vim-salve'
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
+Plug 'venantius/vim-cljfmt' 
 let g:ale_linters.clojure = 'all'
 
 " --- Markdown ---
@@ -463,9 +464,9 @@ set colorcolumn=+1
 autocmd BufEnter * :syntax sync fromstart
 " map to show what highlight group is under the cursor when key is pressed,
 " useful for debugging colorscheme issues
-map <C-S> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" map <C-S> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+" \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " don't show scrollbars in macvim
 set guioptions=
 " use mouse in terminal
@@ -803,6 +804,8 @@ endif
 " --- Misc ---
 " Open files at specified lines using file:line syntax
 Plug 'wsdjeg/vim-fetch'
+
+map <C-S> :wa<CR>
 
 
 " --- Browser Interop ---
