@@ -181,6 +181,7 @@ endfunction
 " Run :CocInstall coc-snippets before using
 Plug 'honza/vim-snippets'
 let g:coc_snippet_next = '<tab>'
+let g:ultisnips_python_style = 'google'
 
 " Use <c-space> to trigger completion.
 " inoremap <silent><expr> <c-space> coc#refresh()
@@ -221,9 +222,13 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-
 " Highlight current word with cursor on it across whole buffer
 Plug 'RRethy/vim-illuminate'
+
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+let g:doge_doc_standard_python = 'google'
+let g:doge_mapping_comment_jump_forward = '<c-l>'
+let g:doge_mapping_comment_jump_backward = '<c-h>'
 
 " --- Linting ---
 Plug 'dense-analysis/ale'
@@ -452,7 +457,7 @@ set background=dark
 syntax enable
 " makes vim faster when making new lines after long lines by preventing syntax
 " highlighting after a certain width
-set synmaxcol=200
+set synmaxcol=2000
 " show line numbers
 set nu
 " defined in ~/.vim/colors
@@ -627,7 +632,12 @@ command! -bang -nargs=* DirAg call s:dirag(<q-args>, <bang>0)
 " \ 'down':    '40%' })
 Plug 'pbogut/fzf-mru.vim'
 let g:fzf_mru_max = 100000
-let g:fzf_mru_store_relative = 1
+" This is used instead of 'google3' because when fig uses vimdiff it puts the
+" vim instance at the root of the CitC client (the dir _containing_ google3).
+let g:fzf_mru_store_relative_dir = '/google/src/cloud/'
+" Exclude files with google3 in them - these will be opened only when things are
+" merged via vimdiff.
+let g:fzf_mru_exclude = '/tmp/\|google3'
 " nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 nnoremap ' :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 " Plug 'tweekmonster/fzf-filemru'
