@@ -228,7 +228,7 @@ let g:doge_mapping_comment_jump_forward = '<c-l>'
 let g:doge_mapping_comment_jump_backward = '<c-h>'
 
 " --- Linting ---
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
 let g:ale_linters = {}
 " move between errors
 nnoremap ]e :ALENextWrap<CR>
