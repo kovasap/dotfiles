@@ -33,6 +33,7 @@ import shlex
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
 from libqtile import layout, bar, widget, hook
+from libqtile.widget.graph import MemoryGraph
 
 # Log location is at ~/.local/share/qtile/qtile.log
 from libqtile.log_utils import logger
@@ -227,6 +228,20 @@ graph_args = dict(
     width=40,
 )
 
+class ColoredMemoryGraph(MemoryGraph):
+    """Shows the memory graph in red if above 80%."""
+    def update_graph(self):
+        val = self._getvalues()
+        mem = val['MemTotal'] - val['MemFree'] - val['Buffers'] - val['Cached']
+        if mem / val['MemTotal'] > 0.8:
+            self.graph_color = colors['color1']
+            self.fill_color = colors['color1'] + '.3'
+        else:
+            self.graph_color = colors['color2']
+            self.fill_color = colors['color2'] + '.3'
+        super().update_graph()
+
+
 def qdirstat_callback(qt):
     logger.warning('qditstating')
     return subprocess.Popen('qdirstat', shell=True)
@@ -243,7 +258,7 @@ def get_widgets():
         widget.TextBox("CPU", name="cpu_label"),
         widget.CPUGraph(**graph_args),
         widget.TextBox("Mem", name="memory_label"),
-        widget.MemoryGraph(**graph_args),
+        ColoredMemoryGraph(**graph_args),
         widget.TextBox("Net", name="net_label"),
         widget.NetGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
