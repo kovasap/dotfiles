@@ -184,7 +184,7 @@ export EDITOR=nvim
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # common ssh aliases
-alias sd='ssh -o ServerAliveInterval=60 kovas.c.googlers.com'
+alias sd='ssh kovas.c.googlers.com'
 
 # faster google certification
 alias gcert='gcert; ssh kovas.c.googlers.com gcert'
@@ -232,3 +232,5 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

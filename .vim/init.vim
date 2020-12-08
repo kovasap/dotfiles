@@ -149,10 +149,7 @@ let g:coc_user_config = {
     \'coc.source.lines.fromAllBuffers': v:true
     \}
 let g:coc_user_config.source = {'lines': {'startOfLineOnly': 'false'}}
-autocmd VimEnter * CocInstall coc-lines
-" autocmd VimEnter * CocInstall coc-dictionary
-" autocmd VimEnter * CocInstall coc-word
-autocmd VimEnter * CocInstall coc-snippets
+let g:coc_global_extensions = ['coc-snippets', 'coc-lines', 'coc-dictionary', 'coc-word']
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -330,7 +327,7 @@ let g:coc_user_config.languageserver.godot = {
  \    'port': 6008
  \  }
 " TODO remove when Godot 3.2.2 is released
-autocmd VimEnter * CocInstall coc-godot
+Plug 'j3d42/coc-godot', {'do': 'yarn install --frozen-lockfile'}
 
 
 " --- Clojure ---
