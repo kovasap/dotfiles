@@ -149,10 +149,7 @@ let g:coc_user_config = {
     \'coc.source.lines.fromAllBuffers': v:true
     \}
 let g:coc_user_config.source = {'lines': {'startOfLineOnly': 'false'}}
-autocmd VimEnter * CocInstall coc-lines
-" autocmd VimEnter * CocInstall coc-dictionary
-" autocmd VimEnter * CocInstall coc-word
-autocmd VimEnter * CocInstall coc-snippets
+let g:coc_global_extensions = ['coc-snippets', 'coc-lines', 'coc-dictionary', 'coc-word']
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -231,7 +228,7 @@ let g:doge_mapping_comment_jump_forward = '<c-l>'
 let g:doge_mapping_comment_jump_backward = '<c-h>'
 
 " --- Linting ---
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', { 'tag': 'v2.7.0' }
 let g:ale_linters = {}
 " move between errors
 nnoremap ]e :ALENextWrap<CR>
@@ -330,7 +327,7 @@ let g:coc_user_config.languageserver.godot = {
  \    'port': 6008
  \  }
 " TODO remove when Godot 3.2.2 is released
-autocmd VimEnter * CocInstall coc-godot
+Plug 'j3d42/coc-godot', {'do': 'yarn install --frozen-lockfile'}
 
 
 " --- Clojure ---
