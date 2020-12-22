@@ -33,7 +33,7 @@ source $ZSH/oh-my-zsh.sh
 
 function precmd () {
   # Show last commit's description for mercurial repositories
-  hg_name=$(hg log -r . --template "{desc}" 2>/dev/null)
+  hg_name=$(hg log -r . --template "{desc}" 2>/dev/null | sed 's/`//g')
   # Show repo name for git repositories
   git_name=$(git config --local remote.origin.url 2>/dev/null | sed -n 's#.*/\([^.]*\)\.git#\1#p')
   # Print window title

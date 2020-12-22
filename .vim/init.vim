@@ -78,11 +78,11 @@ nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
 
 nnoremap <C-b> <C-v>
 
-Plug 'easymotion/vim-easymotion'
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-let g:EasyMotion_smartcase = 1 " Turn on case-insensitive feature
-
-map s <Plug>(easymotion-s)
+" Plug 'easymotion/vim-easymotion'
+" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" let g:EasyMotion_smartcase = 1 " Turn on case-insensitive feature
+" 
+" map s <Plug>(easymotion-s)
 
 " Text objects/motions for moving between indented blocks.
 " Key bindings	Description
@@ -93,6 +93,11 @@ map s <Plug>(easymotion-s)
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'christoomey/vim-sort-motion'
 " Plug 'justinmk/vim-sneak'
+" map f <Plug>Sneak_f
+" map F <Plug>Sneak_F
+" map t <Plug>Sneak_t
+" map T <Plug>Sneak_T
+Plug 'rhysd/clever-f.vim'
 
 
 " --- Folding ---
