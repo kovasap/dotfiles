@@ -70,7 +70,8 @@ keys = [
 
     Key([mod], "comma", lazy.prev_screen()),
     Key([mod], "period", lazy.next_screen()),
-    Key([mod], "x", lazy.swap_screens()),
+    Key([mod, "shift"], "comma", lazy.swap_screens()),
+    Key([mod, "shift"], "period", lazy.swap_screens()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
@@ -98,10 +99,10 @@ keys = [
     # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
 
     # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
+    # Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
+    # Key([mod, "shift"], "space", lazy.layout.rotate()),
 
     Key([mod], "t", lazy.window.toggle_floating()),
 
@@ -124,15 +125,29 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "w", lazy.window.kill()),
+    Key([mod], "x", lazy.window.kill()),
 
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "t", lazy.function(hard_restart)),
     Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawn("j4-dmenu-desktop")),
+    Key([mod], "space", lazy.spawn("j4-dmenu-desktop")),
 ]
 
-groups = [Group(i) for i in "asdfuiop1234"]
+mouse = [
+    # Drag floating layouts.
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
+    # Rearrange and resize windows with mouse wheel
+    Click([mod], 'Button4', lazy.layout.grow()),
+    Click([mod], 'Button5', lazy.layout.shrink()),
+    Click([mod, "shift"], "Button5", lazy.layout.shuffle_down()),
+    Click([mod, "shift"], "Button4", lazy.layout.shuffle_up()),
+]
+
+groups = [Group(i) for i in "asdfqwer1234"]
 
 for i in groups:
     keys.extend([
@@ -198,7 +213,11 @@ class CustomMonadTall(layout.MonadTall):
 layouts = [
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
-    CustomMonadTall(ratio=0.67, min_secondary_size=100, **layout_theme),
+    CustomMonadTall(ratio=0.67, min_secondary_size=100,
+                    # Strangely, change_size works for secondary window changes
+                    # in pixels, and change_ratio works for main window changes
+                    # in percent of size.
+                    change_size=60, **layout_theme),
     layout.Max(**layout_theme),
     # layout.Stack(num_stacks=2, **layout_theme),
     # Try more layouts by unleashing below layouts.
@@ -335,15 +354,6 @@ if num_monitors > 1:
             Screen(top=bar.Bar(get_widgets(), **bar_config))
         )
 logger.warning(screens)
-
-# Drag floating layouts.
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
-]
 
 @hook.subscribe.client_new
 def floating_dialogs(window):
