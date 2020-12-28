@@ -44,6 +44,7 @@ function precmd () {
 
 # Install:
 # git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+zplug romkatv/powerlevel10k, as:theme, depth:1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -185,6 +186,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # common ssh aliases
 alias sd='ssh kovas.c.googlers.com'
+alias gmd='gmosh kovas.c.googlers.com'
 
 # faster google certification
 alias gcert='gcert; ssh kovas.c.googlers.com gcert'
@@ -199,6 +201,13 @@ function gp {
     git commit -m "$1"
     git push
 }
+
+# bc - An arbitrary precision calculator language
+function = {
+  echo "$@" | bc -l
+}
+
+alias calc="="
 
 # Don't feed long commands to a pager program.
 unset LESS
