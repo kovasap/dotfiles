@@ -357,10 +357,15 @@ logger.warning(screens)
 
 @hook.subscribe.client_new
 def floating_dialogs(window):
-    # logger.warning(str(window.window.get_wm_class()))
-    # logger.warning(str(window.window.get_name()))
-    # logger.warning(str(window.window.get_wm_type()))
-    if 'Godot' == window.window.get_wm_class()[1]:
+    logger.warning(str(window.window.get_wm_class()))
+    logger.warning(str(window.window.get_name()))
+    logger.warning(str(window.window.get_wm_type()))
+    window_names = {'meet.google.com is sharing your screen.'}
+    window_classes = {'Godot'}
+    wclass = (window.window.get_wm_class()[1]
+              if len(window.window.get_wm_class()) >= 2
+              else '')
+    if (wclass in window_classes or window.window.get_name() in window_names):
         window.floating = True
 
 dgroups_key_binder = None
