@@ -636,7 +636,7 @@ Plug 'pbogut/fzf-mru.vim'
 let g:fzf_mru_max = 100000
 " This is used instead of 'google3' because when fig uses vimdiff it puts the
 " vim instance at the root of the CitC client (the dir _containing_ google3).
-let g:fzf_mru_store_relative_dir = '/google/src/cloud/'
+let g:fzf_mru_store_relative_dirs = ['/google/src/cloud/']
 " Exclude files with google3 in them - these will be opened only when things are
 " merged via vimdiff.
 let g:fzf_mru_exclude = '/tmp/\|google3'
