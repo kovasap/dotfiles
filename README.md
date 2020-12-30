@@ -33,4 +33,7 @@ sudo apt install virtualenvwrapper
 # on a remote server, since otherwise the TERM=xterm-kitty env var wont be
 # recognized.
 sudo apt install kitty
+
+# Install maim for cool screenshot-to-clipboard functionality with printscreen.
+sudo apt install maim
 ```
