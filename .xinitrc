@@ -21,11 +21,6 @@ redshift -O 3000 -b 0.9:0.9
 # hide mouse pointer after idling
 # unclutter -idle 10 -root -grab &
 
-~/bin/setup-monitors.bash forked
-
-# set background image
-feh --bg-fill ~/wallpaper
-
 # Start selfspy
 pkill selfspy
 rm ~/.selfspy/selfspy.pid.lock
@@ -38,6 +33,13 @@ nohup copyq &
 # See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
 rclone mount googledrive: ~/google-drive/ &
 # To unmount, do `fusermount -uz /data`
+
+# Set up xrandr daemon for managing monitors.
+# nohup /usr/lib/x86_64-linux-gnu/cinnamon-settings-daemon/csd-xrandr &
+~/bin/setup-monitors.bash forked
+
+# set background image
+feh --bg-fill ~/wallpaper
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)

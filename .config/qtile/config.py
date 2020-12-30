@@ -95,7 +95,10 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightness.sh up")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightness.sh down")),
 
-    # ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -e 'mv $f ~/pictures/screenshots/'")
+    Key([], 'Print', lazy.spawn(
+        ["bash", "-c", "maim -s | xclip -selection clipboard -t image/png"])),
+        # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")),
+
     # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
 
     # Switch window focus to other pane(s) of stack
@@ -187,11 +190,11 @@ class CustomMonadTall(layout.MonadTall):
             # Make kitty window border darker in color, since kitty windows
             # are not dimmed by compton.
             if 'kitty' in client.window.get_wm_class():
-                px = self.group.qtile.color_pixel(colors['color2'])
+                px = colors['color2']
             else:
-                px = self.group.qtile.color_pixel(self.border_focus)
+                px = self.border_focus
         else:
-            px = self.group.qtile.color_pixel(self.border_normal)
+            px = self.border_normal
 
         # single client - fullscreen
         if len(self.clients) == 1:
@@ -360,7 +363,12 @@ def floating_dialogs(window):
     # logger.warning(str(window.window.get_wm_class()))
     # logger.warning(str(window.window.get_name()))
     # logger.warning(str(window.window.get_wm_type()))
-    if 'Godot' == window.window.get_wm_class()[1]:
+    window_names = {'meet.google.com is sharing your screen.'}
+    window_classes = {'Godot'}
+    wclass = (window.window.get_wm_class()[1]
+              if len(window.window.get_wm_class()) >= 2
+              else '')
+    if (wclass in window_classes or window.window.get_name() in window_names):
         window.floating = True
 
 dgroups_key_binder = None

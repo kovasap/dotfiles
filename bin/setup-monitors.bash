@@ -2,6 +2,9 @@
 
 # see https://tyler.vc/auto-monitor-detection-on-linux for source
 
+# Need to also add file /etc/udev/rules.d/monitor-detect.rules with contents:
+# ACTION=="change", RUN+="/home/kovas/bin/setup-monitors.bash"
+
 # udev will wait for our script to finish before the monitor is available
 # for use, so we will use the `at` command to run our command again as
 # another user:
