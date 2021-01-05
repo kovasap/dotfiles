@@ -171,6 +171,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 # Prompt
 if [[ -d /google ]]; then
   source ~/.google-zshrc
+  cd $(< ~/lastdir)
 fi
 
 # ------------------------- Miscellaneous -------------------------
