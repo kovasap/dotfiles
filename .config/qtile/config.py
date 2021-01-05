@@ -95,6 +95,8 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightness.sh up")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightness.sh down")),
 
+    # Run this command to make an image file from the screenshot:
+    # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
     Key([], 'Print', lazy.spawn(
         ["bash", "-c", "maim -s | xclip -selection clipboard -t image/png"])),
         # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")),
