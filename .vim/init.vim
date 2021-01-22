@@ -326,7 +326,7 @@ endfunction
 
 " --- CSV ---
 Plug 'mechatroner/rainbow_csv'
-
+autocmd FileType csv autocmd BufWritePre <buffer> :RainbowAlign
 
 " --- GDScript ---
 " See https://github.com/godotengine/godot/issues/34523#issuecomment-582144661
