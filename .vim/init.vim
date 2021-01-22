@@ -132,6 +132,11 @@ Plug 'flwyd/vim-conjoin'
 " Delete until the next 'closing' character (quote or brace)
 nmap d' d/[\]\}\)'"]<CR>:let @/ = ""<CR>
 
+" Keep visual selection when indenting or dedenting.
+" https://superuser.com/questions/310417/how-to-keep-in-visual-mode-after-identing-by-shift-in-vim
+vnoremap < <gv
+vnoremap > >gv
+
 
 " --- Language features (autocomplete and go to definition) ---
 " if !isdirectory("/google")
@@ -538,14 +543,18 @@ fun! s:quitiflast()
     endif
 endfun
 command! BDandquit :call s:quitiflast()
-" Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+set noautoread
+if !isdirectory('/google')
+  set autoread
+  " Trigger `autoread` when files changes on disk
+  " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+  " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+  " Notification after file change
+  " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+  autocmd FileChangedShellPost *
+    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+endif
 " Switch between h/cc files (and other related files)
 Plug 'kana/vim-altr'
 nmap <A-L> <Plug>(altr-forward)
@@ -727,7 +736,7 @@ function HgDiffTarget()
   execute 'Hgvdiff' l:cur_rev
 endfunction
 command! HgDiffTargetCmd call HgDiffTarget()
-nnoremap <C-d> :HgDiffTargetCmd<CR>
+nnoremap <A-d> :HgDiffTargetCmd<CR>
 
 " make obtain/put commands in diff mode auto jump to the next change
 nnoremap do do]c
