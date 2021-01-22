@@ -71,7 +71,7 @@ highlight Ignore ctermbg=none
 highlight ModeMsg ctermfg=none
 
 " this is what gets overlaid on the bad text
-highlight ALEError cterm=underline ctermbg=5
+highlight ALEError cterm=underline ctermbg=0
 highlight ALEWarning cterm=underline ctermbg=0
 highlight ALEInfo cterm=underline ctermbg=0
 highlight ALEStyleError cterm=underline ctermbg=5
