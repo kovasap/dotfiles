@@ -34,6 +34,9 @@ sudo apt install virtualenvwrapper
 # recognized.
 sudo apt install kitty
 
+# Install tldr (https://tldr.sh/)
+sudo apt install tldr
+
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 sudo apt install maim
 ```
