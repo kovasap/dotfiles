@@ -76,8 +76,6 @@ endfunction
 nnoremap <silent> <C-a-o> :call GoBackToRecentBuffer()<Enter>
 nnoremap <silent> <C-a-i> :call GoForwardToRecentBuffer()<Enter>
 
-nnoremap <C-b> <C-v>
-
 " Plug 'easymotion/vim-easymotion'
 " let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " let g:EasyMotion_smartcase = 1 " Turn on case-insensitive feature
