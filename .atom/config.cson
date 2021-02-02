@@ -1,0 +1,13 @@
+"*":
+  core:
+    telemetryConsent: "no"
+    themes: [
+      "one-dark-ui"
+      "rainglow"
+    ]
+  editor:
+    fontFamily: "FiraCode, Menlo, Consolas, DejaVu Sans Mono, monospace"
+  "exception-reporting":
+    userId: "d4ddeed2-caed-4564-b20e-0ff1b2d752a9"
+  rainglow:
+    SelectSyntax: "earthsong-rainglow-syntax"
