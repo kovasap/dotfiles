@@ -101,8 +101,8 @@ _fix_cursor() {
 }
 precmd_functions+=(_fix_cursor)
 
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
 
 # Use system clipboard with vi mode
 zplug "kutsan/zsh-system-clipboard"
@@ -175,6 +175,12 @@ if [[ -d /google ]]; then
 fi
 
 # ------------------------- Miscellaneous -------------------------
+
+_update_lastdir() {
+  echo $PWD > ~/lastdir
+}
+
+add-zsh-hook chpwd _update_lastdir
 
 alias nv='nvim'
 # Make neovim the default editor for everything.

@@ -580,6 +580,8 @@ nnoremap <A-j> <C-w>w
 nnoremap <A-v> :vsplit \| wincmd w<CR>
 " close windows with alt-w
 nnoremap <A-w> <C-w>c
+" Reset window sizings to be the same
+nnoremap <A-=> <C-w>=
 
 
 " --- Searching ---
