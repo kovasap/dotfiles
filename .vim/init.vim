@@ -253,7 +253,7 @@ let g:jedi#documentation_command = "gc"
 let g:jedi#usages_command = "ga"
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = "gr"
-if !isdirectory("/google")
+if !filereadable(expand('~/.vim/google.vim'))
   Plug 'Vimjas/vim-python-pep8-indent'
 endif
 Plug 'vim-python/python-syntax'
@@ -542,7 +542,7 @@ fun! s:quitiflast()
 endfun
 command! BDandquit :call s:quitiflast()
 set noautoread
-if !isdirectory('/google')
+if !filereadable(expand('~/.vim/google.vim'))
   set autoread
   " Trigger `autoread` when files changes on disk
   " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -817,7 +817,7 @@ augroup END
 
 
 " --- Google ---
-if isdirectory('/google')
+if filereadable(expand('~/.vim/google.vim'))
   source ~/.vim/google.vim
 endif
 
@@ -827,6 +827,8 @@ endif
 Plug 'wsdjeg/vim-fetch'
 
 map <C-S> :wa<CR>
+
+Plug 'junegunn/vim-easy-align'
 
 
 " --- Browser Interop ---
