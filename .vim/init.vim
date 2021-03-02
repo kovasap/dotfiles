@@ -510,6 +510,8 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
 augroup END
 
+Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+
 
 " --- Clipboard ---
 " use system clipboard for everything by default
