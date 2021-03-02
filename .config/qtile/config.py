@@ -279,6 +279,11 @@ def get_widgets():
         widget.TextBox(" | ", name="separator"),
         widget.Clipboard(max_width=50, timeout=None),
         widget.TextBox(" | ", name="separator"),
+        # Requires
+        # sudo apt install libiw-dev
+        # pip install iwlib
+        widget.Wlan(),
+        widget.TextBox(" | ", name="separator"),
         widget.TextBox("CPU", name="cpu_label"),
         widget.CPUGraph(**graph_args),
         widget.TextBox("Mem", name="memory_label"),

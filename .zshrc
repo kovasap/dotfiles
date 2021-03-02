@@ -51,8 +51,9 @@ zplug romkatv/powerlevel10k, as:theme, depth:1
 
 # ------------------------- Completion -------------------------------
 
-# shift-tab accept the current suggestion
-bindkey '^[[Z' autosuggest-accept
+# shift-tab accept the current suggestion by word
+bindkey '^[[Z' forward-word
+# use `autosuggest-accept` for full acceptance
 
 # ------------------------- Fuzzy Searching (FZF) ------------------------- 
 
