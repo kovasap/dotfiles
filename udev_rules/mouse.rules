@@ -1,0 +1,1 @@
+ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0071", RUN="/usr/local/bin/fix_mouse_sens.bash"
