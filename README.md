@@ -51,3 +51,5 @@ sudo apt install tldr
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 sudo apt install maim
 ```
+
+Also install https://github.com/kovasap/auto-screenshooter.
