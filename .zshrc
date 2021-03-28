@@ -177,6 +177,8 @@ fi
 
 # ------------------------- Miscellaneous -------------------------
 
+unsetopt autocd
+
 _update_lastdir() {
   echo $PWD > ~/lastdir
 }

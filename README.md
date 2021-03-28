@@ -12,6 +12,13 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
+# Link udev rules to /etc/udev/rules.d/
+sudo ln -s ~/udev_rules/mouse.rules /etc/udev/rules.d/mouse.rules
+sudo ln -s ~/udev_rules/fix_mouse_sens.bash /usr/local/bin/fix_mouse_sens.bash
+sudo udevadm control --reload
+# Can monitor activity with:
+# udevadm monitor --environment
+
 # Install neovim
 sudo apt install neovim
 
@@ -44,3 +51,5 @@ sudo apt install tldr
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 sudo apt install maim
 ```
+
+Also install https://github.com/kovasap/auto-screenshooter.
