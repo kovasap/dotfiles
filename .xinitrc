@@ -26,6 +26,9 @@ pkill selfspy
 rm ~/.selfspy/selfspy.pid.lock
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
 
+# Start ActivityWatch
+nohup /home/kovas/.cache/pypoetry/virtualenvs/activitywatch-778Ahas6-py3.8/bin/aw-qt &> ~/activitywatch.log &
+
 # Start auto screenshot utility.
 nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
 
