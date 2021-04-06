@@ -26,6 +26,12 @@ pkill selfspy
 rm ~/.selfspy/selfspy.pid.lock
 nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
 
+# Start ActivityWatch
+(cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &)
+
+# Start auto screenshot utility.
+nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
+
 # Start copyq
 nohup copyq &
 
