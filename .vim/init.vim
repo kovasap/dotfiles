@@ -325,6 +325,9 @@ endfunction
 " --- HTML ---
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
+" --- Typescript and Javascript ---
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
 
 " --- CSV ---
 Plug 'mechatroner/rainbow_csv'
