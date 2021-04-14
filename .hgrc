@@ -32,6 +32,7 @@ prevent-update-noarg = False
 
 [alias]
 ua = uploadall
+unbranch = !$HG uncommit --keep $1 ; $HG forget $1 ; $HG add $1 ; $HG amend $1
 
 [experimental]
 # makes it so that private revisions are prefixed with an "x", making revisions

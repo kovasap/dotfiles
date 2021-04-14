@@ -659,7 +659,6 @@ let g:fzf_mru_store_relative_dirs = ['/google/src/cloud/']
 " Exclude files with google3 in them - these will be opened only when things are
 " merged via vimdiff.
 let g:fzf_mru_exclude = '/tmp/\|google3'
-" nnoremap <A-/> :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 nnoremap ' :FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>
 " Plug 'tweekmonster/fzf-filemru'
 " nnoremap <A-/> :FilesMru -m -x --tiebreak=lenth --nth=-1,.. --delimiter=/<CR>
