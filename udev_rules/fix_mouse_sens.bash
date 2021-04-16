@@ -6,7 +6,7 @@ if [[ $1 ]]
 then
   echo foreground >> /tmp/testt.log
   xenv="env DISPLAY=:0 XAUTHORITY=/home/kovas/.Xauthority"
-  $xenv /usr/bin/xinput --set-prop 'pointer:Razer Razer DeathAdder Essential White Edition' 179 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
+  $xenv /usr/bin/xinput --set-prop 'pointer:Razer Razer DeathAdder Essential White Edition' 187 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
 else
   echo background >> /tmp/testt.log
   /usr/local/bin/fix_mouse_sens.bash an_argument &
