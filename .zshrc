@@ -5,6 +5,9 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
+# Uncomment to profile zsh startup
+# zmodload zsh/zprof
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -161,10 +164,10 @@ alias icat='kitty +kitten icat'
 
 
 # ------------------------- Python -------------------------
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 
 # ------------------------- Google -------------------------
@@ -255,3 +258,6 @@ zplug load
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# Uncomment to profile zsh startup
+# zprof
