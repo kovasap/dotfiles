@@ -39,6 +39,7 @@ map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true 
 --                          /// Editing and Formatting ///
 
 -- Rename word and prime to replace other occurances
+-- Can also search for something then use 'cgn' to "change next searched occurance".
 map('n', 'ct', '*Ncw<C-r>"')
 map('n', 'cT', '*Ncw')
 
@@ -64,15 +65,15 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Wrap lines automatically at 79 characters.
-vim.o.wrap = true
-vim.o.linebreak = true
-vim.o.textwidth = 79
-vim.o.wrapmargin = 0
-vim.o.formatoptions = vim.o.formatoptions .. 'l'
-vim.o.formatoptions = vim.o.formatoptions .. 't'
+vim.wo.wrap = true
+vim.wo.linebreak = true
+vim.bo.textwidth = 79
+vim.bo.wrapmargin = 0
+vim.bo.formatoptions = vim.o.formatoptions .. 'l'
+vim.bo.formatoptions = vim.o.formatoptions .. 't'
 
 -- Make new lines indent automatically.
-vim.o.autoindent = true
+vim.bo.autoindent = true
 
 -- Reformat paragraphs when typing anywhere in them (not just when adding to
 -- their end).
@@ -118,8 +119,8 @@ paq 'junegunn/vim-easy-align'
 --                          /// Visuals ///
 
 -- Show tabs as actual characters.
-vim.o.list = true
-vim.o.listchars = 'tab:>-'
+vim.wo.list = true
+vim.wo.listchars = 'tab:>-'
 
 -- Highlight current word with cursor on it across whole buffer.
 paq 'RRethy/vim-illuminate'
@@ -150,25 +151,6 @@ paq 'Yggdroot/indentLine'
 vim.g.indentLine_color_term = 17
 vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
 vim.g.indentLine_setConceal = false
-
--- Adds multicolored parenthesis to make it easier to see how they match up.
-paq 'kien/rainbow_parentheses.vim'
-vim.cmd("au VimEnter * RainbowParenthesesToggle")
-vim.cmd("au Syntax * RainbowParenthesesLoadRound")
-vim.cmd("au Syntax * RainbowParenthesesLoadSquare")
-vim.cmd("au Syntax * RainbowParenthesesLoadBraces")
--- Format is [termcolor, guicolor] in this list.
-vim.g.rbpt_colorpairs = {
-    {'1', 'RoyalBlue3'},
-    {'3', 'RoyalBlue3'},
-    {'4', 'RoyalBlue3'},
-    {'1', 'RoyalBlue3'},
-    {'3', 'RoyalBlue3'},
-    {'4', 'RoyalBlue3'},
-    {'1', 'RoyalBlue3'},
-    {'3', 'RoyalBlue3'},
-    {'4', 'RoyalBlue3'},
-}
 
 
 --                          /// User Interface ///
@@ -229,7 +211,7 @@ map('n', '<A-k>', '<C-w>W')
 map('n', '<A-j>', '<C-w>w')
 
 -- Make vertical split with alt-v, moving the next split.
-map('n', '<A-v>', ':vsplit \\| wincmd w<CR>')
+map('n', '<A-v>', ':vsplit | wincmd w<CR>')
 
 -- Close windows with alt-w.
 map('n', '<A-w>', '<C-w>c')
@@ -301,7 +283,7 @@ map('n', '<C-S>', ':wa<CR>')
 
 --                          /// Searching ///
 
-paq { 'junegunn/fzf', dir = '~/.fzf', ["do"]='./install --all' }
+paq {'junegunn/fzf', run = vim.fn['fzf#install']}
 paq { 'junegunn/fzf.vim' }
 vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 vim.g.fzf_layout = {
@@ -447,6 +429,181 @@ com! DiffSaved call g:DiffWithSaved()
 )
 
 
+--                          /// Completion ///
+
+paq {'hrsh7th/nvim-compe'}
+vim.o.completeopt = "menuone,noselect"
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+  };
+}
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
+map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+
+--                          /// Language - General ///
+
+paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+paq 'nvim-treesitter/nvim-treesitter-textobjects'
+-- Adds multicolored parenthesis to make it easier to see how they match up.
+paq 'p00f/nvim-ts-rainbow'
+require('nvim-treesitter.configs').setup {
+  -- Install all maintained languages.
+  ensure_installed = 'maintained',
+  highlight = {enable = true},
+  indent = {enable = true},
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Highlight also non-parentheses delimiters
+    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines
+    termcolors = { '3', '4', '1', '3', '4', '1', '3', '4' }
+  },
+  textobjects = {
+    lsp_interop = {
+      enable = true,
+      peek_definition_code = {
+        ["df"] = "@function.outer",
+        ["dF"] = "@class.outer",
+      },
+    },
+    select = {
+      enable = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+  },
+}
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.cmd('set foldmethod=expr')
+vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
+
+paq {'neovim/nvim-lspconfig'}
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys 
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
+
+
+--                          /// Language - Python ///
+-- This requires: npm i -g pyright
+-- nvim_lsp.pyright.setup {on_attach = on_attach}
+-- This requires: pip install 'python-language-server[all]'
+nvim_lsp.pyls.setup {on_attach = on_attach}
+
 
 --                          /// Language - CSV ///
 
@@ -498,7 +655,8 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 
 --                          /// Language - Terminal ///
 -- Attmpts to make vim better when reading terminal data from kitty
-paq 'powerman/vim-plugin-AnsiEsc'
+-- TODO FIX
+-- paq 'powerman/vim-plugin-AnsiEsc'
 paq 'rkitover/vimpager'
 
 
