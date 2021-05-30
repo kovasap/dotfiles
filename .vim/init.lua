@@ -575,7 +575,8 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  -- local opts = { noremap=true, silent=true }
+  local opts = { noremap=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -589,6 +590,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap("n", "gl", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("v", "gl", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 end
 
 
@@ -596,7 +598,22 @@ end
 -- This requires: npm i -g pyright
 -- nvim_lsp.pyright.setup {on_attach = on_attach}
 -- This requires: pip install 'python-language-server[all]'
-nvim_lsp.pyls.setup {on_attach = on_attach}
+-- See
+-- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
+-- for config tips.
+nvim_lsp.pyls.setup {
+  on_attach = on_attach,
+  settings = {
+    pyls = {
+      plugins = {
+        yapf = { enabled = true },
+        autopep8 = { enabled = false },
+        pylint = { enabled = true },
+        pycodestyle = { enabled = false },
+      }
+    }
+  }
+}
 
 
 --                          /// Language - CSV ///
