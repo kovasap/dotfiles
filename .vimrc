@@ -1,1 +1,1 @@
-.vim/init.vim
+.vim/init.lua

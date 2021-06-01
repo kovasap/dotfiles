@@ -3,6 +3,7 @@ alsa-utils	# for get_volume xmobar script
 bat # https://github.com/sharkdp/bat
 j4-dmenu-desktop
 copyq
+cmatrix
 qdirstat
 xmonad
 xmobar

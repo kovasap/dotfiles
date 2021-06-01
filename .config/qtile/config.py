@@ -124,6 +124,8 @@ keys = [
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
     Key([mod], "Return", lazy.spawn("kitty")),
+    Key([mod, 'shift', 'control'], "Return", lazy.spawn(
+        "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], "Return",
         lazy.spawn("kitty /bin/zsh -c -i sd")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
