@@ -173,8 +173,8 @@ alias icat='kitty +kitten icat'
 # ------------------------- Google -------------------------
 
 # Prompt
-if [[ -a ~/.google-zshrc ]]; then
-  source ~/.google-zshrc
+if [[ -a ~/google_dotfiles/google-zshrc ]]; then
+  source ~/google_dotfiles/google-zshrc
   cd $(< ~/lastdir)
 fi
 
@@ -257,7 +257,7 @@ zplug load
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/bin:$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH"
 
 # Uncomment to profile zsh startup
 # zprof
