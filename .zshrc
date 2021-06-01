@@ -257,7 +257,7 @@ zplug load
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.poetry/bin:$PATH"
 
 # Uncomment to profile zsh startup
 # zprof
