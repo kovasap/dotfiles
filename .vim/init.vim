@@ -26,6 +26,10 @@ call plug#begin()
 " --- Navigation ---
 noremap j gj
 noremap k gk
+
+" Search for selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " this mapping makes it so that the screen moves with the cursor (toggle)
 set scrolloff=0
 nnoremap <C-g> :let &scrolloff=999-&scrolloff<CR>
@@ -119,6 +123,7 @@ set fillchars=fold:\ ,vert:/
 "  Rename word and prime to replace other occurances
 nnoremap ct *Ncw<C-r>"
 nnoremap cT *Ncw
+
 "  Rename word across file
 nnoremap cW :%s/\<<C-r><C-w>\>/
 Plug 'AndrewRadev/splitjoin.vim'
@@ -521,6 +526,10 @@ augroup END
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 
 
+" --- Terminal Mode ---
+tnoremap <Esc> <C-\><C-n>
+
+
 " --- Clipboard ---
 " use system clipboard for everything by default
 " see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
@@ -678,10 +687,14 @@ set shada=!,'1000,<50,s10,h
 " search for files starting from directory with current buffer and working way
 " up, limiting search to 1000 files
 " strangely, C-/ gets recognized as C-_ by vim in the terminal
-nnoremap <C-_> :Files<CR>
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
-  \                               'options': '--tiebreak=index'}, <bang>0)
+" nnoremap <C-_> :Files<CR>
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, {'source': printf('find_up.bash %s -type f | head -n 10000', expand('%:h')),
+"   \                               'options': '--tiebreak=index'}, <bang>0)
+
+" Search for clipboard word.  Useful for replacements.
+nnoremap <C-_> /\<<C-r>"\><CR>
+
 
 " --- Persistance ---
 Plug 'zhimsel/vim-stay'
@@ -842,6 +855,7 @@ Plug 'junegunn/vim-easy-align'
 
 " --- Browser Interop ---
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
