@@ -561,8 +561,12 @@ require('nvim-treesitter.configs').setup {
 -- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.cmd('set foldmethod=expr')
 vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
+vim.cmd('set foldlevelstart=99')
 
-paq {'neovim/nvim-lspconfig'}
+paq {
+  'neovim/nvim-lspconfig',
+  run=vim.cmd('!pip install python-language-server[all] yapf'),
+}
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys 
@@ -595,8 +599,6 @@ end
 
 
 --                          /// Language - Python ///
--- This requires: npm i -g pyright
--- nvim_lsp.pyright.setup {on_attach = on_attach}
 -- This requires: pip install 'python-language-server[all]'
 -- See
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
@@ -606,6 +608,7 @@ nvim_lsp.pyls.setup {
   settings = {
     pyls = {
       plugins = {
+        -- This requires: pip install yapf
         yapf = { enabled = true },
         autopep8 = { enabled = false },
         pylint = { enabled = true },
@@ -671,8 +674,8 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 paq 'rkitover/vimpager'
 
 
---                          /// Other Config Files ///
--- TODO FIX
--- if vim.fn.filereadable(vim.fn.expand('~/.vim/google.vim')) then
---   vim.cmd("source ~/.vim/google.vim")
--- end
+--                          /// Machine Specific Config Files ///
+if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) then
+  require('google_dotfiles/google')
+  nvim_lsp.ciderlsp.setup{on_attach = on_attach}
+end
