@@ -677,7 +677,7 @@ paq 'rkitover/vimpager'
 
 
 --                          /// Machine Specific Config Files ///
-if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) then
+if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google')
   nvim_lsp.ciderlsp.setup{on_attach = on_attach}
 end
