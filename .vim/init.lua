@@ -106,6 +106,8 @@ paq 'tpope/vim-abolish'
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
 paq 'tpope/vim-surround'
+map('n', '<C-9>', 'ysiw)')
+map('n', '<C-]>', 'ys$]')
 paq 'tpope/vim-repeat'
 
 -- Automatically close parens.
@@ -563,10 +565,10 @@ vim.cmd('set foldmethod=expr')
 vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
 vim.cmd('set foldlevelstart=99')
 
-paq {
-  'neovim/nvim-lspconfig',
-  run=vim.cmd('!pip install python-language-server[all] yapf'),
-}
+local function install_python_ls()
+  vim.cmd('!pip install python-language-server[all] yapf')
+end
+paq { 'neovim/nvim-lspconfig', run=install_python_ls }
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys 

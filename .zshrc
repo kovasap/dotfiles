@@ -60,8 +60,7 @@ bindkey '^[[Z' autosuggest-accept
 
 # ------------------------- Fuzzy Searching (FZF) ------------------------- 
 
-source ~/.fzf/shell/completion.zsh
-source ~/.fzf/shell/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey -r "^T"
 bindkey -r "^[c"
 bindkey "^ " fzf-history-widget
@@ -253,9 +252,6 @@ unset LESS
 path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH"
 
