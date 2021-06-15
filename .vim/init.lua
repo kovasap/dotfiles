@@ -620,6 +620,10 @@ nvim_lsp.pyls.setup {
   }
 }
 
+--                          /// Language - Clojure ///
+
+paq 'eraserhd/parinfer-rust'
+
 
 --                          /// Language - CSV ///
 
@@ -675,6 +679,12 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 -- paq 'powerman/vim-plugin-AnsiEsc'
 paq 'rkitover/vimpager'
 
+
+--                          /// Language - GDScript ///
+paq 'habamax/vim-godot'
+nvim_lsp.gdscript.setup {
+  on_attach = on_attach
+}
 
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
