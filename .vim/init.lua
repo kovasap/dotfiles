@@ -105,14 +105,13 @@ command! TrimWhitespace call TrimWhitespace()
 paq 'tpope/vim-abolish'
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
-paq 'tpope/vim-surround'
-map('n', '<C-9>', 'ysiw)')
-map('n', '<C-]>', 'ys$]')
+paq 'pope/vim-surround'
 paq 'tpope/vim-repeat'
 
 -- Automatically close parens.
 paq 'cohama/lexima.vim'
-vim.g.lexima_enable_basic_rules = 0
+vim.g.lexima_no_default_rules = true
+vim.cmd('call lexima#set_default_rules()')
 
 -- Automatically align code.
 paq 'junegunn/vim-easy-align'
@@ -431,7 +430,11 @@ com! DiffSaved call g:DiffWithSaved()
 )
 
 
---                          /// Completion ///
+--                          /// Completion and Snippets ///
+
+paq {'rafamadriz/friendly-snippets'}
+paq {'hrsh7th/vim-vsnip'}
+paq {'hrsh7th/vim-vsnip-integ'}
 
 paq {'hrsh7th/nvim-compe'}
 vim.o.completeopt = "menuone,noselect"
@@ -456,7 +459,8 @@ require'compe'.setup {
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = true;
-    ultisnips = true;
+    -- ultisnips = true;
+    spell = true;
   };
 }
 local t = function(str)
@@ -500,6 +504,8 @@ map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+map('i', '<CR>', "compe#confirm(lexima#expand('<LT>CR>', 'i'))", {expr = true})
+
 
 
 --                          /// Language - General ///
@@ -512,7 +518,8 @@ require('nvim-treesitter.configs').setup {
   -- Install all maintained languages.
   ensure_installed = 'maintained',
   highlight = {enable = true},
-  indent = {enable = true},
+  -- TODO Re-enable when this works better for python.
+  -- indent = {enable = true},
   rainbow = {
     enable = true,
     extended_mode = true, -- Highlight also non-parentheses delimiters
