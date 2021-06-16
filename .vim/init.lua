@@ -40,6 +40,7 @@ map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true 
 
 -- Rename word and prime to replace other occurances
 -- Can also search for something then use 'cgn' to "change next searched occurance".
+map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 map('n', 'ct', '*Ncw<C-r>"')
 map('n', 'cT', '*Ncw')
 
