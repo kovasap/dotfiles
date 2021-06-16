@@ -330,11 +330,12 @@ function! g:Dirag(query, ...)
   endif
   let query = empty(a:query) ? '^(?=.)' : a:query
   let args = copy(a:000)
+  echo args
   let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' . expand('%:h')
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
-command! -bang -nargs=* DirAg call g:Dirag(<q-args>, <bang>0)
+command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 ]]
 )
