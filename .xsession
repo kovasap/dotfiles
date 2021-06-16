@@ -2,5 +2,6 @@
 . ~/.profile  # necessary on Debian!
 . ~/.xprofile
 # remove state file to avoid getting xmonad confused about number of monitors
-rm ~/.xmonad/xmonad.state
-exec xmonad
+# rm ~/.xmonad/xmonad.state
+# exec xmonad
+exec /home/kovas/qtile/qtile-venv-entry

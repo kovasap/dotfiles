@@ -40,6 +40,7 @@ map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true 
 
 -- Rename word and prime to replace other occurances
 -- Can also search for something then use 'cgn' to "change next searched occurance".
+map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 map('n', 'ct', '*Ncw<C-r>"')
 map('n', 'cT', '*Ncw')
 
@@ -627,6 +628,10 @@ nvim_lsp.pyls.setup {
   }
 }
 
+--                          /// Language - Clojure ///
+
+paq 'eraserhd/parinfer-rust'
+
 
 --                          /// Language - CSV ///
 
@@ -683,8 +688,14 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 paq 'rkitover/vimpager'
 
 
+--                          /// Language - GDScript ///
+paq 'habamax/vim-godot'
+nvim_lsp.gdscript.setup {
+  on_attach = on_attach
+}
+
 --                          /// Machine Specific Config Files ///
-if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) then
+if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google')
   nvim_lsp.ciderlsp.setup{on_attach = on_attach}
 end
