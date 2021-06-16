@@ -628,6 +628,9 @@ nvim_lsp.pyls.setup {
     }
   }
 }
+-- Auto add imports from file ~/.vim/python-imports.cfg
+paq 'mgedmin/python-imports.vim'
+map('n', 'gai', ':ImportName<CR>')
 
 --                          /// Language - Clojure ///
 
