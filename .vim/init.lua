@@ -106,14 +106,13 @@ command! TrimWhitespace call TrimWhitespace()
 paq 'tpope/vim-abolish'
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
-paq 'tpope/vim-surround'
-map('n', '<C-9>', 'ysiw)')
-map('n', '<C-]>', 'ys$]')
+paq 'pope/vim-surround'
 paq 'tpope/vim-repeat'
 
 -- Automatically close parens.
 paq 'cohama/lexima.vim'
-vim.g.lexima_enable_basic_rules = 0
+vim.g.lexima_no_default_rules = true
+vim.cmd('call lexima#set_default_rules()')
 
 -- Automatically align code.
 paq 'junegunn/vim-easy-align'
@@ -331,11 +330,12 @@ function! g:Dirag(query, ...)
   endif
   let query = empty(a:query) ? '^(?=.)' : a:query
   let args = copy(a:000)
+  echo args
   let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' . expand('%:h')
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
-command! -bang -nargs=* DirAg call g:Dirag(<q-args>, <bang>0)
+command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 ]]
 )
@@ -432,7 +432,11 @@ com! DiffSaved call g:DiffWithSaved()
 )
 
 
---                          /// Completion ///
+--                          /// Completion and Snippets ///
+
+paq {'rafamadriz/friendly-snippets'}
+paq {'hrsh7th/vim-vsnip'}
+paq {'hrsh7th/vim-vsnip-integ'}
 
 paq {'hrsh7th/nvim-compe'}
 vim.o.completeopt = "menuone,noselect"
@@ -457,7 +461,8 @@ require'compe'.setup {
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = true;
-    ultisnips = true;
+    -- ultisnips = true;
+    spell = true;
   };
 }
 local t = function(str)
@@ -501,6 +506,8 @@ map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+map('i', '<CR>', "compe#confirm(lexima#expand('<LT>CR>', 'i'))", {expr = true})
+
 
 
 --                          /// Language - General ///
@@ -513,7 +520,8 @@ require('nvim-treesitter.configs').setup {
   -- Install all maintained languages.
   ensure_installed = 'maintained',
   highlight = {enable = true},
-  indent = {enable = true},
+  -- TODO Re-enable when this works better for python.
+  -- indent = {enable = true},
   rainbow = {
     enable = true,
     extended_mode = true, -- Highlight also non-parentheses delimiters
@@ -620,6 +628,9 @@ nvim_lsp.pyls.setup {
     }
   }
 }
+-- Auto add imports from file ~/.vim/python-imports.cfg
+paq 'mgedmin/python-imports.vim'
+map('n', 'gai', ':ImportName<CR>')
 
 --                          /// Language - Clojure ///
 
