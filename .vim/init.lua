@@ -110,9 +110,9 @@ paq 'pope/vim-surround'
 paq 'tpope/vim-repeat'
 
 -- Automatically close parens.
-paq 'cohama/lexima.vim'
-vim.g.lexima_no_default_rules = true
-vim.cmd('call lexima#set_default_rules()')
+paq 'windwp/nvim-autopairs'
+local npairs = require('nvim-autopairs')
+npairs.setup()
 
 -- Automatically align code.
 paq 'junegunn/vim-easy-align'
@@ -506,7 +506,21 @@ map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-map('i', '<CR>', "compe#confirm(lexima#expand('<LT>CR>', 'i'))", {expr = true})
+_G.MUtils= {}  -- skip it, if you use another global object
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm=function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+    else
+      return npairs.esc("<cr>")
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+
+map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 
 
