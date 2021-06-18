@@ -618,8 +618,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "gQQ", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("v", "gQ", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  buf_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 end
 
 -- Range formatting 
@@ -636,7 +636,7 @@ function format_range_operator()
   vim.go.operatorfunc = 'v:lua.op_func_formatting'
   vim.api.nvim_feedkeys('g@', 'n', false)
 end
-vim.api.nvim_set_keymap("n", "gQ", "<cmd>lua format_range_operator()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {noremap = true})
 
 
 --                          /// Language - Python ///
