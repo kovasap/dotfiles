@@ -622,6 +622,22 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("v", "gl", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 end
 
+-- Range formatting 
+-- See https://github.com/neovim/neovim/issues/14680
+function format_range_operator()
+  local old_func = vim.go.operatorfunc
+  _G.op_func_formatting = function()
+    local start = vim.api.nvim_buf_get_mark(0, '[')
+    local finish = vim.api.nvim_buf_get_mark(0, ']')
+    vim.lsp.buf.range_formatting({}, start, finish)
+    vim.go.operatorfunc = old_func
+    _G.op_func_formatting = nil
+  end
+  vim.go.operatorfunc = 'v:lua.op_func_formatting'
+  vim.api.nvim_feedkeys('g@', 'n', false)
+end
+vim.api.nvim_set_keymap("n", "gQ", "<cmd>lua format_range_operator()<CR>", {noremap = true})
+
 
 --                          /// Language - Python ///
 -- This requires: pip install 'python-language-server[all]'
