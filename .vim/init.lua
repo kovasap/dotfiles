@@ -441,29 +441,30 @@ paq {'hrsh7th/vim-vsnip-integ'}
 paq {'hrsh7th/nvim-compe'}
 vim.o.completeopt = "menuone,noselect"
 require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
+  enabled = true,
+  autocomplete = true,
+  debug = false,
+  min_length = 1,
+  preselect = 'enable',
+  throttle_time = 80,
+  source_timeout = 200,
+  incomplete_delay = 400,
+  max_abbr_width = 100,
+  max_kind_width = 100,
+  max_menu_width = 100,
+  documentation = true,
 
   source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    -- ultisnips = true;
-    spell = true;
-  };
+    path = true,
+    buffer = true,
+    calc = true,
+    nvim_lsp = true,
+    nvim_lua = true,
+    vsnip = true,
+    emoji = true,
+    -- ultisnips = true,
+    spell = true,
+  },
 }
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -506,6 +507,7 @@ map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- Integration with nvim-autopairs.
 _G.MUtils= {}  -- skip it, if you use another global object
 vim.g.completion_confirm_key = ""
 MUtils.completion_confirm=function()
@@ -519,9 +521,7 @@ MUtils.completion_confirm=function()
     return npairs.autopairs_cr()
   end
 end
-
 map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
-
 
 
 --                          /// Language - General ///
@@ -546,8 +546,8 @@ require('nvim-treesitter.configs').setup {
     lsp_interop = {
       enable = true,
       peek_definition_code = {
-        ["df"] = "@function.outer",
-        ["dF"] = "@class.outer",
+        ["gi"] = "@function.outer",
+        ["gI"] = "@class.outer",
       },
     },
     select = {
@@ -611,15 +611,15 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "gl", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("v", "gl", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  buf_set_keymap("n", "gQQ", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("v", "gQ", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 end
 
 -- Range formatting 
