@@ -25,15 +25,18 @@ paq { 'savq/paq-nvim', opt=true }
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
--- Smooth scrolling, space to go down, tab to go up.
+-- Smooth scrolling, ctrl-j to go down, ctrl-k to go up.
 paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
-map('n', '<space>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('n', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<C-u>', '<tab>')
-map('n', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<space>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('n', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('v', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<C-u>', '<tab>')
-map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+
+-- Space to search, to encourage more frequent use for navigation.
+map('n', '<space>', '/')
 
 
 --                          /// Editing and Formatting ///
@@ -612,7 +615,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
