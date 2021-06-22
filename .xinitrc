@@ -18,9 +18,7 @@ redshift -O 3000 -b 0.9:0.9
 # unclutter -idle 10 -root -grab &
 
 # Start selfspy
-pkill selfspy
-rm ~/.selfspy/selfspy.pid.lock
-nohup /home/kovas/.virtualenvs/photos_calendar_sync/bin/selfspy -n -v &> ~/.selfspy/selfspy.log &
+(pkill selfspy; rm ~/.selfspy/selfspy.pid.lock; cd ~/autojournal; nohup poetry run selfspy -n -v &> ~/.selfspy/selfspy.log &)
 
 # Start ActivityWatch
 (cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &)
