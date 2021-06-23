@@ -226,10 +226,12 @@ layouts = [
                     # in percent of size.
                     change_size=60, **layout_theme),
     layout.Max(**layout_theme),
-    # layout.Stack(num_stacks=2, **layout_theme),
+    layout.Columns(name='2cols', num_columns=2, **layout_theme),
+    layout.Columns(name='3cols', num_columns=3, **layout_theme),
+    # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
+    # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
-    # layout.Columns(),
     # layout.Matrix(),
     # layout.MonadWide(),
     # layout.RatioTile(),
