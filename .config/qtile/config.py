@@ -61,8 +61,16 @@ def hard_restart(qt):
 # See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
 # reference.
 keys = [
+    # For MonadTall Layout
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "j", lazy.layout.down()),
+    # Key([mod], "k", lazy.layout.up().when(layout = 'custommonadtall')),
+    # Key([mod], "j", lazy.layout.down().when(layout = 'custommonadtall')),
+    # # For Columns Layouts
+    # Key([mod], "k", lazy.layout.left().when(layout = '2cols')),
+    # Key([mod], "j", lazy.layout.right().when(layout = '2cols')),
+    # Key([mod], "k", lazy.layout.left().when(layout = '3cols')),
+    # Key([mod], "j", lazy.layout.right().when(layout = '3cols')),
 
     # Skip managed ignores groups already on a screen.
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
@@ -73,10 +81,14 @@ keys = [
     Key([mod, "shift"], "comma", lazy.swap_screens()),
     Key([mod, "shift"], "period", lazy.swap_screens()),
 
+    # For MonadTall Layout
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    # For Columns Layouts
+    Key([mod, "shift"], "k", lazy.layout.swap_column_left()),
+    Key([mod, "shift"], "j", lazy.layout.swap_column_right()),
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
@@ -115,7 +127,8 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+    Key([mod], "z", lazy.layout.toggle_split()),
+    Key([mod, "control"], "z", lazy.layout.swap_column_left()),
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
@@ -148,10 +161,16 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
     # Rearrange and resize windows with mouse wheel
+    # For MonadTall layout
     Click([mod], 'Button4', lazy.layout.grow()),
     Click([mod], 'Button5', lazy.layout.shrink()),
     Click([mod, "shift"], "Button5", lazy.layout.shuffle_down()),
     Click([mod, "shift"], "Button4", lazy.layout.shuffle_up()),
+    # For Columns Layouts
+    Click([mod], 'Button4', lazy.layout.grow_left()),
+    Click([mod], 'Button5', lazy.layout.grow_right()),
+    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
+    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
 groups = [Group(i) for i in "asdfqwer1234"]
