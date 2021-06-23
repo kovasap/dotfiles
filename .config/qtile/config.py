@@ -61,16 +61,24 @@ def hard_restart(qt):
 # See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
 # reference.
 keys = [
-    # For MonadTall Layout
-    Key([mod], "k", lazy.layout.up()),
-    Key([mod], "j", lazy.layout.down()),
-    # Key([mod], "k", lazy.layout.up().when(layout = 'custommonadtall')),
-    # Key([mod], "j", lazy.layout.down().when(layout = 'custommonadtall')),
-    # # For Columns Layouts
-    # Key([mod], "k", lazy.layout.left().when(layout = '2cols')),
-    # Key([mod], "j", lazy.layout.right().when(layout = '2cols')),
-    # Key([mod], "k", lazy.layout.left().when(layout = '3cols')),
-    # Key([mod], "j", lazy.layout.right().when(layout = '3cols')),
+    Key([mod], "k",
+        lazy.layout.up().when(layout = 'custommonadtall'),
+        lazy.layout.left().when(layout = '2cols'),
+        lazy.layout.left().when(layout = '3cols'),
+    ),
+    Key([mod], "j",
+        lazy.layout.down().when(layout = 'custommonadtall'),
+        lazy.layout.right().when(layout = '2cols'),
+        lazy.layout.right().when(layout = '3cols'),
+    ),
+    Key([mod, 'control'], "k",
+        lazy.layout.up().when(layout = '2cols'),
+        lazy.layout.up().when(layout = '3cols'),
+    ),
+    Key([mod, 'control'], "j",
+        lazy.layout.down().when(layout = '2cols'),
+        lazy.layout.down().when(layout = '3cols'),
+    ),
 
     # Skip managed ignores groups already on a screen.
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
