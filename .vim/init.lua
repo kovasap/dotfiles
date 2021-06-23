@@ -25,14 +25,18 @@ paq { 'savq/paq-nvim', opt=true }
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
--- Smooth scrolling, ctrl-j to go down, ctrl-k to go up.
+-- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
 paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
 map('n', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<C-u>', '<tab>')
+map('n', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('n', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('v', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<C-u>', '<tab>')
+map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
 -- Space to search, to encourage more frequent use for navigation.
@@ -199,6 +203,17 @@ vim.g.airline_section_z = ''
 vim.o.clipboard = 'unnamedplus'
 -- Copy filename of current buffer to clipboard
 map('n', 'cp', ':let @+ = expand("%:p")<CR>')
+
+-- Add keybind hints
+paq 'folke/which-key.nvim'
+require('which-key').setup {
+  plugins = {
+    spelling = {
+      enabled = true,
+      suggestions = 20,
+    }
+  }
+}
 
 -- Persist settings between sessions
 paq 'zhimsel/vim-stay'
