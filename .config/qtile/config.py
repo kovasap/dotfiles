@@ -144,7 +144,7 @@ keys = [
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
-    Key([mod], "b", lazy.spawn('copyq menu')),
+    Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
 
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
@@ -273,7 +273,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='sans',
+    font='DejaVu',
     fontsize=12,
     padding=3,
 )
@@ -306,6 +306,11 @@ def qdirstat_callback(qt):
     return subprocess.Popen('qdirstat', shell=True)
 
 
+def network_callback(qt):
+    logger.warning('network panel')
+    return subprocess.Popen('cinnamon-settings network', shell=True)
+
+
 def get_widgets():
     return [
         widget.CurrentLayout(),
@@ -317,7 +322,9 @@ def get_widgets():
         # Requires
         # sudo apt install libiw-dev
         # pip install iwlib
-        widget.Wlan(),
+        widget.Wlan(interface='wlp2s0',
+                    format='📶 {essid} {quality}%',
+                    mouse_callbacks={'Button1': qdirstat_callback}),
         widget.TextBox(" | ", name="separator"),
         widget.TextBox("CPU", name="cpu_label"),
         widget.CPUGraph(**graph_args),
@@ -332,15 +339,15 @@ def get_widgets():
         # TODO figure out why this doesn't work
         # widget.HDDBusyGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
-        widget.TextBox("Vol", name="volume_label"),
+        widget.Volume(emoji=True),
         widget.Volume(),
         widget.TextBox(" | ", name="separator"),
-        widget.Battery(format='Bat {percent:2.0%} {char}{watt:.1f}W',
+        widget.Battery(format='🔋 {percent:2.0%} {char}{watt:.1f}W',
                        charge_char='+', discharge_char='-',
                        update_interval=15,  # seconds
                        ),
         widget.TextBox(" | ", name="separator"),
-        widget.Backlight(format='Brt {percent: 2.0%}',
+        widget.Backlight(format='💡 {percent: 2.0%}',
                          backlight_name='intel_backlight'),
         widget.TextBox(" | ", name="separator"),
         widget.Systray(),
