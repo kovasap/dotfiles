@@ -30,6 +30,7 @@ from typing import List  # noqa: F401
 from Xlib import display as xdisplay
 import shlex
 
+from libqtile import qtile
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
 from libqtile import layout, bar, widget, hook
