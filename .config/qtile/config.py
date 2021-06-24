@@ -89,14 +89,18 @@ keys = [
     Key([mod, "shift"], "comma", lazy.swap_screens()),
     Key([mod, "shift"], "period", lazy.swap_screens()),
 
-    # For MonadTall Layout
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
-    # For Columns Layouts
-    Key([mod, "shift"], "k", lazy.layout.swap_column_left()),
-    Key([mod, "shift"], "j", lazy.layout.swap_column_right()),
+    Key([mod, "shift"], "j",
+        lazy.layout.shuffle_down().when(layout = 'custommonadtall'),
+        lazy.layout.swap_column_left().when(layout = '2cols'),
+        lazy.layout.swap_column_left().when(layout = '3cols'),
+    ),
+    Key([mod, "shift"], "k",
+        lazy.layout.shuffle_up().when(layout = 'custommonadtall'),
+        lazy.layout.swap_column_right().when(layout = '2cols'),
+        lazy.layout.swap_column_right().when(layout = '3cols'),
+    ),
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
