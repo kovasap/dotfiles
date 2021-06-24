@@ -326,7 +326,9 @@ def get_widgets():
         # TODO figure out why this doesn't work
         # widget.HDDBusyGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
-        widget.Volume(fmt='{}'),
+        widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
+                     margin_y=4),
+        widget.Volume(fmt='{}'),
         widget.TextBox(" | ", name="separator"),
         widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
         widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
