@@ -273,9 +273,9 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='DejaVu',
+    font='FiraCode Bold',
     fontsize=12,
-    padding=3,
+    padding=2,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -301,30 +301,16 @@ class ColoredMemoryGraph(MemoryGraph):
         super().update_graph()
 
 
-def qdirstat_callback(qt):
-    logger.warning('qditstating')
-    return subprocess.Popen('qdirstat', shell=True)
-
-
-def network_callback(qt):
-    logger.warning('network panel')
-    return subprocess.Popen('cinnamon-settings network', shell=True)
-
-
 def get_widgets():
     return [
-        widget.CurrentLayout(),
+        widget.CurrentLayoutIcon(
+            custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+            scale=0.8,
+        ),
         widget.GroupBox(),
         widget.WindowName(),
         widget.TextBox(" | ", name="separator"),
         widget.Clipboard(max_width=50, timeout=None),
-        widget.TextBox(" | ", name="separator"),
-        # Requires
-        # sudo apt install libiw-dev
-        # pip install iwlib
-        widget.Wlan(interface='wlp2s0',
-                    format='📶 {essid} {quality}%',
-                    mouse_callbacks={'Button1': qdirstat_callback}),
         widget.TextBox(" | ", name="separator"),
         widget.TextBox("CPU", name="cpu_label"),
         widget.CPUGraph(**graph_args),
@@ -333,22 +319,35 @@ def get_widgets():
         widget.TextBox("Net", name="net_label"),
         widget.NetGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
-        widget.DF(mouse_callbacks={'Button1': qdirstat_callback},
-                  format='{uf}/{s}{m} free on {p}',
-                  visible_on_warn=False),
+        widget.DF(
+            mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
+            format='{uf}/{s}{m} free on {p}',
+            visible_on_warn=False),
         # TODO figure out why this doesn't work
         # widget.HDDBusyGraph(**graph_args),
         widget.TextBox(" | ", name="separator"),
-        widget.Volume(emoji=True),
-        widget.Volume(),
+        widget.Volume(fmt='{}'),
         widget.TextBox(" | ", name="separator"),
-        widget.Battery(format='🔋 {percent:2.0%} {char}{watt:.1f}W',
+        widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
+        widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
                        charge_char='+', discharge_char='-',
                        update_interval=15,  # seconds
                        ),
         widget.TextBox(" | ", name="separator"),
-        widget.Backlight(format='💡 {percent: 2.0%}',
+        widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
+                     margin_x=1,
+                     margin_y=4.5),
+        widget.Backlight(format='{percent: 2.0%}',
                          backlight_name='intel_backlight'),
+        widget.TextBox(" | ", name="separator"),
+        # Requires
+        # sudo apt install libiw-dev
+        # pip install iwlib
+        widget.Wlan(
+            interface='wlp2s0',
+            format=' {essid} {quality}%',
+            mouse_callbacks={
+                'Button1': lambda: qtile.cmd_spawn('cinnamon-settings network')}),
         widget.TextBox(" | ", name="separator"),
         widget.Systray(),
         widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
