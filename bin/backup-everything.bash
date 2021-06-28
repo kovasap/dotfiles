@@ -1,6 +1,7 @@
 # Install from https://github.com/clockfort/GitHub-Backup, see
 # https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 # to make the token (first argument).
+# FYI: This key is now invalid, need to fix in order to run.
 ~/GitHub-Backup/github-backup.py 2ce0f4ea839c0de8ac1c01f4e267660a1dedcced ~/backup_data/github/
 
 # See https://www.howtogeek.com/451262/how-to-use-rclone-to-back-up-to-google-drive-on-linux/
