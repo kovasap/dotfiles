@@ -39,8 +39,11 @@ map('v', '<C-u>', '<tab>')
 map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
--- Space to search, to encourage more frequent use for navigation.
-map('n', '<space>', '/')
+-- Space to search case insensitively, to encourage more frequent use for
+-- navigation.
+map('n', '<space>', [[/\c]])
+-- Hit escape twice to clear old search highlighting.
+map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
 
 
 --                          /// Editing and Formatting ///
