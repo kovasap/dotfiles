@@ -1,7 +1,5 @@
 # My dotfiles
 
-DO NOT MAKE THIS REPO PUBLIC BEFORE DELETING KEYS!
-
 ## Installation
 
 ```
