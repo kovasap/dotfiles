@@ -45,7 +45,9 @@ map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = tr
 
 -- Space to search case insensitively, to encourage more frequent use for
 -- navigation.
-map('n', '<space>', [[/\c]])
+paq 'ggvgc/vim-fuzzysearch'
+map('n', '<space>', ':FuzzySearch<CR>')
+-- map('n', '<space>', [[/\c]])
 -- Hit escape twice to clear old search highlighting.
 map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
 
