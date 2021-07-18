@@ -66,6 +66,7 @@ bindkey -r "^[c"
 bindkey "^ " fzf-history-widget
 
 # Search chrome history with fzf
+# https://junegunn.kr/2015/04/browsing-chrome-history-with-fzf/
 # Personal
 c() {
   local cols sep
