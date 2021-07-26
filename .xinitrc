@@ -3,6 +3,20 @@
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration
 xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
 
+# https://unix.stackexchange.com/questions/332573/how-to-make-xinput-commands-permanent
+# Map mouse button 8 (top right) to button 2 (top left) and vice versa, run when changes to the mouse occur
+while true; do
+  NEW_MOUSEID=$(xinput | grep "Razer DeathAdder" | grep -o -E '[0-9]+' | head -n 1)
+    if [ "$MOUSEID" != "$NEW_MOUSEID" ]; then
+      MOUSEID=$NEW_MOUSEID
+      if [ "$MOUSEID" != "" ]; then
+        # xinput --set-button-map $MOUSEID 1 8 3 4 5 6 7 2 9 10 11 12
+        xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
+      fi
+  fi
+  sleep 2
+done &
+
 # natural scrolling for thinkpad touchpad
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled' 1
 
