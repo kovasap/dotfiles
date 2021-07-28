@@ -3,6 +3,20 @@
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration
 xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
 
+# https://unix.stackexchange.com/questions/332573/how-to-make-xinput-commands-permanent
+# Map mouse button 8 (top right) to button 2 (top left) and vice versa, run when changes to the mouse occur
+while true; do
+  NEW_MOUSEID=$(xinput | grep "Razer DeathAdder" | grep -o -E '[0-9]+' | head -n 1)
+    if [ "$MOUSEID" != "$NEW_MOUSEID" ]; then
+      MOUSEID=$NEW_MOUSEID
+      if [ "$MOUSEID" != "" ]; then
+        # xinput --set-button-map $MOUSEID 1 8 3 4 5 6 7 2 9 10 11 12
+        xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
+      fi
+  fi
+  sleep 2
+done &
+
 # natural scrolling for thinkpad touchpad
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled' 1
 
@@ -21,7 +35,7 @@ redshift -O 3000 -b 0.9:0.9
 (pkill selfspy; rm ~/.selfspy/selfspy.pid.lock; cd ~/autojournal; nohup poetry run selfspy -n -v &> ~/.selfspy/selfspy.log &)
 
 # Start ActivityWatch
-(cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &)
+(sleep 5; cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &) &
 
 # Start auto screenshot utility.
 nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
