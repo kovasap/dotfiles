@@ -186,19 +186,32 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-groups = [Group(i) for i in "asdfqwer1234"]
+groups = [Group(i) for i in "asdfqwer1234567"]
 
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen()),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
+        # mod1 + shift + letter of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
+# Switch multiple windows to screens at once.
+keys.append(Key([mod, "control"], "a",
+                lazy.group["a"].toscreen(1),
+                lazy.group["s"].toscreen(2),
+                lazy.group["d"].toscreen(0),
+                ))
+keys.append(Key([mod, "control"], "s",
+                lazy.group["5"].toscreen(1),
+                lazy.group["6"].toscreen(2),
+                lazy.group["7"].toscreen(0),
+                ))
+keys.append(Key([mod, "control"], "d",
+                lazy.group["1"].toscreen(1),
+                lazy.group["2"].toscreen(2),
+                lazy.group["3"].toscreen(0),
+                ))
 
 layout_theme = {
     "border_width": 2,
