@@ -81,6 +81,10 @@ hi LspDiagnosticsUnderlineWarning cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineInformation cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineHint cterm=underline ctermbg=0
 
+" Treesitter highlights"
+hi default link TSTitle String
+hi default link TSString String
+
 " this is what gets overlaid on the bad text
 hi ALEError cterm=underline ctermbg=0
 hi ALEWarning cterm=underline ctermbg=0
