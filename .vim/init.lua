@@ -82,9 +82,9 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Wrap lines automatically at 79 characters.
-vim.wo.wrap = true
+-- vim.wo.wrap = true
 vim.wo.linebreak = true
-vim.bo.textwidth = 79
+vim.o.textwidth = 79
 vim.bo.wrapmargin = 0
 vim.bo.formatoptions = vim.o.formatoptions .. 'l'
 vim.bo.formatoptions = vim.o.formatoptions .. 't'
@@ -555,6 +555,12 @@ map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 paq 'nvim-treesitter/nvim-treesitter-textobjects'
+paq 'nvim-treesitter/playground'
+
+vim.cmd [[
+  command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
+]]
+
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 paq 'p00f/nvim-ts-rainbow'
 require('nvim-treesitter.configs').setup {
@@ -608,6 +614,24 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
 }
 -- vim.wo.foldmethod = 'expr'
 -- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -672,7 +696,15 @@ vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {nore
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
 -- for config tips.
 nvim_lsp.pyls.setup {
-  on_attach = on_attach,
+  on_attach = function(client, bufnr) 
+    -- No pyls formatting when using Google config.
+    if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
+      -- print(client.name)
+      -- client.request("textDocument/formatting", {} , nil, vim.api.nvim_get_current_buf())
+      client.resolved_capabilities.document_formatting = false
+    end
+    on_attach(client, bufnr)
+  end,
   settings = {
     pyls = {
       plugins = {
