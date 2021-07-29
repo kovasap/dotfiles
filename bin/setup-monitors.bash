@@ -45,4 +45,4 @@ pkill compton
 # xrandr --auto
 echo $xrandr_cmd
 eval $xrandr_cmd
-~kovas/bin/run-compton.bash
+/home/kovas/bin/run-compton.bash &> /tmp/complog
