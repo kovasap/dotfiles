@@ -155,6 +155,7 @@ keys = [
     Key([mod, 'shift'], "Return",
         lazy.spawn("kitty /bin/zsh -c -i sd")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
+    Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
