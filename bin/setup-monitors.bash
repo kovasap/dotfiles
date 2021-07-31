@@ -29,6 +29,14 @@ echo $conDP2
 conDP1=$(xrandr | grep '^DP-1 connected')
 echo $conDP1
 
+# Reset everything before running configuration command
+xrandr_reset_cmd="xrandr --output eDP-1 --primary --auto"
+xrandr_reset_cmd="$xrandr_reset_cmd --output DP-2 --off"
+xrandr_reset_cmd="$xrandr_reset_cmd --output DP-1 --off"
+xrandr_reset_cmd="$xrandr_reset_cmd --output HDMI-1 --off"
+echo $xrandr_reset_cmd
+eval $xrandr_reset_cmd
+
 # The useful part: check what the connection status is, and run some other commands
 xrandr_cmd="xrandr --output eDP-1 --primary --auto"
 if [ -n "$conHdmi" -a -n "$conDP2" ]; then
