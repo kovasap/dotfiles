@@ -6,5 +6,8 @@
 set -e
 
 cd ~/Downloads
-youtube-dl `xsel -b`
-xdg-open "`ls -tr *mp4 | tail -1`"
+url=`xsel -b`
+title=`wget -qO- "$url" | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)(?: - youtube)?\s*<\/title/si'`
+echo "Downloading $url with name $title..."
+youtube-dl -o "$title" $url
+xdg-open "$title"*
