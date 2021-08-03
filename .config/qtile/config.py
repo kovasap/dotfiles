@@ -123,7 +123,12 @@ keys = [
     # Run this command to make an image file from the screenshot:
     # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
     Key([], 'Print', lazy.spawn(
-        ["bash", "-c", "maim -s | xclip -selection clipboard -t image/png"])),
+        ["bash", "-c",
+         "maim -s | xclip -selection clipboard -t image/png; "
+         # This part is not working for some reason at the moment.  I think it
+         # works when i switch away from the image clipboard content and back
+         # to it with copyq.
+         "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
         # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")),
 
     # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
