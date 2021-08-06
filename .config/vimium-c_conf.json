@@ -1,7 +1,7 @@
 {
 	"name": "Vimium C",
-	"@time": "8/5/2021, 1:55:15 PM",
-	"time": 1628196915224,
+	"@time": "8/5/2021, 9:34:05 PM",
+	"time": 1628224445198,
 	"environment": {
 		"extension": "1.90.2",
 		"platform": "linux",
@@ -25,14 +25,6 @@
 			"passKeys": ""
 		},
 		{
-			"pattern": "^https?://critique\\.corp\\.google\\.com/*",
-			"passKeys": "c n p r "
-		},
-		{
-			"pattern": "^https?://about:blank*/",
-			"passKeys": "t "
-		},
-		{
 			"pattern": ":https://plx.corp.google.com/",
 			"passKeys": ""
 		},
@@ -41,17 +33,33 @@
 			"passKeys": ""
 		},
 		{
+			"pattern": ":https://play.google.com/",
+			"passKeys": "/ "
+		},
+		{
 			"pattern": ":https://calendar.google.com/",
 			"passKeys": "/ 1 2 3 4 5 ? c e j k "
 		},
 		{
 			"pattern": ":https://critique-ng.corp.google.com/",
-			"passKeys": "/ r "
+			"passKeys": "/ r c n p"
 		},
 		{
 			"pattern": ":https://source.corp.google.com/",
 			"passKeys": "? b l r "
-		}
+		},
+		{
+			"pattern": "^https?://critique\\.corp\\.google\\.com/*",
+			"passKeys": "/ c n p r "
+		},
+		{
+			"pattern": "^https?://about:blank*/",
+			"passKeys": "t "
+		},
+		{
+			"pattern": ":https://play.google.com/",
+			"passKeys": "/ "
+		},
 	],
 	"extAllowList": [
 		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",
@@ -62,6 +70,7 @@
 		""
 	],
 	"filterLinkHints": true,
+	"grabBackFocus": true,
 	"keyMappings": [
 		"map <a-c-k> moveTabLeft",
 		"map <a-c-j> moveTabRight",
