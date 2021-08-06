@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "2/10/2020, 11:08:46 AM",
-	"time": 1581361726314,
+	"@time": "8/5/2021, 1:55:15 PM",
+	"time": 1628196915224,
 	"environment": {
-		"extension": "1.80.1",
+		"extension": "1.90.2",
 		"platform": "linux",
-		"chrome": 79
+		"chrome": 92
 	},
 	"exclusionRules": [
 		{
@@ -42,7 +42,15 @@
 		},
 		{
 			"pattern": ":https://calendar.google.com/",
-			"passKeys": "/ ? c e j k "
+			"passKeys": "/ 1 2 3 4 5 ? c e j k "
+		},
+		{
+			"pattern": ":https://critique-ng.corp.google.com/",
+			"passKeys": "/ r "
+		},
+		{
+			"pattern": ":https://source.corp.google.com/",
+			"passKeys": "? b l r "
 		}
 	],
 	"extAllowList": [
@@ -53,6 +61,7 @@
 		"lcopgfbpbmionefhhgbamgmejggljpbb",
 		""
 	],
+	"filterLinkHints": true,
 	"keyMappings": [
 		"map <a-c-k> moveTabLeft",
 		"map <a-c-j> moveTabRight",
