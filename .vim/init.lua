@@ -691,11 +691,11 @@ vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {nore
 
 
 --                          /// Language - Python ///
--- This requires: pip install 'python-language-server[all]'
+-- This requires: pip install 'python-lsp-server[all]'
 -- See
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
 -- for config tips.
-nvim_lsp.pyls.setup {
+nvim_lsp.pylsp.setup {
   on_attach = function(client, bufnr) 
     -- No pyls formatting when using Google config.
     if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
