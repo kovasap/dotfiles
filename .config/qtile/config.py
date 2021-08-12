@@ -56,52 +56,50 @@ if theme_filepath:
 
 mod = "mod4"
 
+
 def hard_restart(qt):
     qt.cmd_restart()
+
 
 # See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
 # reference.
 keys = [
     Key([mod], "k",
-        lazy.layout.up().when(layout = 'custommonadtall'),
-        lazy.layout.left().when(layout = '2cols'),
-        lazy.layout.left().when(layout = '3cols'),
-    ),
+        lazy.layout.up().when(layout='custommonadtall'),
+        lazy.layout.left().when(layout='2cols'),
+        lazy.layout.left().when(layout='3cols')),
     Key([mod], "j",
-        lazy.layout.down().when(layout = 'custommonadtall'),
-        lazy.layout.right().when(layout = '2cols'),
-        lazy.layout.right().when(layout = '3cols'),
-    ),
+        lazy.layout.down().when(layout='custommonadtall'),
+        lazy.layout.right().when(layout='2cols'),
+        lazy.layout.right().when(layout='3cols')),
     Key([mod, 'control'], "k",
-        lazy.layout.up().when(layout = '2cols'),
-        lazy.layout.up().when(layout = '3cols'),
-    ),
+        lazy.layout.up().when(layout='2cols'),
+        lazy.layout.up().when(layout='3cols')),
     Key([mod, 'control'], "j",
-        lazy.layout.down().when(layout = '2cols'),
-        lazy.layout.down().when(layout = '3cols'),
-    ),
+        lazy.layout.down().when(layout='2cols'),
+        lazy.layout.down().when(layout='3cols')),
 
     # Skip managed ignores groups already on a screen.
-    Key([mod], "h", lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
-    Key([mod], "l", lazy.screen.next_group(skip_managed=True, skip_empty=True)),
+    Key([mod], "h",
+        lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
+    Key([mod], "l",
+        lazy.screen.next_group(skip_managed=True, skip_empty=True)),
 
-    Key([mod], "comma", lazy.prev_screen()),
-    Key([mod], "period", lazy.next_screen()),
-    Key([mod, "shift"], "comma", lazy.swap_screens()),
+    Key([mod], "period", lazy.prev_screen()),
+    Key([mod], "comma", lazy.next_screen()),
     Key([mod, "shift"], "period", lazy.swap_screens()),
+    Key([mod, "shift"], "comma", lazy.swap_screens()),
 
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key([mod, "shift"], "j",
-        lazy.layout.shuffle_down().when(layout = 'custommonadtall'),
-        lazy.layout.swap_column_left().when(layout = '2cols'),
-        lazy.layout.swap_column_left().when(layout = '3cols'),
-    ),
+        lazy.layout.shuffle_down().when(layout='custommonadtall'),
+        lazy.layout.swap_column_left().when(layout='2cols'),
+        lazy.layout.swap_column_left().when(layout='3cols')),
     Key([mod, "shift"], "k",
-        lazy.layout.shuffle_up().when(layout = 'custommonadtall'),
-        lazy.layout.swap_column_right().when(layout = '2cols'),
-        lazy.layout.swap_column_right().when(layout = '3cols'),
-    ),
+        lazy.layout.shuffle_up().when(layout='custommonadtall'),
+        lazy.layout.swap_column_right().when(layout='2cols'),
+        lazy.layout.swap_column_right().when(layout='3cols')),
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
