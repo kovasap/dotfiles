@@ -1,0 +1,4 @@
+[flake8]
+ignore =
+    # Indentation is not a multiple of four.
+    E111
