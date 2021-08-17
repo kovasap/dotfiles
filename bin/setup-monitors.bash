@@ -50,3 +50,5 @@ echo $xrandr_cmd
 eval $xrandr_cmd
 /home/kovas/bin/run-compton.bash &> /tmp/complog
 feh --bg-fill /home/kovas/wallpaper
+# Reset qtile.  Could also use qtile-cmd cli for this but I don't know how.
+xdotool key 'ctrl+super+r'
