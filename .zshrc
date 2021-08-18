@@ -210,6 +210,8 @@ fi
 
 # ------------------------- Miscellaneous -------------------------
 
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
 unsetopt autocd
 
 _update_lastdir() {
