@@ -286,6 +286,7 @@ map('n', '<A-H>', '<Plug>(altr-back)')
 map('n', 'gb', ":execute 'e +/' . escape(escape(expand('%:t'), '.'), '.') . ' %:h/BUILD'<CR>")
 
 -- Create directories on write if they don't already exist.
+-- See also https://github.com/pbrisbin/vim-mkdir
 vim.cmd(
 [[
 function g:MkNonExDir(file, buf)
@@ -723,7 +724,24 @@ map('n', 'gai', ':ImportName<CR>')
 
 --                          /// Language - Clojure ///
 
-paq 'eraserhd/parinfer-rust'
+paq 'tpope/vim-fireplace'
+vim.cmd(
+[[
+" Reload into repl on save.
+autocmd BufWritePost *.clj silent !Require
+autocmd BufWritePost *.cljc silent !Require
+autocmd BufWritePost *.cljs silent !Require
+" Treat joke files as clojure files
+autocmd BufEnter *.joke :setlocal filetype=clojure
+]]
+)
+paq 'venantius/vim-cljfmt'
+paq {'eraserhd/parinfer-rust', 'cargo build --release'}
+-- https://clojure-lsp.github.io/clojure-lsp/installation/
+-- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
+nvim_lsp.clojure_lsp.setup {
+  on_attach = on_attach
+}
 
 
 --                          /// Language - CSV ///
