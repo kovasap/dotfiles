@@ -5,4 +5,5 @@ ignore =
     # Indentation visually matches up with next lines (bugged)
     E129,E125,
     # Binary operator linebreak
-    W503
+    W503, W504
+max-line-length = 80
