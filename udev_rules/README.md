@@ -1,5 +1,5 @@
 
-This command shows what signal are being sent when unplugging or plugging a
+This command shows what signals are being sent when unplugging or plugging a
 device.
 
 ```
