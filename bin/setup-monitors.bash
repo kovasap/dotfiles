@@ -20,7 +20,7 @@ export XAUTHORITY=/home/kovas/.Xauthority
 # Find out the device path to our graphics card:
 cardPath=/sys/$(udevadm info -q path -n /dev/dri/card0)
 
-outputs=('DP-2' 'DP-1' 'DP-1-1' 'DP-2-1' 'DP-1-2' 'HDMI-1')
+outputs=('DP-2' 'DP-1' 'DP-1-1' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'HDMI-1')
 xrandr_output=$(xrandr)
 
 reset_cmd="xrandr --output eDP-1 --primary --auto"
@@ -48,7 +48,7 @@ done
 pkill compton
 echo $xrandr_cmd
 eval $xrandr_cmd
-/home/kovas/bin/run-compton.bash &> /tmp/complog
+/home/kovas/bin/run-compton.bash
 feh --bg-fill /home/kovas/wallpaper
 # Reset qtile.  Could also use qtile-cmd cli for this but I don't know how.
 xdotool key 'ctrl+super+r'
