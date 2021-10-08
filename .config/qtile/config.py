@@ -159,7 +159,7 @@ keys = [
     Key([mod, 'shift', 'control'], "Return", lazy.spawn(
         "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], "Return",
-        lazy.spawn("kitty /bin/zsh -c -i sd")),
+        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
     Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
