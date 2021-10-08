@@ -4,7 +4,7 @@
 . ~/.xprofile
 
 if [[ `hostname` = 'raspberrypi' ]]; then 
-  echo 'no xsession'
+  exec /usr/bin/x-session-manager
   exit
 fi
 
