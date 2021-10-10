@@ -266,7 +266,7 @@ map('n', '<C-w>', 'BD:bn<CR>')
 -- files automatically if they change.
 if vim.fn.filereadable(vim.fn.expand('~/.vim/google.vim')) then
   vim.o.autoread = false
-else 
+else
   vim.o.autoread = true
   -- Trigger `autoread` when files changes on disk
   -- https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -340,7 +340,7 @@ function! g:Myag(query, ...)
   let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
         \ printf('$(find_up.bash %s -type f | head -n 100)',
-        \        expand('%:h')) 
+        \        expand('%:h'))
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* MyAg call g:Myag(<q-args>, <bang>0)
@@ -368,7 +368,7 @@ autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 ]]
 )
 
--- Search in all buffer lines with the ; key. 
+-- Search in all buffer lines with the ; key.
 map('n', ';', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
@@ -463,79 +463,126 @@ com! DiffSaved call g:DiffWithSaved()
 --                          /// Completion and Snippets ///
 
 paq {'rafamadriz/friendly-snippets'}
+paq {'hrsh7th/cmp-buffer'}
+paq {'hrsh7th/cmp-nvim-lsp'}
+paq {'hrsh7th/cmp-vsnip'}
 paq {'hrsh7th/vim-vsnip'}
 paq {'hrsh7th/vim-vsnip-integ'}
+paq {'hrsh7th/nvim-cmp'}
 
-paq {'hrsh7th/nvim-compe'}
-vim.o.completeopt = "menuone,noselect"
-require'compe'.setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = 'enable',
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = true,
+-- Setup nvim-cmp.
+local cmp = require'cmp'
 
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    vsnip = true,
-    emoji = true,
-    -- ultisnips = true,
-    spell = true,
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      -- For `vsnip` user.
+      vim.fn["vsnip#anonymous"](args.body)
+
+      -- For `luasnip` user.
+      -- require('luasnip').lsp_expand(args.body)
+
+      -- For `ultisnips` user.
+      -- vim.fn["UltiSnips#Anon"](args.body)
+    end,
   },
-}
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+  mapping = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+    { name = 'buffer',
+      opts = {
+        -- Complete from all open buffers, not just the current one.
+        -- https://github.com/hrsh7th/cmp-buffer/issues/1.
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+  }
+})
 
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
+-- Setup lspconfig.
+-- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
+--   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- }
 
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
-  end
-end
-map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.o.completeopt = "menuone,noselect"
+-- require'compe'.setup {
+--   enabled = true,
+--   autocomplete = true,
+--   debug = false,
+--   min_length = 1,
+--   preselect = 'enable',
+--   throttle_time = 80,
+--   source_timeout = 200,
+--   incomplete_delay = 400,
+--   max_abbr_width = 100,
+--   max_kind_width = 100,
+--   max_menu_width = 100,
+--   documentation = true,
+-- 
+--   source = {
+--     path = true,
+--     buffer = true,
+--     calc = true,
+--     nvim_lsp = true,
+--     nvim_lua = true,
+--     vsnip = true,
+--     emoji = true,
+--     -- ultisnips = true,
+--     spell = true,
+--   },
+-- }
+-- local t = function(str)
+--   return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
+-- 
+-- local check_back_space = function()
+--     local col = vim.fn.col('.') - 1
+--     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+--         return true
+--     else
+--         return false
+--     end
+-- end
+-- 
+-- -- Use (s-)tab to:
+-- --- move to prev/next item in completion menuone
+-- --- jump to prev/next snippet's placeholder
+-- _G.tab_complete = function()
+--   if vim.fn.pumvisible() == 1 then
+--     return t "<C-n>"
+--   elseif vim.fn.call("vsnip#available", {1}) == 1 then
+--     return t "<Plug>(vsnip-expand-or-jump)"
+--   elseif check_back_space() then
+--     return t "<Tab>"
+--   else
+--     return vim.fn['compe#complete']()
+--   end
+-- end
+-- _G.s_tab_complete = function()
+--   if vim.fn.pumvisible() == 1 then
+--     return t "<C-p>"
+--   elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+--     return t "<Plug>(vsnip-jump-prev)"
+--   else
+--     -- If <S-Tab> is not working in your terminal, change it to <C-h>
+--     return t "<S-Tab>"
+--   end
+-- end
+-- map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 -- Integration with nvim-autopairs.
+
 _G.MUtils= {}  -- skip it, if you use another global object
 vim.g.completion_confirm_key = ""
 MUtils.completion_confirm=function()
@@ -646,7 +693,7 @@ end
 paq { 'neovim/nvim-lspconfig', run=install_python_ls }
 local nvim_lsp = require('lspconfig')
 
--- Use an on_attach function to only map the following keys 
+-- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -674,7 +721,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 end
 
--- Range formatting 
+-- Range formatting
 -- See https://github.com/neovim/neovim/issues/14680
 function format_range_operator()
   local old_func = vim.go.operatorfunc
@@ -697,7 +744,7 @@ vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {nore
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
 -- for config tips.
 nvim_lsp.pylsp.setup {
-  on_attach = function(client, bufnr) 
+  on_attach = function(client, bufnr)
     -- No pyls formatting when using Google config.
     if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
       -- print(client.name)
