@@ -170,6 +170,13 @@ vim.g.indentLine_color_term = 17
 vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
 vim.g.indentLine_setConceal = false
 
+-- Syntax highlighting for specific filetypes
+vim.cmd(
+[[
+au BufRead,BufNewFile *.blueprint set filetype=gcl
+]]
+)
+
 
 --                          /// User Interface ///
 
