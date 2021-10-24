@@ -30,7 +30,7 @@ from typing import List  # noqa: F401
 
 from libqtile import bar, hook, layout, widget
 from libqtile import qtile
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 from libqtile.widget.graph import MemoryGraph
@@ -453,21 +453,21 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wname': 'meet.google.com is sharing a window.'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    Match(wm_class='confirm'),
+    Match(wm_class='dialog'),
+    Match(wm_class='download'),
+    Match(wm_class='error'),
+    Match(wm_class='file_progress'),
+    Match(wm_class='notification'),
+    Match(wm_class='splash'),
+    Match(wm_class='toolbar'),
+    Match(title='meet.google.com is sharing a window.'),
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
