@@ -165,10 +165,12 @@ vim.wo.relativenumber = true
 paq 'camspiers/animate.vim'
 
 -- Adds indentation line hints.
-paq 'Yggdroot/indentLine'
-vim.g.indentLine_color_term = 17
-vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
-vim.g.indentLine_setConceal = false
+paq 'lukas-reineke/indent-blankline.nvim'
+require("indent_blankline").setup {
+    char = "¦",
+    buftype_exclude = {"terminal"},
+    show_current_context = true,
+}
 
 -- Syntax highlighting for specific filetypes
 vim.cmd(
