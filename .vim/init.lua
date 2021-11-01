@@ -170,6 +170,7 @@ require("indent_blankline").setup {
     char = "¦",
     buftype_exclude = {"terminal"},
     show_current_context = true,
+    max_indent_increase = 1,
 }
 
 -- Syntax highlighting for specific filetypes
