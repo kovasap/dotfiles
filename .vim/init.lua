@@ -257,6 +257,8 @@ map('n', '<A-w>', '<C-w>c')
 
 -- Reset window sizings to be the same with alt-=.
 map('n', '<A-=>', '<C-w>=')
+-- Do this automatically when the vim window is resized.
+vim.cmd('autocmd VimResized * wincmd =')
 
 
 --                          /// Buffers and Files ///
