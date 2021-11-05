@@ -151,7 +151,8 @@ keys = [
     Key([mod], "v", lazy.spawn('copyq previous')),
     Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
 
-    Key([mod, 'control'], "w", lazy.spawn("setup-monitors.bash forked")),
+    Key([mod, 'control'], "w", lazy.spawn([
+        "/bin/zsh", "-c", "setup-monitors.bash forked &> ~/setup-monitors.log"])),
 
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
