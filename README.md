@@ -51,3 +51,13 @@ sudo apt install maim
 ```
 
 Also install https://github.com/kovasap/auto-screenshooter.
+
+
+## Debugging
+
+
+### NeoVim
+
+One very useful tool for debugging (neo)vim hangs is running `strace -r nvim`.
+This helped me determine once that my vim was hanging on quit because it was
+trying to cd to an unmounted directory.
