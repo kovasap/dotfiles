@@ -805,4 +805,6 @@ nvim_lsp.gdscript.setup {
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google')
   nvim_lsp.ciderlsp.setup{on_attach = on_attach}
+  -- https://neovim.discourse.group/t/why-would-neovim-want-to-cd-to-unmounted-directories-on-quit/1375
+  vim.cmd('autocmd VimEnter * clearjumps')
 end
