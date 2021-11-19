@@ -29,6 +29,11 @@ eval $reset_cmd
 
 echo $xrandr_output
 xrandr_cmd="xrandr --output eDP-1 --primary --auto"
+if [ "$2" == "rotated" ]; then
+    xrandr_cmd="$xrandr_cmd --rotate right"
+else
+    xrandr_cmd="$xrandr_cmd --rotate normal"
+fi
 relative_loc="--left-of eDP-1"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
