@@ -24,20 +24,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import os
+import shlex
 import subprocess
 from typing import List  # noqa: F401
 
-from Xlib import display as xdisplay
-import shlex
-
+from libqtile import bar, hook, layout, widget
 from libqtile import qtile
-from libqtile.config import Key, Screen, Group, Drag, Click
+from libqtile.config import Click, Drag, Group, Key, Screen, Match
 from libqtile.lazy import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile.log_utils import logger
 from libqtile.widget.graph import MemoryGraph
+from Xlib import display as xdisplay
 
 # Log location is at ~/.local/share/qtile/qtile.log
-from libqtile.log_utils import logger
 
 
 # Get colors from currently active kitty terminal theme
@@ -122,11 +121,13 @@ keys = [
     # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
     Key([], 'Print', lazy.spawn(
         ["bash", "-c",
-         "maim -s | xclip -selection clipboard -t image/png; "
+         # https://github.com/naelstrof/maim/issues/182
+         "maim -s | tee ~/clipboard.png | xclip -selection clipboard -t image/png; "
          # This part is not working for some reason at the moment.  I think it
          # works when i switch away from the image clipboard content and back
          # to it with copyq.
-         "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
+         ])),
+         # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
         # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")),
 
     # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
@@ -150,13 +151,18 @@ keys = [
     Key([mod], "v", lazy.spawn('copyq previous')),
     Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
 
+    Key([mod, 'control'], "w", lazy.spawn([
+        "/bin/zsh", "-c", "setup-monitors.bash forked &> ~/setup-monitors.log"])),
+    Key([mod, 'control'], "e", lazy.spawn([
+        "/bin/zsh", "-c", "setup-monitors.bash forked rotated &> ~/setup-monitors.log"])),
+
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
     Key([mod], "Return", lazy.spawn("kitty")),
     Key([mod, 'shift', 'control'], "Return", lazy.spawn(
         "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], "Return",
-        lazy.spawn("kitty /bin/zsh -c -i sd")),
+        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
     Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
@@ -192,29 +198,41 @@ mouse = [
 
 groups = [Group(i) for i in "asdfqwer1234567"]
 
+
+# https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
+def toscreen(qtile, group_name):
+    if group_name == qtile.current_screen.group.name:
+        return qtile.current_screen.set_group(
+            qtile.current_screen.previous_group)
+    for i, group in enumerate(qtile.groups):
+        if group_name == group.name:
+            return qtile.current_screen.set_group(qtile.groups[i])
+
+
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
+        Key([mod], i.name, lazy.function(toscreen, i.name)),
 
         # mod1 + shift + letter of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
     ])
 # Switch multiple windows to screens at once.
-keys.append(Key([mod, "control"], "a",
-                lazy.group["a"].toscreen(1),
-                lazy.group["s"].toscreen(2),
-                lazy.group["d"].toscreen(0),
+keys.append(Key([mod, "control"], "1",
+                lazy.group["s"].toscreen(0),
+                lazy.group["d"].toscreen(1),
                 ))
-keys.append(Key([mod, "control"], "s",
-                lazy.group["5"].toscreen(1),
-                lazy.group["6"].toscreen(2),
-                lazy.group["7"].toscreen(0),
+keys.append(Key([mod, "control"], "2",
+                lazy.group["f"].toscreen(0),
+                lazy.group["q"].toscreen(1),
                 ))
-keys.append(Key([mod, "control"], "d",
-                lazy.group["1"].toscreen(1),
-                lazy.group["2"].toscreen(2),
-                lazy.group["3"].toscreen(0),
+keys.append(Key([mod, "control"], "3",
+                lazy.group["w"].toscreen(0),
+                lazy.group["e"].toscreen(1),
+                ))
+keys.append(Key([mod, "control"], "4",
+                lazy.group["2"].toscreen(0),
+                lazy.group["3"].toscreen(1),
                 ))
 
 layout_theme = {
@@ -293,6 +311,8 @@ layouts = [
 widget_defaults = dict(
     font='FiraCode Bold',
     fontsize=12,
+    # font='scientifica Bold',
+    # fontsize=16,
     padding=2,
 )
 extension_defaults = widget_defaults.copy()
@@ -325,7 +345,7 @@ def get_widgets():
             custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
             scale=0.8,
         ),
-        widget.GroupBox(),
+        widget.GroupBox(**widget_defaults),
         widget.WindowName(),
         widget.TextBox(" | ", name="separator"),
         widget.Clipboard(max_width=50, timeout=None),
@@ -447,21 +467,21 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wname': 'meet.google.com is sharing a window.'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    Match(wm_class='confirm'),
+    Match(wm_class='dialog'),
+    Match(wm_class='download'),
+    Match(wm_class='error'),
+    Match(wm_class='file_progress'),
+    Match(wm_class='notification'),
+    Match(wm_class='splash'),
+    Match(wm_class='toolbar'),
+    Match(title='meet.google.com is sharing a window.'),
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"

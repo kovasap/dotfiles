@@ -1,3 +1,10 @@
+#!/bin/bash
+
+if [[ `hostname` = 'raspberrypi' ]]; then 
+  echo 'no xinitrc'
+  exit
+fi
+
 # This changes the mouse sensitivity via a matrix that transforms mouse
 # coordinates to screen coordinates.
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration

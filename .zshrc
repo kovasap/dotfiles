@@ -205,7 +205,6 @@ alias icat='kitty +kitten icat'
 # Prompt
 if [[ -a ~/google_dotfiles/google-zshrc ]]; then
   source ~/google_dotfiles/google-zshrc
-  cd $(< ~/lastdir)
 fi
 
 # ------------------------- Miscellaneous -------------------------
@@ -290,3 +289,6 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH"
 
 # Uncomment to profile zsh startup
 # zprof
+
+# Anything in the RUN env var will be executed on startup.
+eval "$RUN"
