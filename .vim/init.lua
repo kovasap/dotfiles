@@ -804,6 +804,18 @@ nvim_lsp.gdscript.setup {
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google')
+
+  local configs = require 'lspconfig.configs'
+  if not configs.ciderlsp then
+    configs.ciderlsp = {
+     default_config = {
+       cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
+       filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
+       root_dir = nvim_lsp.util.root_pattern('BUILD');
+       settings = {};
+     };
+    }
+  end
   nvim_lsp.ciderlsp.setup{on_attach = on_attach}
   -- https://neovim.discourse.group/t/why-would-neovim-want-to-cd-to-unmounted-directories-on-quit/1375
   vim.cmd('autocmd VimEnter * clearjumps')
