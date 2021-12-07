@@ -17,6 +17,8 @@ sudo udevadm control --reload
 # Can monitor activity with:
 # udevadm monitor --environment
 
+# Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
+
 # Install neovim
 sudo apt install neovim
 
