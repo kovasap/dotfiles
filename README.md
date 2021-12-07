@@ -21,6 +21,12 @@ sudo udevadm control --reload
 
 # Install neovim
 sudo apt install neovim
+# Install Paq neovim package manager
+git clone --depth=1 https://github.com/savq/paq-nvim.git \
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+    
+# Install firacode font
+sudo apt install fonts-firacode
 
 # Install zsh
 sudo apt install zsh
