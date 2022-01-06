@@ -8,6 +8,8 @@ if [[ `hostname` = 'raspberrypi' ]]; then
   exit
 fi
 
+export QT_FONT_DPI = 192
+
 # remove state file to avoid getting xmonad confused about number of monitors
 # rm ~/.xmonad/xmonad.state
 # exec xmonad
