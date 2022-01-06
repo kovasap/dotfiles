@@ -194,10 +194,11 @@ alias icat='kitty +kitten icat'
 
 
 # ------------------------- Python -------------------------
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME
-# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+# Requires `sudo apt install virtualenvwrapper` or `pip install virtualenvwrapper`
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 
 # ------------------------- Google -------------------------

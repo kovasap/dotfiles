@@ -17,13 +17,23 @@ sudo udevadm control --reload
 # Can monitor activity with:
 # udevadm monitor --environment
 
+# Install activitywatch
+
 # Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
+
+sudo apt install xinput
+sudo apt install xdotool
+
+# Install copyq clipboard manager
+sudo apt install copyq
 
 # Install neovim
 sudo apt install neovim
 # Install Paq neovim package manager
 git clone --depth=1 https://github.com/savq/paq-nvim.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-n vim
+# Install vim python package
+pip install neovim
     
 # Install firacode font
 sudo apt install fonts-firacode
@@ -46,16 +56,49 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # Install virtualenvwrapper
 sudo apt install virtualenvwrapper
 
+# Install qtile
+git clone git@github.com:kovasap/qtile.git
+cd qtile
+mkvirtualenv qtile
+sudo apt install libiw-dev
+pip install -r requirements.txt
+pip install .
+sudo apt install libpulse-dev
+./scripts/ffibuild
+sudo cp qtile-venv.desktop /usr/share/xsessions/
+cd ~/
+
 # Install kitty - this is necessary to get the terminal working properly even
 # on a remote server, since otherwise the TERM=xterm-kitty env var wont be
 # recognized.
 sudo apt install kitty
 
-# Install tldr (https://tldr.sh/)
-sudo apt install tldr
-
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 sudo apt install maim
+
+sudo apt install tldr # https://tldr.sh/
+sudo apt install bat # https://github.com/sharkdp/bat
+sudo apt install j4-dmenu-desktop
+sudo apt install cmatrix
+sudo apt install qdirstat
+sudo apt install xautolock
+sudo apt install cmake
+sudo apt install cmus
+# See also https://github.com/hakerdefo/cmus-lyrics
+sudo apt install feh
+sudo apt install visidata
+pip install bandcamp-dl
+
+# Chrome extensions:
+# https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom
+# https://chrome.google.com/webstore/detail/vimium-c-all-by-keyboard/hfjbmagddngcpeloejdejnfgbamkjaeg?hl=en
+# https://chrome.google.com/webstore/detail/url-in-title/ignpacbgnbnkaiooknalneoeladjnfgb - useful for selfspy link saving
+
+# Packages to install from github or online download:
+# https://github.com/Ventto/lux
+# https://github.com/kovasap/selfspy
+# https://github.com/kovasap/compton
+# https://github.com/dsanson/termpdf.py
 ```
 
 Also install https://github.com/kovasap/auto-screenshooter.

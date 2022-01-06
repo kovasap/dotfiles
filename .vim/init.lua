@@ -14,9 +14,67 @@ end
 -- TODO make this install automatically if the file is not found.
 -- git clone https://github.com/savq/paq-nvim.git \
 --     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
-vim.cmd 'packadd paq-nvim'
-local paq = require'paq-nvim'.paq
-paq { 'savq/paq-nvim', opt=true }
+-- vim.cmd 'packadd paq-nvim'
+-- local paq = require'paq-nvim'.paq
+-- paq { 'savq/paq-nvim', opt=true }
+
+require 'paq' {
+  'yuttie/comfortable-motion.vim';
+  'ggvgc/vim-fuzzysearch';
+  'AndrewRadev/splitjoin.vim';
+  'flwyd/vim-conjoin';
+  'tpope/vim-sleuth';
+  'tpope/vim-abolish';
+  'pope/vim-surround';
+  'tpope/vim-repeat';
+  'windwp/nvim-autopairs';
+  'junegunn/vim-easy-align';
+  'RRethy/vim-illuminate';
+  'camspiers/animate.vim';
+  'lukas-reineke/indent-blankline.nvim';
+  { 'dstein64/nvim-scrollview', branch = 'main' };
+  'vim-airline/vim-airline';
+  'folke/which-key.nvim';
+  'zhimsel/vim-stay';
+  'justinmk/vim-dirvish';
+  'tpope/vim-eunuch';
+  'qpkorr/vim-bufkill';
+  'kana/vim-altr';
+  'wsdjeg/vim-fetch';
+  {'junegunn/fzf', run = vim.fn['fzf#install']};
+  { 'junegunn/fzf.vim' };
+  'pbogut/fzf-mru.vim';
+  'ludovicchabant/vim-lawrencium';
+  'mhinz/vim-signify';
+  {'rafamadriz/friendly-snippets'};
+  {'hrsh7th/cmp-buffer'};
+  {'hrsh7th/cmp-emoji'};
+  {'hrsh7th/cmp-calc'};
+  {'hrsh7th/cmp-path'};
+  {'hrsh7th/cmp-nvim-lua'};
+  {'f3fora/cmp-spell'};
+  {'hrsh7th/cmp-nvim-lsp'};
+  {'hrsh7th/cmp-vsnip'};
+  {'hrsh7th/vim-vsnip'};
+  {'hrsh7th/vim-vsnip-integ'};
+  {'hrsh7th/nvim-cmp'};
+  {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
+  'nvim-treesitter/nvim-treesitter-textobjects';
+  'nvim-treesitter/playground';
+  'p00f/nvim-ts-rainbow';
+  { 'neovim/nvim-lspconfig', run=install_python_ls };
+  'mgedmin/python-imports.vim';
+  'tpope/vim-fireplace';
+  'venantius/vim-cljfmt';
+  {'eraserhd/parinfer-rust', 'cargo build --release'};
+  'mechatroner/rainbow_csv';
+  'masukomi/vim-markdown-folding';
+  'ron89/thesaurus_query.vim';
+  'tikhomirov/vim-glsl';
+  'dart-lang/dart-vim-plugin';
+  'rkitover/vimpager';
+  'habamax/vim-godot';
+}
 
 
 --                          /// Navigation ///
@@ -26,7 +84,7 @@ map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
 -- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
-paq 'yuttie/comfortable-motion.vim'
+-- paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
 map('n', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
@@ -45,7 +103,7 @@ map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = tr
 
 -- Space to search case insensitively, to encourage more frequent use for
 -- navigation.
-paq 'ggvgc/vim-fuzzysearch'
+-- paq 'ggvgc/vim-fuzzysearch'
 map('n', '<space>', ':FuzzySearch<CR>')
 -- map('n', '<space>', [[/\c]])
 -- Hit escape twice to clear old search highlighting.
@@ -64,14 +122,14 @@ map('n', 'cT', '*Ncw')
 map('n', 'cW', ':%s/\\<<C-r><C-w>\\>/')
 
 -- Transform single line code blocks to multi-line ones and vice-versa.
-paq 'AndrewRadev/splitjoin.vim'
+-- paq 'AndrewRadev/splitjoin.vim'
 vim.g.splitjoin_split_mapping = ''
 vim.g.splitjoin_join_mapping = ''
 map('n', 'SJ', ':SplitjoinJoin<cr>')
 map('n', 'SS', ':SplitjoinSplit<cr>')
 
 -- Automatically delete extra characters (like quotes) when joining lines.
-paq 'flwyd/vim-conjoin'
+-- paq 'flwyd/vim-conjoin'
 
 -- Delete until the next 'closing' character (quote or brace)
 map('n', "d'", 'd/[\\]\\}\\)\'"]<CR>:let @/ = ""<CR>')
@@ -104,7 +162,7 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
 -- Automatically set tabstop/shiftwidth based on current file or nearby files.
-paq 'tpope/vim-sleuth'
+-- paq 'tpope/vim-sleuth'
 
 -- Command to trim all trailing whitespace in the file.
 vim.cmd(
@@ -119,19 +177,19 @@ command! TrimWhitespace call TrimWhitespace()
 )
 
 -- Change cases using e.g. cru for upper case.
-paq 'tpope/vim-abolish'
+-- paq 'tpope/vim-abolish'
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
-paq 'pope/vim-surround'
-paq 'tpope/vim-repeat'
+-- paq 'pope/vim-surround'
+-- paq 'tpope/vim-repeat'
 
 -- Automatically close parens.
-paq 'windwp/nvim-autopairs'
+-- paq 'windwp/nvim-autopairs'
 local npairs = require('nvim-autopairs')
 npairs.setup()
 
 -- Automatically align code.
-paq 'junegunn/vim-easy-align'
+-- paq 'junegunn/vim-easy-align'
 
 
 --                          /// Visuals ///
@@ -141,7 +199,7 @@ vim.wo.list = true
 vim.wo.listchars = 'tab:>-'
 
 -- Highlight current word with cursor on it across whole buffer.
-paq 'RRethy/vim-illuminate'
+-- paq 'RRethy/vim-illuminate'
 
 -- My custom colorscheme defined in ~/.vim/colors.
 vim.cmd('colorscheme terminal')
@@ -162,10 +220,10 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Animates window resizing.
-paq 'camspiers/animate.vim'
+-- paq 'camspiers/animate.vim'
 
 -- Adds indentation line hints.
-paq 'lukas-reineke/indent-blankline.nvim'
+-- paq 'lukas-reineke/indent-blankline.nvim'
 require("indent_blankline").setup {
     char = "¦",
     buftype_exclude = {"terminal"},
@@ -192,10 +250,10 @@ vim.o.title = true
 vim.o.titlestring = "%t (%{expand('%:~:.:h')}) - NVIM"
 
 -- Add scrollbars.
-paq { 'dstein64/nvim-scrollview', branch = 'main' }
+-- paq { 'dstein64/nvim-scrollview', branch = 'main' }
 
 -- Add bottom bar with various info.
-paq 'vim-airline/vim-airline'
+-- paq 'vim-airline/vim-airline'
 -- Uncomment to get top bar with all buffer names.
 -- let g:airline#extensions#tabline#enabled = 1
 -- Last section determines the max width for different parts of the bottom bar.
@@ -224,7 +282,7 @@ vim.o.clipboard = 'unnamedplus'
 map('n', 'cp', ':let @+ = expand("%:p")<CR>')
 
 -- Add keybind hints
-paq 'folke/which-key.nvim'
+-- paq 'folke/which-key.nvim'
 require('which-key').setup {
   plugins = {
     spelling = {
@@ -235,15 +293,15 @@ require('which-key').setup {
 }
 
 -- Persist settings between sessions
-paq 'zhimsel/vim-stay'
+-- paq 'zhimsel/vim-stay'
 -- stay/view will annoyingly remember to change working dirs when opening files
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
 -- Better directory browsing.  Access the directory the current file is in with
 -- the - key.
-paq 'justinmk/vim-dirvish'
-paq 'tpope/vim-eunuch'
+-- paq 'justinmk/vim-dirvish'
+-- paq 'tpope/vim-eunuch'
 
 -- Use alt-j/k to switch between split windows.
 map('n', '<A-k>', '<C-w>W')
@@ -264,7 +322,7 @@ vim.cmd('autocmd VimResized * wincmd =')
 --                          /// Buffers and Files ///
 
 -- Make it so that when a buffer is deleted, the window stays.
-paq 'qpkorr/vim-bufkill'
+-- paq 'qpkorr/vim-bufkill'
 
 -- Switch between buffers without saving.
 vim.o.hidden = true
@@ -290,7 +348,7 @@ else
 end
 
 -- Switch between h/cc files (and other related files) with alt-shift-h/l.
-paq 'kana/vim-altr'
+-- paq 'kana/vim-altr'
 map('n', '<A-L>', '<Plug>(altr-forward)')
 map('n', '<A-H>', '<Plug>(altr-back)')
 
@@ -317,7 +375,7 @@ augroup END
 )
 
 -- Open files at specified lines using file:line syntax.
-paq 'wsdjeg/vim-fetch'
+-- paq 'wsdjeg/vim-fetch'
 
 -- Save all buffers with ctrl-s.
 map('n', '<C-S>', ':wa<CR>')
@@ -325,8 +383,8 @@ map('n', '<C-S>', ':wa<CR>')
 
 --                          /// Searching ///
 
-paq {'junegunn/fzf', run = vim.fn['fzf#install']}
-paq { 'junegunn/fzf.vim' }
+-- paq {'junegunn/fzf', run = vim.fn['fzf#install']}
+-- paq { 'junegunn/fzf.vim' }
 vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 vim.g.fzf_layout = {
     window = 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
@@ -384,7 +442,7 @@ autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 map('n', ';', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
-paq 'pbogut/fzf-mru.vim'
+-- paq 'pbogut/fzf-mru.vim'
 vim.g.fzf_mru_max = 100000
 -- This is used instead of 'google3' because when fig uses vimdiff it puts the
 -- vim instance at the root of the CitC client (the dir _containing_ google3).
@@ -400,8 +458,8 @@ vim.o.shada = "!,'1000,<50,s10,h"
 
 --                          /// Version Control ///
 
-paq 'ludovicchabant/vim-lawrencium'
-paq 'mhinz/vim-signify'
+-- paq 'ludovicchabant/vim-lawrencium'
+-- paq 'mhinz/vim-signify'
 vim.g.signify_realtime = true
 vim.g.signify_cursorhold_insert = false
 vim.g.signify_cursorhold_normal = false
@@ -474,18 +532,18 @@ com! DiffSaved call g:DiffWithSaved()
 
 --                          /// Completion and Snippets ///
 
-paq {'rafamadriz/friendly-snippets'}
-paq {'hrsh7th/cmp-buffer'}
-paq {'hrsh7th/cmp-emoji'}
-paq {'hrsh7th/cmp-calc'}
-paq {'hrsh7th/cmp-path'}
-paq {'hrsh7th/cmp-nvim-lua'}
-paq {'f3fora/cmp-spell'}
-paq {'hrsh7th/cmp-nvim-lsp'}
-paq {'hrsh7th/cmp-vsnip'}
-paq {'hrsh7th/vim-vsnip'}
-paq {'hrsh7th/vim-vsnip-integ'}
-paq {'hrsh7th/nvim-cmp'}
+-- paq {'rafamadriz/friendly-snippets'}
+-- paq {'hrsh7th/cmp-buffer'}
+-- paq {'hrsh7th/cmp-emoji'}
+-- paq {'hrsh7th/cmp-calc'}
+-- paq {'hrsh7th/cmp-path'}
+-- paq {'hrsh7th/cmp-nvim-lua'}
+-- paq {'f3fora/cmp-spell'}
+-- paq {'hrsh7th/cmp-nvim-lsp'}
+-- paq {'hrsh7th/cmp-vsnip'}
+-- paq {'hrsh7th/vim-vsnip'}
+-- paq {'hrsh7th/vim-vsnip-integ'}
+-- paq {'hrsh7th/nvim-cmp'}
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -550,16 +608,16 @@ map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 --                          /// Language - General ///
 
-paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-paq 'nvim-treesitter/nvim-treesitter-textobjects'
-paq 'nvim-treesitter/playground'
+-- paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+-- paq 'nvim-treesitter/nvim-treesitter-textobjects'
+-- paq 'nvim-treesitter/playground'
 
 vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
 ]]
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
-paq 'p00f/nvim-ts-rainbow'
+-- paq 'p00f/nvim-ts-rainbow'
 require('nvim-treesitter.configs').setup {
   -- Install all maintained languages.
   ensure_installed = 'maintained',
@@ -639,7 +697,7 @@ vim.cmd('set foldlevelstart=99')
 local function install_python_ls()
   vim.cmd('!pip install python-language-server[all] yapf')
 end
-paq { 'neovim/nvim-lspconfig', run=install_python_ls }
+-- paq { 'neovim/nvim-lspconfig', run=install_python_ls }
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -715,12 +773,12 @@ nvim_lsp.pylsp.setup {
   }
 }
 -- Auto add imports from file ~/.vim/python-imports.cfg
-paq 'mgedmin/python-imports.vim'
+-- paq 'mgedmin/python-imports.vim'
 map('n', 'gai', ':ImportName<CR>')
 
 --                          /// Language - Clojure ///
 
-paq 'tpope/vim-fireplace'
+-- paq 'tpope/vim-fireplace'
 vim.cmd(
 [[
 " Reload into repl on save.
@@ -731,8 +789,8 @@ autocmd BufWritePost *.cljs silent !Require
 autocmd BufEnter *.joke :setlocal filetype=clojure
 ]]
 )
-paq 'venantius/vim-cljfmt'
-paq {'eraserhd/parinfer-rust', 'cargo build --release'}
+-- paq 'venantius/vim-cljfmt'
+-- paq {'eraserhd/parinfer-rust', 'cargo build --release'}
 -- https://clojure-lsp.github.io/clojure-lsp/installation/
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 nvim_lsp.clojure_lsp.setup {
@@ -742,13 +800,13 @@ nvim_lsp.clojure_lsp.setup {
 
 --                          /// Language - CSV ///
 
-paq 'mechatroner/rainbow_csv'
+-- paq 'mechatroner/rainbow_csv'
 vim.cmd('autocmd FileType csv autocmd BufWritePre <buffer> :RainbowAlign')
 
 
 --                          /// Language - Markdown ///
 
-paq 'masukomi/vim-markdown-folding'
+-- paq 'masukomi/vim-markdown-folding'
 vim.cmd('autocmd Filetype markdown setlocal spell spelllang=en_us')
 vim.cmd('autocmd FileType markdown set foldmethod=expr')
 
@@ -761,7 +819,7 @@ vim.cmd('au BufNewFile *.tex 0r ~/.vim/tex.skel')
 
 --                          /// Language - English ///
 
-paq 'ron89/thesaurus_query.vim'
+-- paq 'ron89/thesaurus_query.vim'
 -- To get offline thesaurus
 -- curl http://www.gutenberg.org/files/3202/files/mthesaur.txt >
 -- ~/.vim/thesaurus/mthesaur.txt
@@ -770,12 +828,12 @@ map('n', 'zt', ':ThesaurusQueryReplaceCurrentWord<CR>')
 
 --                          /// Language - GLSL ///
 
-paq 'tikhomirov/vim-glsl'
+-- paq 'tikhomirov/vim-glsl'
 
 
 --                          /// Language - Dart ///
 
-paq 'dart-lang/dart-vim-plugin'
+-- paq 'dart-lang/dart-vim-plugin'
 
 
 --                          /// Language - YAML ///
@@ -792,11 +850,11 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 -- Attmpts to make vim better when reading terminal data from kitty
 -- TODO FIX
 -- paq 'powerman/vim-plugin-AnsiEsc'
-paq 'rkitover/vimpager'
+-- paq 'rkitover/vimpager'
 
 
 --                          /// Language - GDScript ///
-paq 'habamax/vim-godot'
+-- paq 'habamax/vim-godot'
 nvim_lsp.gdscript.setup {
   on_attach = on_attach
 }
