@@ -34,6 +34,8 @@ git clone --depth=1 https://github.com/savq/paq-nvim.git \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-n vim
 # Install vim python package
 pip install neovim
+
+sudo apt install silversearcher-ag
     
 # Install firacode font
 sudo apt install fonts-firacode
