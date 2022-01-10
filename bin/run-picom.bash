@@ -8,4 +8,5 @@
 xhost +local:
 picom \
     --config ~kovas/.config/picom.conf \
+    -b \
     --experimental-backends

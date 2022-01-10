@@ -20,6 +20,10 @@ sudo udevadm control --reload
 # Install activitywatch
 
 # Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
+# Currently, switching to picom is blocked on
+https://github.com/yshui/picom/issues/215 and/or
+https://github.com/yshui/picom/pull/247 working properly.
+# Clone, build and install picom: https://github.com/jonaburg/picom
 
 sudo apt install xinput
 sudo apt install xdotool
