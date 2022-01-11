@@ -208,6 +208,18 @@ vim.wo.listchars = 'tab:>-'
 vim.cmd('colorscheme terminal')
 vim.o.background = 'dark'
 
+-- Function to determine the highlight group under the cursor (to help change
+-- its color).
+vim.cmd(
+[[
+function! SynGroup()                                                            
+    let l:s = synID(line('.'), col('.'), 1)                                       
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+command! SynGroup call SynGroup()
+]]
+)
+
 -- Highlights the line the cursor is currently on.
 vim.wo.cursorline = true
 

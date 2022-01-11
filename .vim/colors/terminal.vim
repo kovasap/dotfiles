@@ -84,6 +84,9 @@ hi LspDiagnosticsUnderlineHint cterm=underline ctermbg=0
 " Treesitter highlights"
 hi default link TSTitle String
 hi default link TSString String
+hi default link TSVariable Normal
+hi default link TSNamespace Normal
+hi default link TSType Type
 
 " this is what gets overlaid on the bad text
 hi ALEError cterm=underline ctermbg=0
