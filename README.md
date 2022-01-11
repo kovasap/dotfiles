@@ -49,7 +49,9 @@ pip install neovim
 sudo apt install silversearcher-ag
     
 # Install firacode font
-sudo apt install fonts-firacode
+git clone https://github.com/zwaldowski/Fira.git
+sudo cp Fira/otf/*otf /usr/share/fonts/opentype/
+sudo fc-cache -f -v
 
 # Install zsh
 sudo apt install zsh
@@ -82,6 +84,16 @@ pip install .
 sudo apt install libpulse-dev
 ./scripts/ffibuild
 sudo cp qtile-venv.desktop /usr/share/xsessions/
+cd ~/
+
+# Build and install launcher
+# https://github.com/enkore/j4-dmenu-desktop
+sudo apt install suckless-tools
+git clone https://github.com/enkore/j4-dmenu-desktop.git
+cd j4-dmenu-desktop
+cmake .
+make
+sudo make install
 cd ~/
 
 # Install kitty - this is necessary to get the terminal working properly even
