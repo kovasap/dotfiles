@@ -40,7 +40,9 @@ for o in "${outputs[@]}"; do
     echo $o
     echo $connected
     if [ -n "$connected" ]; then
-        xrandr_cmd="$xrandr_cmd --output $o --auto $relative_loc"
+        # See https://unix.stackexchange.com/a/502883
+        mouse_flicker_fix="--scale 0.9999x0.9999"
+        xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --auto $relative_loc"
         relative_loc="--left-of $o"
     else
         xrandr_cmd="$xrandr_cmd --output $o --off"

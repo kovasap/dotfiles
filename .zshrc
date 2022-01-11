@@ -87,7 +87,7 @@ cw() {
   cols=$(( COLUMNS / 3 ))
   sep='{::}'
 
-  cp -f ~/.config/google-chrome/Profile\ 4/History /tmp/h
+  cp -f ~/.config/google-chrome/Profile\ 1/History /tmp/h
 
   sqlite3 -separator $sep /tmp/h \
     "select substr(title, 1, $cols), url
