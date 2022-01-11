@@ -5,8 +5,8 @@ xhost +local:
 compton \
     --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'!class_g="kitty"' \
     --backend glx -b \
-    --opacity-rule 93:'class_g = "kitty"' \
-    --inactive-dim 0.1
+    --opacity-rule 93:'class_g = "kitty"'
+    # --inactive-dim 0.1
     #  && !class_g="Atom"
     #  && !class_g="Tabletop Simulator.x86_64"
     # --inactive-opacity 0.9 --active-opacity 0.95 \
