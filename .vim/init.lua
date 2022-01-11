@@ -66,6 +66,8 @@ require 'paq' {
   'mgedmin/python-imports.vim';
   'tpope/vim-fireplace';
   'venantius/vim-cljfmt';
+  -- Might need to run the cargo command from
+  -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
   {'eraserhd/parinfer-rust', 'cargo build --release'};
   'mechatroner/rainbow_csv';
   'masukomi/vim-markdown-folding';

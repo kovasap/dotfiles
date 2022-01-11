@@ -31,6 +31,13 @@ sudo apt install xdotool
 # Install copyq clipboard manager
 sudo apt install copyq
 
+# Install clojure tooling
+# https://clojure-lsp.io/installation/#script
+# Rust required for parinfer, which is installed during vim plugin install.
+sudo apt install rustc
+# Useful for cljs projects
+sudo apt install npm
+
 # Install neovim
 sudo apt install neovim
 # Install Paq neovim package manager
