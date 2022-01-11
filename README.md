@@ -45,14 +45,14 @@ git clone --depth=1 https://github.com/savq/paq-nvim.git \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-n vim
 # Install vim python package
 pip install neovim
+pip install 'python-lsp-server[all]'
 
 sudo apt install silversearcher-ag
-    
-# Install firacode font
-git clone https://github.com/zwaldowski/Fira.git
-sudo cp Fira/otf/*otf /usr/share/fonts/opentype/
-sudo fc-cache -f -v
 
+# Install fonts located in ~/.local/share/fonts.
+# Installing new fonts should just involve copying them to that dir and running:
+fc-cache -f -v
+    
 # Install zsh
 sudo apt install zsh
 # Install oh my zsh
