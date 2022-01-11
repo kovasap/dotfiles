@@ -28,22 +28,24 @@ echo $reset_cmd
 eval $reset_cmd
 
 echo $xrandr_output
-xrandr_cmd="xrandr --output eDP-1 --primary --scale 0.5x0.5 --auto"
+# xrandr_cmd="xrandr --output eDP-1 --primary --scale 0.5x0.5 --auto"
+xrandr_cmd="xrandr --output eDP-1 --primary --scale 1x1 --mode 2560x1440"
 if [ "$2" == "rotated" ]; then
     xrandr_cmd="$xrandr_cmd --rotate right"
 else
     xrandr_cmd="$xrandr_cmd --rotate normal"
 fi
-relative_loc="--left-of eDP-1"
+relative_loc="--right-of eDP-1"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
     echo $o
     echo $connected
     if [ -n "$connected" ]; then
         # See https://unix.stackexchange.com/a/502883
-        mouse_flicker_fix="--scale 0.9999x0.9999"
+        # mouse_flicker_fix="--scale 0.9999x0.9999"
+        mouse_flicker_fix=""
         xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --auto $relative_loc"
-        relative_loc="--left-of $o"
+        relative_loc="--right-of $o"
     else
         xrandr_cmd="$xrandr_cmd --output $o --off"
     fi
