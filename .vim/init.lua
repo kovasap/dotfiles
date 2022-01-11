@@ -25,7 +25,7 @@ require 'paq' {
   'flwyd/vim-conjoin';
   'tpope/vim-sleuth';
   'tpope/vim-abolish';
-  'pope/vim-surround';
+  'tpope/vim-surround';
   'tpope/vim-repeat';
   'windwp/nvim-autopairs';
   'junegunn/vim-easy-align';
@@ -63,6 +63,7 @@ require 'paq' {
   'nvim-treesitter/playground';
   'p00f/nvim-ts-rainbow';
   { 'neovim/nvim-lspconfig', run=install_python_ls };
+  'nvim-lua/lsp-status.nvim';
   'mgedmin/python-imports.vim';
   'tpope/vim-fireplace';
   'venantius/vim-cljfmt';
