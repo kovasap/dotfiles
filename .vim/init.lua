@@ -19,11 +19,14 @@ end
 -- paq { 'savq/paq-nvim', opt=true }
 
 require 'paq' {
+  -- TODO look into how to integrate with treesitter highlights
+  -- 'jaxbot/semantic-highlight.vim';
   'yuttie/comfortable-motion.vim';
   'ggvgc/vim-fuzzysearch';
   'AndrewRadev/splitjoin.vim';
   'flwyd/vim-conjoin';
-  'tpope/vim-sleuth';
+  -- Re-enable after https://github.com/tpope/vim-sleuth/issues/77 is fixed.
+  -- 'tpope/vim-sleuth';
   'tpope/vim-abolish';
   'tpope/vim-surround';
   'tpope/vim-repeat';
@@ -638,6 +641,8 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = 'maintained',
   highlight = {enable = true},
   -- TODO Re-enable when this works better for python.
+  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
+  -- related
   -- indent = {enable = true},
   rainbow = {
     enable = true,

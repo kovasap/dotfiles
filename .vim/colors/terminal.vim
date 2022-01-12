@@ -93,7 +93,7 @@ hi default link TSVariableBuiltin Function
 hi default link TSMethod Function
 hi default link TSNamespace Normal
 hi default link TSType Type
-hi default link TSField Type
+hi default link TSField Normal
 
 " this is what gets overlaid on the bad text
 hi ALEError cterm=underline ctermbg=0
