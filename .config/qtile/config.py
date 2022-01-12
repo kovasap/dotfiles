@@ -341,6 +341,11 @@ class ColoredMemoryGraph(MemoryGraph):
         super().update_graph()
 
 
+wireless_interface = subprocess.run(
+    "ifconfig | grep wlp | awk '{print $1}' | tr -d :",
+    shell=True, capture_output=True).stdout.decode('utf-8').strip()
+
+
 def get_widgets():
     return [
         widget.CurrentLayoutIcon(
@@ -386,10 +391,10 @@ def get_widgets():
         # sudo apt install libiw-dev
         # pip install iwlib
         widget.Wlan(
-            interface='wlp2s0',
+            interface=wireless_interface,
             format=' {essid} {quality}%',
             mouse_callbacks={
-                'Button1': lambda: qtile.cmd_spawn('cinnamon-settings network')}),
+                'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
         widget.TextBox(" | ", name="separator"),
         widget.Systray(),
         widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
@@ -446,7 +451,6 @@ if num_monitors > 1:
         screens.append(
             Screen(top=bar.Bar(get_widgets(), **bar_config))
         )
-logger.warning(screens)
 
 @hook.subscribe.client_new
 def floating_dialogs(window):
