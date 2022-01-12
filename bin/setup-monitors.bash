@@ -29,7 +29,7 @@ eval $reset_cmd
 
 echo $xrandr_output
 # xrandr_cmd="xrandr --output eDP-1 --primary --scale 0.5x0.5 --auto"
-xrandr_cmd="xrandr --output eDP-1 --primary --scale 1x1 --mode 2560x1440"
+xrandr_cmd="xrandr --output eDP-1 --primary --scale 1x1 --mode 1920x1080"
 if [ "$2" == "rotated" ]; then
     xrandr_cmd="$xrandr_cmd --rotate right"
 else
