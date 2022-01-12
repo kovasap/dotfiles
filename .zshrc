@@ -234,7 +234,7 @@ alias sd='ssh kovas.c.googlers.com'
 alias gmd='gmosh kovas.c.googlers.com'
 
 # faster google certification
-alias gcert='gcert; ssh kovas.c.googlers.com gcert'
+alias gcert='gcert --reuse_sso_cookie; ssh kovas.c.googlers.com gcert --reuse_sso_cookie'
 
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
