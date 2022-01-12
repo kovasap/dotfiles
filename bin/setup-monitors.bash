@@ -17,7 +17,7 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-outputs=('DP-2' 'DP-1' 'DP-1-1' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-8' 'HDMI-1')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1')
 xrandr_output=$(xrandr)
 
 reset_cmd="xrandr --output eDP-1 --primary --auto"

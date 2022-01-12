@@ -65,10 +65,12 @@ def hard_restart(qt):
 keys = [
     Key([mod], "k",
         lazy.layout.up().when(layout='custommonadtall'),
+        lazy.layout.up().when(layout='max'),
         lazy.layout.left().when(layout='2cols'),
         lazy.layout.left().when(layout='3cols')),
     Key([mod], "j",
         lazy.layout.down().when(layout='custommonadtall'),
+        lazy.layout.down().when(layout='max'),
         lazy.layout.right().when(layout='2cols'),
         lazy.layout.right().when(layout='3cols')),
     Key([mod, 'control'], "k",
