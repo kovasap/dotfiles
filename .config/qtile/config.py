@@ -198,7 +198,8 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-groups = [Group(i) for i in "asdfqwer1234567"]
+group_names = list("asdfqwer1234567")
+groups = [Group(i) for i in group_names]
 
 
 # https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
@@ -219,6 +220,31 @@ for i in groups:
         # mod1 + shift + letter of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
     ])
+
+def movescreens(qtile, offset):
+    screen_group_names = [s.group.name for s in qtile.screens]
+    screens_wrap = (group_names[-1] in screen_group_names
+                    and group_names[0] in screen_group_names)
+    # Sort the screens so that we don't move one screens group onto the other
+    # before we get the chance to move its group!
+    for screen in sorted(
+            qtile.screens,
+            key=lambda s: group_names.index(s.group.name),
+            reverse=(offset != 1 if screens_wrap else offset == 1)):
+        group_idx = (
+            (group_names.index(screen.group.name) + offset) % len(group_names))
+        next_group_name = group_names[group_idx]
+        logger.error(f'pre {group_names.index(screen.group.name)} group index {group_idx} offset {offset}')
+        logger.error(
+            f'cur_name {screen.group.name} new_name {next_group_name}')
+        for group in qtile.groups:
+            if group.name == next_group_name:
+                screen.set_group(group)
+                break
+
+# Cycle through groups on all screens at once (like on chromeos)
+keys.append(Key([mod, "control"], "l", lazy.function(movescreens, 1)))
+keys.append(Key([mod, "control"], "h", lazy.function(movescreens, -1)))
 # Switch multiple windows to screens at once.
 keys.append(Key([mod, "control"], "1",
                 lazy.group["s"].toscreen(0),
