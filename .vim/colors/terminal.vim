@@ -94,6 +94,7 @@ hi default link TSMethod Function
 hi default link TSNamespace Normal
 hi default link TSType Type
 hi default link TSField Normal
+hi TSSymbol ctermfg=4
 
 " this is what gets overlaid on the bad text
 hi ALEError cterm=underline ctermbg=0
