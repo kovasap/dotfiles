@@ -234,9 +234,8 @@ def movescreens(qtile, offset):
         group_idx = (
             (group_names.index(screen.group.name) + offset) % len(group_names))
         next_group_name = group_names[group_idx]
-        logger.error(f'pre {group_names.index(screen.group.name)} group index {group_idx} offset {offset}')
-        logger.error(
-            f'cur_name {screen.group.name} new_name {next_group_name}')
+        # logger.error(f'pre {group_names.index(screen.group.name)} group index {group_idx} offset {offset}')
+        # logger.error(f'cur_name {screen.group.name} new_name {next_group_name}')
         for group in qtile.groups:
             if group.name == next_group_name:
                 screen.set_group(group)
