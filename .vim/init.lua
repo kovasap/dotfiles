@@ -26,7 +26,7 @@ require 'paq' {
   'AndrewRadev/splitjoin.vim';
   'flwyd/vim-conjoin';
   -- Re-enable after https://github.com/tpope/vim-sleuth/issues/77 is fixed.
-  -- 'tpope/vim-sleuth';
+  'tpope/vim-sleuth';
   'tpope/vim-abolish';
   'tpope/vim-surround';
   'tpope/vim-repeat';
@@ -160,9 +160,13 @@ vim.bo.autoindent = true
 -- their end).
 vim.cmd("command AutoWrapToggle if &fo =~ 'a' | set fo-=a | else | set fo+=a | endif")
 map('n', '<C-a>', ':AutoWrapToggle<CR>')
+
+-- Note that this command imports all ftplugin files, which may have unindended
+-- effects.
 vim.cmd('filetype plugin indent on')
 
--- Make tabs create 2 spaces.
+-- Make tabs create 2 spaces by default. Note that this is overwritten by
+-- vim-sleuth and ftplugin files.
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
@@ -795,6 +799,8 @@ nvim_lsp.pylsp.setup {
 -- Auto add imports from file ~/.vim/python-imports.cfg
 -- paq 'mgedmin/python-imports.vim'
 map('n', 'gai', ':ImportName<CR>')
+
+vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 --                          /// Language - Clojure ///
 
