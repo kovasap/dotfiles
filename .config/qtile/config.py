@@ -145,9 +145,13 @@ keys = [
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod], "z", lazy.layout.toggle_split()),
-    Key([mod, "control"], "z", lazy.layout.swap_column_left()),
+    # multiple stack 
+    # Key([mod], "z", lazy.layout.toggle_split()),
+    # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
+
+    Key([mod], "z", lazy.spawn(
+        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
+        "kitty zsh -c '~/bin/chrome-history.zsh 2;read'")),
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
