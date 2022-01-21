@@ -18,4 +18,4 @@ c () {
   xargs xdg-open
 }
 
-c
+c $1
