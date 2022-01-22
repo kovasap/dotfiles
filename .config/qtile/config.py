@@ -1,28 +1,3 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
 import os
 import shlex
 import subprocess
@@ -43,21 +18,21 @@ from Xlib import display as xdisplay
 colors = {}
 theme_filepath = None
 with open(os.path.expanduser('~/.config/kitty/kitty.conf'), 'r') as f:
-    for line in f:
-        if line.startswith('include') and 'theme' in line:
-            theme_filepath = os.path.join(
-                os.path.expanduser('~/.config/kitty'), line.split()[1])
+  for line in f:
+    if line.startswith('include') and 'theme' in line:
+      theme_filepath = os.path.join(
+          os.path.expanduser('~/.config/kitty'), line.split()[1])
 if theme_filepath:
-    with open(theme_filepath, 'r') as f:
-        for line in f:
-            colors[line.split()[0]] = line.split()[1].upper()
+  with open(theme_filepath, 'r') as f:
+    for line in f:
+      colors[line.split()[0]] = line.split()[1].upper()
 
 
 mod = "mod4"
 
 
 def hard_restart(qt):
-    qt.cmd_restart()
+  qt.cmd_restart()
 
 
 # See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
@@ -208,42 +183,42 @@ groups = [Group(i) for i in group_names]
 
 # https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
 def toscreen(qtile, group_name):
-    if group_name == qtile.current_screen.group.name:
-        return qtile.current_screen.set_group(
-            qtile.current_screen.previous_group)
-    for i, group in enumerate(qtile.groups):
-        if group_name == group.name:
-            return qtile.current_screen.set_group(qtile.groups[i])
+  if group_name == qtile.current_screen.group.name:
+    return qtile.current_screen.set_group(
+        qtile.current_screen.previous_group)
+  for i, group in enumerate(qtile.groups):
+    if group_name == group.name:
+      return qtile.current_screen.set_group(qtile.groups[i])
 
 
 for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.function(toscreen, i.name)),
+  keys.extend([
+      # mod1 + letter of group = switch to group
+      Key([mod], i.name, lazy.function(toscreen, i.name)),
 
-        # mod1 + shift + letter of group = move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
-    ])
+      # mod1 + shift + letter of group = move focused window to group
+      Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
+  ])
 
 def movescreens(qtile, offset):
-    screen_group_names = [s.group.name for s in qtile.screens]
-    screens_wrap = (group_names[-1] in screen_group_names
-                    and group_names[0] in screen_group_names)
-    # Sort the screens so that we don't move one screens group onto the other
-    # before we get the chance to move its group!
-    for screen in sorted(
-            qtile.screens,
-            key=lambda s: group_names.index(s.group.name),
-            reverse=(offset != 1 if screens_wrap else offset == 1)):
-        group_idx = (
-            (group_names.index(screen.group.name) + offset) % len(group_names))
-        next_group_name = group_names[group_idx]
-        # logger.error(f'pre {group_names.index(screen.group.name)} group index {group_idx} offset {offset}')
-        # logger.error(f'cur_name {screen.group.name} new_name {next_group_name}')
-        for group in qtile.groups:
-            if group.name == next_group_name:
-                screen.set_group(group)
-                break
+  screen_group_names = [s.group.name for s in qtile.screens]
+  screens_wrap = (group_names[-1] in screen_group_names
+                  and group_names[0] in screen_group_names)
+  # Sort the screens so that we don't move one screens group onto the other
+  # before we get the chance to move its group!
+  for screen in sorted(
+      qtile.screens,
+      key=lambda s: group_names.index(s.group.name),
+      reverse=(offset != 1 if screens_wrap else offset == 1)):
+    group_idx = (
+        (group_names.index(screen.group.name) + offset) % len(group_names))
+    next_group_name = group_names[group_idx]
+    # logger.error(f'pre {group_names.index(screen.group.name)} group index {group_idx} offset {offset}')
+    # logger.error(f'cur_name {screen.group.name} new_name {next_group_name}')
+    for group in qtile.groups:
+      if group.name == next_group_name:
+          screen.set_group(group)
+          break
 
 # Cycle through groups on all screens at once (like on chromeos)
 keys.append(Key([mod, "control"], "l", lazy.function(movescreens, 1)))
@@ -275,45 +250,47 @@ layout_theme = {
     "border_normal": colors['background'],
 }
 
+
 class CustomMonadTall(layout.MonadTall):
-    def configure(self, client, screen):
-        """Position client based on order and sizes."""
-        # if no sizes or normalize flag is set, normalize
-        if not self.relative_sizes or self.do_normalize:
-            self.cmd_normalize(False)
+  def configure(self, client, screen):
+    """Position client based on order and sizes."""
+    # if no sizes or normalize flag is set, normalize
+    if not self.relative_sizes or self.do_normalize:
+      self.cmd_normalize(False)
 
-        # if client not in this layout
-        if not self.clients or client not in self.clients:
-            client.hide()
-            return
+    # if client not in this layout
+    if not self.clients or client not in self.clients:
+      client.hide()
+      return
 
-        # determine focus border-color
-        if client.has_focus:
-            # Make kitty window border darker in color, since kitty windows
-            # are not dimmed by compton.
-            if 'kitty' in client.window.get_wm_class():
-                px = colors['color2']
-            else:
-                px = self.border_focus
-        else:
-            px = self.border_normal
+    # determine focus border-color
+    if client.has_focus:
+      # Make kitty window border darker in color, since kitty windows
+      # are not dimmed by compton.
+      if 'kitty' in client.window.get_wm_class():
+        px = colors['color2']
+      else:
+        px = self.border_focus
+    else:
+      px = self.border_normal
 
-        # single client - fullscreen
-        if len(self.clients) == 1:
-            client.place(
-                self.group.screen.dx,
-                self.group.screen.dy,
-                self.group.screen.dwidth - 2 * self.single_border_width,
-                self.group.screen.dheight - 2 * self.single_border_width,
-                self.single_border_width,
-                px,
-                margin=self.single_margin,
-            )
-            client.unhide()
-            return
-        cidx = self.clients.index(client)
-        self._configure_specific(client, screen, px, cidx)
-        client.unhide()
+    # single client - fullscreen
+    if len(self.clients) == 1:
+      client.place(
+          self.group.screen.dx,
+          self.group.screen.dy,
+          self.group.screen.dwidth - 2 * self.single_border_width,
+          self.group.screen.dheight - 2 * self.single_border_width,
+          self.single_border_width,
+          px,
+          margin=self.single_margin,
+      )
+      client.unhide()
+      return
+    cidx = self.clients.index(client)
+    self._configure_specific(client, screen, px, cidx)
+    client.unhide()
+
 
 layouts = [
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
@@ -345,6 +322,7 @@ widget_defaults = dict(
     # font='scientifica Bold',
     # fontsize=16,
     padding=2,
+    foreground=colors['color7'],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -356,18 +334,20 @@ graph_args = dict(
     width=40,
 )
 
+
 class ColoredMemoryGraph(MemoryGraph):
-    """Shows the memory graph in red if above 80%."""
-    def update_graph(self):
-        val = self._getvalues()
-        mem = val['MemTotal'] - val['MemFree'] - val['Buffers'] - val['Cached']
-        if mem / val['MemTotal'] > 0.8:
-            self.graph_color = colors['color1']
-            self.fill_color = colors['color1'] + '.3'
-        else:
-            self.graph_color = colors['color2']
-            self.fill_color = colors['color2'] + '.3'
-        super().update_graph()
+  """Shows the memory graph in red if above 80%."""
+
+  def update_graph(self):
+    val = self._getvalues()
+    mem = val['MemTotal'] - val['MemFree'] - val['Buffers'] - val['Cached']
+    if mem / val['MemTotal'] > 0.8:
+      self.graph_color = colors['color1']
+      self.fill_color = colors['color1'] + '.3'
+    else:
+      self.graph_color = colors['color2']
+      self.fill_color = colors['color2'] + '.3'
+    super().update_graph()
 
 
 wireless_interface = subprocess.run(
@@ -376,63 +356,67 @@ wireless_interface = subprocess.run(
 
 
 def get_widgets():
-    return [
-        widget.CurrentLayoutIcon(
-            custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-            scale=0.8,
-        ),
-        widget.GroupBox(**widget_defaults),
-        widget.WindowName(),
-        widget.TextBox(" | ", name="separator"),
-        widget.Clipboard(max_width=50, timeout=None),
-        widget.TextBox(" | ", name="separator"),
-        widget.TextBox("CPU", name="cpu_label"),
-        widget.CPUGraph(**graph_args),
-        widget.TextBox("Mem", name="memory_label"),
-        ColoredMemoryGraph(**graph_args),
-        widget.TextBox("Net", name="net_label"),
-        widget.NetGraph(**graph_args),
-        widget.TextBox(" | ", name="separator"),
-        widget.DF(
-            mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
-            format='{uf}/{s}{m} free on {p}',
-            visible_on_warn=False),
-        # TODO figure out why this doesn't work
-        # widget.HDDBusyGraph(**graph_args),
-        widget.TextBox(" | ", name="separator"),
-        widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
-                     margin_y=4),
-        widget.Volume(fmt='{}'),
-        widget.TextBox(" | ", name="separator"),
-        widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
-        widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
-                       charge_char='+', discharge_char='-',
-                       update_interval=15,  # seconds
-                       ),
-        widget.TextBox(" | ", name="separator"),
-        widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
-                     margin_x=1,
-                     margin_y=4.5),
-        widget.Backlight(format='{percent: 2.0%}',
-                         backlight_name='intel_backlight'),
-        widget.TextBox(" | ", name="separator"),
-        # Requires
-        # sudo apt install libiw-dev
-        # pip install iwlib
-        widget.Wlan(
-            interface=wireless_interface,
-            format=' {essid} {quality}%',
-            mouse_callbacks={
-                'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
-        widget.TextBox(" | ", name="separator"),
-        widget.Systray(),
-        widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-    ]
+  return [
+      widget.CurrentLayoutIcon(
+          custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+          scale=0.8,
+      ),
+      widget.GroupBox(**widget_defaults),
+      widget.WindowName(),
+      widget.TextBox(" | ", name="separator"),
+      widget.Clipboard(max_width=50, timeout=None),
+      widget.TextBox(" | ", name="separator"),
+      widget.TextBox("CPU", name="cpu_label"),
+      widget.CPUGraph(**graph_args),
+      widget.TextBox("Mem", name="memory_label"),
+      ColoredMemoryGraph(**graph_args),
+      widget.TextBox("Net", name="net_label"),
+      widget.NetGraph(**graph_args),
+      widget.TextBox(" | ", name="separator"),
+      widget.DF(
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
+          format='{uf}/{s}{m} free on {p}',
+          visible_on_warn=False),
+      # TODO figure out why this doesn't work
+      # widget.HDDBusyGraph(**graph_args),
+      widget.TextBox(" | ", name="separator"),
+      widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
+                   margin_y=4),
+      widget.Volume(fmt='{}'),
+      widget.TextBox(" | ", name="separator"),
+      widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
+      widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
+                     charge_char='+', discharge_char='-',
+                     update_interval=15,  # seconds
+                     ),
+      widget.TextBox(" | ", name="separator"),
+      widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
+                   margin_x=1,
+                   margin_y=4.5),
+      widget.Backlight(format='{percent: 2.0%}',
+                       backlight_name='intel_backlight'),
+      widget.TextBox(" | ", name="separator"),
+      # Requires
+      # sudo apt install libiw-dev
+      # pip install iwlib
+      widget.Wlan(
+          interface=wireless_interface,
+          format=' {essid} {quality}%',
+          mouse_callbacks={
+              'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
+      widget.TextBox(" | ", name="separator"),
+      widget.Systray(),
+      widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+  ]
+
 
 bar_config = dict(
     size=24,
-    opacity=0.8
+    opacity=0.8,
+    background=colors['color16']
+
 )
+
 
 # Restart qtile when a new monitor is plugged in.
 # @hook.subscribe.screen_change
@@ -441,58 +425,61 @@ bar_config = dict(
 
 # def run(cmdline):
 #     subprocess.Popen(shlex.split(cmdline))
-# 
+#
 # @hook.subscribe.startup
 # def startup():
 #     run("~kovas/bin/setup-monitors.bash")
 
 def get_monitors():
-    display = xdisplay.Display()
-    screen = display.screen()
-    resources = screen.root.xrandr_get_screen_resources()
-    return [display.xrandr_get_output_info(output, resources.config_timestamp)
-            for output in resources.outputs]
+  display = xdisplay.Display()
+  screen = display.screen()
+  resources = screen.root.xrandr_get_screen_resources()
+  return [display.xrandr_get_output_info(output, resources.config_timestamp)
+          for output in resources.outputs]
+
 
 # See https://github.com/qtile/qtile/wiki/screens
 def get_num_monitors():
-    num_monitors = 0
-    try:
-        for monitor in get_monitors():
-            preferred = False
-            if hasattr(monitor, "preferred"):
-                preferred = monitor.preferred
-            elif hasattr(monitor, "num_preferred"):
-                preferred = monitor.num_preferred
-            if preferred:
-                num_monitors += 1
-    except Exception as e:
-        # always setup at least one monitor
-        return 1
-    else:
-        return num_monitors
+  num_monitors = 0
+  try:
+    for monitor in get_monitors():
+      preferred = False
+      if hasattr(monitor, "preferred"):
+        preferred = monitor.preferred
+      elif hasattr(monitor, "num_preferred"):
+        preferred = monitor.num_preferred
+      if preferred:
+        num_monitors += 1
+  except Exception:
+    # always setup at least one monitor
+    return 1
+  else:
+    return num_monitors
+
 
 num_monitors = get_num_monitors()
 
 screens = [Screen(top=bar.Bar(get_widgets(), **bar_config))]
 
 if num_monitors > 1:
-    for m in range(num_monitors - 1):
-        screens.append(
-            Screen(top=bar.Bar(get_widgets(), **bar_config))
-        )
+  for m in range(num_monitors - 1):
+    screens.append(
+        Screen(top=bar.Bar(get_widgets(), **bar_config)))
+
 
 @hook.subscribe.client_new
 def floating_dialogs(window):
-    # logger.warning(str(window.window.get_wm_class()))
-    # logger.warning(str(window.window.get_name()))
-    # logger.warning(str(window.window.get_wm_type()))
-    window_names = {'meet.google.com is sharing your screen.'}
-    window_classes = {'Godot'}
-    wclass = (window.window.get_wm_class()[1]
-              if len(window.window.get_wm_class()) >= 2
-              else '')
-    if (wclass in window_classes or window.window.get_name() in window_names):
-        window.floating = True
+  # logger.warning(str(window.window.get_wm_class()))
+  # logger.warning(str(window.window.get_name()))
+  # logger.warning(str(window.window.get_wm_type()))
+  window_names = {'meet.google.com is sharing your screen.'}
+  window_classes = {'Godot'}
+  wclass = (window.window.get_wm_class()[1]
+            if len(window.window.get_wm_class()) >= 2
+            else '')
+  if (wclass in window_classes or window.window.get_name() in window_names):
+    window.floating = True
+
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List

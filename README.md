@@ -49,6 +49,18 @@ pip install 'python-lsp-server[all]'
 
 sudo apt install silversearcher-ag
 
+# Install xmenu
+sudo apt install libxft-dev libimlib2-dev
+git clone git@github.com:phillbush/xmenu.git
+cd xmenu
+make
+sudo make install
+cd ~/
+git clone git@github.com:phillbush/xclickroot.git
+cd xclickroot
+sudo make clean install
+cd ~/
+
 # Install fonts located in ~/.local/share/fonts.
 # Installing new fonts should just involve copying them to that dir and running:
 fc-cache -f -v
