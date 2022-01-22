@@ -319,8 +319,6 @@ layouts = [
 widget_defaults = dict(
     font='FiraCode Bold',
     fontsize=12,
-    # font='scientifica Bold',
-    # fontsize=16,
     padding=2,
     foreground=colors['color7'],
 )
@@ -360,8 +358,15 @@ def get_widgets():
       widget.CurrentLayoutIcon(
           custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
           scale=0.8,
+          forground=colors['color7'],
       ),
-      widget.GroupBox(**widget_defaults),
+      widget.GroupBox(
+          disable_drag=True,
+          highlight_method='line',
+          highlight_color=['000000', colors['color2']],
+          this_screen_border=colors['color10'],
+          this_current_screen_border=colors['color2'],
+          active=colors['color7']),
       widget.WindowName(),
       widget.TextBox(" | ", name="separator"),
       widget.Clipboard(max_width=50, timeout=None),
