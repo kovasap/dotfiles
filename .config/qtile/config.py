@@ -41,18 +41,18 @@ keys = [
     Key([mod], "k",
         lazy.layout.up().when(layout='custommonadtall'),
         lazy.layout.up().when(layout='max'),
-        lazy.layout.left().when(layout='2cols'),
+        # lazy.layout.left().when(layout='2cols'),
         lazy.layout.left().when(layout='3cols')),
     Key([mod], "j",
         lazy.layout.down().when(layout='custommonadtall'),
         lazy.layout.down().when(layout='max'),
-        lazy.layout.right().when(layout='2cols'),
+        # lazy.layout.right().when(layout='2cols'),
         lazy.layout.right().when(layout='3cols')),
     Key([mod, 'control'], "k",
-        lazy.layout.up().when(layout='2cols'),
+        # lazy.layout.up().when(layout='2cols'),
         lazy.layout.up().when(layout='3cols')),
     Key([mod, 'control'], "j",
-        lazy.layout.down().when(layout='2cols'),
+        # lazy.layout.down().when(layout='2cols'),
         lazy.layout.down().when(layout='3cols')),
 
     # Skip managed ignores groups already on a screen.
@@ -70,11 +70,11 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key([mod, "shift"], "j",
         lazy.layout.shuffle_down().when(layout='custommonadtall'),
-        lazy.layout.swap_column_left().when(layout='2cols'),
+        # lazy.layout.swap_column_left().when(layout='2cols'),
         lazy.layout.swap_column_left().when(layout='3cols')),
     Key([mod, "shift"], "k",
         lazy.layout.shuffle_up().when(layout='custommonadtall'),
-        lazy.layout.swap_column_right().when(layout='2cols'),
+        # lazy.layout.swap_column_right().when(layout='2cols'),
         lazy.layout.swap_column_right().when(layout='3cols')),
 
     Key([mod], "equal", lazy.layout.grow()),
@@ -301,7 +301,7 @@ layouts = [
                     # in percent of size.
                     change_size=60, **layout_theme),
     layout.Max(**layout_theme),
-    layout.Columns(name='2cols', num_columns=2, **layout_theme),
+    # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
     # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
@@ -355,11 +355,6 @@ wireless_interface = subprocess.run(
 
 def get_widgets():
   return [
-      widget.CurrentLayoutIcon(
-          custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-          scale=0.8,
-          forground=colors['color7'],
-      ),
       widget.GroupBox(
           disable_drag=True,
           highlight_method='line',
@@ -367,6 +362,10 @@ def get_widgets():
           this_screen_border=colors['color10'],
           this_current_screen_border=colors['color2'],
           active=colors['color7']),
+      widget.CurrentLayoutIcon(
+          custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+          scale=0.8,
+      ),
       widget.WindowName(),
       widget.TextBox(" | ", name="separator"),
       widget.Clipboard(max_width=50, timeout=None),
