@@ -380,19 +380,22 @@ def get_widgets():
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**graph_args),
       widget.TextBox(" | ", name="separator"),
-      widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
-                   margin_y=4),
+      # widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
+      #              margin_y=4),
+      widget.TextBox("vol:", name="volume_label"),
       widget.Volume(fmt='{}'),
       widget.TextBox(" | ", name="separator"),
-      widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
+      # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
+      widget.TextBox("bat:", name="battery_label"),
       widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
                      charge_char='+', discharge_char='-',
                      update_interval=15,  # seconds
                      ),
       widget.TextBox(" | ", name="separator"),
-      widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
-                   margin_x=1,
-                   margin_y=4.5),
+      # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
+      #              margin_x=1,
+      #              margin_y=4.5),
+      widget.TextBox("brt:", name="brightness_label"),
       widget.Backlight(format='{percent: 2.0%}',
                        backlight_name='intel_backlight'),
       widget.TextBox(" | ", name="separator"),
@@ -459,12 +462,20 @@ def get_num_monitors():
 
 num_monitors = get_num_monitors()
 
-screens = [Screen(top=bar.Bar(get_widgets(), **bar_config))]
+bars = [bar.Bar(get_widgets(), **bar_config)]
+screens = [Screen(top=bars[0])]
 
 if num_monitors > 1:
   for m in range(num_monitors - 1):
-    screens.append(
-        Screen(top=bar.Bar(get_widgets(), **bar_config)))
+    bars.append(bar.Bar(get_widgets(), **bar_config))
+    screens.append(Screen(top=bars[-1]))
+
+
+@hook.subscribe.startup
+def _():
+  for b in bars:
+    b.window.window.set_property(
+        'WM_NAME', 'qtile_bar', type='STRING', format=8)
 
 
 @hook.subscribe.client_new

@@ -3,9 +3,10 @@
 # udev runs as root, so we need to tell it how to connect to the X server:
 xhost +local:
 compton \
-    --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'!class_g="kitty"' \
+    --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'!(class_g="kitty" || name="qtile_bar")' \
     --backend glx -b \
     --opacity-rule 93:'class_g = "kitty"'
+    # --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'!class_g="kitty" && !name="qtile_bar"' \
     # --inactive-dim 0.1
     #  && !class_g="Atom"
     #  && !class_g="Tabletop Simulator.x86_64"

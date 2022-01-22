@@ -49,6 +49,22 @@ pip install 'python-lsp-server[all]'
 
 sudo apt install silversearcher-ag
 
+# Install grive2 for google drive syncing
+git clone https://github.com/vitalif/grive2
+sudo apt-get install git cmake build-essential libgcrypt20-dev libyajl-dev \
+    libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev \
+    binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config
+cd grive2
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+cd ~/
+mkdir google-drive
+grive -a
+cd ~/
+
 # Install xmenu
 sudo apt install libxft-dev libimlib2-dev
 git clone git@github.com:phillbush/xmenu.git

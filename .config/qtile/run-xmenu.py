@@ -47,6 +47,7 @@ all_items = {
     'Applications': [
         'Google Chrome\tgoogle-chrome',
         'Terminal (kitty)\tkitty',
+        'Calibre (eBooks)\tcalibre',
     ],
     'Commands': [],
     'QTile': [
