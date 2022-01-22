@@ -479,7 +479,7 @@ if num_monitors > 1:
 def _():
   for b in bars:
     b.window.window.set_property(
-        'WM_NAME', 'qtile_bar', type='STRING', format=8)
+        'WM_NAME', 'qtile_bar', type='UTF8_STRING', format=8)
 
 
 @hook.subscribe.client_new
