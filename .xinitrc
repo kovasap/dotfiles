@@ -5,6 +5,8 @@ if [[ `hostname` = 'raspberrypi' ]]; then
   exit
 fi
 
+export CALIBRE_USE_DARK_PALETTE=1
+
 xrdb ~/.XResources
 
 xclickroot -r ~/bin/run-xmenu.sh &
