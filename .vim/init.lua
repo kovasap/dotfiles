@@ -68,7 +68,8 @@ require 'paq' {
   { 'neovim/nvim-lspconfig', run=install_python_ls };
   'nvim-lua/lsp-status.nvim';
   'mgedmin/python-imports.vim';
-  'tpope/vim-fireplace';
+  -- 'tpope/vim-fireplace';
+  'Olical/conjure';
   'venantius/vim-cljfmt';
   -- Might need to run the cargo command from
   -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
@@ -803,6 +804,9 @@ map('n', 'gai', ':ImportName<CR>')
 vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 --                          /// Language - Clojure ///
+
+-- For Conjure
+vim.g.maplocalleader=","
 
 -- paq 'tpope/vim-fireplace'
 vim.cmd(

@@ -65,6 +65,9 @@ mkdir google-drive
 grive -a
 cd ~/
 
+# Music player
+sudo apt install cmus
+
 # Install xmenu
 sudo apt install libxft-dev libimlib2-dev
 git clone git@github.com:phillbush/xmenu.git
