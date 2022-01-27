@@ -146,7 +146,7 @@ sudo apt install cmus
 # See also https://github.com/hakerdefo/cmus-lyrics
 sudo apt install feh
 sudo apt install visidata
-pip install bandcamp-dl
+pip3 install bandcamp-downloader
 
 # Chrome extensions:
 # https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom

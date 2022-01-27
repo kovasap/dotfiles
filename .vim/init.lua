@@ -808,13 +808,15 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 -- For Conjure
 vim.g.maplocalleader=","
 
+vim.g.clj_fmt_autosave = 0
+
 -- paq 'tpope/vim-fireplace'
 vim.cmd(
 [[
 " Reload into repl on save.
-autocmd BufWritePost *.clj silent !Require
-autocmd BufWritePost *.cljc silent !Require
-autocmd BufWritePost *.cljs silent !Require
+" autocmd BufWritePost *.clj silent !Require
+" autocmd BufWritePost *.cljc silent !Require
+" autocmd BufWritePost *.cljs silent !Require
 " Treat joke files as clojure files
 autocmd BufEnter *.joke :setlocal filetype=clojure
 ]]
