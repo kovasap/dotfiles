@@ -7,6 +7,7 @@ fi
 
 export CALIBRE_USE_DARK_PALETTE=1
 
+# Ensure color schemes are propogated
 xrdb ~/.XResources
 
 xclickroot -r ~/bin/run-xmenu.sh &
