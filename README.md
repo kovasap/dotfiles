@@ -165,6 +165,21 @@ Also install https://github.com/kovasap/auto-screenshooter.
 
 ## Debugging
 
+### Running `sudo` commands on login/startup
+
+Put commands in `/etc/rc.local` like this:
+
+```
+> cat /etc/rc.local
+#!/bin/sh -e
+
+# Fixes "dummy output" audio problem
+echo "options snd-hda-intel model=generic" | tee -a /etc/modprobe.d/alsa-base.conf
+# Allows brightness.sh script to work.
+chmod a+rw /sys/class/backlight/intel_backlight/brightness
+exit 0
+```
+
 
 ### NeoVim
 
