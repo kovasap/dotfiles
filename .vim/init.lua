@@ -325,6 +325,9 @@ vim.o.autochdir = false
 -- the - key.
 -- paq 'justinmk/vim-dirvish'
 -- paq 'tpope/vim-eunuch'
+-- Disable netrw so dirvish is used for everything
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Use alt-j/k to switch between split windows.
 map('n', '<A-k>', '<C-w>W')
