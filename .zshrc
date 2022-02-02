@@ -246,6 +246,8 @@ function gp {
     git push
 }
 
+unalias gcl
+
 # bc - An arbitrary precision calculator language
 function = {
   echo "$@" | bc -l
