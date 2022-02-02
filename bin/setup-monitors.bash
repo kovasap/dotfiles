@@ -17,7 +17,7 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-outputs=('DP-2' 'DP-1' 'DP-1-1' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-8' 'HDMI-1')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1')
 xrandr_output=$(xrandr)
 
 reset_cmd="xrandr --output eDP-1 --primary --auto"
@@ -28,20 +28,24 @@ echo $reset_cmd
 eval $reset_cmd
 
 echo $xrandr_output
-xrandr_cmd="xrandr --output eDP-1 --primary --auto"
+# xrandr_cmd="xrandr --output eDP-1 --primary --scale 0.5x0.5 --auto"
+xrandr_cmd="xrandr --output eDP-1 --primary --scale 1x1 --mode 1920x1080"
 if [ "$2" == "rotated" ]; then
-    xrandr_cmd="$xrandr_cmd --rotate right"
+    xrandr_cmd="$xrandr_cmd --rotate left"
 else
     xrandr_cmd="$xrandr_cmd --rotate normal"
 fi
-relative_loc="--left-of eDP-1"
+relative_loc="--right-of eDP-1"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
     echo $o
     echo $connected
     if [ -n "$connected" ]; then
-        xrandr_cmd="$xrandr_cmd --output $o --auto $relative_loc"
-        relative_loc="--left-of $o"
+        # See https://unix.stackexchange.com/a/502883
+        # mouse_flicker_fix="--scale 0.9999x0.9999"
+        mouse_flicker_fix=""
+        xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --auto $relative_loc"
+        relative_loc="--right-of $o"
     else
         xrandr_cmd="$xrandr_cmd --output $o --off"
     fi

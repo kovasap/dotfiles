@@ -5,6 +5,13 @@ if [[ `hostname` = 'raspberrypi' ]]; then
   exit
 fi
 
+export CALIBRE_USE_DARK_PALETTE=1
+
+# Ensure color schemes are propogated
+xrdb ~/.XResources
+
+xclickroot -r ~/bin/run-xmenu.sh &
+
 # This changes the mouse sensitivity via a matrix that transforms mouse
 # coordinates to screen coordinates.
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration

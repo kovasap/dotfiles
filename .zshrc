@@ -65,37 +65,6 @@ bindkey -r "^T"
 bindkey -r "^[c"
 bindkey "^ " fzf-history-widget
 
-# Search chrome history with fzf
-# https://junegunn.kr/2015/04/browsing-chrome-history-with-fzf/
-# Personal
-c() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-
-  cp -f ~/.config/google-chrome/Profile\ 2/History /tmp/h
-
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs xdg-open
-}
-# Work
-cw() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-
-  cp -f ~/.config/google-chrome/Profile\ 4/History /tmp/h
-
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs xdg-open
-}
-
 # ------------------------- Command History ------------------------- 
 
 HISTFILE="$HOME/.zsh_history"
@@ -194,10 +163,11 @@ alias icat='kitty +kitten icat'
 
 
 # ------------------------- Python -------------------------
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME
-# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+# Requires `sudo apt install virtualenvwrapper` or `pip install virtualenvwrapper`
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 
 # ------------------------- Google -------------------------
@@ -233,7 +203,7 @@ alias sd='ssh kovas.c.googlers.com'
 alias gmd='gmosh kovas.c.googlers.com'
 
 # faster google certification
-alias gcert='gcert; ssh kovas.c.googlers.com gcert'
+alias gcert='gcert --reuse_sso_cookie; ssh kovas.c.googlers.com gcert --reuse_sso_cookie'
 
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'

@@ -59,7 +59,7 @@
 		{
 			"pattern": ":https://play.google.com/",
 			"passKeys": "/ "
-		},
+		}
 	],
 	"extAllowList": [
 		"# modified { Vomnibar Page, X New Tab, PDF Viewer }",

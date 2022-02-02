@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This might be required:
+# sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
 # this directory is a symlink on my machine:
 KEYS_DIR=/sys/class/backlight/intel_backlight
 INC=10
