@@ -28,8 +28,6 @@ plugins+=(zsh-autosuggestions)
 
 DISABLE_AUTO_TITLE="true"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 source $ZSH/oh-my-zsh.sh
 
 # --------------------------- Window Title -----------------------------------
