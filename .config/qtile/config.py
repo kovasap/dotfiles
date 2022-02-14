@@ -99,6 +99,7 @@ keys = [
     Key([], 'Print', lazy.spawn(
         ["bash", "-c",
          # https://github.com/naelstrof/maim/issues/182
+         "pkill compton; "
          "maim -s | tee ~/clipboard.png | xclip -selection clipboard -t image/png; "
          # This part is not working for some reason at the moment.  I think it
          # works when i switch away from the image clipboard content and back
@@ -150,6 +151,9 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "x", lazy.window.kill()),
+
+    Key([mod, "control"], "z", lazy.spawn([
+        "bash", "-c", "pkill compton; run-compton.bash"])),
 
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "t", lazy.function(hard_restart)),
