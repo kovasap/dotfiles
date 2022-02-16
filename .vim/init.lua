@@ -812,8 +812,12 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 -- For Conjure
 vim.g.maplocalleader=","
-
 vim.cmd('let g:conjure#eval#result_register="+"')
+-- Note that the clojure project must have this dependency for Conjure to work:
+-- [cider/cider-nrepl "0.24.0"]
+-- See
+-- https://github.com/Olical/conjure/wiki/Quick-start:-ClojureScript-(shadow-cljs)
+-- for details.
 
 vim.g.clj_fmt_autosave = 0
 
