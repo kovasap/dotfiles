@@ -813,6 +813,8 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 -- For Conjure
 vim.g.maplocalleader=","
 
+vim.cmd('let g:conjure#eval#result_register="+"')
+
 vim.g.clj_fmt_autosave = 0
 
 -- paq 'tpope/vim-fireplace'
@@ -824,6 +826,7 @@ vim.cmd(
 " autocmd BufWritePost *.cljs silent !Require
 " Treat joke files as clojure files
 autocmd BufEnter *.joke :setlocal filetype=clojure
+autocmd BufEnter *.cljs :ConjureShadowSelect app
 ]]
 )
 -- paq 'venantius/vim-cljfmt'
