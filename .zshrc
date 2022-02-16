@@ -196,13 +196,6 @@ export EDITOR=nvim
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# common ssh aliases
-alias sd='ssh kovas.c.googlers.com'
-alias gmd='gmosh kovas.c.googlers.com'
-
-# faster google certification
-alias gcert='gcert --reuse_sso_cookie; ssh kovas.c.googlers.com gcert --reuse_sso_cookie'
-
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
 
