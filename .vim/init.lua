@@ -819,6 +819,10 @@ vim.cmd('let g:conjure#eval#result_register="+"')
 -- https://github.com/Olical/conjure/wiki/Quick-start:-ClojureScript-(shadow-cljs)
 -- for details.
 
+-- Generate an example for the spec below the cursor.
+map('n', '<localleader>eg',
+    ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
+
 vim.g.clj_fmt_autosave = 0
 
 -- paq 'tpope/vim-fireplace'
