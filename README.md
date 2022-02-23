@@ -1,5 +1,9 @@
 # My dotfiles
 
+## TODOs
+
+ - Make mod-o go back through a list of old workspaces in qtile, like vim.
+
 ## Installation
 
 ```
