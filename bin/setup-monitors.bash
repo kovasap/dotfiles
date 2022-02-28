@@ -17,10 +17,12 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1')
 xrandr_output=$(xrandr)
 
-reset_cmd="xrandr --output eDP-1 --primary --auto"
+main_output="eDP1"
+
+reset_cmd="xrandr --output $main_output --primary --auto"
 for o in "${outputs[@]}"; do
     reset_cmd="$reset_cmd --output $o --off"
 done
@@ -28,14 +30,14 @@ echo $reset_cmd
 eval $reset_cmd
 
 echo $xrandr_output
-# xrandr_cmd="xrandr --output eDP-1 --primary --scale 0.5x0.5 --auto"
-xrandr_cmd="xrandr --output eDP-1 --primary --scale 1x1 --mode 1920x1080"
+# xrandr_cmd="xrandr --output $main_output --primary --scale 0.5x0.5 --auto"
+xrandr_cmd="xrandr --output $main_output --primary --scale 1x1 --mode 1920x1080"
 if [ "$2" == "rotated" ]; then
     xrandr_cmd="$xrandr_cmd --rotate left"
 else
     xrandr_cmd="$xrandr_cmd --rotate normal"
 fi
-relative_loc="--right-of eDP-1"
+relative_loc="--right-of $main_output"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
     echo $o

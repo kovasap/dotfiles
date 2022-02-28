@@ -184,7 +184,6 @@ chmod a+rw /sys/class/backlight/intel_backlight/brightness
 exit 0
 ```
 
-
 ### NeoVim
 
 One very useful tool for debugging (neo)vim hangs is running `strace -r nvim`.
