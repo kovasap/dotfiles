@@ -601,7 +601,7 @@ cmp.setup({
     { name = 'path' },
     { name = 'nvim_lua' },
     { name = 'buffer',
-      options = {
+      option = {
         -- Complete from all open buffers, not just the current one.
         -- https://github.com/hrsh7th/cmp-buffer/issues/1.
         get_bufnrs = function()
