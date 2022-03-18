@@ -81,6 +81,7 @@ require 'paq' {
   'dart-lang/dart-vim-plugin';
   'rkitover/vimpager';
   'habamax/vim-godot';
+  'dhruvasagar/vim-table-mode';
 }
 
 
