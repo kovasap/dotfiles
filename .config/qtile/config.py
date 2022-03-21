@@ -259,53 +259,60 @@ layout_theme = {
 }
 
 
-class CustomMonad():
-  def configure(self, client, screen):
-    """Position client based on order and sizes."""
-    # if no sizes or normalize flag is set, normalize
-    if not self.relative_sizes or self.do_normalize:
-      self.cmd_normalize(False)
+# Tried multiple inheritance to use this in the below custom monad classes
+# below, but it didn't work for some reason.
+def custom_configure_layout(self, client, screen_rect):
+  """Position client based on order and sizes."""
+  self.screen_rect = screen_rect
 
-    # if client not in this layout
-    if not self.clients or client not in self.clients:
-      client.hide()
-      return
+  # if no sizes or normalize flag is set, normalize
+  if not self.relative_sizes or self.do_normalize:
+    self.cmd_normalize(False)
 
-    # determine focus border-color
-    if client.has_focus:
-      # Make kitty window border darker in color, since kitty windows
-      # are not dimmed by compton.
-      if 'kitty' in client.window.get_wm_class():
-        px = colors['color2']
-      else:
-        px = self.border_focus
+  # if client not in this layout
+  if not self.clients or client not in self.clients:
+    client.hide()
+    return
+
+  # determine focus border-color
+  if client.has_focus:
+    # Make kitty window border darker in color, since kitty windows
+    # are not dimmed by compton.
+    # TODO make this work for the Monad3Col layout, not sure why it doesn't
+    # work now
+    if 'kitty' in client.window.get_wm_class():
+      px = colors['color2']
     else:
-      px = self.border_normal
+      px = self.border_focus
+  else:
+    px = self.border_normal
 
-    # single client - fullscreen
-    if len(self.clients) == 1:
-      client.place(
-          self.group.screen.dx,
-          self.group.screen.dy,
-          self.group.screen.dwidth - 2 * self.single_border_width,
-          self.group.screen.dheight - 2 * self.single_border_width,
-          self.single_border_width,
-          px,
-          margin=self.single_margin,
-      )
-      client.unhide()
-      return
-    cidx = self.clients.index(client)
-    self._configure_specific(client, screen, px, cidx)
+  # single client - fullscreen
+  if len(self.clients) == 1:
+    client.place(
+        self.screen_rect.x,
+        self.screen_rect.y,
+        self.screen_rect.width - 2 * self.single_border_width,
+        self.screen_rect.height - 2 * self.single_border_width,
+        self.single_border_width,
+        px,
+        margin=self.single_margin,
+    )
     client.unhide()
+    return
+  cidx = self.clients.index(client)
+  self._configure_specific(client, screen_rect, px, cidx)
+  client.unhide()
 
 
-class CustomMonadTall(layout.MonadTall, CustomMonad):
-  pass
+class CustomMonad3Col(layout.MonadThreeCol):
+  def configure(self, client, screen):
+    custom_configure_layout(self, client, screen)
 
 
-class CustomMonad3Col(layout.MonadThreeCol, CustomMonad):
-  pass
+class CustomMonadTall(layout.MonadTall):
+  def configure(self, client, screen):
+    custom_configure_layout(self, client, screen)
 
 
 layouts = [
