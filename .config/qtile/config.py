@@ -1,6 +1,7 @@
 import os
 import shlex
 import subprocess
+import types
 from typing import List  # noqa: F401
 
 from libqtile import bar, hook, layout, widget
@@ -39,14 +40,14 @@ def hard_restart(qt):
 # reference.
 keys = [
     Key([mod], "k",
-        lazy.layout.up().when(layout='custommonadtall'),
-        lazy.layout.up().when(layout='custommonad3col'),
+        lazy.layout.up().when(layout='monadtall'),
+        lazy.layout.up().when(layout='monadthreecol'),
         lazy.layout.up().when(layout='max'),
         lazy.layout.left().when(layout='2cols'),
         lazy.layout.left().when(layout='3cols')),
     Key([mod], "j",
-        lazy.layout.down().when(layout='custommonadtall'),
-        lazy.layout.down().when(layout='custommonad3col'),
+        lazy.layout.down().when(layout='monadtall'),
+        lazy.layout.down().when(layout='monadthreecol'),
         lazy.layout.down().when(layout='max'),
         lazy.layout.right().when(layout='2cols'),
         lazy.layout.right().when(layout='3cols')),
@@ -71,13 +72,13 @@ keys = [
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key([mod, "shift"], "j",
-        lazy.layout.shuffle_down().when(layout='custommonadtall'),
-        lazy.layout.shuffle_down().when(layout='custommonad3col'),
+        lazy.layout.shuffle_down().when(layout='monadtall'),
+        lazy.layout.shuffle_down().when(layout='monadthreecol'),
         lazy.layout.swap_column_left().when(layout='2cols'),
         lazy.layout.swap_column_left().when(layout='3cols')),
     Key([mod, "shift"], "k",
-        lazy.layout.shuffle_up().when(layout='custommonadtall'),
-        lazy.layout.shuffle_up().when(layout='custommonad3col'),
+        lazy.layout.shuffle_up().when(layout='monadtall'),
+        lazy.layout.shuffle_up().when(layout='monadthreecol'),
         lazy.layout.swap_column_right().when(layout='2cols'),
         lazy.layout.swap_column_right().when(layout='3cols')),
 
@@ -259,10 +260,11 @@ layout_theme = {
 }
 
 
-# Tried multiple inheritance to use this in the below custom monad classes
-# below, but it didn't work for some reason.
+# TODO get this to work to fix border coloring
 def custom_configure_layout(self, client, screen_rect):
   """Position client based on order and sizes."""
+  logger.warning('config')
+
   self.screen_rect = screen_rect
 
   # if no sizes or normalize flag is set, normalize
@@ -305,32 +307,33 @@ def custom_configure_layout(self, client, screen_rect):
   client.unhide()
 
 
-class CustomMonad3Col(layout.MonadThreeCol):
-  def configure(self, client, screen):
-    custom_configure_layout(self, client, screen)
+custom_monad_3col = layout.MonadThreeCol(
+    ratio=0.67, min_secondary_size=100, main_centered=False,
+    new_client_position="after_current",
+    # Strangely, change_size works for secondary window changes in pixels, and
+    # change_ratio works for main window changes in percent of size.
+    change_size=60, **layout_theme)
+# See https://stackoverflow.com/a/46757134
+# custom_monad_3col.configure = custom_configure_layout.__get__(
+#     custom_monad_3col, layout.MonadThreeCol)
 
 
-class CustomMonadTall(layout.MonadTall):
-  def configure(self, client, screen):
-    custom_configure_layout(self, client, screen)
+custom_monad_tall = layout.MonadTall(
+    # This max_ratio is just enough for a 80-char wide vim window on a 1080p
+    # screen.
+    ratio=0.67, min_secondary_size=100,
+    # Strangely, change_size works for secondary window changes in pixels, and
+    # change_ratio works for main window changes in percent of size.
+    change_size=60, **layout_theme)
+# Another way to override the method, not currently working
+# custom_monad_tall.configure = types.MethodType(
+#     custom_configure_layout, custom_monad_tall)
 
 
 layouts = [
-    # This max_ratio is just enough for a 80-char wide vim window on a 1080p
-    # screen.
-    CustomMonadTall(ratio=0.67, min_secondary_size=100,
-                    # Strangely, change_size works for secondary window changes
-                    # in pixels, and change_ratio works for main window changes
-                    # in percent of size.
-                    change_size=60, **layout_theme),
-    CustomMonad3Col(ratio=0.67, min_secondary_size=100,
-                    main_centered=False,
-                    new_client_position="after_current",
-                    # Strangely, change_size works for secondary window changes
-                    # in pixels, and change_ratio works for main window changes
-                    # in percent of size.
-                    change_size=60, **layout_theme),
+    custom_monad_tall,
     layout.Max(**layout_theme),
+    custom_monad_3col,
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
@@ -393,7 +396,7 @@ def get_widgets():
           this_current_screen_border=colors['color2'],
           active=colors['color7']),
       widget.CurrentLayoutIcon(
-          custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+          # custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
           scale=0.8,
       ),
       widget.WindowName(),
