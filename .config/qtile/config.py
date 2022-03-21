@@ -40,19 +40,21 @@ def hard_restart(qt):
 keys = [
     Key([mod], "k",
         lazy.layout.up().when(layout='custommonadtall'),
+        lazy.layout.up().when(layout='custommonad3col'),
         lazy.layout.up().when(layout='max'),
-        # lazy.layout.left().when(layout='2cols'),
+        lazy.layout.left().when(layout='2cols'),
         lazy.layout.left().when(layout='3cols')),
     Key([mod], "j",
         lazy.layout.down().when(layout='custommonadtall'),
+        lazy.layout.down().when(layout='custommonad3col'),
         lazy.layout.down().when(layout='max'),
-        # lazy.layout.right().when(layout='2cols'),
+        lazy.layout.right().when(layout='2cols'),
         lazy.layout.right().when(layout='3cols')),
     Key([mod, 'control'], "k",
-        # lazy.layout.up().when(layout='2cols'),
+        lazy.layout.up().when(layout='2cols'),
         lazy.layout.up().when(layout='3cols')),
     Key([mod, 'control'], "j",
-        # lazy.layout.down().when(layout='2cols'),
+        lazy.layout.down().when(layout='2cols'),
         lazy.layout.down().when(layout='3cols')),
 
     # Skip managed ignores groups already on a screen.
@@ -70,11 +72,13 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key([mod, "shift"], "j",
         lazy.layout.shuffle_down().when(layout='custommonadtall'),
-        # lazy.layout.swap_column_left().when(layout='2cols'),
+        lazy.layout.shuffle_down().when(layout='custommonad3col'),
+        lazy.layout.swap_column_left().when(layout='2cols'),
         lazy.layout.swap_column_left().when(layout='3cols')),
     Key([mod, "shift"], "k",
         lazy.layout.shuffle_up().when(layout='custommonadtall'),
-        # lazy.layout.swap_column_right().when(layout='2cols'),
+        lazy.layout.shuffle_up().when(layout='custommonad3col'),
+        lazy.layout.swap_column_right().when(layout='2cols'),
         lazy.layout.swap_column_right().when(layout='3cols')),
 
     Key([mod], "equal", lazy.layout.grow()),
@@ -255,7 +259,7 @@ layout_theme = {
 }
 
 
-class CustomMonadTall(layout.MonadTall):
+class CustomMonad():
   def configure(self, client, screen):
     """Position client based on order and sizes."""
     # if no sizes or normalize flag is set, normalize
@@ -296,6 +300,14 @@ class CustomMonadTall(layout.MonadTall):
     client.unhide()
 
 
+class CustomMonadTall(layout.MonadTall, CustomMonad):
+  pass
+
+
+class CustomMonad3Col(layout.MonadThreeCol, CustomMonad):
+  pass
+
+
 layouts = [
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
@@ -304,9 +316,16 @@ layouts = [
                     # in pixels, and change_ratio works for main window changes
                     # in percent of size.
                     change_size=60, **layout_theme),
+    CustomMonad3Col(ratio=0.67, min_secondary_size=100,
+                    main_centered=False,
+                    new_client_position="after_current",
+                    # Strangely, change_size works for secondary window changes
+                    # in pixels, and change_ratio works for main window changes
+                    # in percent of size.
+                    change_size=60, **layout_theme),
     layout.Max(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
-    layout.Columns(name='3cols', num_columns=3, **layout_theme),
+    # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
     # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
     # Try more layouts by unleashing below layouts.
