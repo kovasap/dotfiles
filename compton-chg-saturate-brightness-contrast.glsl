@@ -81,7 +81,7 @@ void main() {
 	vec4 c = texture2D(tex, gl_TexCoord[0].st);
 	// c = vec4(chg_saturation(vec3(c), 0.5), c.a);
 	// c = vec4(chg_contrast(vec3(c), 0.5), c.a);
-	c = vec4(chg_brightness(vec3(c), 0.55), c.a);
+	c = vec4(chg_brightness(vec3(c), 0.45), c.a);
 	// c = vec4(chg_bright_brightness(vec3(c)), c.a);
 	if (invert_color)
 		c = vec4(vec3(c.a, c.a, c.a) - vec3(c), c.a);

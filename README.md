@@ -7,6 +7,10 @@
 ## Installation
 
 ```
+sudo apt install git
+# See https://difftastic.wilfred.me.uk/introduction.html
+cargo install difftastic
+
 # Install this repo, allowing existing files in home dir to exist.
 # Taken from https://stackoverflow.com/questions/9864728/how-to-get-git-to-clone-into-current-directory
 cd ~/

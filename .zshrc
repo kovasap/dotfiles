@@ -216,6 +216,8 @@ function = {
 
 alias calc="="
 
+alias bat='batcat'
+
 # Don't feed long commands to a pager program.
 unset LESS
 
@@ -248,7 +250,7 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin"
 
 # Uncomment to profile zsh startup
 # zprof
