@@ -917,7 +917,9 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   if not configs.ciderlsp then
     configs.ciderlsp = {
      default_config = {
-       cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
+       -- cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
+       cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
+              '"$HOME/google_dotfiles/remote_ciderlsp.zsh"'};
        filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
        root_dir = nvim_lsp.util.root_pattern('BUILD');
        settings = {};
