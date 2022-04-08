@@ -26,6 +26,7 @@ sudo udevadm control --reload
 # udevadm monitor --environment
 
 # Install activitywatch
+# https://docs.activitywatch.net/en/latest/getting-started.html
 
 # Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
 # Currently, switching to picom is blocked on

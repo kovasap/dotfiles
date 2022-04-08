@@ -49,10 +49,14 @@ redshift -O 3000 -b 0.9:0.9
 (pkill selfspy; rm ~/.selfspy/selfspy.pid.lock; cd ~/autojournal; nohup poetry run selfspy -n -v &> ~/.selfspy/selfspy.log &)
 
 # Start ActivityWatch
-(sleep 5; cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &) &
+# If activitywatch was installed from source:
+# (sleep 5; cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &) &
+# If activitywatch was installed normally
+# (https://docs.activitywatch.net/en/latest/getting-started.html):
+nohup ~/activitywatch/aw-qt &> ~/activitywatch.log &
 
 # Start auto screenshot utility.
-nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
+# nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
 
 # Start copyq
 nohup copyq &

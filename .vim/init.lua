@@ -834,7 +834,7 @@ vim.cmd(
 " autocmd BufWritePost *.cljc silent !Require
 " autocmd BufWritePost *.cljs silent !Require
 " Treat joke files as clojure files
-autocmd BufEnter *.joke :setlocal filetype=clojure
+autocmd BufEnter *.joke,*.slang :setlocal filetype=clojure
 " TODO uncomment when https://github.com/Olical/conjure/issues/318 is closed
 " autocmd BufEnter *.cljs :ConjureShadowSelect app
 ]]
