@@ -11,6 +11,7 @@ trap "rm -rf $tmpdir" EXIT
 cd $tmpdir
 
 xdotool key --clearmodifiers ctrl+a
+xdotool key --clearmodifiers ctrl+a
 xdotool key --clearmodifiers ctrl+x
 xclip -r -o -selection clipboard > out
 kitty nvim "$tmpdir/out"
