@@ -153,6 +153,8 @@ keys = [
     Key([mod], "backslash", lazy.spawn("google-chrome")),
     Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
+    Key([mod], "b", lazy.spawn("nvim-textarea.bash")),
+
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "x", lazy.window.kill()),

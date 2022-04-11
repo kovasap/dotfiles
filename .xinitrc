@@ -63,7 +63,7 @@ nohup copyq &
 
 # Mount Google Drive
 # See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
-rclone mount --allow-non-empty googledrive: ~/google-drive/ &
+# rclone mount --allow-non-empty googledrive: ~/google-drive/ &
 # To unmount, do `fusermount -uz /data`
 
 # Set up xrandr daemon for managing monitors.
