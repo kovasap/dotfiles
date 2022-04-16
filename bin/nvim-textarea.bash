@@ -10,10 +10,18 @@ tmpdir=$(mktemp -d)
 trap "rm -rf $tmpdir" EXIT
 cd $tmpdir
 
+# Spam is necessary for this to consistently work, idk why.
+xdotool key --clearmodifiers ctrl+a
+xdotool key --clearmodifiers ctrl+a
+xdotool key --clearmodifiers ctrl+a
+xdotool key --clearmodifiers ctrl+a
+xdotool key --clearmodifiers ctrl+a
 xdotool key --clearmodifiers ctrl+a
 xdotool key --clearmodifiers ctrl+a
 xdotool key --clearmodifiers ctrl+x
 xclip -r -o -selection clipboard > out
-kitty nvim "$tmpdir/out"
+xdotool keyup mod
+kitty --title nvim-textarea nvim "$tmpdir/out"
 xclip -r -i -selection clipboard out
 xdotool key --clearmodifiers ctrl+v
+xdotool keyup mod
