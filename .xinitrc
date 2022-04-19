@@ -40,7 +40,8 @@ xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled
 # xautolock -time 10 -locker ~/bin/screensaver.sh &
 
 # change brightness and color temperature
-redshift -O 3000 -b 0.9:0.9
+redshift -x
+redshift -O 4000 # -b 0.9:0.9
 
 # hide mouse pointer after idling
 # unclutter -idle 10 -root -grab &
