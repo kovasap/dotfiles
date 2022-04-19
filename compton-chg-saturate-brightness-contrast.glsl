@@ -82,6 +82,7 @@ vec2  saturate(vec2  v) { return clamp(v, vec2(0.0), vec2(1.0)); }
 vec3  saturate(vec3  v) { return clamp(v, vec3(0.0), vec3(1.0)); }
 vec4  saturate(vec4  v) { return clamp(v, vec4(0.0), vec4(1.0)); }
 
+// From https://www.shadertoy.com/view/lsSXW1
 vec3 ColorTemperatureToRGB(float tempKelvins) {
     vec3 retColor;
     
