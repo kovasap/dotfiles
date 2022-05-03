@@ -61,9 +61,9 @@ keys = [
 
     # Skip managed ignores groups already on a screen.
     Key([mod], "h",
-        lazy.screen.prev_group(skip_managed=True, skip_empty=True)),
+        lazy.screen.prev_group(skip_managed=True)),
     Key([mod], "l",
-        lazy.screen.next_group(skip_managed=True, skip_empty=True)),
+        lazy.screen.next_group(skip_managed=True)),
 
     Key([mod], "period", lazy.prev_screen()),
     Key([mod], "comma", lazy.next_screen()),
