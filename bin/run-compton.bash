@@ -4,5 +4,5 @@
 xhost +local:
 compton \
     --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'!(class_g="kitty" || name="qtile_bar")' \
-    --backend glx -b \
+    --backend glx \
     --config ~/.config/compton.conf

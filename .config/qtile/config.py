@@ -162,6 +162,8 @@ keys = [
 
     Key([mod, "control"], "z", lazy.spawn([
         "bash", "-c", "pkill compton; run-compton.bash"])),
+    Key([mod, "shift", "control"], "z", lazy.spawn([
+        "bash", "-c", "pkill compton"])),
 
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "t", lazy.function(hard_restart)),
