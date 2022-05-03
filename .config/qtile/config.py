@@ -391,7 +391,7 @@ wireless_interface = subprocess.run(
     shell=True, capture_output=True).stdout.decode('utf-8').strip()
 
 
-def get_widgets():
+def get_widgets(systray=False):
   return [
       widget.GroupBox(
           disable_drag=True,
@@ -407,6 +407,8 @@ def get_widgets():
       widget.WindowName(),
       widget.TextBox(" | ", name="separator"),
       widget.Clipboard(max_width=50, timeout=None),
+      widget.TextBox(" | ", name="separator"),
+  ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(" | ", name="separator"),
       widget.TextBox("CPU", name="cpu_label"),
       widget.CPUGraph(**graph_args),
@@ -450,7 +452,6 @@ def get_widgets():
           mouse_callbacks={
               'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
       widget.TextBox(" | ", name="separator"),
-      widget.Systray(),
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
 
@@ -459,7 +460,6 @@ bar_config = dict(
     size=24,
     opacity=0.8,
     background=colors['color16']
-
 )
 
 
@@ -504,7 +504,7 @@ def get_num_monitors():
 
 num_monitors = get_num_monitors()
 
-bars = [bar.Bar(get_widgets(), **bar_config)]
+bars = [bar.Bar(get_widgets(systray=True), **bar_config)]
 screens = [Screen(top=bars[0])]
 
 if num_monitors > 1:
