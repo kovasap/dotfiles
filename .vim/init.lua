@@ -768,6 +768,10 @@ local on_attach = function(client, bufnr)
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  if vim.lsp.formatexpr then -- Neovim v0.6.0+ only.
+    buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
+  end
+
   -- Mappings.
   -- local opts = { noremap=true, silent=true }
   local opts = { noremap=true }
@@ -954,7 +958,10 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
      };
     }
   end
-  nvim_lsp.ciderlsp.setup{on_attach = on_attach}
+  nvim_lsp.ciderlsp.setup{
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    on_attach = on_attach,
+  }
   -- https://neovim.discourse.group/t/why-would-neovim-want-to-cd-to-unmounted-directories-on-quit/1375
   vim.cmd('autocmd VimEnter * clearjumps')
 end
