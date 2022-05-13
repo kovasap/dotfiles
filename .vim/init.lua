@@ -957,6 +957,19 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
        settings = {};
      };
     }
+    -- See https://groups.google.com/a/google.com/g/vi-users/c/uaJ9R7IENeo/m/hwDyhmHDBwAJ
+    configs.analysislsp = {
+     default_config = {
+       cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
+              '"$HOME/google_dotfiles/remote_analysislsp.zsh"'};
+       filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
+       root_dir = nvim_lsp.util.root_pattern('BUILD');
+       settings = {};
+     };
+    }
+    nvim_lsp.analysislsp.setup{
+      on_attach = on_attach
+    }
   end
   nvim_lsp.ciderlsp.setup{
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
