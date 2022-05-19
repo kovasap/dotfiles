@@ -50,6 +50,9 @@ zplug romkatv/powerlevel10k, as:theme, depth:1
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# TODO Check out this:
+# https://medium.com/@henrebotha/how-to-write-an-asynchronous-zsh-prompt-b53e81720d32
+
 # ------------------------- Completion -------------------------------
 
 # shift-tab accept the current suggestion by word

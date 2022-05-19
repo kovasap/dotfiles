@@ -19,13 +19,13 @@ end
 -- paq { 'savq/paq-nvim', opt=true }
 
 require 'paq' {
+  'savq/paq-nvim';
   -- TODO look into how to integrate with treesitter highlights
   -- 'jaxbot/semantic-highlight.vim';
   'yuttie/comfortable-motion.vim';
   'ggvgc/vim-fuzzysearch';
   'AndrewRadev/splitjoin.vim';
   'flwyd/vim-conjoin';
-  -- Re-enable after https://github.com/tpope/vim-sleuth/issues/77 is fixed.
   'tpope/vim-sleuth';
   'tpope/vim-abolish';
   'tpope/vim-surround';
@@ -68,7 +68,6 @@ require 'paq' {
   { 'neovim/nvim-lspconfig', run=install_python_ls };
   'nvim-lua/lsp-status.nvim';
   'mgedmin/python-imports.vim';
-  -- 'tpope/vim-fireplace';
   'Olical/conjure';
   'venantius/vim-cljfmt';
   -- Might need to run the cargo command from
@@ -858,17 +857,13 @@ map('n', '<localleader>eg',
 
 vim.g.clj_fmt_autosave = 0
 
--- paq 'tpope/vim-fireplace'
 vim.cmd(
 [[
-" Reload into repl on save.
-" autocmd BufWritePost *.clj silent !Require
-" autocmd BufWritePost *.cljc silent !Require
-" autocmd BufWritePost *.cljs silent !Require
 " Treat joke files as clojure files
 autocmd BufEnter *.joke,*.slang :setlocal filetype=clojure
-" TODO uncomment when https://github.com/Olical/conjure/issues/318 is closed
-" autocmd BufEnter *.cljs :ConjureShadowSelect app
+" See https://github.com/Olical/conjure/issues/318
+let shadow_build=system("ps aux | grep 'shadow-cljs watch' | head -1 | sed -E 's/.*?shadow-cljs watch //'")
+autocmd BufEnter *.cljs :ConjureShadowSelect shadow_build
 ]]
 )
 -- paq 'venantius/vim-cljfmt'
@@ -956,6 +951,19 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
        root_dir = nvim_lsp.util.root_pattern('BUILD');
        settings = {};
      };
+    }
+    -- See https://groups.google.com/a/google.com/g/vi-users/c/uaJ9R7IENeo/m/hwDyhmHDBwAJ
+    configs.analysislsp = {
+     default_config = {
+       cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
+              '"$HOME/google_dotfiles/remote_analysislsp.zsh"'};
+       filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
+       root_dir = nvim_lsp.util.root_pattern('BUILD');
+       settings = {};
+     };
+    }
+    nvim_lsp.analysislsp.setup{
+      on_attach = on_attach
     }
   end
   nvim_lsp.ciderlsp.setup{

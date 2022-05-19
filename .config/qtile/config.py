@@ -133,7 +133,7 @@ keys = [
 
     Key([mod], "z", lazy.spawn(
         # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
-        "kitty zsh -c '~/bin/chrome-history.zsh 2;read'")),
+        "kitty zsh -c '~/bin/chrome-history.zsh 2'")),
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
