@@ -253,7 +253,7 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles"
 
 # Uncomment to profile zsh startup
 # zprof
