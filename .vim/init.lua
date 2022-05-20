@@ -862,8 +862,13 @@ vim.cmd(
 " Treat joke files as clojure files
 autocmd BufEnter *.joke,*.slang :setlocal filetype=clojure
 " See https://github.com/Olical/conjure/issues/318
-let shadow_build=system("ps aux | grep 'shadow-cljs watch' | head -1 | sed -E 's/.*?shadow-cljs watch //'")
-autocmd BufEnter *.cljs :ConjureShadowSelect shadow_build
+function! AutoConjureSelect()
+  let shadow_build=system("ps aux | grep 'shadow-cljs watch' | head -1 | sed -E 's/.*?shadow-cljs watch //' | tr -d '\n'")
+  let cmd='ConjureShadowSelect ' . shadow_build
+  execute cmd
+endfunction
+command! AutoConjureSelect call AutoConjureSelect()
+autocmd BufEnter *.cljs :AutoConjureSelect
 ]]
 )
 -- paq 'venantius/vim-cljfmt'
