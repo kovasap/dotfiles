@@ -135,6 +135,9 @@ keys = [
         # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
         "kitty zsh -c '~/bin/chrome-history.zsh 2'")),
 
+    Key([mod], "p", lazy.spawn(
+        "kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
+
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
     Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
