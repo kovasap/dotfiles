@@ -868,7 +868,9 @@ function! AutoConjureSelect()
   execute cmd
 endfunction
 command! AutoConjureSelect call AutoConjureSelect()
-autocmd BufEnter *.cljs :AutoConjureSelect
+" See https://vi.stackexchange.com/q/19927 for ways to make this trigger only
+" once per buffer.
+autocmd BufReadPost *.cljs :AutoConjureSelect
 ]]
 )
 -- paq 'venantius/vim-cljfmt'
