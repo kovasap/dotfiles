@@ -675,8 +675,7 @@ vim.cmd [[
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 -- paq 'p00f/nvim-ts-rainbow'
 require('nvim-treesitter.configs').setup {
-  -- Install all maintained languages.
-  ensure_installed = 'maintained',
+  ensure_installed = {'python', 'clojure'},
   highlight = {enable = true},
   -- TODO Re-enable when this works better for python.
   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
