@@ -307,6 +307,8 @@ vim.o.clipboard = 'unnamedplus'
 map('n', 'cp', ':let @+ = expand("%:p")<CR>')
 -- Copy filename of current buffer in relref format to clipboard (to make
 -- personal website writing easier).
+-- TODO add this to a local vimrc file in the website directory, once I find a
+-- clean way to do that.
 map('n', 'cl',
     ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
 
