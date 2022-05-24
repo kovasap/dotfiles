@@ -305,6 +305,10 @@ vim.g.airline_section_z = ''
 vim.o.clipboard = 'unnamedplus'
 -- Copy filename of current buffer to clipboard
 map('n', 'cp', ':let @+ = expand("%:p")<CR>')
+-- Copy filename of current buffer in relref format to clipboard (to make
+-- personal website writing easier).
+map('n', 'cl',
+    ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
 
 -- Add keybind hints
 -- paq 'folke/which-key.nvim'
