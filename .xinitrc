@@ -39,7 +39,7 @@ xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled
 # exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
 # xautolock -time 10 -locker ~/bin/screensaver.sh &
 
-# change brightness and color temperature
+# change brightness and color 
 redshift -x
 redshift -O 4000 # -b 0.9:0.9
 
@@ -69,7 +69,8 @@ nohup copyq &
 
 # Set up xrandr daemon for managing monitors.
 # nohup /usr/lib/x86_64-linux-gnu/cinnamon-settings-daemon/csd-xrandr &
-~/bin/setup-monitors.bash forked
+# TODO rewrite this script so it doesn't break on first launch.
+# ~/bin/setup-monitors.bash forked
 
 # set background image
 feh --bg-fill ~/wallpaper
