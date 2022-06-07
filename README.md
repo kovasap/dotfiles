@@ -4,6 +4,41 @@
 
  - Make mod-o go back through a list of old workspaces in qtile, like vim.
 
+## Features Walkthrough Notes
+
+This is a list of features I commonly use - useful for notes when talking
+through my setup.
+
+### QTile
+
+ - Everything is a hotkey!
+ - Top bar, element by element
+ - Workspaces for different projects
+ - Cycling window layouts
+ - Clipboard manager, with top bar integration
+ - Selective window dimming and transparency
+ - Resolution and rotation script
+ - Bash script hotkeys
+
+### Kitty
+
+ - Terminal Emulator
+ - Hotkeys to copy lines, open urls
+ - Hotkey to open output in vim
+ - icat for viewing images
+ - Copy/paste over ssh via X11 forwarding
+
+### Zsh
+
+ - Last command autocompletion (shadow autofill)
+ - Fzf history search
+ - Custom prompt (p10k)
+ - Vi mode cursor
+
+### NeoVim
+
+ - TODO fill in
+
 ## Installation
 
 ```
