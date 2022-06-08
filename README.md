@@ -19,6 +19,7 @@ through my setup.
  - Selective window dimming and transparency
  - Resolution and rotation script
  - Bash script hotkeys
+   - Example: download youtube shortcut
 
 ### Kitty
 
