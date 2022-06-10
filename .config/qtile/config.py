@@ -1,5 +1,4 @@
 import os
-import re
 import shlex
 import subprocess
 import types
@@ -37,8 +36,9 @@ def hard_restart(qt):
   qt.cmd_restart()
 
 
-# See https://github.com/qtile/qtile/blob/master/libqtile/xkeysyms.py for
-# reference.
+# See
+# https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
+# for reference.
 keys = [
     Key([mod], "k",
         lazy.layout.up().when(layout='monadtall'),
@@ -123,6 +123,9 @@ keys = [
     # Key([mod, "shift"], "space", lazy.layout.rotate()),
 
     Key([mod], "t", lazy.window.toggle_floating()),
+
+    Key([mod], "semicolon", lazy.widget["keyboardlayout"].next_keyboard(),
+        desc="Next keyboard layout."),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -458,6 +461,8 @@ def get_widgets(systray=False):
           format=' {essid} {quality}%',
           mouse_callbacks={
               'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
+      widget.TextBox(" | ", name="separator"),
+      widget.KeyboardLayout(configured_keyboards=['us', 'us dvorak']),
       widget.TextBox(" | ", name="separator"),
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
