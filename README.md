@@ -38,7 +38,12 @@ through my setup.
 
 ### NeoVim
 
- - TODO fill in
+ - Completion based on words in buffers
+
+### Chrome
+
+ - Vimium C
+ - Fzf history search
 
 ## Installation
 
