@@ -118,7 +118,6 @@ map('v', '<space>', '/')
 -- Hit escape twice to clear old search highlighting.
 map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
 
-
 --                          /// Editing and Formatting ///
 
 -- Rename word and prime to replace other occurances
