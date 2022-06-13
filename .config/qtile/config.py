@@ -59,14 +59,10 @@ keys = [
         lazy.layout.down().when(layout='2cols'),
         lazy.layout.down().when(layout='3cols')),
 
-    # Skip managed ignores groups already on a screen.
-    Key([mod], "h",
-        lazy.screen.prev_group(skip_managed=True)),
-    Key([mod], "l",
-        lazy.screen.next_group(skip_managed=True)),
-
     Key([mod], "period", lazy.prev_screen()),
     Key([mod], "comma", lazy.next_screen()),
+
+    # TODO remove and maybe go back to main qtile git repo (not my fork)
     Key([mod, "shift"], "period", lazy.swap_screens()),
     Key([mod, "shift"], "comma", lazy.swap_screens()),
 
@@ -201,30 +197,61 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-group_names = list("asdfqwer1234567")
-groups = [Group(i) for i in group_names]
+
+def get_two_main_screens(qtile):
+  return (
+      qtile.current_screen,
+      # TODO improve this:
+      [s for s in qtile.screens
+       if s != qtile.current_screen][0]
+  )
+
+def get_primary_secondary_groups(qtile, group_name):
+  groups_by_name = {g.name: g for g in qtile.groups}
+  return groups_by_name[group_name[0]], groups_by_name[group_name[0] + 'a']
 
 
 # https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
 def toscreen(qtile, group_name):
-  if group_name == qtile.current_screen.group.name:
-    return qtile.current_screen.set_group(
-        qtile.current_screen.previous_group)
-  for i, group in enumerate(qtile.groups):
-    if group_name == group.name:
-      return qtile.current_screen.set_group(qtile.groups[i])
+  cur_screen, second_screen = get_two_main_screens(qtile)
+  if group_name == cur_screen.group.name:
+    group_name = cur_screen.previous_group.name
+  primary_group, secondary_group = get_primary_secondary_groups(
+      qtile, group_name)
+  cur_screen.set_group(primary_group)
+  second_screen.set_group(secondary_group)
 
 
-for i in groups:
+def swap_primary_secondary_group_screens(qtile):
+  cur_screen, second_screen = get_two_main_screens(qtile)
+  primary_group, secondary_group = get_primary_secondary_groups(
+      qtile, cur_screen.group.name)
+  if cur_screen.group.name == primary_group.name:
+    cur_screen.set_group(secondary_group)
+    second_screen.set_group(primary_group)
+  else:
+    cur_screen.set_group(primary_group)
+    second_screen.set_group(secondary_group)
+
+
+keys.append(
+    Key([mod], 'apostrophe', lazy.function(swap_primary_secondary_group_screens)))
+
+
+groups = []
+for n in '1234567':
+  groups.append(Group(n))
+  groups.append(Group(n + 'a'))
   keys.extend([
       # mod1 + letter of group = switch to group
-      Key([mod], i.name, lazy.function(toscreen, i.name)),
+      Key([mod], n, lazy.function(toscreen, n)),
 
       # mod1 + shift + letter of group = move focused window to group
-      Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=False)),
+      Key([mod, "shift"], n, lazy.window.togroup(n, switch_group=False)),
   ])
 
 def movescreens(qtile, offset):
+  group_names = [g.name for g in groups]
   screen_group_names = [s.group.name for s in qtile.screens]
   screens_wrap = (group_names[-1] in screen_group_names
                   and group_names[0] in screen_group_names)
@@ -244,26 +271,34 @@ def movescreens(qtile, offset):
           screen.set_group(group)
           break
 
-# Cycle through groups on all screens at once (like on chromeos)
-keys.append(Key([mod, "control"], "l", lazy.function(movescreens, 1)))
-keys.append(Key([mod, "control"], "h", lazy.function(movescreens, -1)))
+
+keys.extend([
+    # Skip managed ignores groups already on a screen.
+    Key([mod], "h",
+        lazy.screen.prev_group(skip_managed=True)),
+    Key([mod], "l",
+        lazy.screen.next_group(skip_managed=True)),
+    # Cycle through groups on all screens at once (like on chromeos)
+    Key([mod, "control"], "l", lazy.function(movescreens, 1)),
+    Key([mod, "control"], "h", lazy.function(movescreens, -1)),
+])
 # Switch multiple windows to screens at once.
-keys.append(Key([mod, "control"], "1",
-                lazy.group["s"].toscreen(0),
-                lazy.group["d"].toscreen(1),
-                ))
-keys.append(Key([mod, "control"], "2",
-                lazy.group["f"].toscreen(0),
-                lazy.group["q"].toscreen(1),
-                ))
-keys.append(Key([mod, "control"], "3",
-                lazy.group["w"].toscreen(0),
-                lazy.group["e"].toscreen(1),
-                ))
-keys.append(Key([mod, "control"], "4",
-                lazy.group["2"].toscreen(0),
-                lazy.group["3"].toscreen(1),
-                ))
+# keys.append(Key([mod, "control"], "1",
+#                 lazy.group["s"].toscreen(0),
+#                 lazy.group["d"].toscreen(1),
+#                 ))
+# keys.append(Key([mod, "control"], "2",
+#                 lazy.group["f"].toscreen(0),
+#                 lazy.group["q"].toscreen(1),
+#                 ))
+# keys.append(Key([mod, "control"], "3",
+#                 lazy.group["w"].toscreen(0),
+#                 lazy.group["e"].toscreen(1),
+#                 ))
+# keys.append(Key([mod, "control"], "4",
+#                 lazy.group["2"].toscreen(0),
+#                 lazy.group["3"].toscreen(1),
+#                 ))
 
 layout_theme = {
     "border_width": 2,
@@ -462,7 +497,9 @@ def get_widgets(systray=False):
           mouse_callbacks={
               'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
       widget.TextBox(" | ", name="separator"),
-      widget.KeyboardLayout(configured_keyboards=['us', 'us dvorak']),
+      widget.KeyboardLayout(
+          configured_keyboards=['us dvorak', 'us'],
+          display_map={'us': 'qw', 'us dvorak': 'dv'}),
       widget.TextBox(" | ", name="separator"),
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]

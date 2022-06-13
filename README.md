@@ -4,6 +4,11 @@
 
  - Make mod-o go back through a list of old workspaces in qtile, like vim.
 
+## Why Customize?
+
+ - Feeling of control over annoyances
+ - Use of something inspires ideas for how to improve it
+
 ## Features Walkthrough Notes
 
 This is a list of features I commonly use - useful for notes when talking
