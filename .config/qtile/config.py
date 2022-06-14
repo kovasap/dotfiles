@@ -199,11 +199,12 @@ mouse = [
 
 
 def get_two_main_screens(qtile):
+  second_screen_candidates = [
+      s for s in qtile.screens if s != qtile.current_screen]
   return (
       qtile.current_screen,
       # TODO improve this:
-      [s for s in qtile.screens
-       if s != qtile.current_screen][0]
+      second_screen_candidates[0] if second_screen_candidates else None
   )
 
 def get_primary_secondary_groups(qtile, group_name):
@@ -219,7 +220,8 @@ def toscreen(qtile, group_name):
   primary_group, secondary_group = get_primary_secondary_groups(
       qtile, group_name)
   cur_screen.set_group(primary_group)
-  second_screen.set_group(secondary_group)
+  if second_screen:
+    second_screen.set_group(secondary_group)
 
 
 def swap_primary_secondary_group_screens(qtile):
@@ -228,10 +230,12 @@ def swap_primary_secondary_group_screens(qtile):
       qtile, cur_screen.group.name)
   if cur_screen.group.name == primary_group.name:
     cur_screen.set_group(secondary_group)
-    second_screen.set_group(primary_group)
+    if second_screen:
+      second_screen.set_group(primary_group)
   else:
     cur_screen.set_group(primary_group)
-    second_screen.set_group(secondary_group)
+    if second_screen:
+      second_screen.set_group(secondary_group)
 
 
 keys.append(
@@ -581,6 +585,15 @@ def floating_dialogs(window):
             else '')
   if (wclass in window_classes or window.window.get_name() in window_names):
     window.floating = True
+
+@hook.subscribe.startup_complete
+def swap_caps_and_esc():
+  logger.warning(subprocess.run("""
+xmodmap -e "clear lock"
+xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
+xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+    """,
+    shell=True))
 
 
 dgroups_key_binder = None
