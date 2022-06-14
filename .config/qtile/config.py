@@ -224,7 +224,7 @@ def toscreen(qtile, group_name):
     second_screen.set_group(secondary_group)
 
 
-def swap_primary_secondary_group_screens(qtile):
+def swap_primary_secondary_screens(qtile):
   cur_screen, second_screen = get_two_main_screens(qtile)
   primary_group, secondary_group = get_primary_secondary_groups(
       qtile, cur_screen.group.name)
@@ -239,7 +239,22 @@ def swap_primary_secondary_group_screens(qtile):
 
 
 keys.append(
-    Key([mod], 'apostrophe', lazy.function(swap_primary_secondary_group_screens)))
+    Key([mod], 'apostrophe', lazy.function(swap_primary_secondary_screens)))
+
+
+def move_to_primary_secondary_group(qtile):
+  cur_screen, _ = get_two_main_screens(qtile)
+  primary_group, secondary_group = get_primary_secondary_groups(
+      qtile, cur_screen.group.name)
+  if cur_screen.group.name == primary_group.name:
+    cur_screen.group.current_window.togroup(secondary_group.name, switch_group=False)
+  else:
+    cur_screen.group.current_window.togroup(primary_group.name, switch_group=False)
+
+
+keys.append(
+    Key([mod, 'shift'], 'apostrophe', lazy.function(move_to_primary_secondary_group)))
+
 
 
 groups = []
