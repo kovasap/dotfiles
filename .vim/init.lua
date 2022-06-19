@@ -126,6 +126,12 @@ map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 map('n', 'ct', '*Ncw<C-r>"')
 map('n', 'cT', '*Ncw')
 
+-- Copy the line N lines above/below the current line and put it below the
+-- current line. See https://vi.stackexchange.com/q/3231
+-- e.g. 4TT gets the line 4 lines below the current line.
+map('n', 'tt', [[:<C-u>execute ':-' . v:count . 't.'<CR>]])
+map('n', 'TT', [[:<C-u>execute ':+' . v:count . 't.'<CR>]])
+
 -- Rename word across file
 map('n', 'cW', ':%s/\\<<C-r><C-w>\\>/')
 
@@ -363,7 +369,6 @@ vim.o.hidden = true
 -- Use alt-h/l to go between buffers, and ctrl-w to close buffers.
 map('n', '<A-h>', ':bp<CR>')
 map('n', '<A-l>', ':bn<CR>')
-map('n', '<C-w>', 'BD:bn<CR>')
 
 -- Do not automatically reload files if working on Google code, otherwise read
 -- files automatically if they change.
@@ -412,6 +417,8 @@ augroup END
 
 -- Save all buffers with ctrl-s.
 map('n', '<C-S>', ':wa<CR>')
+-- Save/close all buffers with ctrl-w.
+map('n', '<C-w>', ':wqa<CR>')
 
 
 --                          /// Searching ///

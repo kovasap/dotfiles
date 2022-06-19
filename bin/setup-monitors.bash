@@ -30,8 +30,8 @@ echo $reset_cmd
 eval $reset_cmd
 
 echo $xrandr_output
-# xrandr_cmd="xrandr --output $main_output --primary --scale 0.5x0.5 --auto"
-xrandr_cmd="xrandr --output $main_output --primary --scale 1x1 --mode 1920x1080"
+# xrandr_cmd="xrandr --output $main_output --scale 0.5x0.5 --auto"
+xrandr_cmd="xrandr --output $main_output --scale 1x1 --mode 1920x1080"
 if [ "$2" == "rotated" ]; then
     xrandr_cmd="$xrandr_cmd --rotate left"
 else
@@ -48,7 +48,16 @@ for o in "${outputs[@]}"; do
         mouse_flicker_fix=""
         xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --auto $relative_loc"
         relative_loc="--right-of $o"
-    else
+    fi
+done
+# Make last screen primary
+xrandr_cmd="$xrandr_cmd --primary"
+# Turn off all other screens
+for o in "${outputs[@]}"; do
+    connected=$(echo "$xrandr_output" | grep "^$o connected")
+    echo $o
+    echo $connected
+    if [ -z "$connected" ]; then
         xrandr_cmd="$xrandr_cmd --output $o --off"
     fi
 done
