@@ -603,6 +603,7 @@ def floating_dialogs(window):
 
 @hook.subscribe.startup_complete
 def swap_caps_and_esc():
+  logger.warning("running post start hook")
   logger.warning(subprocess.run("""
 xmodmap -e "clear lock"
 xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"

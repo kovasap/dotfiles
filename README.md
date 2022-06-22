@@ -1,9 +1,5 @@
 # My dotfiles
 
-## TODOs
-
- - Make mod-o go back through a list of old workspaces in qtile, like vim.
-
 ## Why Customize?
 
  - Feeling of control over annoyances
@@ -17,10 +13,12 @@ through my setup.
 ### QTile
 
  - Everything is a hotkey!
+ - Right click on desktop menu
  - Top bar, element by element
  - Workspaces for different projects
  - Cycling window layouts
  - Clipboard manager, with top bar integration
+  - Everything sends to single clipboard, even over ssh
  - Selective window dimming and transparency
  - Resolution and rotation script
  - Bash script hotkeys
@@ -49,6 +47,12 @@ through my setup.
 
  - Vimium C
  - Fzf history search
+
+
+## TODOs
+
+ - Make mod-o go back through a list of old workspaces in qtile, like vim.
+
 
 ## Installation
 
