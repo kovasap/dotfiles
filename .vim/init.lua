@@ -81,6 +81,7 @@ require 'paq' {
   'rkitover/vimpager';
   'habamax/vim-godot';
   'dhruvasagar/vim-table-mode';
+  'whonore/vim-sentencer';
 }
 
 
