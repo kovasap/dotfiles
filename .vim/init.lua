@@ -160,7 +160,7 @@ vim.wo.linebreak = true
 vim.o.textwidth = 79
 vim.bo.wrapmargin = 0
 vim.bo.formatoptions = vim.o.formatoptions .. 'l'
-vim.bo.formatoptions = vim.o.formatoptions .. 't'
+-- vim.bo.formatoptions = vim.o.formatoptions .. 't'
 
 -- Make new lines indent automatically.
 vim.bo.autoindent = true

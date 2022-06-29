@@ -293,10 +293,9 @@ def movescreens(qtile, offset):
 
 keys.extend([
     # Skip managed ignores groups already on a screen.
-    Key([mod], "h",
-        lazy.screen.prev_group(skip_managed=True)),
-    Key([mod], "l",
-        lazy.screen.next_group(skip_managed=True)),
+    Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
+    Key([mod], "l", lazy.screen.next_group(skip_managed=True)),
+    Key([mod], "o", lazy.screen.toggle_group()),
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod, "control"], "l", lazy.function(movescreens, 1)),
     Key([mod, "control"], "h", lazy.function(movescreens, -1)),
