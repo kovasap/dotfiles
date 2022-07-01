@@ -273,3 +273,4 @@ trying to cd to an unmounted directory.
 
  - Setting up https://nixos.org/ package management should make installation of
    everything much easier.
+ - https://curryncode.com/2018/11/27/using-the-fingerprint-reader-to-unlock-arch-linux/
