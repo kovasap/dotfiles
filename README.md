@@ -174,6 +174,7 @@ git clone git@github.com:kovasap/qtile.git
 cd qtile
 mkvirtualenv qtile
 sudo apt install libiw-dev
+pip install xcffib; pip install cairocffi
 pip install -r requirements.txt
 pip install .
 sudo apt install libpulse-dev
@@ -243,6 +244,24 @@ echo "options snd-hda-intel model=generic" | tee -a /etc/modprobe.d/alsa-base.co
 chmod a+rw /sys/class/backlight/intel_backlight/brightness
 exit 0
 ```
+
+### Window Manager Issues
+
+`startx <wm-name>` will start a WM from the terminal.  `startx` with no args will
+start the default WM as defined in `~/.xsession` (**i think**).
+
+Possible WMs to start with as understood by a display manager (gdm, lightdm) are
+listed in `/usr/share/xsessions`. I think these are also the possibilties that can
+be fed to `startx`.
+
+Logs to look at for issues:
+
+ - xorg.log
+ - qtile.log
+
+When running QTile with a virtualenv Python, updates to the system Python can break it. 
+Re-creating the virtualenv and reinstalling QTile in it should fix the problem. See the
+QTile section in the installation commands above.
 
 ### NeoVim
 
