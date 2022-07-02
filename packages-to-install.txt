@@ -21,10 +21,6 @@ xinput
 xdotool
 libiw-dev
 libpulse-dev
-libpango1.0-dev
-libgtk-3-dev
-libcairo2-dev
-pulsemixer
 
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 maim
