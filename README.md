@@ -76,6 +76,9 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
+# Install all apt dependencies
+sed 's/#.*//' packages-to-install.txt | xargs sudo apt-get install
+
 sudo apt install cargo
 # See https://difftastic.wilfred.me.uk/introduction.html
 cargo install difftastic
