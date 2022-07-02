@@ -57,6 +57,16 @@ through my setup.
 ## Installation
 
 ```
+# Setup ssh so we can pull github repos
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+ssh-keygen -t ed25519 -C "kovas.palunas@gmail.com"
+# Hit enter three times
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+# Go to https://github.com/settings/ssh/new and add the keys
+# by pasting in the output of:
+cat ~/.ssh/id_ed25519.pub
+
 sudo apt install git
 # See https://difftastic.wilfred.me.uk/introduction.html
 cargo install difftastic
