@@ -43,8 +43,6 @@ function precmd () {
 
 # --------------------------- P10K Prompt -----------------------------------
 
-# Install:
-# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 zplug romkatv/powerlevel10k, as:theme, depth:1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -260,3 +258,4 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin
 
 # Anything in the RUN env var will be executed on startup.
 eval "$RUN"
+# source ~/powerlevel10k/powerlevel10k.zsh-theme

@@ -57,6 +57,9 @@ through my setup.
 ## Installation
 
 ```
+# Install all apt dependencies
+sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
+
 # Setup ssh so we can pull github repos
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 ssh-keygen -t ed25519 -C "kovas.palunas@gmail.com"
@@ -67,8 +70,6 @@ ssh-add ~/.ssh/id_ed25519
 # by pasting in the output of:
 cat ~/.ssh/id_ed25519.pub
 
-sudo apt install git
-
 # Install this repo, allowing existing files in home dir to exist.
 # Taken from https://stackoverflow.com/questions/9864728/how-to-get-git-to-clone-into-current-directory
 cd ~/
@@ -76,10 +77,6 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
-# Install all apt dependencies
-sed 's/#.*//' packages-to-install.txt | xargs sudo apt-get install
-
-sudo apt install cargo
 # See https://difftastic.wilfred.me.uk/introduction.html
 cargo install difftastic
 
@@ -95,34 +92,33 @@ sudo udevadm control --reload
 # https://docs.activitywatch.net/en/latest/getting-started.html
 
 # Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
+git clone git@github.com:kovasap/compton.git
+sudo apt install libxcomposite-dev libxdamage-dev libxrender-dev libxrandr-dev libxinerama-dev libconfig-dev libdrm-dev libdbus-1-dev libgl-dev asciidoc
+cd compton
+make
+make docs
+sudo make install
+cd ~/
+
 # Currently, switching to picom is blocked on
 https://github.com/yshui/picom/issues/215 and/or
 https://github.com/yshui/picom/pull/247 working properly.
 # Clone, build and install picom: https://github.com/jonaburg/picom
 
-sudo apt install xinput
-sudo apt install xdotool
-
-# Install copyq clipboard manager
-sudo apt install copyq
-
 # Install clojure tooling
 # https://clojure-lsp.io/installation/#script
-# Rust required for parinfer, which is installed during vim plugin install.
-sudo apt install rustc
-# Useful for cljs projects
-sudo apt install npm
+sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
-# Install neovim
-sudo apt install neovim
+# Install latest neovim
+# https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
 # Install Paq neovim package manager
 git clone --depth=1 https://github.com/savq/paq-nvim.git \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+# Install plugins
+nv -c ":PaqInstall"
 # Install vim python package
 pip install neovim
 pip install 'python-lsp-server[all]'
-
-sudo apt install silversearcher-ag
 
 # Install grive2 for google drive syncing
 git clone https://github.com/vitalif/grive2
@@ -145,9 +141,6 @@ cd ~/
 # go get -u github.com/odeke-em/drive/cmd/drive
 # ln -s ~/go/bin/drive bin/drive
 
-# Music player
-sudo apt install cmus
-
 # Install xmenu
 sudo apt install libxft-dev libimlib2-dev
 git clone git@github.com:phillbush/xmenu.git
@@ -164,8 +157,6 @@ cd ~/
 # Installing new fonts should just involve copying them to that dir and running:
 fc-cache -f -v
     
-# Install zsh
-sudo apt install zsh
 # Install oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
@@ -176,32 +167,27 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 # Install autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+# Open a new zsh terminal and run:
+zplug install
+
 # Install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
-# For chrome fzf viewer
-sudo apt install sqlite3
-
-# Install virtualenvwrapper
-sudo apt install virtualenvwrapper
+~/.fzf/install --key-bindings --completion --no-update-rc
 
 # Install qtile
 git clone git@github.com:kovasap/qtile.git
 cd qtile
 mkvirtualenv qtile
-sudo apt install libiw-dev
 pip install xcffib; pip install cairocffi
 pip install -r requirements.txt
 pip install .
-sudo apt install libpulse-dev
 ./scripts/ffibuild
 sudo cp qtile-venv.desktop /usr/share/xsessions/
 cd ~/
+deactivate
 
 # Build and install launcher
 # https://github.com/enkore/j4-dmenu-desktop
-sudo apt install suckless-tools
 git clone https://github.com/enkore/j4-dmenu-desktop.git
 cd j4-dmenu-desktop
 cmake .
@@ -209,25 +195,6 @@ make
 sudo make install
 cd ~/
 
-# Install kitty - this is necessary to get the terminal working properly even
-# on a remote server, since otherwise the TERM=xterm-kitty env var wont be
-# recognized.
-sudo apt install kitty
-
-# Install maim for cool screenshot-to-clipboard functionality with printscreen.
-sudo apt install maim
-
-sudo apt install tldr # https://tldr.sh/
-sudo apt install bat # https://github.com/sharkdp/bat
-sudo apt install j4-dmenu-desktop
-sudo apt install cmatrix
-sudo apt install qdirstat
-sudo apt install xautolock
-sudo apt install cmake
-sudo apt install cmus
-# See also https://github.com/hakerdefo/cmus-lyrics
-sudo apt install feh
-sudo apt install visidata
 pip3 install bandcamp-downloader
 
 # Chrome extensions:
@@ -238,11 +205,11 @@ pip3 install bandcamp-downloader
 # Packages to install from github or online download:
 # https://github.com/Ventto/lux
 # https://github.com/kovasap/selfspy
-# https://github.com/kovasap/compton
 # https://github.com/dsanson/termpdf.py
 ```
 
-Also install https://github.com/kovasap/auto-screenshooter.
+Also optionally install
+https://github.com/kovasap/auto-screenshooter.
 
 
 ## Debugging

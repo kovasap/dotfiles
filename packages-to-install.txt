@@ -1,1 +1,46 @@
+zsh
+
+git
+
 python
+virtualenvwrapper
+
+cargo
+
+# Install kitty - this is necessary to get the terminal working properly even
+# on a remote server, since otherwise the TERM=xterm-kitty env var wont be
+# recognized.
+kitty
+
+# For Chrome fzf history, among other things
+sqlite3
+
+# QTile environment dependencies
+suckless-tools
+copyq
+xinput
+xdotool
+libiw-dev
+libpulse-dev
+
+# Install maim for cool screenshot-to-clipboard functionality with printscreen.
+maim
+
+tldr # https://tldr.sh/
+bat # https://github.com/sharkdp/bat
+cmatrix
+qdirstat
+xautolock
+cmake
+feh
+visidata
+
+
+# For CLJS projects
+npm
+
+# For neovim
+silversearcher-ag
+
+cmus
+# See also https://github.com/hakerdefo/cmus-lyrics
