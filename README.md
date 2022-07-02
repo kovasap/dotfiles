@@ -195,6 +195,9 @@ deactivate
 # Make sure brightness controls work
 sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
 
+# Colemak with capslock as escape
+sudo cp us-xkb-symbols /usr/share/X11/xkb/symbols/us
+
 # Build and install launcher
 # https://github.com/enkore/j4-dmenu-desktop
 git clone https://github.com/enkore/j4-dmenu-desktop.git

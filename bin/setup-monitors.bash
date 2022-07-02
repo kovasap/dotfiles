@@ -17,7 +17,7 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1')
 xrandr_output=$(xrandr)
 
 main_output="eDP-1"
@@ -31,7 +31,7 @@ eval $reset_cmd
 
 echo $xrandr_output
 # xrandr_cmd="xrandr --output $main_output --scale 0.5x0.5 --auto"
-xrandr_cmd="xrandr --output $main_output --scale 1x1 --mode 1920x1080"
+xrandr_cmd="xrandr --output $main_output --scale 1x1 --mode 1920x1200"
 if [ "$2" == "rotated" ]; then
     xrandr_cmd="$xrandr_cmd --rotate left"
 else
@@ -68,4 +68,4 @@ eval $xrandr_cmd
 /home/kovas/bin/run-compton.bash
 feh --bg-fill /home/kovas/wallpaper
 # Reset qtile.  Could also use qtile-cmd cli for this but I don't know how.
-xdotool key 'ctrl+super+r'
+xdotool key 'ctrl+super+q'

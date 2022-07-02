@@ -29,194 +29,7 @@ if theme_filepath:
       colors[line.split()[0]] = line.split()[1].upper()
 
 
-mod = "mod4"
-
-
-def hard_restart(qt):
-  qt.cmd_restart()
-
-
-# Options at https://dunst-project.org/documentation/#COLORS
-notify_opts = (
-    '-t 1500 '
-    f'-h string:bgcolor:{colors["background"]} '
-    f'-h string:frcolor:{colors["background"]} '
-    f'-h string:fgcolor:{colors["foreground"]} '
-)
-notify_vol_cmd = (
-    f'notify-send -h string:x-dunst-stack-tag:vol {notify_opts} '
-    '"volume $(amixer get Master | egrep -o \'\\[(.*)\')"')
-notify_brightness_cmd = (
-    f'notify-send -h string:x-dunst-stack-tag:brt {notify_opts} '
-    '"brightness $(cat /sys/class/backlight/intel_backlight/brightness)"')
-
-
-def spawn_multi_cmd(*args):
-  return lazy.spawn(['bash', '-c', '; '.join(args)])
-
-
-# See
-# https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
-# for reference.
-keys = [
-    Key([mod], "k",
-        lazy.layout.up().when(layout='monadtall'),
-        lazy.layout.up().when(layout='monadthreecol'),
-        lazy.layout.up().when(layout='max'),
-        lazy.layout.left().when(layout='2cols'),
-        lazy.layout.left().when(layout='3cols')),
-    Key([mod], "j",
-        lazy.layout.down().when(layout='monadtall'),
-        lazy.layout.down().when(layout='monadthreecol'),
-        lazy.layout.down().when(layout='max'),
-        lazy.layout.right().when(layout='2cols'),
-        lazy.layout.right().when(layout='3cols')),
-    Key([mod, 'control'], "k",
-        lazy.layout.up().when(layout='2cols'),
-        lazy.layout.up().when(layout='3cols')),
-    Key([mod, 'control'], "j",
-        lazy.layout.down().when(layout='2cols'),
-        lazy.layout.down().when(layout='3cols')),
-
-    Key([mod], "period", lazy.prev_screen()),
-    Key([mod], "comma", lazy.next_screen()),
-
-    # TODO remove and maybe go back to main qtile git repo (not my fork)
-    Key([mod, "shift"], "period", lazy.swap_screens()),
-    Key([mod, "shift"], "comma", lazy.swap_screens()),
-
-    Key([mod, "shift"], "h", lazy.layout.swap_left()),
-    Key([mod, "shift"], "l", lazy.layout.swap_right()),
-    Key([mod, "shift"], "j",
-        lazy.layout.shuffle_down().when(layout='monadtall'),
-        lazy.layout.shuffle_down().when(layout='monadthreecol'),
-        lazy.layout.swap_column_left().when(layout='2cols'),
-        lazy.layout.swap_column_left().when(layout='3cols')),
-    Key([mod, "shift"], "k",
-        lazy.layout.shuffle_up().when(layout='monadtall'),
-        lazy.layout.shuffle_up().when(layout='monadthreecol'),
-        lazy.layout.swap_column_right().when(layout='2cols'),
-        lazy.layout.swap_column_right().when(layout='3cols')),
-
-    Key([mod], "equal", lazy.layout.grow()),
-    Key([mod], "minus", lazy.layout.shrink()),
-    Key([mod], "m", lazy.layout.maximize()),
-    Key([mod], "n", lazy.layout.minimize()),
-    # Key([mod, "control"], "h", lazy.layout.grow_left()),
-    # Key([mod, "control"], "l", lazy.layout.grow_right()),
-
-    Key([], "XF86AudioRaiseVolume",
-        spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
-    Key([], "XF86AudioLowerVolume",
-        spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
-    Key([], "XF86AudioMute",
-        spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
-
-    Key([], "XF86MonBrightnessUp",
-        spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
-    Key([], "XF86MonBrightnessDown",
-        spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
-
-    # Run this command to make an image file from the screenshot:
-    # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
-    Key([], 'Print',
-        spawn_multi_cmd(
-            # https://github.com/naelstrof/maim/issues/182
-            "pkill compton",
-            "maim -s | tee ~/clipboard.png | "
-            "xclip -selection clipboard -t image/png; ")),
-    # This part is not working for some reason at the moment.  I think it
-    # works when i switch away from the image clipboard content and back
-    # to it with copyq.
-    # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
-    # Take an entire screenshot:
-    # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")
-
-    # Switch window focus to other pane(s) of stack
-    # Key([mod], "space", lazy.layout.next()),
-
-    # Swap panes of split stack
-    # Key([mod, "shift"], "space", lazy.layout.rotate()),
-
-    Key([mod], "t", lazy.window.toggle_floating()),
-
-    Key([mod], "semicolon", lazy.widget["keyboardlayout"].next_keyboard(),
-        desc="Next keyboard layout."),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack
-    # Key([mod], "z", lazy.layout.toggle_split()),
-    # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
-
-    Key([mod], "slash", lazy.spawn(
-        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
-        "kitty zsh -c '~/bin/chrome-history.zsh 2'")),
-
-    Key([mod, 'shift'], "slash", lazy.spawn(
-        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
-        "kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-
-    Key([mod], "p", lazy.spawn(
-        "kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
-
-    Key([mod], "c", lazy.spawn('copyq next')),
-    Key([mod], "v", lazy.spawn('copyq previous')),
-    Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
-
-    Key([mod, 'control'], "w", lazy.spawn([
-        "/bin/zsh", "-c", "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log"])),
-    Key([mod, 'control'], "e", lazy.spawn([
-        "/bin/zsh", "-c", "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log"])),
-
-    Key([mod], "Escape", lazy.spawn("screensaver.sh")),
-    Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
-    Key([mod], "Return", lazy.spawn("kitty")),
-    Key([mod, 'shift', 'control'], "Return", lazy.spawn(
-        "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
-    Key([mod, 'shift'], "Return",
-        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], "backslash", lazy.spawn("google-chrome")),
-    Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
-
-    Key([mod], "b", lazy.spawn("nvim-textarea.bash")),
-
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "x", lazy.window.kill()),
-
-    Key([mod, "control"], "z", lazy.spawn([
-        "bash", "-c", "pkill compton; run-compton.bash"])),
-    Key([mod, "shift", "control"], "z", lazy.spawn([
-        "bash", "-c", "pkill compton"])),
-
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "t", lazy.function(hard_restart)),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "space", lazy.spawn("j4-dmenu-desktop")),
-]
-
-mouse = [
-    # Drag floating layouts.
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button2", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
-    # Rearrange and resize windows with mouse wheel
-    # For MonadTall layout
-    Click([mod], 'Button4', lazy.layout.grow()),
-    Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, "shift"], "Button5", lazy.layout.shuffle_down()),
-    Click([mod, "shift"], "Button4", lazy.layout.shuffle_up()),
-    # For Columns Layouts
-    Click([mod], 'Button4', lazy.layout.grow_left()),
-    Click([mod], 'Button5', lazy.layout.grow_right()),
-    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
-    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
-]
-
+# ----------------- Custom Group Logic ------------------------------------
 
 def get_two_main_screens(qtile):
   second_screen_candidates = [
@@ -226,6 +39,7 @@ def get_two_main_screens(qtile):
       # TODO improve this:
       second_screen_candidates[0] if second_screen_candidates else None
   )
+
 
 def get_primary_secondary_groups(qtile, group_name):
   groups_by_name = {g.name: g for g in qtile.groups}
@@ -258,23 +72,43 @@ def swap_primary_secondary_screens(qtile):
       second_screen.set_group(secondary_group)
 
 
-keys.append(
-    Key([mod], 'apostrophe', lazy.function(swap_primary_secondary_screens)))
-
-
 def move_to_primary_secondary_group(qtile):
   cur_screen, _ = get_two_main_screens(qtile)
   primary_group, secondary_group = get_primary_secondary_groups(
       qtile, cur_screen.group.name)
   if cur_screen.group.name == primary_group.name:
-    cur_screen.group.current_window.togroup(secondary_group.name, switch_group=False)
+    cur_screen.group.current_window.togroup(
+        secondary_group.name, switch_group=False)
   else:
-    cur_screen.group.current_window.togroup(primary_group.name, switch_group=False)
+    cur_screen.group.current_window.togroup(
+        primary_group.name, switch_group=False)
+
+# --------------------------------------------------------------------------
 
 
-keys.append(
-    Key([mod, 'shift'], 'apostrophe', lazy.function(move_to_primary_secondary_group)))
+mod = "mod4"
 
+
+# Options at https://dunst-project.org/documentation/#COLORS
+notify_opts = (
+    '-t 1500 '
+    f'-h string:bgcolor:{colors["background"]} '
+    f'-h string:frcolor:{colors["background"]} '
+    f'-h string:fgcolor:{colors["foreground"]} '
+)
+notify_vol_cmd = (
+    f'notify-send -h string:x-dunst-stack-tag:vol {notify_opts} '
+    '"volume $(amixer get Master | egrep -o \'\\[(.*)\')"')
+notify_brightness_cmd = (
+    f'notify-send -h string:x-dunst-stack-tag:brt {notify_opts} '
+    '"brightness $(cat /sys/class/backlight/intel_backlight/brightness)"')
+
+
+def spawn_multi_cmd(*args):
+  return lazy.spawn(['zsh', '-c', '; '.join(args)])
+
+
+keys = []
 
 
 groups = []
@@ -288,6 +122,153 @@ for n in '1234567':
       # mod1 + shift + letter of group = move focused window to group
       Key([mod, "shift"], n, lazy.window.togroup(n, switch_group=False)),
   ])
+
+
+# Key name reference:
+# https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
+keys.extend([
+    Key([mod], "Tab",
+        lazy.layout.up().when(layout='monadtall'),
+        lazy.layout.up().when(layout='monadthreecol'),
+        lazy.layout.up().when(layout='max')),
+    Key([mod, 'shift'], "Tab",
+        lazy.layout.down().when(layout='monadtall'),
+        lazy.layout.down().when(layout='monadthreecol'),
+        lazy.layout.down().when(layout='max')),
+
+    Key([mod], "asciitilde", lazy.prev_screen()),
+    Key([mod, 'shift'], "asciitilde", lazy.next_screen()),
+
+    # TODO remove and maybe go back to main qtile git repo (not my fork, which
+    # adds this command)
+    Key([mod, "shift"], "period", lazy.swap_screens()),
+    Key([mod, "shift"], "comma", lazy.swap_screens()),
+
+    Key([mod], "q",
+        lazy.layout.shuffle_up().when(layout='monadtall'),
+        lazy.layout.shuffle_up().when(layout='monadthreecol')),
+    Key([mod, "shift"], "q",
+        lazy.layout.shuffle_down().when(layout='monadtall'),
+        lazy.layout.shuffle_down().when(layout='monadthreecol')),
+
+    Key([mod], 'w', lazy.function(swap_primary_secondary_screens)),
+    Key([mod, 'shift'], 'w', lazy.function(move_to_primary_secondary_group)),
+
+    # Skip managed ignores groups already on a screen.
+    Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
+    Key([mod], "l", lazy.screen.next_group(skip_managed=True)),
+    Key([mod], "o", lazy.screen.toggle_group()),
+
+    Key([mod], "equal", lazy.layout.grow()),
+    Key([mod], "minus", lazy.layout.shrink()),
+    Key([mod, 'shift'], "equal", lazy.layout.maximize()),
+    Key([mod, 'shift'], "minus", lazy.layout.minimize()),
+    # Key([mod, "control"], "h", lazy.layout.grow_left()),
+    # Key([mod, "control"], "l", lazy.layout.grow_right()),
+
+    Key([], "XF86AudioRaiseVolume",
+        spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
+    Key([], "XF86AudioLowerVolume",
+        spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
+    Key([], "XF86AudioMute",
+        spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
+
+    Key([], "XF86MonBrightnessUp",
+        spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
+    Key([], "XF86MonBrightnessDown",
+        spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
+
+    # Run this command to make an image file from the screenshot:
+    # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
+    Key([], 'Print',
+        spawn_multi_cmd(
+            # https://github.com/naelstrof/maim/issues/182
+            "pkill compton",
+            "maim -s | tee ~/clipboard.png | "
+            "xclip -selection clipboard -t image/png; ")),
+    # This part is not working for some reason at the moment.  I think it
+    # works when i switch away from the image clipboard content and back
+    # to it with copyq.
+    # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
+    # Take an entire screenshot:
+    # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")
+
+    Key([mod], "t", lazy.window.toggle_floating()),
+
+    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(),
+        desc="Next keyboard layout."),
+
+    # Toggle between split and unsplit sides of stack.
+    # Split = all windows displayed
+    # Unsplit = 1 window displayed, like Max layout, but still with
+    # multiple stack
+    # Key([mod], "z", lazy.layout.toggle_split()),
+    # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
+
+    Key([mod], "slash", lazy.spawn(
+        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
+        "kitty zsh -c '~/bin/chrome-history.zsh 2'")),
+
+    Key([mod, 'shift'], "slash", lazy.spawn(
+        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
+        "kitty zsh -c '~/bin/chrome-history.zsh 1'")),
+
+    Key([mod], "p", lazy.spawn(
+        "kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
+
+    Key([mod], "c", lazy.spawn('copyq next')),
+    Key([mod], "v", lazy.spawn('copyq previous')),
+    Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
+
+    Key([mod], "r", spawn_multi_cmd(
+        "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
+    Key([mod, 'control'], "r", spawn_multi_cmd(
+        "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log")),
+    Key([mod, "shift"], "r", spawn_multi_cmd(
+        "pkill compton", "run-compton.bash")),
+
+    Key([mod], "Escape", lazy.spawn("screensaver.sh")),
+    Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
+    Key([mod], "Return", lazy.spawn("kitty")),
+    Key([mod, 'shift', 'control'], "Return", lazy.spawn(
+        "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
+    Key([mod, 'shift'], "Return",
+        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
+    Key([mod], "backslash", lazy.spawn("google-chrome")),
+    # Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
+
+    Key([mod], "b", lazy.spawn("nvim-textarea.bash")),
+
+    # Toggle between different layouts as defined below
+    Key([mod], "y", lazy.next_layout()),
+    Key([mod], "x", lazy.window.kill()),
+
+    Key([mod, "control"], "t", lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, "control"], "q", lazy.restart()),
+    Key([mod, "control", "shift"], "q", lazy.shutdown()),
+    Key([mod], "g", lazy.spawn("j4-dmenu-desktop")),
+])
+
+mouse = [
+    # Drag floating layouts.
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button2", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
+    # Rearrange and resize windows with mouse wheel
+    # For MonadTall layout
+    Click([mod], 'Button4', lazy.layout.grow()),
+    Click([mod], 'Button5', lazy.layout.shrink()),
+    Click([mod, "shift"], "Button5", lazy.layout.shuffle_down()),
+    Click([mod, "shift"], "Button4", lazy.layout.shuffle_up()),
+    # For Columns Layouts
+    Click([mod], 'Button4', lazy.layout.grow_left()),
+    Click([mod], 'Button5', lazy.layout.grow_right()),
+    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
+    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
+]
+
 
 def movescreens(qtile, offset):
   group_names = [g.name for g in groups]
@@ -312,31 +293,10 @@ def movescreens(qtile, offset):
 
 
 keys.extend([
-    # Skip managed ignores groups already on a screen.
-    Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
-    Key([mod], "l", lazy.screen.next_group(skip_managed=True)),
-    Key([mod], "o", lazy.screen.toggle_group()),
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod, "control"], "l", lazy.function(movescreens, 1)),
     Key([mod, "control"], "h", lazy.function(movescreens, -1)),
 ])
-# Switch multiple windows to screens at once.
-# keys.append(Key([mod, "control"], "1",
-#                 lazy.group["s"].toscreen(0),
-#                 lazy.group["d"].toscreen(1),
-#                 ))
-# keys.append(Key([mod, "control"], "2",
-#                 lazy.group["f"].toscreen(0),
-#                 lazy.group["q"].toscreen(1),
-#                 ))
-# keys.append(Key([mod, "control"], "3",
-#                 lazy.group["w"].toscreen(0),
-#                 lazy.group["e"].toscreen(1),
-#                 ))
-# keys.append(Key([mod, "control"], "4",
-#                 lazy.group["2"].toscreen(0),
-#                 lazy.group["3"].toscreen(1),
-#                 ))
 
 layout_theme = {
     "border_width": 2,
@@ -535,7 +495,7 @@ def get_widgets(systray=False):
                   'gnome-control-center network'))),
       widget.TextBox(" | ", name="separator"),
       widget.KeyboardLayout(
-          configured_keyboards=['us', 'us colemak' 'us dvorak'],
+          configured_keyboards=['us', 'us colemak'],  # , 'us dvorak'],
           display_map={'us': 'qw', 'us dvorak': 'dv', 'us colemak': 'cl'}),
       widget.TextBox(" | ", name="separator"),
   ] + ([widget.Systray()] if systray else []) + [
@@ -620,16 +580,6 @@ def floating_dialogs(window):
             else '')
   if (wclass in window_classes or window.window.get_name() in window_names):
     window.floating = True
-
-@hook.subscribe.startup_complete
-def swap_caps_and_esc():
-  logger.warning("running post start hook")
-  logger.warning(subprocess.run("""
-xmodmap -e "clear lock"
-xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
-xmodmap -e "keycode 66 = Escape NoSymbol Escape"
-    """,
-    shell=True))
 
 
 dgroups_key_binder = None
