@@ -68,8 +68,6 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 
 sudo apt install git
-# See https://difftastic.wilfred.me.uk/introduction.html
-cargo install difftastic
 
 # Install this repo, allowing existing files in home dir to exist.
 # Taken from https://stackoverflow.com/questions/9864728/how-to-get-git-to-clone-into-current-directory
@@ -78,6 +76,11 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
+sudo apt install cargo
+# See https://difftastic.wilfred.me.uk/introduction.html
+cargo install difftastic
+
+# TODO remove if unused
 # Link udev rules to /etc/udev/rules.d/
 sudo ln -s ~/udev_rules/mouse.rules /etc/udev/rules.d/mouse.rules
 sudo ln -s ~/udev_rules/fix_mouse_sens.bash /usr/local/bin/fix_mouse_sens.bash
