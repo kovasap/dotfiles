@@ -77,6 +77,12 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
+# Nightly rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup toolchain link system /usr
+rustup default system
+rustup install nightly
+
 # See https://difftastic.wilfred.me.uk/introduction.html
 cargo install difftastic
 
@@ -185,6 +191,9 @@ pip install .
 sudo cp qtile-venv.desktop /usr/share/xsessions/
 cd ~/
 deactivate
+
+# Make sure brightness controls work
+sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
 
 # Build and install launcher
 # https://github.com/enkore/j4-dmenu-desktop

@@ -5,8 +5,6 @@ git
 python
 virtualenvwrapper
 
-cargo
-
 # Install kitty - this is necessary to get the terminal working properly even
 # on a remote server, since otherwise the TERM=xterm-kitty env var wont be
 # recognized.
@@ -16,12 +14,17 @@ kitty
 sqlite3
 
 # QTile environment dependencies
+dunst  # notification manager that accepts `notify-send` messages
 suckless-tools
 copyq
 xinput
 xdotool
 libiw-dev
 libpulse-dev
+libpango1.0-dev
+libgtk-3-dev
+libcairo2-dev
+pulsemixer
 
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 maim

@@ -36,6 +36,25 @@ def hard_restart(qt):
   qt.cmd_restart()
 
 
+# Options at https://dunst-project.org/documentation/#COLORS
+notify_opts = (
+    '-t 1500 '
+    f'-h string:bgcolor:{colors["background"]} '
+    f'-h string:frcolor:{colors["background"]} '
+    f'-h string:fgcolor:{colors["foreground"]} '
+)
+notify_vol_cmd = (
+    f'notify-send -h string:x-dunst-stack-tag:vol {notify_opts} '
+    '"volume $(amixer get Master | egrep -o \'\\[(.*)\')"')
+notify_brightness_cmd = (
+    f'notify-send -h string:x-dunst-stack-tag:brt {notify_opts} '
+    '"brightness $(cat /sys/class/backlight/intel_backlight/brightness)"')
+
+
+def spawn_multi_cmd(*args):
+  return lazy.spawn(['bash', '-c', '; '.join(args)])
+
+
 # See
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 # for reference.
@@ -87,30 +106,31 @@ keys = [
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 
     Key([], "XF86AudioRaiseVolume",
-        lazy.spawn("amixer sset Master 5%+")),
+        spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
     Key([], "XF86AudioLowerVolume",
-        lazy.spawn("amixer sset Master 5%-")),
+        spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
     Key([], "XF86AudioMute",
-        lazy.spawn("amixer sset Master toggle")),
+        spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
 
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightness.sh up")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightness.sh down")),
+    Key([], "XF86MonBrightnessUp",
+        spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
+    Key([], "XF86MonBrightnessDown",
+        spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
 
     # Run this command to make an image file from the screenshot:
     # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
-    Key([], 'Print', lazy.spawn(
-        ["bash", "-c",
-         # https://github.com/naelstrof/maim/issues/182
-         "pkill compton; "
-         "maim -s | tee ~/clipboard.png | xclip -selection clipboard -t image/png; "
-         # This part is not working for some reason at the moment.  I think it
-         # works when i switch away from the image clipboard content and back
-         # to it with copyq.
-         ])),
-         # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
-        # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")),
-
-    # , ((0, xK_Print), spawn "scrot -e 'mv $f ~/pictures/screenshots/'")
+    Key([], 'Print',
+        spawn_multi_cmd(
+            # https://github.com/naelstrof/maim/issues/182
+            "pkill compton",
+            "maim -s | tee ~/clipboard.png | "
+            "xclip -selection clipboard -t image/png; ")),
+    # This part is not working for some reason at the moment.  I think it
+    # works when i switch away from the image clipboard content and back
+    # to it with copyq.
+    # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
+    # Take an entire screenshot:
+    # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")
 
     # Switch window focus to other pane(s) of stack
     # Key([mod], "space", lazy.layout.next()),
@@ -126,7 +146,7 @@ keys = [
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack 
+    # multiple stack
     # Key([mod], "z", lazy.layout.toggle_split()),
     # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
 
@@ -471,14 +491,12 @@ def get_widgets(systray=False):
       widget.TextBox(" | ", name="separator"),
       widget.Clipboard(max_width=50, timeout=None),
       widget.TextBox(" | ", name="separator"),
-  ] + ([widget.Systray()] if systray else []) + [
-      widget.TextBox(" | ", name="separator"),
-      widget.TextBox("CPU", name="cpu_label"),
-      widget.CPUGraph(**graph_args),
+      # widget.TextBox("CPU", name="cpu_label"),
+      # widget.CPUGraph(**graph_args),
       widget.TextBox("Mem", name="memory_label"),
       ColoredMemoryGraph(**graph_args),
-      widget.TextBox("Net", name="net_label"),
-      widget.NetGraph(**graph_args),
+      # widget.TextBox("Net", name="net_label"),
+      # widget.NetGraph(**graph_args),
       widget.TextBox(" | ", name="separator"),
       widget.DF(
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
@@ -486,11 +504,11 @@ def get_widgets(systray=False):
           visible_on_warn=False),
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**graph_args),
-      widget.TextBox(" | ", name="separator"),
-      # widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
-      #              margin_y=4),
-      widget.TextBox("vol:", name="volume_label"),
-      widget.Volume(fmt='{}'),
+      # widget.TextBox(" | ", name="separator"),
+      # # widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
+      # #              margin_y=4),
+      # widget.TextBox("vol:", name="volume_label"),
+      # widget.Volume(fmt='{}'),
       widget.TextBox(" | ", name="separator"),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
       widget.TextBox("bat:", name="battery_label"),
@@ -498,13 +516,13 @@ def get_widgets(systray=False):
                      charge_char='+', discharge_char='-',
                      update_interval=15,  # seconds
                      ),
-      widget.TextBox(" | ", name="separator"),
-      # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
-      #              margin_x=1,
-      #              margin_y=4.5),
-      widget.TextBox("brt:", name="brightness_label"),
-      widget.Backlight(format='{percent: 2.0%}',
-                       backlight_name='intel_backlight'),
+      # widget.TextBox(" | ", name="separator"),
+      # # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
+      # #              margin_x=1,
+      # #              margin_y=4.5),
+      # widget.TextBox("brt:", name="brightness_label"),
+      # widget.Backlight(format='{percent: 2.0%}',
+      #                  backlight_name='intel_backlight'),
       widget.TextBox(" | ", name="separator"),
       # Requires
       # sudo apt install libiw-dev
@@ -512,12 +530,15 @@ def get_widgets(systray=False):
       widget.Wlan(
           interface=wireless_interface,
           format=' {essid} {quality}%',
-          mouse_callbacks={
-              'Button1': lambda: qtile.cmd_spawn('gnome-control-center network')}),
+          mouse_callbacks=dict(
+              Button1=lambda: qtile.cmd_spawn(
+                  'gnome-control-center network'))),
       widget.TextBox(" | ", name="separator"),
       widget.KeyboardLayout(
-          configured_keyboards=['us dvorak', 'us'],
-          display_map={'us': 'qw', 'us dvorak': 'dv'}),
+          configured_keyboards=['us', 'us colemak' 'us dvorak'],
+          display_map={'us': 'qw', 'us dvorak': 'dv', 'us colemak': 'cl'}),
+      widget.TextBox(" | ", name="separator"),
+  ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(" | ", name="separator"),
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
