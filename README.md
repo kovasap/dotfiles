@@ -115,6 +115,9 @@ https://github.com/yshui/picom/pull/247 working properly.
 # https://clojure-lsp.io/installation/#script
 sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 
+# Install Joker
+# https://github.com/candid82/joker/releases
+
 # Install latest neovim
 # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
 # Install Paq neovim package manager
