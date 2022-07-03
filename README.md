@@ -139,6 +139,7 @@ make -j4
 sudo make install
 cd ~/
 mkdir google-drive
+cd google-drive
 grive -a
 cd ~/
 

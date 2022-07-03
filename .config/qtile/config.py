@@ -127,17 +127,11 @@ for n in '1234567':
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], "Tab",
-        lazy.layout.up().when(layout='monadtall'),
-        lazy.layout.up().when(layout='monadthreecol'),
-        lazy.layout.up().when(layout='max')),
-    Key([mod, 'shift'], "Tab",
-        lazy.layout.down().when(layout='monadtall'),
-        lazy.layout.down().when(layout='monadthreecol'),
-        lazy.layout.down().when(layout='max')),
+    Key([mod], "Tab", lazy.layout.up()),
+    Key([mod, 'shift'], "Tab", lazy.layout.down()),
 
-    Key([mod], "asciitilde", lazy.prev_screen()),
-    Key([mod, 'shift'], "asciitilde", lazy.next_screen()),
+    Key([mod], "grave", lazy.prev_screen()),
+    Key([mod, 'shift'], "grave", lazy.next_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
     # adds this command)
@@ -224,7 +218,7 @@ keys.extend([
         "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
     Key([mod, 'control'], "r", spawn_multi_cmd(
         "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log")),
-    Key([mod, "shift"], "r", spawn_multi_cmd(
+    Key([mod], "s", spawn_multi_cmd(
         "pkill compton", "run-compton.bash")),
 
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
@@ -382,20 +376,30 @@ layouts = [
     custom_monad_tall,
     layout.Max(**layout_theme),
     custom_monad_3col,
+    layout.Floating(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
     # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
-    # Try more layouts by unleashing below layouts.
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
+
+
+@hook.subscribe.layout_change
+def resize_floating_windows(layout, group):
+  if layout.name == 'floating':
+    width = 600
+    height = 1100
+    margin = 25
+    for i, w in enumerate(group.windows):
+      w.tweak_float(
+          x=margin + i * width + i * margin + group.screen.x,
+          y=margin,
+          w=width,
+          h=height)
+  else:
+    for w in group.windows:
+      w.floating = False
+
 
 widget_defaults = dict(
     font='FiraCode Bold',
@@ -510,18 +514,6 @@ bar_config = dict(
     background=colors['color16']
 )
 
-
-# Restart qtile when a new monitor is plugged in.
-# @hook.subscribe.screen_change
-# def restart_on_randr(qtile, ev):
-#     qtile.cmd_restart()
-
-# def run(cmdline):
-#     subprocess.Popen(shlex.split(cmdline))
-#
-# @hook.subscribe.startup
-# def startup():
-#     run("~kovas/bin/setup-monitors.bash")
 
 def get_monitors():
   display = xdisplay.Display()
