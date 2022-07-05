@@ -37,7 +37,7 @@ def get_two_main_screens(qtile):
   return (
       qtile.current_screen,
       # TODO improve this:
-      second_screen_candidates[0] if second_screen_candidates else None
+      second_screen_candidates[-1] if second_screen_candidates else None
   )
 
 
@@ -49,13 +49,17 @@ def get_primary_secondary_groups(qtile, group_name):
 # https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
 def toscreen(qtile, group_name):
   cur_screen, second_screen = get_two_main_screens(qtile)
-  if group_name == cur_screen.group.name:
-    group_name = cur_screen.previous_group.name
+  # If you want this fn to switch to the last group, uncomment this.
+  # if group_name == cur_screen.group.name:
+  #   group_name = cur_screen.previous_group.name
   primary_group, secondary_group = get_primary_secondary_groups(
       qtile, group_name)
-  cur_screen.set_group(primary_group)
-  if second_screen:
-    second_screen.set_group(secondary_group)
+  if group_name == cur_screen.group.name:
+    swap_primary_secondary_screens(qtile)
+  else:
+    cur_screen.set_group(primary_group)
+    if second_screen:
+      second_screen.set_group(secondary_group)
 
 
 def swap_primary_secondary_screens(qtile):
@@ -72,16 +76,20 @@ def swap_primary_secondary_screens(qtile):
       second_screen.set_group(secondary_group)
 
 
-def move_to_primary_secondary_group(qtile):
+def togroup(qtile, n):
   cur_screen, _ = get_two_main_screens(qtile)
-  primary_group, secondary_group = get_primary_secondary_groups(
-      qtile, cur_screen.group.name)
+  primary_group, secondary_group = get_primary_secondary_groups(qtile, n)
+
+  def cur_win_to_group(group_name):
+    cur_screen.group.current_window.togroup(group_name, switch_group=False)
+
   if cur_screen.group.name == primary_group.name:
-    cur_screen.group.current_window.togroup(
-        secondary_group.name, switch_group=False)
+    cur_win_to_group(secondary_group.name)
+  elif cur_screen.group.name == secondary_group.name:
+    cur_win_to_group(primary_group.name)
   else:
-    cur_screen.group.current_window.togroup(
-        primary_group.name, switch_group=False)
+    cur_win_to_group(n)
+
 
 # --------------------------------------------------------------------------
 
@@ -120,7 +128,8 @@ for n in '1234567':
       Key([mod], n, lazy.function(toscreen, n)),
 
       # mod1 + shift + letter of group = move focused window to group
-      Key([mod, "shift"], n, lazy.window.togroup(n, switch_group=False)),
+      # Key([mod, "shift"], n, lazy.window.togroup(n, switch_group=False)),
+      Key([mod, "shift"], n, lazy.function(togroup, n)),
   ])
 
 
@@ -144,9 +153,6 @@ keys.extend([
     Key([mod, "shift"], "q",
         lazy.layout.shuffle_down().when(layout='monadtall'),
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
-
-    Key([mod], 'w', lazy.function(swap_primary_secondary_screens)),
-    Key([mod, 'shift'], 'w', lazy.function(move_to_primary_secondary_group)),
 
     # Skip managed ignores groups already on a screen.
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
@@ -499,7 +505,7 @@ def get_widgets(systray=False):
                   'gnome-control-center network'))),
       widget.TextBox(" | ", name="separator"),
       widget.KeyboardLayout(
-          configured_keyboards=['us', 'us colemak'],  # , 'us dvorak'],
+          configured_keyboards=['us colemak', 'us'],  # , 'us dvorak'],
           display_map={'us': 'qw', 'us dvorak': 'dv', 'us colemak': 'cl'}),
       widget.TextBox(" | ", name="separator"),
   ] + ([widget.Systray()] if systray else []) + [

@@ -17,7 +17,7 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3')
 xrandr_output=$(xrandr)
 
 main_output="eDP-1"
@@ -38,6 +38,8 @@ else
     xrandr_cmd="$xrandr_cmd --rotate normal"
 fi
 relative_loc="--right-of $main_output"
+# Make second screen primary
+relative_loc="$relative_loc --primary"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
     echo $o
@@ -50,8 +52,6 @@ for o in "${outputs[@]}"; do
         relative_loc="--right-of $o"
     fi
 done
-# Make last screen primary
-xrandr_cmd="$xrandr_cmd --primary"
 # Turn off all other screens
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
