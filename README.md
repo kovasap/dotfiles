@@ -48,10 +48,10 @@ through my setup.
  - Vimium C
  - Fzf history search
 
+### Writing
 
-## TODOs
-
- - Make mod-o go back through a list of old workspaces in qtile, like vim.
+ - Colemak/Dvorak
+ - Dictation into Google doc
 
 
 ## Installation
@@ -120,6 +120,9 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/
 
 # Install latest neovim
 # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
+# If installing from a package manager like apt, make sure neovim-runtime is
+# also installed, otherwise some plugins wont work (like lsp and treesitter).
+#
 # Install Paq neovim package manager
 git clone --depth=1 https://github.com/savq/paq-nvim.git \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
