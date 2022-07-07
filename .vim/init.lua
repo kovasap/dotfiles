@@ -310,7 +310,7 @@ vim.g.airline_section_z = ''
 -- https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim.
 vim.o.clipboard = 'unnamedplus'
 -- Copy filename of current buffer to clipboard
-map('n', 'cp', ':let @+ = expand("%:p")<CR>')
+map('n', 'yf', ':let @+ = expand("%:p")<CR>')
 -- Copy filename of current buffer in relref format to clipboard (to make
 -- personal website writing easier).
 -- TODO add this to a local vimrc file in the website directory, once I find a

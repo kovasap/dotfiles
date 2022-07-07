@@ -10,6 +10,11 @@
 This is a list of features I commonly use - useful for notes when talking
 through my setup.
 
+### Writing
+
+ - Colemak/Dvorak
+ - Dictation into Google doc
+
 ### QTile
 
  - Everything is a hotkey!
@@ -47,11 +52,6 @@ through my setup.
 
  - Vimium C
  - Fzf history search
-
-### Writing
-
- - Colemak/Dvorak
- - Dictation into Google doc
 
 
 ## Installation
