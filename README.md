@@ -59,6 +59,7 @@ through my setup.
 ```
 # Install all apt dependencies
 sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
 # Setup ssh so we can pull github repos
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent

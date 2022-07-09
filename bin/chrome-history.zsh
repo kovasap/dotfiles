@@ -6,7 +6,12 @@ c () {
   cols=$(( $(tput cols) / 3 ))
   sep='{::}'
 
-  cp -f ~/.config/google-chrome/Profile\ $1/History /tmp/h
+  if [ $# -eq 0 ]
+    then
+      cp -f ~/.config/google-chrome/Default/History /tmp/h
+    else
+      cp -f ~/.config/google-chrome/Profile\ $1/History /tmp/h
+  fi
 
   sqlite3 -separator $sep /tmp/h \
     "select substr(title, 1, $cols), url

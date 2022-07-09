@@ -206,11 +206,9 @@ keys.extend([
     # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
 
     Key([mod], "slash", lazy.spawn(
-        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
-        "kitty zsh -c '~/bin/chrome-history.zsh 2'")),
+        "kitty zsh -c '~/bin/chrome-history.zsh'")),
 
     Key([mod, 'shift'], "slash", lazy.spawn(
-        # 'kitty bash --init-file <(echo "~/bin/chrome-history.zsh 2;bash")')),
         "kitty zsh -c '~/bin/chrome-history.zsh 1'")),
 
     Key([mod], "p", lazy.spawn(
