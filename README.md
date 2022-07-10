@@ -47,6 +47,7 @@ through my setup.
 ### NeoVim
 
  - Completion based on words in buffers
+ - TODO populate a list here of my most used hotkeys: https://www.reddit.com/r/vim/comments/vodi0q/any_way_to_track_usage_of_commandhotkey_usage/
 
 ### Chrome
 
