@@ -82,10 +82,14 @@ require 'paq' {
   'habamax/vim-godot';
   'dhruvasagar/vim-table-mode';
   'whonore/vim-sentencer';
+  'ruanyl/vim-gh-line';
+  'ggandor/leap.nvim';
 }
 
 
 --                          /// Navigation ///
+
+require('leap').set_default_keymaps()
 
 -- Nicer up/down movement on long lines.
 map('n', 'j', 'gj')

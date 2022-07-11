@@ -1,5 +1,9 @@
 # Vim Tricks
 
+## Open File in GitHub
+
+https://github.com/ruanyl/vim-gh-line
+
 ## Editing Over SSH
 
 You can use your local machine's setup to edit remote files with `vim
