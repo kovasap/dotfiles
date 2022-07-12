@@ -84,6 +84,7 @@ require 'paq' {
   'whonore/vim-sentencer';
   'ruanyl/vim-gh-line';
   'ggandor/leap.nvim';
+  'narutoxy/dim.lua';
 }
 
 
@@ -680,6 +681,8 @@ map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 
 --                          /// Language - General ///
+
+require('dim').setup({})
 
 -- paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 -- paq 'nvim-treesitter/nvim-treesitter-textobjects'

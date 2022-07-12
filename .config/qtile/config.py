@@ -233,12 +233,12 @@ keys.extend([
     Key([mod, 'shift'], "Return",
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
-    # Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
+    Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
     Key([mod], "b", lazy.spawn("nvim-textarea.bash")),
 
     # Toggle between different layouts as defined below
-    Key([mod], "y", lazy.next_layout()),
+    Key([mod], "a", lazy.next_layout()),
     Key([mod], "x", lazy.window.kill()),
 
     Key([mod, "control"], "t", lazy.function(lambda qt: qt.cmd_restart())),

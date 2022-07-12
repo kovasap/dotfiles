@@ -33,7 +33,7 @@ xautolock
 cmake
 feh
 visidata
-
+jq
 
 # For CLJS projects
 npm
