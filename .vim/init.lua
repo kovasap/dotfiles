@@ -28,7 +28,8 @@ require 'paq' {
   'flwyd/vim-conjoin';
   'tpope/vim-sleuth';
   'tpope/vim-abolish';
-  'tpope/vim-surround';
+  -- 'tpope/vim-surround';
+  'kylechui/nvim-surround';
   'tpope/vim-repeat';
   'windwp/nvim-autopairs';
   'junegunn/vim-easy-align';
@@ -206,6 +207,42 @@ command! TrimWhitespace call TrimWhitespace()
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
 -- paq 'pope/vim-surround'
 -- paq 'tpope/vim-repeat'
+
+require("nvim-surround").setup({
+    keymaps = { -- vim-surround style keymaps
+        insert = "yf",
+        visual = "F",
+        delete = "df",
+        change = "cf",
+    },
+    delimiters = {
+        pairs = {
+            ["("] = { "( ", " )" },
+            [")"] = { "(", ")" },
+            ["{"] = { "{ ", " }" },
+            ["}"] = { "{", "}" },
+            ["<"] = { "< ", " >" },
+            [">"] = { "<", ">" },
+            ["["] = { "[ ", " ]" },
+            ["]"] = { "[", "]" },
+        },
+        separators = {
+            ["'"] = { "'", "'" },
+            ['"'] = { '"', '"' },
+            ["`"] = { "`", "`" },
+        },
+        HTML = {
+            ["t"] = true, -- Use "t" for HTML-style mappings
+        },
+        aliases = {
+            ["a"] = ">", -- Single character aliases apply everywhere
+            ["b"] = ")",
+            ["B"] = "}",
+            ["r"] = "]",
+            ["q"] = { '"', "'", "`" }, -- Table aliases only apply for changes/deletions
+        },
+    }
+})
 
 -- Automatically close parens.
 -- paq 'windwp/nvim-autopairs'
