@@ -120,7 +120,7 @@ keys = []
 
 
 groups = []
-for n in '1234567':
+for n in '1234qwf':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -137,7 +137,7 @@ for n in '1234567':
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
     Key([mod], "Tab", lazy.layout.up()),
-    Key([mod, 'shift'], "Tab", lazy.layout.down()),
+    # Key([mod, 'shift'], "Tab", lazy.layout.down()),
 
     Key([mod], "grave", lazy.prev_screen()),
     Key([mod, 'shift'], "grave", lazy.next_screen()),
@@ -147,10 +147,10 @@ keys.extend([
     Key([mod, "shift"], "period", lazy.swap_screens()),
     Key([mod, "shift"], "comma", lazy.swap_screens()),
 
-    Key([mod], "q",
+    Key([mod, 'shift'], "Tab",
         lazy.layout.shuffle_up().when(layout='monadtall'),
         lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, "shift"], "q",
+    Key([mod, "shift", 'control'], "Tab",
         lazy.layout.shuffle_down().when(layout='monadtall'),
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
 

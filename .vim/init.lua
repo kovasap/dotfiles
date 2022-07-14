@@ -210,10 +210,7 @@ command! TrimWhitespace call TrimWhitespace()
 
 require("nvim-surround").setup({
     keymaps = { -- vim-surround style keymaps
-        insert = "yf",
         visual = "F",
-        delete = "df",
-        change = "cf",
     },
     delimiters = {
         pairs = {
@@ -225,6 +222,12 @@ require("nvim-surround").setup({
             [">"] = { "<", ">" },
             ["["] = { "[ ", " ]" },
             ["]"] = { "[", "]" },
+            ["l"] = function()
+                return {
+                    "[",
+                    "](" .. vim.fn.getreg("+") .. ")",
+                }
+            end,
         },
         separators = {
             ["'"] = { "'", "'" },
