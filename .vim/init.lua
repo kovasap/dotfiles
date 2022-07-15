@@ -86,6 +86,7 @@ require 'paq' {
   'ruanyl/vim-gh-line';
   'ggandor/leap.nvim';
   'narutoxy/dim.lua';
+  'unblevable/quick-scope';
 }
 
 
