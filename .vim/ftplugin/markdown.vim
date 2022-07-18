@@ -15,5 +15,6 @@
 " 
 " set formatexpr=OneSentencePerLine()
 
-set textwidth=80
+let g:sentencer_textwidth = 80
+let g:sentencer_overflow = 0
 set formatexpr=sentencer#Format()

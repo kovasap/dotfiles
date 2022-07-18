@@ -699,6 +699,12 @@ cmp.setup({
   }
 })
 
+cmp.setup.cmdline("/", {sources = {{name = "buffer"}}})
+
+cmp.setup.cmdline(":", {
+    sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
+})
+
 -- Setup lspconfig.
 -- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
 --   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
