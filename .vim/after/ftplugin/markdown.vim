@@ -15,6 +15,11 @@
 " 
 " set formatexpr=OneSentencePerLine()
 
+set textwidth=0
+set colorcolumn=80
+set formatoptions=
+syntax on
 let g:sentencer_textwidth = 80
 let g:sentencer_overflow = 0
 set formatexpr=sentencer#Format()
+autocmd InsertLeave * execute "normal gwap"

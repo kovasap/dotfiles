@@ -86,7 +86,6 @@ require 'paq' {
   'ruanyl/vim-gh-line';
   'ggandor/leap.nvim';
   'narutoxy/dim.lua';
-  'unblevable/quick-scope';
 }
 
 
@@ -361,7 +360,7 @@ map('n', 'yf', ':let @+ = expand("%:p")<CR>')
 -- personal website writing easier).
 -- TODO add this to a local vimrc file in the website directory, once I find a
 -- clean way to do that.
-map('n', 'cl',
+map('n', 'yl',
     ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
 
 -- Add keybind hints
