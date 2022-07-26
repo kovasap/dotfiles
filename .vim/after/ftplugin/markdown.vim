@@ -15,11 +15,17 @@
 " 
 " set formatexpr=OneSentencePerLine()
 
+syntax on
 set textwidth=0
 set colorcolumn=80
-set formatoptions=
-syntax on
+set formatoptions=n
+" See https://github.com/whonore/vim-sentencer/issues/3#issuecomment-1193397610
+" https://blog.siddharthkannan.in/vim/configuration/2019/11/02/format-list-pat-and-vim/
+set formatlistpat=^\s*\d+\.\s+|^[-*+]\s+|^[^\ze[^\]]+]:
+
 let g:sentencer_textwidth = 80
 let g:sentencer_overflow = 0
 set formatexpr=sentencer#Format()
-autocmd InsertLeave * execute "normal gwap"
+autocmd InsertLeave * execute "normal gqip}b$"
+" This keeps the cursor in the same place but doesn't use formatexpr.
+" autocmd InsertLeave * execute "normal gwap"

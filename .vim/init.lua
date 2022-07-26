@@ -97,6 +97,12 @@ require('leap').set_default_keymaps()
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
+-- Colemak rebind
+map('n', 'e', 'j')
+map('n', 'E', 'J')
+map('v', 'e', 'j')
+map('v', 'E', 'J')
+
 -- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
 -- paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
@@ -115,8 +121,6 @@ map('v', '<C-u>', '<tab>')
 map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
--- Space to search case insensitively, to encourage more frequent use for
--- navigation.
 -- paq 'ggvgc/vim-fuzzysearch'
 map('n', '<space>', ':')
 map('v', '<space>', ':')
@@ -390,7 +394,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Use alt-j/k to switch between split windows.
 map('n', '<A-k>', '<C-w>W')
-map('n', '<A-j>', '<C-w>w')
+map('n', '<A-e>', '<C-w>w')
 
 -- Make vertical split with alt-v, moving the next split.
 map('n', '<A-v>', ':vsplit | wincmd w<CR>')
