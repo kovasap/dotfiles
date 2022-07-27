@@ -106,14 +106,14 @@ map('v', 'E', 'J')
 -- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
 -- paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
-map('n', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('n', '<C-e>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<C-u>', '<tab>')
 -- map('n', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('n', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('n', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<C-j>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('v', '<C-e>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('v', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<C-u>', '<tab>')
@@ -827,6 +827,23 @@ end
 -- paq { 'neovim/nvim-lspconfig', run=install_python_ls }
 local nvim_lsp = require('lspconfig')
 
+-- Range formatting
+-- See https://github.com/neovim/neovim/issues/14680
+function format_range_operator()
+  local old_func = vim.go.operatorfunc
+  _G.op_func_formatting = function()
+    local start = vim.api.nvim_buf_get_mark(0, '[')
+    local finish = vim.api.nvim_buf_get_mark(0, ']')
+    vim.lsp.buf.range_formatting({}, start, finish)
+    vim.go.operatorfunc = old_func
+    _G.op_func_formatting = nil
+  end
+  vim.go.operatorfunc = 'v:lua.op_func_formatting'
+  vim.api.nvim_feedkeys('g@', 'n', false)
+end
+vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {noremap = true})
+
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -856,24 +873,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+  -- buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 end
-
--- Range formatting
--- See https://github.com/neovim/neovim/issues/14680
-function format_range_operator()
-  local old_func = vim.go.operatorfunc
-  _G.op_func_formatting = function()
-    local start = vim.api.nvim_buf_get_mark(0, '[')
-    local finish = vim.api.nvim_buf_get_mark(0, ']')
-    vim.lsp.buf.range_formatting({}, start, finish)
-    vim.go.operatorfunc = old_func
-    _G.op_func_formatting = nil
-  end
-  vim.go.operatorfunc = 'v:lua.op_func_formatting'
-  vim.api.nvim_feedkeys('g@', 'n', false)
-end
-vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {noremap = true})
 
 
 --                          /// Language - Python ///
