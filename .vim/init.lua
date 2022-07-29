@@ -86,8 +86,8 @@ require 'paq' {
   'ruanyl/vim-gh-line';
   'ggandor/leap.nvim';
   'narutoxy/dim.lua';
+  'romainl/vim-cool';
 }
-
 
 --                          /// Navigation ///
 
@@ -126,8 +126,10 @@ map('n', '<space>', ':')
 map('v', '<space>', ':')
 -- map('n', '<space>', ':FuzzySearch<CR>')
 -- map('n', '<space>', [[/\c]])
--- Hit escape twice to clear old search highlighting.
+-- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
+-- this obselete.
 map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
+vim.g.CoolTotalMatches = true
 
 --                          /// Editing and Formatting ///
 
