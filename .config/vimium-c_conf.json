@@ -1,64 +1,64 @@
 {
 	"name": "Vimium C",
-	"@time": "8/5/2021, 9:34:05 PM",
-	"time": 1628224445198,
+	"@time": "7/27/2022, 1:12:41 PM",
+	"time": 1658952761263,
 	"environment": {
-		"extension": "1.90.2",
+		"extension": "1.98.3",
 		"platform": "linux",
-		"chrome": 92
+		"chromium": "103"
 	},
 	"exclusionRules": [
 		{
-			"pattern": "^https?://mail.google.com/*",
-			"passKeys": "# / ? c d e h i l l l m n p r s u x "
+			"passKeys": "# / ? c d e h i l l l m n p r s u x ",
+			"pattern": "^https?://mail.google.com/*"
 		},
 		{
-			"pattern": "^https?://www\\.mymeq\\.com/*",
-			"passKeys": "0 1 2 3 4 5 6 7 8 9 "
+			"passKeys": "0 1 2 3 4 5 6 7 8 9 ",
+			"pattern": "^https?://www\\.mymeq\\.com/*"
 		},
 		{
-			"pattern": "^https?://cs\\.corp\\.google\\.com/*",
-			"passKeys": "? b h l r "
+			"passKeys": "? b h l r ",
+			"pattern": "^https?://cs\\.corp\\.google\\.com/*"
 		},
 		{
-			"pattern": "^https?://cider\\.corp\\.google\\.com/*",
-			"passKeys": ""
+			"passKeys": "",
+			"pattern": "^https?://cider\\.corp\\.google\\.com/*"
 		},
 		{
-			"pattern": ":https://plx.corp.google.com/",
-			"passKeys": ""
+			"passKeys": "",
+			"pattern": ":https://plx.corp.google.com/"
 		},
 		{
-			"pattern": ":https://colab.corp.google.com/",
-			"passKeys": ""
+			"passKeys": "",
+			"pattern": ":https://colab.corp.google.com/"
 		},
 		{
-			"pattern": ":https://play.google.com/",
-			"passKeys": "/ "
+			"passKeys": "/ ",
+			"pattern": ":https://play.google.com/"
 		},
 		{
-			"pattern": ":https://calendar.google.com/",
-			"passKeys": "/ 1 2 3 4 5 ? c e j k "
+			"passKeys": "/ 1 2 3 4 5 ? c e j k ",
+			"pattern": ":https://calendar.google.com/"
 		},
 		{
-			"pattern": ":https://critique-ng.corp.google.com/",
-			"passKeys": "/ r c n p"
+			"passKeys": "/ r c n p",
+			"pattern": ":https://critique-ng.corp.google.com/"
 		},
 		{
-			"pattern": ":https://source.corp.google.com/",
-			"passKeys": "? b l r "
+			"passKeys": "? b l r ",
+			"pattern": ":https://source.corp.google.com/"
 		},
 		{
-			"pattern": "^https?://critique\\.corp\\.google\\.com/*",
-			"passKeys": "/ c n p r "
+			"passKeys": "/ G c n p r ",
+			"pattern": "^https?://critique\\.corp\\.google\\.com/*"
 		},
 		{
-			"pattern": "^https?://about:blank*/",
-			"passKeys": "t "
+			"passKeys": "t ",
+			"pattern": "^https?://about:blank*/"
 		},
 		{
-			"pattern": ":https://play.google.com/",
-			"passKeys": "/ "
+			"passKeys": "/ ",
+			"pattern": ":https://play.google.com/"
 		}
 	],
 	"extAllowList": [
@@ -72,7 +72,8 @@
 	"filterLinkHints": true,
 	"grabBackFocus": true,
 	"keyMappings": [
-		"map <a-c-k> moveTabLeft",
+		"#!no-check",
+		"map <a-c-e> moveTabLeft",
 		"map <a-c-j> moveTabRight",
 		"map <a-c-l> moveTabToNextWindow",
 		"",
@@ -80,15 +81,15 @@
 		"map <c-/> Vomnibar.activateInNewTab",
 		"",
 		"map <a-k> previousTab",
-		"map <a-j> nextTab",
+		"map <a-e> nextTab",
 		"map <a-h> goBack",
 		"map <a-l> goForward",
+		"map e scrollDown",
 		"unmap J",
 		"unmap K",
 		"unmap H",
 		"unmap L",
 		""
 	],
-	"showAdvancedCommands": true,
-	"showAdvancedOptions": true
+	"vimSync": true
 }
