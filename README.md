@@ -203,6 +203,8 @@ deactivate
 
 # Make sure brightness controls work
 sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
+# Make sure this happens every time on boot
+sudo cp rc.local /etc/rc.local
 
 # Colemak with capslock as escape
 sudo cp us-xkb-symbols /usr/share/X11/xkb/symbols/us
