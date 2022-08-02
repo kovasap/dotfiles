@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+chmod a+rw /sys/class/backlight/intel_backlight/brightness
+echo "options snd-hda-intel model=generic" | tee -a /etc/modprobe.d/alsa-base.conf
+exit 0
