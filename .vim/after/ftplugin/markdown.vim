@@ -22,7 +22,7 @@ set formatoptions=n
 
 " See https://github.com/whonore/vim-sentencer/issues/3#issuecomment-1193397610
 " https://blog.siddharthkannan.in/vim/configuration/2019/11/02/format-list-pat-and-vim/
-let &formatlistpat='^\s*\d+\.\s+|^\s*[-*+]\s+|^[^\ze[^\]]+]:'
+let &formatlistpat='^\s*\d\+\.\s\+\|^\s*[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 
 let g:sentencer_textwidth = 80
 let g:sentencer_overflow = 0
