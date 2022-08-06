@@ -923,6 +923,18 @@ vim.cmd('let g:conjure#eval#result_register="+"')
 -- https://github.com/Olical/conjure/wiki/Quick-start:-ClojureScript-(shadow-cljs)
 -- for details.
 
+-- Clerk: https://github.com/nextjournal/clerk#neovim--conjure
+vim.cmd(
+[[
+function! ClerkShow()
+  exe "w"
+  exe "ConjureEval (nextjournal.clerk/show! \"" . expand("%:p") . "\")"
+endfunction
+
+nmap <silent> <localleader>ec :execute ClerkShow()<CR>
+]]
+)
+
 -- Generate an example for the spec below the cursor.
 map('n', '<localleader>eg',
     ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
