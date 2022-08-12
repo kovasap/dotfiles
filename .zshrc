@@ -106,6 +106,9 @@ precmd_functions+=(_fix_cursor)
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
 
+bindkey -M vicmd 'e' down-line-or-history
+
+
 # Use system clipboard with vi mode
 zplug "kutsan/zsh-system-clipboard"
 
