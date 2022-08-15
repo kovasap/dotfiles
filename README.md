@@ -207,7 +207,8 @@ sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
 sudo cp rc.local /etc/rc.local
 
 # Colemak with capslock as escape
-sudo cp us-xkb-symbols /usr/share/X11/xkb/symbols/us
+sudo cp keyboard/us-xkb-symbols /usr/share/X11/xkb/symbols/us
+sudo cp keyboard/pc-types /usr/share/X11/xkb/types/pc
 
 # Build and install launcher
 # https://github.com/enkore/j4-dmenu-desktop

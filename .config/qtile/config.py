@@ -161,8 +161,8 @@ keys.extend([
 
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
-    Key([mod, 'shift'], "equal", lazy.layout.maximize()),
-    Key([mod, 'shift'], "minus", lazy.layout.minimize()),
+    Key([mod], "bracketright", lazy.layout.maximize()),
+    Key([mod], "bracketleft", lazy.layout.minimize()),
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
 

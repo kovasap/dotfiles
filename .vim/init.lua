@@ -256,7 +256,9 @@ require("nvim-surround").setup({
 -- Automatically close parens.
 -- paq 'windwp/nvim-autopairs'
 local npairs = require('nvim-autopairs')
-npairs.setup()
+npairs.setup({
+  disable_filetype = { "TelescopePrompt" , "clojure" },
+})
 
 -- Automatically align code.
 -- paq 'junegunn/vim-easy-align'
