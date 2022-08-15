@@ -179,8 +179,8 @@ vim.bo.autoindent = true
 
 -- Reformat paragraphs when typing anywhere in them (not just when adding to
 -- their end).
-vim.cmd("command AutoWrapToggle if &fo =~ 'a' | set fo-=a | else | set fo+=a | endif")
-map('n', '<C-a>', ':AutoWrapToggle<CR>')
+-- vim.cmd("command AutoWrapToggle if &fo =~ 'a' | set fo-=a | else | set fo+=a | endif")
+-- map('n', '<C-a>', ':AutoWrapToggle<CR>')
 
 -- Note that this command imports all ftplugin files, which may have unindended
 -- effects.

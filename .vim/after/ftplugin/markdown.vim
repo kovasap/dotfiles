@@ -27,6 +27,9 @@ let &formatlistpat='^\s*\d\+\.\s\+\|^\s*[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let g:sentencer_textwidth = 80
 let g:sentencer_overflow = 0
 set formatexpr=sentencer#Format()
-autocmd InsertLeave * execute "normal gqip}b$"
+
+let g:reformat_sentences = 1
+nnoremap <C-a> :let g:reformat_sentences = !get(g:, 'reformat_sentences', 1)<cr>
+autocmd InsertLeave * if get(g:, 'reformat_sentences', 1) | execute "normal gqip}b$" | endif
 " This keeps the cursor in the same place but doesn't use formatexpr.
 " autocmd InsertLeave * execute "normal gwap"

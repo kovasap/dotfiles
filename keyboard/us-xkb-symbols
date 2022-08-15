@@ -856,7 +856,6 @@ xkb_symbols "colemak" {
 
     key <CAPS> { [        Escape,      BackSpace,          Escape,           Escape ] };
     key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
-    // Make ctrl+space = backspace (control becomes "shift" here)
     key <SPCE> { 
           type="PC_CONTROL_LEVEL2_ALT_LEVEL3",
           symbols[Group1]=[    space,        colon,  BackSpace] };
