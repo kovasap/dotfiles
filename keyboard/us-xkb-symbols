@@ -857,8 +857,11 @@ xkb_symbols "colemak" {
     key <CAPS> { [        Escape,      BackSpace,          Escape,           Escape ] };
     key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
     key <SPCE> { 
-          type="PC_CONTROL_LEVEL2_ALT_LEVEL3",
-          symbols[Group1]=[    space,        colon,  BackSpace] };
+          // type="PC_CONTROL_LEVEL2_ALT_LEVEL3",
+          // type="PC_CONTROL_LEVEL2",
+          // symbols[Group1]=[    space,        colon,  BackSpace] };
+          type="PC_ALT_LEVEL2",
+          symbols[Group1]=[    space,        BackSpace] };
 
     // key <RALT> { [ BackSpace,       BackSpace                                   ] };
     key <RALT> { [        minus,   underscore,          endash,           emdash ] };
