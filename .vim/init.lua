@@ -122,8 +122,8 @@ map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true 
 map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
 -- paq 'ggvgc/vim-fuzzysearch'
-map('n', '<space>', ':')
-map('v', '<space>', ':')
+-- map('n', '<space>', ':')
+-- map('v', '<space>', ':')
 -- map('n', '<space>', ':FuzzySearch<CR>')
 -- map('n', '<space>', [[/\c]])
 -- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
@@ -917,7 +917,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 --                          /// Language - Clojure ///
 
 -- For Conjure
-vim.g.maplocalleader=","
+vim.g.maplocalleader=" "
 vim.cmd('let g:conjure#eval#result_register="+"')
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
@@ -936,6 +936,13 @@ endfunction
 nmap <silent> <localleader>ec :execute ClerkShow()<CR>
 ]]
 )
+
+map('n', '<localleader>ed',
+    ':ConjureEval ' ..
+    '(require \'[flow-storm.api :refer [remote-connect]] ' ..
+    -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
+    ')' ..
+    ' (remote-connect)<CR>')
 
 -- Generate an example for the spec below the cursor.
 map('n', '<localleader>eg',
