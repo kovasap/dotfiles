@@ -57,11 +57,9 @@ through my setup.
 
 ## Installation
 
-```
-# Install all apt dependencies
-sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+### For All Systems (headless and graphical)
 
+```
 # Setup ssh so we can pull github repos
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 ssh-keygen -t ed25519 -C "kovas.palunas@gmail.com"
@@ -79,6 +77,10 @@ git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git checkout master
 
+# Install all apt dependencies
+sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
 # Nightly rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup toolchain link system /usr
@@ -88,6 +90,41 @@ rustup install nightly
 # See https://difftastic.wilfred.me.uk/introduction.html
 cargo install difftastic
 
+# Install latest neovim
+# https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
+# If installing from a package manager like apt, make sure neovim-runtime is
+# also installed, otherwise some plugins wont work (like lsp and treesitter).
+#
+# Install Paq neovim package manager
+git clone --depth=1 https://github.com/savq/paq-nvim.git \
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+# Install plugins
+nv -c ":PaqInstall"
+# Install vim python package
+pip install neovim
+pip install 'python-lsp-server[all]'
+
+# Install oh my zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+# Install zplug
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+# Install p10k zsh theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Install autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# Open a new zsh terminal and run:
+zplug install
+
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --key-bindings --completion --no-update-rc
+```
+
+### Graphical Only
+
+```
 # TODO remove if unused
 # Link udev rules to /etc/udev/rules.d/
 sudo ln -s ~/udev_rules/mouse.rules /etc/udev/rules.d/mouse.rules
@@ -119,20 +156,6 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/
 
 # Install Joker
 # https://github.com/candid82/joker/releases
-
-# Install latest neovim
-# https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
-# If installing from a package manager like apt, make sure neovim-runtime is
-# also installed, otherwise some plugins wont work (like lsp and treesitter).
-#
-# Install Paq neovim package manager
-git clone --depth=1 https://github.com/savq/paq-nvim.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-# Install plugins
-nv -c ":PaqInstall"
-# Install vim python package
-pip install neovim
-pip install 'python-lsp-server[all]'
 
 # Install grive2 for google drive syncing
 git clone https://github.com/vitalif/grive2
@@ -172,23 +195,6 @@ cd ~/
 # Installing new fonts should just involve copying them to that dir and running:
 fc-cache -f -v
     
-# Install oh my zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
-# Install zplug
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-# Install p10k zsh theme
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-# Install autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# Open a new zsh terminal and run:
-zplug install
-
-# Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --key-bindings --completion --no-update-rc
-
 # Install qtile
 git clone git@github.com:kovasap/qtile.git
 cd qtile
