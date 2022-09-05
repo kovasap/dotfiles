@@ -25,6 +25,8 @@ libpulse-dev
 # Install maim for cool screenshot-to-clipboard functionality with printscreen.
 maim
 
+calibre
+
 tldr # https://tldr.sh/
 bat # https://github.com/sharkdp/bat
 cmatrix

@@ -17,25 +17,14 @@
 
   ;; External dependencies
  
-  :deps {
-    cljfmt {:mvn/version "0.6.4"}
-  }
-
-  ;; Aliases
-	;;   resolve-deps aliases (-R) affect dependency resolution, options:
-	;;     :exdra-deps - specifies extra deps to add to :deps
-	;;     :override-deps - specifies a coordinate to use instead of that in :deps
-	;;     :default-deps - specifies a coordinate to use for a lib if one isn't found
-	;;   make-classpath aliases (-C) affect the classpath generation, options:
-	;;     :extra-paths - vector of additional paths to add to the classpath
-	;;     :classpath-overrides - map of lib to path that overrides the result of resolving deps
-
+  :deps {hashp/hashp {:mvn/version "0.2.1"}
+         cljfmt/cljfmt {:mvn/version "0.6.4"}}
   :aliases {
-    :cider
-    {:extra-deps {cider/cider-nrepl {:mvn/version "RELEASE"}}
-     :main-opts ["-m" "nrepl.cmdline"
-                 "--middleware" "[cider.nrepl/cider-middleware]"]}
-  }
+            :cider
+            {:extra-deps {cider/cider-nrepl {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "nrepl.cmdline"
+                         "--middleware" "[cider.nrepl/cider-middleware]"]}}}
+  
 
   ;; Provider attributes
 
@@ -43,4 +32,4 @@
   ;;   "central" {:url "https://repo1.maven.org/maven2/"}
   ;;   "clojars" {:url "https://repo.clojars.org/"}
   ;; }
-}
+

@@ -396,15 +396,15 @@ vim.o.autochdir = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Use alt-j/k to switch between split windows.
-map('n', '<A-k>', '<C-w>W')
-map('n', '<A-e>', '<C-w>w')
+-- Use alt-z/c to switch between split windows.
+map('n', 'æ', '<C-w>W')
+map('n', 'ç', '<C-w>w')
 
 -- Make vertical split with alt-v, moving the next split.
-map('n', '<A-v>', ':vsplit | wincmd w<CR>')
+map('n', 'œ', ':vsplit | wincmd w<CR>')
 
--- Close windows with alt-w.
-map('n', '<A-w>', '<C-w>c')
+-- Close windows with alt-x.
+map('n', '¢', '<C-w>c')
 
 -- Reset window sizings to be the same with alt-=.
 map('n', '<A-=>', '<C-w>=')
