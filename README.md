@@ -67,7 +67,7 @@ ssh-keygen -t ed25519 -C "kovas.palunas@gmail.com"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 # Go to https://github.com/settings/ssh/new and add the keys
-# by pasting in the output of:
+# by pasting in the output (without newlines) of:
 cat ~/.ssh/id_ed25519.pub
 
 # Install this repo, allowing existing files in home dir to exist.
@@ -75,6 +75,7 @@ cat ~/.ssh/id_ed25519.pub
 cd ~/
 git init .
 git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
+git pull
 git checkout master
 
 # Install all apt dependencies
