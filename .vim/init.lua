@@ -712,9 +712,6 @@ map('n', '<C-w>', ':wqa<CR>')
 -- paq {'junegunn/fzf', run = vim.fn['fzf#install']}
 -- paq { 'junegunn/fzf.vim' }
 vim.g.fzf_history_dir = '~/.local/share/fzf-history'
-vim.g.fzf_layout = {
-    window = 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
-}
 
 -- Search in files starting from directory with current buffer and working way
 -- up with a maximum of 100 files using the , key.
@@ -1079,7 +1076,6 @@ function format_range_operator(motion)
 end
 vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("")<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<localleader>f', '<cmd>lua format_range_operator("ip")<CR>', {noremap = true})
--- map('n', '<localleader>f', ':exec "normal! <localleader>gip"<CR>')
 
 
 -- Use an on_attach function to only map the following keys

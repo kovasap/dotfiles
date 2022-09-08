@@ -134,6 +134,9 @@ sudo udevadm control --reload
 # Can monitor activity with:
 # udevadm monitor --environment
 
+# Required for copyq to work
+sudo dbus-uuidgen > /var/lib/dbus/machine-id
+
 # Install activitywatch
 # https://docs.activitywatch.net/en/latest/getting-started.html
 
