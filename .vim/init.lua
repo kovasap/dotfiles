@@ -89,6 +89,10 @@ require 'paq' {
   'romainl/vim-cool';
 }
 
+--                          /// General ///
+
+vim.g.maplocalleader=" "
+
 --                          /// Navigation ///
 
 require('leap').set_default_keymaps()
@@ -1061,7 +1065,7 @@ local nvim_lsp = require('lspconfig')
 
 -- Range formatting
 -- See https://github.com/neovim/neovim/issues/14680
-function format_range_operator()
+function format_range_operator(motion)
   local old_func = vim.go.operatorfunc
   _G.op_func_formatting = function()
     local start = vim.api.nvim_buf_get_mark(0, '[')
@@ -1071,9 +1075,11 @@ function format_range_operator()
     _G.op_func_formatting = nil
   end
   vim.go.operatorfunc = 'v:lua.op_func_formatting'
-  vim.api.nvim_feedkeys('g@', 'n', false)
+  vim.api.nvim_feedkeys('g@' .. motion, 'n', false)
 end
-vim.api.nvim_set_keymap('n', 'gQ', '<cmd>lua format_range_operator()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("")<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<localleader>f', '<cmd>lua format_range_operator("ip")<CR>', {noremap = true})
+-- map('n', '<localleader>f', ':exec "normal! <localleader>gip"<CR>')
 
 
 -- Use an on_attach function to only map the following keys
@@ -1145,7 +1151,6 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 --                          /// Language - Clojure ///
 
 -- For Conjure
-vim.g.maplocalleader=" "
 vim.cmd('let g:conjure#eval#result_register="+"')
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
