@@ -86,6 +86,8 @@ require 'paq' {
   'ggandor/leap.nvim';
   'narutoxy/dim.lua';
   'romainl/vim-cool';
+  'google/vim-maktaba';
+  'google/vim-codefmt';
 }
 
 --                          /// General ///
@@ -1085,7 +1087,10 @@ function format_range_operator(motion)
   vim.api.nvim_feedkeys('g@' .. motion, 'n', false)
 end
 vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("")<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<localleader>f', '<cmd>lua format_range_operator("ip")<CR>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<localleader>f', '<cmd>lua format_range_operator("ip")<CR>', {noremap = true})
+-- https://stackoverflow.com/a/54647696 explains why the \<lt> escape is
+-- important
+vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], {noremap = true})
 
 
 -- Use an on_attach function to only map the following keys

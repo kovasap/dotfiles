@@ -160,6 +160,8 @@ https://github.com/yshui/picom/pull/247 working properly.
 # Install clojure tooling
 # https://clojure-lsp.io/installation/#script
 sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
+# zprint for formatting https://github.com/kkinnear/zprint/releases
+
 
 # Install Joker
 # https://github.com/candid82/joker/releases
