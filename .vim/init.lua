@@ -70,7 +70,6 @@ require 'paq' {
   'nvim-lua/lsp-status.nvim';
   'mgedmin/python-imports.vim';
   'Olical/conjure';
-  'venantius/vim-cljfmt';
   -- Might need to run the cargo command from
   -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
   {'eraserhd/parinfer-rust', 'cargo build --release'};
@@ -632,14 +631,27 @@ vim.g.loaded_netrwPlugin = 1
 map('n', 'æ', '<C-w>W')
 map('n', 'ç', '<C-w>w')
 
--- Make vertical split with alt-v, moving the next split.
-map('n', 'œ', ':vsplit | wincmd w<CR>')
+-- Make vertical split with ctrl-t, moving the next split.
+map('n', '<C-t>', ':vsplit | wincmd w<CR>')
 
 -- Close windows with alt-x.
-map('n', '¢', '<C-w>c')
+-- map('n', '¢', '<C-w>c')
 
--- Reset window sizings to be the same with alt-=.
-map('n', '<A-=>', '<C-w>=')
+-- Save/close all buffers with ctrl-w.
+-- map('n', '<C-w>', ':wqa<CR>')
+
+vim.keymap.set("n", "<C-w>", function()
+  print("hi")
+  local win_amount = #vim.api.nvim_tabpage_list_wins(0)
+  print(win_amount)
+  if win_amount == 1 then
+    vim.cmd(':wqa<CR>')
+  else
+    vim.cmd('wincmd q')
+  end
+end,
+{noremap = true})
+
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
 
@@ -703,8 +715,6 @@ augroup END
 
 -- Save all buffers with ctrl-s.
 map('n', '<C-S>', ':wa<CR>')
--- Save/close all buffers with ctrl-w.
-map('n', '<C-w>', ':wqa<CR>')
 
 
 --                          /// Searching ///
@@ -1195,7 +1205,6 @@ command! AutoConjureSelect call AutoConjureSelect()
 autocmd BufReadPost *.cljs :AutoConjureSelect
 ]]
 )
--- paq 'venantius/vim-cljfmt'
 -- paq {'eraserhd/parinfer-rust', 'cargo build --release'}
 -- https://clojure-lsp.github.io/clojure-lsp/installation/
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)

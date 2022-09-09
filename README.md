@@ -101,6 +101,9 @@ git clone --depth=1 https://github.com/savq/paq-nvim.git \
     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
 # Install plugins
 nv -c ":PaqInstall"
+cd .local/share/nvim/site/pack/paqs/start/parinfer-rust/
+cargo build --release
+cd ~/
 # Install vim python package
 pip install neovim
 pip install 'python-lsp-server[all]'
