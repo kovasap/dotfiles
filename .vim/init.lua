@@ -13,8 +13,8 @@ function dump(o)
    if type(o) == 'table' then
       local s = '{ '
       for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
+         if type(k) ~= 'number' then k = '"'..tostring(k)..'"' end
+         s = s .. '['..tostring(k)..'] = ' .. dump(v) .. ','
       end
       return s .. '} '
    else
@@ -25,6 +25,101 @@ end
 
 --                          /// Plugin Management ///
 
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+local function notInGoogle3()
+    print(string.find(vim.fn.getcwd(), '/google/src') == nil)
+  return string.find(vim.fn.getcwd(), '/google/src') == nil
+end
+
+local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
+
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+  use 'yuttie/comfortable-motion.vim';
+  use 'ggvgc/vim-fuzzysearch';
+  use 'AndrewRadev/splitjoin.vim';
+  use 'flwyd/vim-conjoin';
+  use 'tpope/vim-sleuth';
+  use 'tpope/vim-abolish';
+  use 'kylechui/nvim-surround';
+  use 'tpope/vim-repeat';
+  use 'windwp/nvim-autopairs';
+  use 'junegunn/vim-easy-align';
+  use 'RRethy/vim-illuminate';
+  use 'camspiers/animate.vim';
+  use 'lukas-reineke/indent-blankline.nvim';
+  use { 'dstein64/nvim-scrollview', branch = 'main' };
+  use 'vim-airline/vim-airline';
+  use 'folke/which-key.nvim';
+  use 'zhimsel/vim-stay';
+  use 'justinmk/vim-dirvish';
+  use 'tpope/vim-eunuch';
+  use 'qpkorr/vim-bufkill';
+  use 'kana/vim-altr';
+  use 'wsdjeg/vim-fetch';
+  use {'junegunn/fzf', run = vim.fn['fzf#install']};
+  use { 'junegunn/fzf.vim' };
+  use 'pbogut/fzf-mru.vim';
+  use 'ludovicchabant/vim-lawrencium';
+  use 'mhinz/vim-signify';
+  use {'rafamadriz/friendly-snippets'};
+  use {'hrsh7th/cmp-buffer'};
+  use {'hrsh7th/cmp-emoji'};
+  use {'hrsh7th/cmp-calc'};
+  use {'hrsh7th/cmp-path'};
+  use {'hrsh7th/cmp-nvim-lua'};
+  use {'f3fora/cmp-spell'};
+  use {'hrsh7th/cmp-nvim-lsp'};
+  use {'hrsh7th/cmp-vsnip'};
+  use {'hrsh7th/vim-vsnip'};
+  use {'hrsh7th/vim-vsnip-integ'};
+  use {'hrsh7th/nvim-cmp'};
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
+  use 'nvim-treesitter/nvim-treesitter-textobjects';
+  use 'nvim-treesitter/playground';
+  use 'p00f/nvim-ts-rainbow';
+  use { 'neovim/nvim-lspconfig', run = install_python_ls };
+  use 'nvim-lua/lsp-status.nvim';
+  use 'mgedmin/python-imports.vim';
+  use 'Olical/conjure';
+  -- Might need to run the cargo command from
+  -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
+  use {'eraserhd/parinfer-rust', run = 'cargo build --release'};
+  use 'mechatroner/rainbow_csv';
+  use 'masukomi/vim-markdown-folding';
+  use 'ron89/thesaurus_query.vim';
+  use 'tikhomirov/vim-glsl';
+  use 'dart-lang/dart-vim-plugin';
+  use 'rkitover/vimpager';
+  use 'habamax/vim-godot';
+  use 'dhruvasagar/vim-table-mode';
+  use 'whonore/vim-sentencer';
+  use 'ruanyl/vim-gh-line';
+  use 'ggandor/leap.nvim';
+  use 'narutoxy/dim.lua';
+  use 'romainl/vim-cool';
+  use {'google/vim-maktaba', opt = true, cond = notInGoogle3, disable = not_in_google3};
+  use {'google/vim-codefmt', opt = true, cond = notInGoogle3, disable = not_in_google3};
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end)
+
 -- TODO make this install automatically if the file is not found.
 -- git clone https://github.com/savq/paq-nvim.git \
 --     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
@@ -32,77 +127,77 @@ end
 -- local paq = require'paq-nvim'.paq
 -- paq { 'savq/paq-nvim', opt=true }
 
-require 'paq' {
-  'savq/paq-nvim';
-  -- TODO look into how to integrate with treesitter highlights
-  -- 'jaxbot/semantic-highlight.vim';
-  'yuttie/comfortable-motion.vim';
-  'ggvgc/vim-fuzzysearch';
-  'AndrewRadev/splitjoin.vim';
-  'flwyd/vim-conjoin';
-  'tpope/vim-sleuth';
-  'tpope/vim-abolish';
-  -- 'tpope/vim-surround';
-  'kylechui/nvim-surround';
-  'tpope/vim-repeat';
-  'windwp/nvim-autopairs';
-  'junegunn/vim-easy-align';
-  'RRethy/vim-illuminate';
-  'camspiers/animate.vim';
-  'lukas-reineke/indent-blankline.nvim';
-  { 'dstein64/nvim-scrollview', branch = 'main' };
-  'vim-airline/vim-airline';
-  'folke/which-key.nvim';
-  'zhimsel/vim-stay';
-  'justinmk/vim-dirvish';
-  'tpope/vim-eunuch';
-  'qpkorr/vim-bufkill';
-  'kana/vim-altr';
-  'wsdjeg/vim-fetch';
-  {'junegunn/fzf', run = vim.fn['fzf#install']};
-  { 'junegunn/fzf.vim' };
-  'pbogut/fzf-mru.vim';
-  'ludovicchabant/vim-lawrencium';
-  'mhinz/vim-signify';
-  {'rafamadriz/friendly-snippets'};
-  {'hrsh7th/cmp-buffer'};
-  {'hrsh7th/cmp-emoji'};
-  {'hrsh7th/cmp-calc'};
-  {'hrsh7th/cmp-path'};
-  {'hrsh7th/cmp-nvim-lua'};
-  {'f3fora/cmp-spell'};
-  {'hrsh7th/cmp-nvim-lsp'};
-  {'hrsh7th/cmp-vsnip'};
-  {'hrsh7th/vim-vsnip'};
-  {'hrsh7th/vim-vsnip-integ'};
-  {'hrsh7th/nvim-cmp'};
-  {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
-  'nvim-treesitter/nvim-treesitter-textobjects';
-  'nvim-treesitter/playground';
-  'p00f/nvim-ts-rainbow';
-  { 'neovim/nvim-lspconfig', run=install_python_ls };
-  'nvim-lua/lsp-status.nvim';
-  'mgedmin/python-imports.vim';
-  'Olical/conjure';
-  -- Might need to run the cargo command from
-  -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
-  {'eraserhd/parinfer-rust', 'cargo build --release'};
-  'mechatroner/rainbow_csv';
-  'masukomi/vim-markdown-folding';
-  'ron89/thesaurus_query.vim';
-  'tikhomirov/vim-glsl';
-  'dart-lang/dart-vim-plugin';
-  'rkitover/vimpager';
-  'habamax/vim-godot';
-  'dhruvasagar/vim-table-mode';
-  'whonore/vim-sentencer';
-  'ruanyl/vim-gh-line';
-  'ggandor/leap.nvim';
-  'narutoxy/dim.lua';
-  'romainl/vim-cool';
-  'google/vim-maktaba';
-  'google/vim-codefmt';
-}
+-- require 'paq' {
+--   'savq/paq-nvim';
+--   -- TODO look into how to integrate with treesitter highlights
+--   -- 'jaxbot/semantic-highlight.vim';
+--   'yuttie/comfortable-motion.vim';
+--   'ggvgc/vim-fuzzysearch';
+--   'AndrewRadev/splitjoin.vim';
+--   'flwyd/vim-conjoin';
+--   'tpope/vim-sleuth';
+--   'tpope/vim-abolish';
+--   -- 'tpope/vim-surround';
+--   'kylechui/nvim-surround';
+--   'tpope/vim-repeat';
+--   'windwp/nvim-autopairs';
+--   'junegunn/vim-easy-align';
+--   'RRethy/vim-illuminate';
+--   'camspiers/animate.vim';
+--   'lukas-reineke/indent-blankline.nvim';
+--   { 'dstein64/nvim-scrollview', branch = 'main' };
+--   'vim-airline/vim-airline';
+--   'folke/which-key.nvim';
+--   'zhimsel/vim-stay';
+--   'justinmk/vim-dirvish';
+--   'tpope/vim-eunuch';
+--   'qpkorr/vim-bufkill';
+--   'kana/vim-altr';
+--   'wsdjeg/vim-fetch';
+--   {'junegunn/fzf', run = vim.fn['fzf#install']};
+--   { 'junegunn/fzf.vim' };
+--   'pbogut/fzf-mru.vim';
+--   'ludovicchabant/vim-lawrencium';
+--   'mhinz/vim-signify';
+--   {'rafamadriz/friendly-snippets'};
+--   {'hrsh7th/cmp-buffer'};
+--   {'hrsh7th/cmp-emoji'};
+--   {'hrsh7th/cmp-calc'};
+--   {'hrsh7th/cmp-path'};
+--   {'hrsh7th/cmp-nvim-lua'};
+--   {'f3fora/cmp-spell'};
+--   {'hrsh7th/cmp-nvim-lsp'};
+--   {'hrsh7th/cmp-vsnip'};
+--   {'hrsh7th/vim-vsnip'};
+--   {'hrsh7th/vim-vsnip-integ'};
+--   {'hrsh7th/nvim-cmp'};
+--   {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
+--   'nvim-treesitter/nvim-treesitter-textobjects';
+--   'nvim-treesitter/playground';
+--   'p00f/nvim-ts-rainbow';
+--   { 'neovim/nvim-lspconfig', run=install_python_ls };
+--   'nvim-lua/lsp-status.nvim';
+--   'mgedmin/python-imports.vim';
+--   'Olical/conjure';
+--   -- Might need to run the cargo command from
+--   -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
+--   {'eraserhd/parinfer-rust', 'cargo build --release'};
+--   'mechatroner/rainbow_csv';
+--   'masukomi/vim-markdown-folding';
+--   'ron89/thesaurus_query.vim';
+--   'tikhomirov/vim-glsl';
+--   'dart-lang/dart-vim-plugin';
+--   'rkitover/vimpager';
+--   'habamax/vim-godot';
+--   'dhruvasagar/vim-table-mode';
+--   'whonore/vim-sentencer';
+--   'ruanyl/vim-gh-line';
+--   'ggandor/leap.nvim';
+--   'narutoxy/dim.lua';
+--   'romainl/vim-cool';
+--   'google/vim-maktaba';
+--   'google/vim-codefmt';
+-- }
 
 --                          /// General ///
 
@@ -620,17 +715,17 @@ map('n', 'yl',
 
 -- Add keybind hints
 -- paq 'folke/which-key.nvim'
-require('which-key').setup {
-  plugins = {
-    spelling = {
-      enabled = true,
-      suggestions = 20,
-    },
-    presets = {
-        windows = false,
-    },
-  }
-}
+-- require('which-key').setup {
+--   plugins = {
+--     spelling = {
+--       enabled = true,
+--       suggestions = 20,
+--     },
+--     presets = {
+--         windows = false,
+--     },
+--   }
+-- }
 
 -- Persist settings between sessions
 -- paq 'zhimsel/vim-stay'
@@ -650,23 +745,46 @@ vim.g.loaded_netrwPlugin = 1
 map('n', 'æ', '<C-w>W')
 map('n', 'ç', '<C-w>w')
 
+map('n', '<C-b>', ':bn<CR>')
+
 -- "Chrome-like" mappings
 
 -- Make vertical split with ctrl-t, moving the next split.
 map('n', '<C-t>', ':vsplit | wincmd w<CR>')
 
+-- Gets number of windows that are not floating (actually show buffer contents).
+local function get_num_windows()
+  local count = 0
+  -- print(dump(vim.api.nvim_tabpage_list_wins(0)))
+  for _, winnr in pairs(vim.api.nvim_list_wins()) do
+    local cfg = vim.api.nvim_win_get_config(winnr)
+    local bufnr = vim.api.nvim_win_get_buf(winnr)
+    local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    if cfg.focusable then
+      print(dump(cfg))
+      print(ft)
+      print(vim.api.nvim_buf_get_name(bufnr))
+      count = count + 1
+    end
+  end
+  return count
+end
+
+-- When this is equal to 1, then some extra C-w bindings are created that make
+-- my custom C-w slow. See
+-- https://github.com/dstein64/nvim-scrollview/blob/d03d1e305306b8b6927d63182384be0831fa3831/plugin/scrollview.vim#L164.
+vim.g.scrollview_auto_workarounds = 0
+
 -- Close windows, then the whole session, with C-w
 vim.keymap.set("n", "<C-w>", function()
-  local win_amount = #vim.api.nvim_tabpage_list_wins(0)
-  -- print(dump(vim.api.nvim_tabpage_list_wins(0)))
-  if win_amount < 3 then
+  local win_amount = get_num_windows()
+  if win_amount == 1 then
     vim.cmd(':wqa<CR>')
   else
     vim.cmd('wincmd q')
   end
 end,
 {noremap = true,
- buffer = true,  -- This makes nowait actually work.
  nowait = true})
 
 -- Do this automatically when the vim window is resized.
@@ -681,15 +799,9 @@ vim.cmd('autocmd VimResized * wincmd =')
 -- Switch between buffers without saving.
 vim.o.hidden = true
 
--- Use alt-h/l to go between buffers, and ctrl-w to close buffers.
-map('n', '<A-h>', ':bp<CR>')
-map('n', '<A-l>', ':bn<CR>')
-
 -- Do not automatically reload files if working on Google code, otherwise read
 -- files automatically if they change.
-if vim.fn.filereadable(vim.fn.expand('~/.vim/google.vim')) then
-  vim.o.autoread = false
-else
+if not_in_google3 then
   vim.o.autoread = true
   -- Trigger `autoread` when files changes on disk
   -- https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -698,6 +810,8 @@ else
   -- Notification after file change
   -- https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
   vim.cmd('autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None')
+else
+  vim.o.autoread = false
 end
 
 -- Switch between h/cc files (and other related files) with alt-shift-h/l.
