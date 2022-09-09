@@ -8,6 +8,20 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- Debug print a lua datastructure
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
 
 --                          /// Plugin Management ///
 
@@ -611,7 +625,10 @@ require('which-key').setup {
     spelling = {
       enabled = true,
       suggestions = 20,
-    }
+    },
+    presets = {
+        windows = false,
+    },
   }
 }
 
@@ -633,26 +650,24 @@ vim.g.loaded_netrwPlugin = 1
 map('n', 'æ', '<C-w>W')
 map('n', 'ç', '<C-w>w')
 
+-- "Chrome-like" mappings
+
 -- Make vertical split with ctrl-t, moving the next split.
 map('n', '<C-t>', ':vsplit | wincmd w<CR>')
 
--- Close windows with alt-x.
--- map('n', '¢', '<C-w>c')
-
--- Save/close all buffers with ctrl-w.
--- map('n', '<C-w>', ':wqa<CR>')
-
+-- Close windows, then the whole session, with C-w
 vim.keymap.set("n", "<C-w>", function()
-  print("hi")
   local win_amount = #vim.api.nvim_tabpage_list_wins(0)
-  print(win_amount)
-  if win_amount == 1 then
+  -- print(dump(vim.api.nvim_tabpage_list_wins(0)))
+  if win_amount < 3 then
     vim.cmd(':wqa<CR>')
   else
     vim.cmd('wincmd q')
   end
 end,
-{noremap = true})
+{noremap = true,
+ buffer = true,  -- This makes nowait actually work.
+ nowait = true})
 
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
