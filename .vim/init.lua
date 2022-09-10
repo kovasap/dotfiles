@@ -741,8 +741,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Use alt-z/c to switch between split windows.
-map('n', 'æ', '<C-w>W')
-map('n', 'ç', '<C-w>w')
+map('n', 'æ', ':wincmd W<CR>')
+map('n', 'ç', ':wincmd w<CR>')
 
 map('n', '<C-b>', ':bn<CR>')
 
