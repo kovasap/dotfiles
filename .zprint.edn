@@ -1,0 +1,3 @@
+; For clojure autoformatting.
+; https://cljdoc.org/d/zprint/zprint/1.1.2/doc/zprint-reference
+{:style [:hiccup :justified]}
