@@ -1,59 +1,11 @@
 # My dotfiles
 
+See feature overview at [FEATURES.md](FEATURES.md).
+
 ## Why Customize?
 
  - Feeling of control over annoyances
  - Use of something inspires ideas for how to improve it
-
-## Features Walkthrough Notes
-
-This is a list of features I commonly use - useful for notes when talking
-through my setup.
-
-### Writing
-
- - Colemak/Dvorak
- - Dictation into Google doc
-
-### QTile
-
- - Everything is a hotkey!
- - Right click on desktop menu
- - Top bar, element by element
- - Workspaces for different projects
- - Cycling window layouts
- - Clipboard manager, with top bar integration
-  - Everything sends to single clipboard, even over ssh
- - Selective window dimming and transparency
- - Resolution and rotation script
- - Bash script hotkeys
-   - Example: download youtube shortcut
-
-### Kitty
-
- - Terminal Emulator
- - Hotkeys to copy lines, open urls
- - Hotkey to open output in vim
- - icat for viewing images
- - Copy/paste over ssh via X11 forwarding
-
-### Zsh
-
- - Last command autocompletion (shadow autofill)
- - Fzf history search
- - Custom prompt (p10k)
- - Vi mode cursor
-
-### NeoVim
-
- - Completion based on words in buffers
- - TODO populate a list here of my most used hotkeys: https://www.reddit.com/r/vim/comments/vodi0q/any_way_to_track_usage_of_commandhotkey_usage/
-
-### Chrome
-
- - Vimium C
- - Fzf history search
-
 
 ## Installation
 

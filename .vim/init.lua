@@ -39,7 +39,6 @@ end
 local packer_bootstrap = ensure_packer()
 
 local function notInGoogle3()
-    print(string.find(vim.fn.getcwd(), '/google/src') == nil)
   return string.find(vim.fn.getcwd(), '/google/src') == nil
 end
 
@@ -110,8 +109,8 @@ require('packer').startup(function(use)
   use 'ggandor/leap.nvim';
   use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
-  use {'google/vim-maktaba', opt = true, cond = notInGoogle3, disable = not_in_google3};
-  use {'google/vim-codefmt', opt = true, cond = notInGoogle3, disable = not_in_google3};
+  use {'google/vim-maktaba', cond = notInGoogle3};
+  use {'google/vim-codefmt', cond = notInGoogle3};
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -749,6 +748,8 @@ map('n', '<C-b>', ':bn<CR>')
 
 -- "Chrome-like" mappings
 
+map('n', '<C-l>', ':')
+
 -- Make vertical split with ctrl-t, moving the next split.
 map('n', '<C-t>', ':vsplit | wincmd w<CR>')
 
@@ -761,9 +762,9 @@ local function get_num_windows()
     local bufnr = vim.api.nvim_win_get_buf(winnr)
     local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
     if cfg.focusable then
-      print(dump(cfg))
-      print(ft)
-      print(vim.api.nvim_buf_get_name(bufnr))
+      -- print(dump(cfg))
+      -- print(ft)
+      -- print(vim.api.nvim_buf_get_name(bufnr))
       count = count + 1
     end
   end
