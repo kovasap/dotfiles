@@ -216,7 +216,7 @@ keys.extend([
 
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
-    Key([mod, 'control'], "c", lazy.spawn('copyq menu')),
+    Key([mod], "b", lazy.spawn('copyq menu')),
 
     Key([mod], "r", spawn_multi_cmd(
         "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
@@ -235,7 +235,7 @@ keys.extend([
     Key([mod], "backslash", lazy.spawn("google-chrome")),
     Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
 
-    Key([mod], "b", lazy.spawn("nvim-textarea.bash")),
+    Key([mod], "n", lazy.spawn("nvim-textarea.bash")),
 
     # Toggle between different layouts as defined below
     Key([mod], "a", lazy.next_layout()),

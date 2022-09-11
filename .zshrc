@@ -255,6 +255,7 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 zplug load
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Uncomment to profile zsh startup
 # zprof

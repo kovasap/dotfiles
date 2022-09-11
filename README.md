@@ -76,6 +76,11 @@ zplug install
 # Install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc
+
+# Linuxbrew and clojure
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install clojure/tools/clojure
+
 ```
 
 ### Graphical Only

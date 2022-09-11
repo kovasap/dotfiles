@@ -822,7 +822,7 @@ xkb_symbols "colemak" {
     key <AD03> { [            f,            F,          atilde,           Atilde ] };
     key <AD04> { [            p,            P,          oslash,         Ooblique ] };
     key <AD05> { [            g,            G,     dead_ogonek,       asciitilde ] };
-    key <AD06> { [            j,            J,         dstroke,          Dstroke ] };
+    key <AD06> { [            j,            J,         underscore,          Dstroke ] };
     key <AD07> { [            l,            L,         minus,          Lstroke ] };
     key <AD08> { [            u,            U,          equal,           Uacute ] };
     key <AD09> { [            y,            Y,      plus,       Udiaeresis ] };
@@ -864,7 +864,7 @@ xkb_symbols "colemak" {
           symbols[Group1]=[    space,        space,     Return] };
 
     // key <RALT> { [ BackSpace,       BackSpace                                   ] };
-    key <RALT> { [        minus,   underscore,          endash,           emdash ] };
+    // key <RALT> { [        minus,   underscore,          endash,           emdash ] };
     include "level3(lalt_switch)"
 };
 

@@ -28,7 +28,8 @@ let g:sentencer_textwidth = 80
 let g:sentencer_overflow = 0
 set formatexpr=sentencer#Format()
 
-let g:reformat_sentences = 1
+echo 'Use ctrl+a to auto reformat sentences!'
+let g:reformat_sentences = 0
 nnoremap <C-a> :let g:reformat_sentences = !get(g:, 'reformat_sentences', 1)<cr>
 autocmd InsertLeave * if get(g:, 'reformat_sentences', 1) | execute "normal gqip}b$" | endif
 " This keeps the cursor in the same place but doesn't use formatexpr.
