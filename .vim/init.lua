@@ -740,11 +740,11 @@ vim.o.autochdir = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Use alt-z/c to switch between split windows.
-map('n', 'æ', ':wincmd W<CR>')
-map('n', 'ç', ':wincmd w<CR>')
+map('n', '(', ':wincmd W<CR>')
+map('n', ')', ':wincmd w<CR>')
 
-map('n', '<C-b>', ':bn<CR>')
+map('n', ']]', ':bn<CR>')
+map('n', '[[', ':bp<CR>')
 
 -- "Chrome-like" mappings
 
@@ -1103,6 +1103,9 @@ MUtils.completion_confirm=function()
   end
 end
 map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
+
+
+map('i', '<c-l>', '<plug>(fzf-complete-line)')
 
 
 --                          /// Language - General ///
