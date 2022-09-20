@@ -109,6 +109,10 @@ require('packer').startup(function(use)
   use 'ggandor/leap.nvim';
   use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
+  use {'gen740/SmoothCursor.nvim',
+       config = function() require('smoothcursor').setup({cursor = ">",
+                                                          linehl = "CursorLine",
+                                                          texthl = "CursorLine"}) end}
   use {'google/vim-maktaba', cond = notInGoogle3};
   use {'google/vim-codefmt', cond = notInGoogle3};
 
@@ -743,8 +747,7 @@ vim.g.loaded_netrwPlugin = 1
 map('n', '(', ':wincmd W<CR>')
 map('n', ')', ':wincmd w<CR>')
 
-map('n', ']]', ':bn<CR>')
-map('n', '[[', ':bp<CR>')
+map('n', '<BS>', ':bn<CR>')
 
 -- "Chrome-like" mappings
 
