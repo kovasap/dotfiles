@@ -39,6 +39,7 @@ end
 local packer_bootstrap = ensure_packer()
 
 local function notInGoogle3()
+  print(string.find(vim.fn.getcwd(), '/google/src') == nil)
   return string.find(vim.fn.getcwd(), '/google/src') == nil
 end
 
@@ -113,8 +114,8 @@ require('packer').startup(function(use)
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
                                                           texthl = "CursorLine"}) end}
-  use {'google/vim-maktaba', cond = notInGoogle3};
-  use {'google/vim-codefmt', cond = notInGoogle3};
+  use {'google/vim-maktaba'};-- , cond = notInGoogle3};
+  use {'google/vim-codefmt'};-- , cond = notInGoogle3};
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
