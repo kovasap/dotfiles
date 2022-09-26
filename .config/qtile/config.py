@@ -378,7 +378,10 @@ custom_monad_tall = layout.MonadTall(
 
 layouts = [
     custom_monad_tall,
-    layout.Max(**layout_theme),
+    # layout.Max(**layout_theme),
+    layout.Zoomy(
+      columnwidth=50,
+      **layout_theme),
     custom_monad_3col,
     layout.Floating(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
