@@ -380,7 +380,7 @@ layouts = [
     custom_monad_tall,
     # layout.Max(**layout_theme),
     layout.Zoomy(
-      columnwidth=50,
+      columnwidth=20,
       **layout_theme),
     custom_monad_3col,
     layout.Floating(**layout_theme),

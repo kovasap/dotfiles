@@ -137,7 +137,7 @@ sudo make install
 cd ~/
 mkdir google-drive
 cd google-drive
-grive -a
+grive -a -P -f
 cd ~/
 
 # Install google drive syncer
