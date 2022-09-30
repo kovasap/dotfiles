@@ -1,0 +1,3 @@
+; This exists so clojure-lsp works with babashka scripts.
+; See https://clojure-lsp.io/settings/#classpath-scan.
+{}

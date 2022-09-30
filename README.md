@@ -12,6 +12,7 @@ See feature overview at [FEATURES.md](FEATURES.md).
 ### For All Systems (headless and graphical)
 
 ```
+# Note, look for *.ssh directories in my home dir in case i copied frequently used keys for e.g. cloud machines.
 # Setup ssh so we can pull github repos
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 ssh-keygen -t ed25519 -C "kovas.palunas@gmail.com"
@@ -80,6 +81,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # Linuxbrew and clojure
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install clojure/tools/clojure
+brew install borkdude/brew/babashka
 
 ```
 
