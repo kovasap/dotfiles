@@ -974,7 +974,7 @@ endfunction
 command! HgDiffTargetCmd call HgDiffTarget()
 ]]
 )
-map('n', '<A-d>', ':HgDiffTargetCmd<CR>')
+map('n', '<C-d>', ':HgDiffTargetCmd<CR>')
 
 
 --                          /// Diffing ///

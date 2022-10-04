@@ -138,7 +138,6 @@ for n in '12345qwf':
 keys.extend([
     Key([mod], "Tab", lazy.layout.up()),
     # Key([mod, 'shift'], "Tab", lazy.layout.down()),
-
     Key([mod], "grave", lazy.prev_screen()),
     Key([mod, 'shift'], "grave", lazy.next_screen()),
 
@@ -146,7 +145,6 @@ keys.extend([
     # adds this command)
     Key([mod, "shift"], "period", lazy.swap_screens()),
     Key([mod, "shift"], "comma", lazy.swap_screens()),
-
     Key([mod, 'shift'], "Tab",
         lazy.layout.shuffle_up().when(layout='monadtall'),
         lazy.layout.shuffle_up().when(layout='monadthreecol')),
@@ -158,20 +156,29 @@ keys.extend([
     Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
     Key([mod], "l", lazy.screen.next_group(skip_managed=True)),
     Key([mod], "o", lazy.screen.toggle_group()),
-
     Key([mod], "equal", lazy.layout.grow()),
     Key([mod], "minus", lazy.layout.shrink()),
     Key([mod], "bracketright", lazy.layout.maximize()),
     Key([mod], "bracketleft", lazy.layout.minimize()),
     # Key([mod, "control"], "h", lazy.layout.grow_left()),
     # Key([mod, "control"], "l", lazy.layout.grow_right()),
-
     Key([], "XF86AudioRaiseVolume",
         spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
     Key([], "XF86AudioLowerVolume",
         spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
     Key([], "XF86AudioMute",
         spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
+
+    # This is way harder than it should be
+    # Key([mod],
+    #     "leftsinglequotemark",  # "XF86AudioPlay",
+    #     lazy.spawn("clementine --play-pause")),
+    # Key([mod],
+    #     "thorn",  # "XF86AudioPrev",
+    #     lazy.spawn("clementine --previous")),
+    # Key([mod],
+    #     "rightsinglequotemark",  # "XF86AudioNext",
+    #     lazy.spawn("clementine --next")),
 
     Key([], "XF86MonBrightnessUp",
         spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
@@ -180,7 +187,9 @@ keys.extend([
 
     # Run this command to make an image file from the screenshot:
     # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
-    Key([], 'Print',
+    Key(
+        [],
+        'Print',
         spawn_multi_cmd(
             # https://github.com/naelstrof/maim/issues/182
             "pkill compton",
@@ -192,10 +201,10 @@ keys.extend([
     # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
     # Take an entire screenshot:
     # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")
-
     Key([mod], "t", lazy.window.toggle_floating()),
-
-    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(),
+    Key([mod],
+        "space",
+        lazy.widget["keyboardlayout"].next_keyboard(),
         desc="Next keyboard layout."),
 
     # Toggle between split and unsplit sides of stack.
@@ -204,47 +213,41 @@ keys.extend([
     # multiple stack
     # Key([mod], "z", lazy.layout.toggle_split()),
     # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
-
-    Key([mod], "slash", lazy.spawn(
-        "kitty zsh -c '~/bin/chrome-history.zsh'")),
-
-    Key([mod, 'shift'], "slash", lazy.spawn(
-        "kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-
-    Key([mod], "p", lazy.spawn(
-        "kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
-
+    Key([mod], "slash", lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
+    Key([mod, 'shift'], "slash",
+        lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
+    Key([mod], "p",
+        lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
     Key([mod], "c", lazy.spawn('copyq next')),
     Key([mod], "v", lazy.spawn('copyq previous')),
     Key([mod], "b", lazy.spawn('copyq menu')),
-
-    Key([mod], "r", spawn_multi_cmd(
-        "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
-    Key([mod, 'control'], "r", spawn_multi_cmd(
-        "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log")),
-    Key([mod], "s", spawn_multi_cmd(
-        "pkill compton", "run-compton.bash")),
-
+    Key([mod], "r",
+        spawn_multi_cmd(
+            "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
+    Key([mod, 'control'], "r",
+        spawn_multi_cmd(
+            "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log")
+       ),
+    Key([mod], "s", spawn_multi_cmd("pkill compton", "run-compton.bash")),
     Key([mod], "Escape", lazy.spawn("screensaver.sh")),
     Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
     Key([mod], "Return", lazy.spawn("kitty")),
-    Key([mod, 'shift', 'control'], "Return", lazy.spawn(
-        "kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
+    Key([mod, 'shift', 'control'], "Return",
+        lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], "Return",
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], "backslash", lazy.spawn("google-chrome")),
     Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
-
     Key([mod], "n", lazy.spawn("nvim-textarea.bash")),
 
     # Toggle between different layouts as defined below
     Key([mod], "a", lazy.next_layout()),
     Key([mod], "x", lazy.window.kill()),
-
     Key([mod, "control"], "t", lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, "control"], "q", lazy.restart()),
     Key([mod, "control", "shift"], "q", lazy.shutdown()),
     Key([mod], "g", lazy.spawn("j4-dmenu-desktop")),
+    Key([mod], "m", lazy.spawn("clementine")),
 ])
 
 mouse = [
@@ -286,8 +289,8 @@ def movescreens(qtile, offset):
     # logger.error(f'cur_name {screen.group.name} new_name {next_group_name}')
     for group in qtile.groups:
       if group.name == next_group_name:
-          screen.set_group(group)
-          break
+        screen.set_group(group)
+        break
 
 
 keys.extend([

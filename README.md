@@ -46,14 +46,10 @@ cargo install difftastic
 
 # Install latest neovim
 # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
+sudo apt install neovim neovim-runtime
 # If installing from a package manager like apt, make sure neovim-runtime is
 # also installed, otherwise some plugins wont work (like lsp and treesitter).
 #
-# Install Paq neovim package manager
-git clone --depth=1 https://github.com/savq/paq-nvim.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-# Install plugins
-nv -c ":PaqInstall"
 cd .local/share/nvim/site/pack/paqs/start/parinfer-rust/
 cargo build --release
 cd ~/
