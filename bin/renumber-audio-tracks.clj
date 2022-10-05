@@ -1,5 +1,7 @@
 #!/usr/bin/env bb
 
+; Need to `sudo apt install id3v2`
+
 (require '[clojure.java.io]
          '[clojure.java.shell :refer [sh]]
          '[clojure.tools.cli :refer [parse-opts]])
@@ -25,5 +27,5 @@
 
 (doseq [file (filter #(not (.isDirectory %)) (file-seq directory))]
   (let [track (+ offset (file->track-num (.getName file)))]
-    (prn (sh "id3tool" (.getName file)))
-    (prn (sh "id3tool" (str "--set-track=" track) (.getName file)))))
+    (prn (:out (sh "mid3v2" (.getName file))))
+    (prn (:out (sh "mid3v2" "-T" (str track) (.getName file))))))
