@@ -116,6 +116,9 @@ require('packer').startup(function(use)
                                                           texthl = "CursorLine"}) end}
   use {'google/vim-maktaba'};-- , cond = notInGoogle3};
   use {'google/vim-codefmt'};-- , cond = notInGoogle3};
+  use {'sso://googler@user/piloto/cmp-nvim-ciderlsp',
+     requires = {"hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp"}};
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -123,85 +126,6 @@ require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
--- TODO make this install automatically if the file is not found.
--- git clone https://github.com/savq/paq-nvim.git \
---     "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
--- vim.cmd 'packadd paq-nvim'
--- local paq = require'paq-nvim'.paq
--- paq { 'savq/paq-nvim', opt=true }
-
--- require 'paq' {
---   'savq/paq-nvim';
---   -- TODO look into how to integrate with treesitter highlights
---   -- 'jaxbot/semantic-highlight.vim';
---   'yuttie/comfortable-motion.vim';
---   'ggvgc/vim-fuzzysearch';
---   'AndrewRadev/splitjoin.vim';
---   'flwyd/vim-conjoin';
---   'tpope/vim-sleuth';
---   'tpope/vim-abolish';
---   -- 'tpope/vim-surround';
---   'kylechui/nvim-surround';
---   'tpope/vim-repeat';
---   'windwp/nvim-autopairs';
---   'junegunn/vim-easy-align';
---   'RRethy/vim-illuminate';
---   'camspiers/animate.vim';
---   'lukas-reineke/indent-blankline.nvim';
---   { 'dstein64/nvim-scrollview', branch = 'main' };
---   'vim-airline/vim-airline';
---   'folke/which-key.nvim';
---   'zhimsel/vim-stay';
---   'justinmk/vim-dirvish';
---   'tpope/vim-eunuch';
---   'qpkorr/vim-bufkill';
---   'kana/vim-altr';
---   'wsdjeg/vim-fetch';
---   {'junegunn/fzf', run = vim.fn['fzf#install']};
---   { 'junegunn/fzf.vim' };
---   'pbogut/fzf-mru.vim';
---   'ludovicchabant/vim-lawrencium';
---   'mhinz/vim-signify';
---   {'rafamadriz/friendly-snippets'};
---   {'hrsh7th/cmp-buffer'};
---   {'hrsh7th/cmp-emoji'};
---   {'hrsh7th/cmp-calc'};
---   {'hrsh7th/cmp-path'};
---   {'hrsh7th/cmp-nvim-lua'};
---   {'f3fora/cmp-spell'};
---   {'hrsh7th/cmp-nvim-lsp'};
---   {'hrsh7th/cmp-vsnip'};
---   {'hrsh7th/vim-vsnip'};
---   {'hrsh7th/vim-vsnip-integ'};
---   {'hrsh7th/nvim-cmp'};
---   {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
---   'nvim-treesitter/nvim-treesitter-textobjects';
---   'nvim-treesitter/playground';
---   'p00f/nvim-ts-rainbow';
---   { 'neovim/nvim-lspconfig', run=install_python_ls };
---   'nvim-lua/lsp-status.nvim';
---   'mgedmin/python-imports.vim';
---   'Olical/conjure';
---   -- Might need to run the cargo command from
---   -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
---   {'eraserhd/parinfer-rust', 'cargo build --release'};
---   'mechatroner/rainbow_csv';
---   'masukomi/vim-markdown-folding';
---   'ron89/thesaurus_query.vim';
---   'tikhomirov/vim-glsl';
---   'dart-lang/dart-vim-plugin';
---   'rkitover/vimpager';
---   'habamax/vim-godot';
---   'dhruvasagar/vim-table-mode';
---   'whonore/vim-sentencer';
---   'ruanyl/vim-gh-line';
---   'ggandor/leap.nvim';
---   'narutoxy/dim.lua';
---   'romainl/vim-cool';
---   'google/vim-maktaba';
---   'google/vim-codefmt';
--- }
 
 --                          /// General ///
 
@@ -1026,6 +950,19 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+-- local source_names = {
+--   nvim_lsp = "(LSP)",
+--   emoji = "(Emoji)",
+--   path = "(Path)",
+--   calc = "(Calc)",
+--   cmp_tabnine = "(Tabnine)",
+--   vsnip = "(Snippet)",
+--   luasnip = "(Snippet)",
+--   buffer = "(Buffer)",
+--   tmux = "(TMUX)",
+--   nvim_ciderlsp = "(ML-Autocompletion!)"
+-- }
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -1062,6 +999,7 @@ cmp.setup({
 
   },
   sources = {
+    { name = 'nvim_ciderlsp' },
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'emoji' },
@@ -1078,7 +1016,16 @@ cmp.setup({
         end
       },
     },
-  }
+  },
+  -- formatting = {
+  --     fields = { "kind", "abbr", "menu" },
+  --     format = function(entry, vim_item)
+  --       -- vim_item.kind = kind_icons[vim_item.kind]
+  --       vim_item.menu = source_names[entry.source.name]
+  --       -- vim_item.dup = duplicates[entry.source.name]
+  --       return vim_item
+  --     end
+  -- },
 })
 
 cmp.setup.cmdline("/", {sources = {{name = "buffer"}}})
@@ -1424,9 +1371,11 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   if not configs.ciderlsp then
     configs.ciderlsp = {
      default_config = {
+       cmd = {'/home/kovas/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses', '--relay_mode', '--cdpush_name=""'};
+       -- cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses', '--relay_mode', '--cdpush_name=""'};
        -- cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
-       cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
-              '"$HOME/google_dotfiles/remote_ciderlsp.zsh"'};
+       -- cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
+       --        '"$HOME/google_dotfiles/remote_ciderlsp.zsh"'};
        filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
        root_dir = nvim_lsp.util.root_pattern('BUILD');
        settings = {};
@@ -1447,7 +1396,9 @@ if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
     }
   end
   nvim_lsp.ciderlsp.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    capabilities = require('cmp_nvim_ciderlsp').update_capabilities(
+      require('cmp_nvim_lsp').update_capabilities(
+        vim.lsp.protocol.make_client_capabilities())),
     on_attach = on_attach,
   }
   -- https://neovim.discourse.group/t/why-would-neovim-want-to-cd-to-unmounted-directories-on-quit/1375
