@@ -50,24 +50,35 @@ require('packer').startup(function(use)
   use 'yuttie/comfortable-motion.vim';
   use 'ggvgc/vim-fuzzysearch';
   use 'AndrewRadev/splitjoin.vim';
+  -- Automatically delete extra characters (like quotes) when joining lines.
   use 'flwyd/vim-conjoin';
+  -- Automatically set tabstop/shiftwidth based on current file or nearby files.
   use 'tpope/vim-sleuth';
+  -- Change cases using e.g. cru for upper case.
   use 'tpope/vim-abolish';
   use 'kylechui/nvim-surround';
   use 'tpope/vim-repeat';
   use 'windwp/nvim-autopairs';
+  -- Automatically align code.
   use 'junegunn/vim-easy-align';
+  -- Highlight current word with cursor on it across whole buffer.
   use 'RRethy/vim-illuminate';
+  -- Animates window resizing.
   use 'camspiers/animate.vim';
   use 'lukas-reineke/indent-blankline.nvim';
+  -- Add scrollbars.
   use { 'dstein64/nvim-scrollview', branch = 'main' };
   use 'vim-airline/vim-airline';
-  use 'folke/which-key.nvim';
+  -- Persist settings between sessions
   use 'zhimsel/vim-stay';
+  -- Better directory browsing.  Access the directory the current file is in with
+  -- the - key.
   use 'justinmk/vim-dirvish';
   use 'tpope/vim-eunuch';
+  -- Make it so that when a buffer is deleted, the window stays.
   use 'qpkorr/vim-bufkill';
   use 'kana/vim-altr';
+  -- Open files at specified lines using file:line syntax.
   use 'wsdjeg/vim-fetch';
   use {'junegunn/fzf', run = vim.fn['fzf#install']};
   use { 'junegunn/fzf.vim' };
@@ -94,14 +105,14 @@ require('packer').startup(function(use)
   use 'nvim-lua/lsp-status.nvim';
   use 'mgedmin/python-imports.vim';
   use 'Olical/conjure';
-  -- Might need to run the cargo command from
-  -- .local/share/nvim/site/pack/paqs/start/parinfer-rust/ after install.
   use {'eraserhd/parinfer-rust', run = 'cargo build --release'};
   use 'mechatroner/rainbow_csv';
   use 'masukomi/vim-markdown-folding';
   use 'ron89/thesaurus_query.vim';
   use 'tikhomirov/vim-glsl';
   use 'dart-lang/dart-vim-plugin';
+  -- Attmpts to make vim better when reading terminal data from kitty
+  -- TODO FIX
   use 'rkitover/vimpager';
   use 'habamax/vim-godot';
   use 'dhruvasagar/vim-table-mode';
@@ -114,10 +125,15 @@ require('packer').startup(function(use)
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
                                                           texthl = "CursorLine"}) end}
-  use {'google/vim-maktaba'};-- , cond = notInGoogle3};
-  use {'google/vim-codefmt'};-- , cond = notInGoogle3};
-  use {'sso://googler@user/piloto/cmp-nvim-ciderlsp',
-     requires = {"hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp"}};
+  if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
+    require('google_dotfiles/google').load_google_plugins(use)
+  else
+    -- TODO find a way to put the codefmt lines here so that I can source
+    -- google.vim in my google-specific config.
+  end
+  use {'google/vim-maktaba'};
+  use {'google/vim-codefmt'};
+
 
 
   -- Automatically set up your configuration after cloning packer.nvim
@@ -146,7 +162,6 @@ map('v', 'e', 'j')
 map('v', 'E', 'J')
 
 -- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
--- paq 'yuttie/comfortable-motion.vim'
 vim.g.comfortable_motion_no_default_key_mappings = true
 map('n', '<C-e>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
@@ -163,11 +178,6 @@ map('v', '<C-u>', '<tab>')
 map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
--- paq 'ggvgc/vim-fuzzysearch'
--- map('n', '<space>', ':')
--- map('v', '<space>', ':')
--- map('n', '<space>', ':FuzzySearch<CR>')
--- map('n', '<space>', [[/\c]])
 -- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
 -- this obselete.
 map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
@@ -184,6 +194,7 @@ map('n', 'cT', '*Ncw')
 -- Copy the line N lines above/below the current line and put it below the
 -- current line. See https://vi.stackexchange.com/q/3231
 -- e.g. 4TT gets the line 4 lines below the current line.
+-- This is somewhat obselete by the ctrl-l fzf lines functionality.
 map('n', 'tt', [[:<C-u>execute ':-' . v:count . 't.'<CR>]])
 map('n', 'TT', [[:<C-u>execute ':+' . v:count . 't.'<CR>]])
 
@@ -191,14 +202,10 @@ map('n', 'TT', [[:<C-u>execute ':+' . v:count . 't.'<CR>]])
 map('n', 'cW', ':%s/\\<<C-r><C-w>\\>/')
 
 -- Transform single line code blocks to multi-line ones and vice-versa.
--- paq 'AndrewRadev/splitjoin.vim'
 vim.g.splitjoin_split_mapping = ''
 vim.g.splitjoin_join_mapping = ''
 map('n', 'SJ', ':SplitjoinJoin<cr>')
 map('n', 'SS', ':SplitjoinSplit<cr>')
-
--- Automatically delete extra characters (like quotes) when joining lines.
--- paq 'flwyd/vim-conjoin'
 
 -- Delete until the next 'closing' character (quote or brace)
 map('n', "d'", 'd/[\\]\\}\\)\'"]<CR>:let @/ = ""<CR>')
@@ -234,9 +241,6 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
--- Automatically set tabstop/shiftwidth based on current file or nearby files.
--- paq 'tpope/vim-sleuth'
-
 -- Command to trim all trailing whitespace in the file.
 vim.cmd(
 [[
@@ -249,13 +253,7 @@ command! TrimWhitespace call TrimWhitespace()
 ]]
 )
 
--- Change cases using e.g. cru for upper case.
--- paq 'tpope/vim-abolish'
-
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
--- paq 'pope/vim-surround'
--- paq 'tpope/vim-repeat'
-
 require("nvim-surround").setup({
     keymaps = { -- vim-surround style keymaps
         visual = "F",
@@ -524,24 +522,16 @@ require("nvim-surround").setup({
 })
 
 -- Automatically close parens.
--- paq 'windwp/nvim-autopairs'
 local npairs = require('nvim-autopairs')
 npairs.setup({
   disable_filetype = { "TelescopePrompt" , "clojure" },
 })
-
--- Automatically align code.
--- paq 'junegunn/vim-easy-align'
-
 
 --                          /// Visuals ///
 
 -- Show tabs as actual characters.
 vim.wo.list = true
 vim.wo.listchars = 'tab:>-'
-
--- Highlight current word with cursor on it across whole buffer.
--- paq 'RRethy/vim-illuminate'
 
 -- My custom colorscheme defined in ~/.vim/colors.
 vim.cmd('colorscheme terminal')
@@ -573,11 +563,7 @@ vim.o.synmaxcol = 2000
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Animates window resizing.
--- paq 'camspiers/animate.vim'
-
 -- Adds indentation line hints.
--- paq 'lukas-reineke/indent-blankline.nvim'
 require("indent_blankline").setup {
     char = "¦",
     buftype_exclude = {"terminal"},
@@ -603,11 +589,7 @@ vim.o.mouse = 'a'
 vim.o.title = true
 vim.o.titlestring = "%t (%{expand('%:~:.:h')}) - NVIM"
 
--- Add scrollbars.
--- paq { 'dstein64/nvim-scrollview', branch = 'main' }
-
 -- Add bottom bar with various info.
--- paq 'vim-airline/vim-airline'
 -- Uncomment to get top bar with all buffer names.
 -- let g:airline#extensions#tabline#enabled = 1
 -- Last section determines the max width for different parts of the bottom bar.
@@ -641,30 +623,10 @@ map('n', 'yf', ':let @+ = expand("%:p")<CR>')
 map('n', 'yl',
     ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
 
--- Add keybind hints
--- paq 'folke/which-key.nvim'
--- require('which-key').setup {
---   plugins = {
---     spelling = {
---       enabled = true,
---       suggestions = 20,
---     },
---     presets = {
---         windows = false,
---     },
---   }
--- }
-
--- Persist settings between sessions
--- paq 'zhimsel/vim-stay'
 -- stay/view will annoyingly remember to change working dirs when opening files
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
--- Better directory browsing.  Access the directory the current file is in with
--- the - key.
--- paq 'justinmk/vim-dirvish'
--- paq 'tpope/vim-eunuch'
 -- Disable netrw so dirvish is used for everything
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -722,9 +684,6 @@ vim.cmd('autocmd VimResized * wincmd =')
 
 --                          /// Buffers and Files ///
 
--- Make it so that when a buffer is deleted, the window stays.
--- paq 'qpkorr/vim-bufkill'
-
 -- Switch between buffers without saving.
 vim.o.hidden = true
 
@@ -744,7 +703,6 @@ else
 end
 
 -- Switch between h/cc files (and other related files) with alt-shift-h/l.
--- paq 'kana/vim-altr'
 map('n', '<A-L>', '<Plug>(altr-forward)')
 map('n', '<A-H>', '<Plug>(altr-back)')
 
@@ -770,17 +728,14 @@ augroup END
 ]]
 )
 
--- Open files at specified lines using file:line syntax.
--- paq 'wsdjeg/vim-fetch'
-
 -- Save all buffers with ctrl-s.
 map('n', '<C-S>', ':wa<CR>')
 
 
 --                          /// Searching ///
 
--- paq {'junegunn/fzf', run = vim.fn['fzf#install']}
--- paq { 'junegunn/fzf.vim' }
+map('n', '<space>', ':FuzzySearch<CR>')
+
 vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 
 -- Search in files starting from directory with current buffer and working way
@@ -835,7 +790,6 @@ autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
 map('n', ';', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
--- paq 'pbogut/fzf-mru.vim'
 vim.g.fzf_mru_max = 100000
 -- This is used instead of 'google3' because when fig uses vimdiff it puts the
 -- vim instance at the root of the CitC client (the dir _containing_ google3).
@@ -851,8 +805,6 @@ vim.o.shada = "!,'1000,<50,s10,h"
 
 --                          /// Version Control ///
 
--- paq 'ludovicchabant/vim-lawrencium'
--- paq 'mhinz/vim-signify'
 vim.g.signify_realtime = true
 vim.g.signify_cursorhold_insert = false
 vim.g.signify_cursorhold_normal = false
@@ -924,19 +876,6 @@ com! DiffSaved call g:DiffWithSaved()
 
 
 --                          /// Completion and Snippets ///
-
--- paq {'rafamadriz/friendly-snippets'}
--- paq {'hrsh7th/cmp-buffer'}
--- paq {'hrsh7th/cmp-emoji'}
--- paq {'hrsh7th/cmp-calc'}
--- paq {'hrsh7th/cmp-path'}
--- paq {'hrsh7th/cmp-nvim-lua'}
--- paq {'f3fora/cmp-spell'}
--- paq {'hrsh7th/cmp-nvim-lsp'}
--- paq {'hrsh7th/cmp-vsnip'}
--- paq {'hrsh7th/vim-vsnip'}
--- paq {'hrsh7th/vim-vsnip-integ'}
--- paq {'hrsh7th/nvim-cmp'}
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -1056,23 +995,18 @@ end
 map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 
-map('i', '<c-l>', '<plug>(fzf-complete-line)')
+map('i', '<C-l>', '<plug>(fzf-complete-line)')
 
 
 --                          /// Language - General ///
 
 require('dim').setup({})
 
--- paq {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
--- paq 'nvim-treesitter/nvim-treesitter-textobjects'
--- paq 'nvim-treesitter/playground'
-
 vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
 ]]
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
--- paq 'p00f/nvim-ts-rainbow'
 require('nvim-treesitter.configs').setup {
   ensure_installed = {'python', 'clojure'},
   highlight = {enable = true},
@@ -1153,7 +1087,6 @@ vim.cmd('set foldlevelstart=99')
 local function install_python_ls()
   vim.cmd('!pip install python-language-server[all] yapf')
 end
--- paq { 'neovim/nvim-lspconfig', run=install_python_ls }
 local nvim_lsp = require('lspconfig')
 
 -- Range formatting
@@ -1238,7 +1171,6 @@ nvim_lsp.pylsp.setup {
   }
 }
 -- Auto add imports from file ~/.vim/python-imports.cfg
--- paq 'mgedmin/python-imports.vim'
 map('n', 'gai', ':ImportName<CR>')
 
 vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
@@ -1294,7 +1226,6 @@ command! AutoConjureSelect call AutoConjureSelect()
 autocmd BufReadPost *.cljs :AutoConjureSelect
 ]]
 )
--- paq {'eraserhd/parinfer-rust', 'cargo build --release'}
 -- https://clojure-lsp.github.io/clojure-lsp/installation/
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
 nvim_lsp.clojure_lsp.setup {
@@ -1304,13 +1235,11 @@ nvim_lsp.clojure_lsp.setup {
 
 --                          /// Language - CSV ///
 
--- paq 'mechatroner/rainbow_csv'
 vim.cmd('autocmd FileType csv autocmd BufWritePre <buffer> :RainbowAlign')
 
 
 --                          /// Language - Markdown ///
 
--- paq 'masukomi/vim-markdown-folding'
 vim.cmd('autocmd Filetype markdown setlocal spell spelllang=en_us')
 vim.cmd('autocmd FileType markdown set foldmethod=expr')
 
@@ -1323,7 +1252,6 @@ vim.cmd('au BufNewFile *.tex 0r ~/.vim/tex.skel')
 
 --                          /// Language - English ///
 
--- paq 'ron89/thesaurus_query.vim'
 -- To get offline thesaurus
 -- curl http://www.gutenberg.org/files/3202/files/mthesaur.txt >
 -- ~/.vim/thesaurus/mthesaur.txt
@@ -1332,12 +1260,8 @@ map('n', 'zt', ':ThesaurusQueryReplaceCurrentWord<CR>')
 
 --                          /// Language - GLSL ///
 
--- paq 'tikhomirov/vim-glsl'
-
 
 --                          /// Language - Dart ///
-
--- paq 'dart-lang/dart-vim-plugin'
 
 
 --                          /// Language - YAML ///
@@ -1351,56 +1275,14 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 
 
 --                          /// Language - Terminal ///
--- Attmpts to make vim better when reading terminal data from kitty
--- TODO FIX
--- paq 'powerman/vim-plugin-AnsiEsc'
--- paq 'rkitover/vimpager'
 
 
 --                          /// Language - GDScript ///
--- paq 'habamax/vim-godot'
 nvim_lsp.gdscript.setup {
   on_attach = on_attach
 }
 
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-  require('google_dotfiles/google')
-
-  local configs = require 'lspconfig.configs'
-  if not configs.ciderlsp then
-    configs.ciderlsp = {
-     default_config = {
-       cmd = {'/home/kovas/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses', '--relay_mode', '--cdpush_name=""'};
-       -- cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses', '--relay_mode', '--cdpush_name=""'};
-       -- cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
-       -- cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
-       --        '"$HOME/google_dotfiles/remote_ciderlsp.zsh"'};
-       filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
-       root_dir = nvim_lsp.util.root_pattern('BUILD');
-       settings = {};
-     };
-    }
-    -- See https://groups.google.com/a/google.com/g/vi-users/c/uaJ9R7IENeo/m/hwDyhmHDBwAJ
-    configs.analysislsp = {
-     default_config = {
-       cmd = {'/home/kovas/google_dotfiles/remote_cmd.zsh',
-              '"$HOME/google_dotfiles/remote_analysislsp.zsh"'};
-       filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
-       root_dir = nvim_lsp.util.root_pattern('BUILD');
-       settings = {};
-     };
-    }
-    nvim_lsp.analysislsp.setup{
-      on_attach = on_attach
-    }
-  end
-  nvim_lsp.ciderlsp.setup{
-    capabilities = require('cmp_nvim_ciderlsp').update_capabilities(
-      require('cmp_nvim_lsp').update_capabilities(
-        vim.lsp.protocol.make_client_capabilities())),
-    on_attach = on_attach,
-  }
-  -- https://neovim.discourse.group/t/why-would-neovim-want-to-cd-to-unmounted-directories-on-quit/1375
-  vim.cmd('autocmd VimEnter * clearjumps')
+  require('google_dotfiles/google').load_google_config(nvim_lsp, on_attach)
 end
