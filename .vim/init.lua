@@ -67,7 +67,7 @@ require('packer').startup(function(use)
   use 'camspiers/animate.vim';
   use 'lukas-reineke/indent-blankline.nvim';
   -- Add scrollbars.
-  use { 'dstein64/nvim-scrollview', branch = 'main' };
+  -- use { 'dstein64/nvim-scrollview', branch = 'main' };
   use 'vim-airline/vim-airline';
   -- Persist settings between sessions
   use 'zhimsel/vim-stay';
@@ -121,6 +121,7 @@ require('packer').startup(function(use)
   use 'ggandor/leap.nvim';
   use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
+  use 'echasnovski/mini.nvim';
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
@@ -664,7 +665,7 @@ end
 -- When this is equal to 1, then some extra C-w bindings are created that make
 -- my custom C-w slow. See
 -- https://github.com/dstein64/nvim-scrollview/blob/d03d1e305306b8b6927d63182384be0831fa3831/plugin/scrollview.vim#L164.
-vim.g.scrollview_auto_workarounds = 0
+-- vim.g.scrollview_auto_workarounds = 0
 
 -- Close windows, then the whole session, with C-w
 vim.keymap.set("n", "<C-w>", function()
@@ -680,6 +681,44 @@ end,
 
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
+
+MiniMap = require('mini.map')
+MiniMap.setup({
+    -- Highlight integrations (none by default)
+    integrations = {
+      MiniMap.gen_integration.builtin_search(),
+      MiniMap.gen_integration.diagnostic(),
+    },
+
+    -- Symbols used to display data
+    symbols = {
+      -- Encode symbols. See `:h MiniMap.config` for specification and
+      -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
+      -- Default: solid blocks with 3x2 resolution.
+      encode = MiniMap.gen_encode_symbols.dot('3x2'),
+
+      -- Scrollbar parts for view and line. Use empty string to disable any.
+      scroll_line = '█',
+      scroll_view = '┃',
+    },
+
+    -- Window options
+    window = {
+      -- Side to stick ('left' or 'right')
+      side = 'right',
+
+      -- Whether to show count of multiple integration highlights
+      show_integration_count = true,
+
+      -- Total width
+      width = 10,
+
+      -- Value of 'winblend' option
+      winblend = 25,
+    },
+  })
+vim.cmd('au VimEnter * lua MiniMap.open()')
+
 
 
 --                          /// Buffers and Files ///
@@ -889,18 +928,18 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
--- local source_names = {
---   nvim_lsp = "(LSP)",
---   emoji = "(Emoji)",
---   path = "(Path)",
---   calc = "(Calc)",
---   cmp_tabnine = "(Tabnine)",
---   vsnip = "(Snippet)",
---   luasnip = "(Snippet)",
---   buffer = "(Buffer)",
---   tmux = "(TMUX)",
---   nvim_ciderlsp = "(ML-Autocompletion!)"
--- }
+local source_names = {
+  nvim_lsp = "(LSP)",
+  emoji = "(Emoji)",
+  path = "(Path)",
+  calc = "(Calc)",
+  cmp_tabnine = "(Tabnine)",
+  vsnip = "(Snippet)",
+  luasnip = "(Snippet)",
+  buffer = "(Buffer)",
+  tmux = "(TMUX)",
+  nvim_ciderlsp = "(ML-Autocompletion!)"
+}
 
 cmp.setup({
   snippet = {
@@ -956,15 +995,15 @@ cmp.setup({
       },
     },
   },
-  -- formatting = {
-  --     fields = { "kind", "abbr", "menu" },
-  --     format = function(entry, vim_item)
-  --       -- vim_item.kind = kind_icons[vim_item.kind]
-  --       vim_item.menu = source_names[entry.source.name]
-  --       -- vim_item.dup = duplicates[entry.source.name]
-  --       return vim_item
-  --     end
-  -- },
+  formatting = {
+      fields = { "kind", "abbr", "menu" },
+      format = function(entry, vim_item)
+        vim_item.kind = vim_item.kind
+        vim_item.menu = source_names[entry.source.name]
+        -- vim_item.dup = duplicates[entry.source.name]
+        return vim_item
+      end
+  },
 })
 
 cmp.setup.cmdline("/", {sources = {{name = "buffer"}}})
@@ -1109,6 +1148,8 @@ vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("
 -- important
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], {noremap = true})
 
+
+vim.lsp.set_log_level("DEBUG")
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer

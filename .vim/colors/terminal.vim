@@ -6,6 +6,8 @@ if exists('syntax_on')
   syntax reset
 endif
 
+hi NormalFloat ctermfg=7 ctermbg=16
+
 hi Normal ctermfg=7
 hi Comment ctermfg=8
 hi default link shComment Comment
@@ -95,6 +97,9 @@ hi default link TSNamespace Normal
 hi default link TSType Type
 hi default link TSField Normal
 hi TSSymbol ctermfg=4
+
+hi default link MiniMapSymbolLine Comment
+hi default link MiniMapSymbolView Comment
 
 " this is what gets overlaid on the bad text
 hi ALEError cterm=underline ctermbg=0
