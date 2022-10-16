@@ -93,9 +93,8 @@ require('packer').startup(function(use)
   use {'hrsh7th/cmp-nvim-lua'};
   use {'f3fora/cmp-spell'};
   use {'hrsh7th/cmp-nvim-lsp'};
-  use {'hrsh7th/cmp-vsnip'};
-  use {'hrsh7th/vim-vsnip'};
-  use {'hrsh7th/vim-vsnip-integ'};
+  use 'L3MON4D3/LuaSnip';
+  use 'saadparwaiz1/cmp_luasnip';
   use {'hrsh7th/nvim-cmp'};
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
   use 'nvim-treesitter/nvim-treesitter-textobjects';
@@ -687,7 +686,12 @@ MiniMap.setup({
     -- Highlight integrations (none by default)
     integrations = {
       MiniMap.gen_integration.builtin_search(),
-      MiniMap.gen_integration.diagnostic(),
+      MiniMap.gen_integration.diagnostic({
+        error = 'DiagnosticFloatingError',
+        warn  = 'DiagnosticFloatingWarn',
+        info  = 'DiagnosticFloatingInfo',
+        hint  = 'DiagnosticFloatingHint',
+      }),
     },
 
     -- Symbols used to display data
@@ -698,7 +702,8 @@ MiniMap.setup({
       encode = MiniMap.gen_encode_symbols.dot('3x2'),
 
       -- Scrollbar parts for view and line. Use empty string to disable any.
-      scroll_line = '█',
+      -- scroll_line = '█',
+      scroll_line = '▶',
       scroll_view = '┃',
     },
 
@@ -708,10 +713,10 @@ MiniMap.setup({
       side = 'right',
 
       -- Whether to show count of multiple integration highlights
-      show_integration_count = true,
+      show_integration_count = false,
 
       -- Total width
-      width = 10,
+      width = 2,
 
       -- Value of 'winblend' option
       winblend = 25,
@@ -934,18 +939,21 @@ local source_names = {
   path = "(Path)",
   calc = "(Calc)",
   cmp_tabnine = "(Tabnine)",
-  vsnip = "(Snippet)",
   luasnip = "(Snippet)",
   buffer = "(Buffer)",
   tmux = "(TMUX)",
   nvim_ciderlsp = "(ML-Autocompletion!)"
 }
 
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
+
+
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- For `vsnip` user.
-      vim.fn["vsnip#anonymous"](args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -954,24 +962,26 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
-    -- From https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#vim-vsnip
+    -- From https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        fallback()
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
       end
     end, { "i", "s" }),
 
@@ -979,7 +989,7 @@ cmp.setup({
   sources = {
     { name = 'nvim_ciderlsp' },
     { name = 'nvim_lsp' },
-    { name = 'vsnip' },
+    { name = 'luasnip' },
     { name = 'emoji' },
     { name = 'calc' },
     { name = 'spell' },
