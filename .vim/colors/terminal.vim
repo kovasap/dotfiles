@@ -12,15 +12,15 @@ hi Normal ctermfg=7
 hi Comment ctermfg=8
 hi default link shComment Comment
 hi default link vimLineComment Comment
-hi Constant ctermfg=4
+hi Constant ctermfg=14
 hi String ctermfg=2
 hi Character ctermfg=10
 hi Number ctermfg=3
 hi Boolean ctermfg=3
 hi Float ctermfg=3
 
-hi Identifier cterm=none ctermfg=12
-hi Function ctermfg=5
+hi Identifier cterm=none ctermfg=5
+hi Function ctermfg=4
 
 hi Statement ctermfg=1
 hi Conditional ctermfg=1
@@ -41,7 +41,7 @@ hi StorageClass ctermfg=5
 hi Typedef ctermfg=5
 hi Structure ctermfg=5
 
-hi Special ctermfg=10
+hi Special ctermfg=6
 hi SpecialChar ctermfg=1
 hi Tag ctermfg=1
 hi Delimiter ctermfg=1
@@ -82,21 +82,6 @@ hi LspDiagnosticsUnderlineError cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineWarning cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineInformation cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineHint cterm=underline ctermbg=0
-
-" Treesitter highlights"
-hi default link TSTitle String
-hi default link TSString String
-hi default link TSVariable Normal
-hi TSParameter ctermfg=4
-hi TSInclude ctermfg=1
-hi default link TSConstructor Function
-hi default link TSFuncBuiltin Function
-hi default link TSVariableBuiltin Function
-hi default link TSMethod Function
-hi default link TSNamespace Normal
-hi default link TSType Type
-hi default link TSField Normal
-hi TSSymbol ctermfg=4
 
 hi default link MiniMapSymbolLine Comment
 hi default link MiniMapSymbolView Comment
