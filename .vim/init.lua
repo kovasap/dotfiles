@@ -2,7 +2,7 @@
 --                          /// Utilities ///
 
 -- Taken from https://oroques.dev/notes/neovim-init
-local function map(mode, lhs, rhs, opts)
+function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
@@ -123,7 +123,8 @@ require('packer').startup(function(use)
   -- use 'echasnovski/mini.nvim';
   use {'gorbit99/codewindow.nvim',
        config = function()
-         require('codewindow').setup({auto_enable = true})
+         require('codewindow').setup({auto_enable = false})
+         map('n', 'm', ':lua require("codewindow").toggle_minimap()<CR>')
        end}
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
@@ -147,8 +148,6 @@ require('packer').startup(function(use)
   end
 end)
 
-
-map('n', 'm', ':lua require("codewindow").toggle_minimap()<CR>')
 
 --                          /// General ///
 
