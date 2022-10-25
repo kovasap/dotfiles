@@ -31,6 +31,9 @@ git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git pull
 git checkout master
 
+# Install linuxbrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # Install all apt dependencies
 sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -46,10 +49,12 @@ cargo install difftastic
 
 # Install latest neovim
 # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-download
-sudo apt install neovim neovim-runtime
+# sudo apt install neovim neovim-runtime
 # If installing from a package manager like apt, make sure neovim-runtime is
 # also installed, otherwise some plugins wont work (like lsp and treesitter).
 #
+# Linuxbrew has usually a more up to date verion of nvim.
+brew install neovim
 cd .local/share/nvim/site/pack/paqs/start/parinfer-rust/
 cargo build --release
 cd ~/
@@ -75,7 +80,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc
 
 # Linuxbrew and clojure
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install clojure/tools/clojure
 brew install borkdude/brew/babashka
 

@@ -1203,13 +1203,13 @@ hl('@type.definition', {link = 'Typedef'})
 
 hl('@storageclass', {link = 'StorageClass'})
 hl('@attribute', {link = 'PreProc'})
-hl('@field', {link = 'Identifier'})
+hl('@field', {link = 'Normal'})
 hl('@property', {link = 'Identifier'})
 -- }}}
 
 -- Identifiers {{{
 hl('@variable', {link = 'Normal'})
-hl('@variable.builtin', {link = 'Special'})
+hl('@variable.builtin', {link = 'Normal'})
 
 hl('@constant', {link = 'Constant'})
 hl('@constant.builtin', {link = 'Special'})
