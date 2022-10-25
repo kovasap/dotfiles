@@ -12,15 +12,15 @@ hi Normal ctermfg=7
 hi Comment ctermfg=8
 hi default link shComment Comment
 hi default link vimLineComment Comment
-hi Constant ctermfg=14
+hi Constant ctermfg=7
 hi String ctermfg=2
 hi Character ctermfg=10
 hi Number ctermfg=3
 hi Boolean ctermfg=3
 hi Float ctermfg=3
 
-hi Identifier cterm=none ctermfg=5
-hi Function ctermfg=4
+hi Identifier cterm=none ctermfg=6
+hi Function ctermfg=5
 
 hi Statement ctermfg=1
 hi Conditional ctermfg=1
@@ -36,7 +36,7 @@ hi Define ctermfg=11
 hi Macro ctermfg=11
 hi PreCondit ctermfg=11
 
-hi Type ctermfg=6
+hi Type ctermfg=4
 hi StorageClass ctermfg=5
 hi Typedef ctermfg=5
 hi Structure ctermfg=5

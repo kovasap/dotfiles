@@ -1170,12 +1170,12 @@ hl('@float', {link = 'Float'})
 
 -- Functions {{{
 hl('@function', {link = 'Function'})
-hl('@function.call', {link = 'Identifier'})
+hl('@function.call', {link = 'Function'})
 hl('@function.builtin', {link = 'Special'})
 hl('@function.macro', {link = 'Macro'})
 
 hl('@method', {link = 'Function'})
-hl('@method.call', {link = 'Identifier'})
+hl('@method.call', {link = 'Function'})
 
 hl('@constructor', {link = 'Function'})
 hl('@parameter', {link = 'Identifier'})
