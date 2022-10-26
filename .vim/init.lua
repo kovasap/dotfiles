@@ -1323,7 +1323,7 @@ nvim_lsp.pylsp.setup {
     if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
       -- print(client.name)
       -- client.request("textDocument/formatting", {} , nil, vim.api.nvim_get_current_buf())
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.document_formatting = false
     end
     on_attach(client, bufnr)
   end,
