@@ -16,9 +16,9 @@ snippet defma
 snippet defn
 	(defn ${1:name}
 	  "${2:doc-string}"
-    {:malli/schema [:=> [:cat ${3:arg-schema}}] ${4:return-schema}]}
-		[${5:arg-list}]
-		${0:code})
+	  {:malli/schema [:=> [:cat ${3:arg-schema}}] ${4:return-schema}]}
+	  [${5:arg-list}]
+	  ${0:code})
 snippet defp
 	(defprotocol ${1:name}
 		${0:code})
