@@ -784,60 +784,60 @@ map('n', '<C-S>', ':wa<CR>')
 
 --                          /// Searching ///
 
-map('n', '<space>', ':FuzzySearch<CR>')
+-- map('n', '<space>', ':FuzzySearch<CR>')
 
 vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 
 -- Search in files starting from directory with current buffer and working way
 -- up with a maximum of 100 files using the , key.
-vim.cmd(
-[[
-let g:types = { 'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([]) }
-function! g:Warn(message)
-  echohl WarningMsg
-  echom a:message
-  echohl None
-  return 0
-endfunction
-function! g:Myag(query, ...)
-  if type(a:query) != g:types.string
-    return g:Warn('Invalid query argument')
-  endif
-  let query = empty(a:query) ? '^(?=.)' : a:query
-  let args = copy(a:000)
-  let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
-  let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
-        \ printf('$(find_up.bash %s -type f | head -n 100)',
-        \        expand('%:h'))
-  return call('fzf#vim#ag_raw', insert(args, command, 0))
-endfunction
-command! -bang -nargs=* MyAg call g:Myag(<q-args>, <bang>0)
-]]
-)
-map('n', ',', ':MyAg ')
+-- vim.cmd(
+-- [[
+-- let g:types = { 'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([]) }
+-- function! g:Warn(message)
+--   echohl WarningMsg
+--   echom a:message
+--   echohl None
+--   return 0
+-- endfunction
+-- function! g:Myag(query, ...)
+--   if type(a:query) != g:types.string
+--     return g:Warn('Invalid query argument')
+--   endif
+--   let query = empty(a:query) ? '^(?=.)' : a:query
+--   let args = copy(a:000)
+--   let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
+--   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' .
+--         \ printf('$(find_up.bash %s -type f | head -n 100)',
+--         \        expand('%:h'))
+--   return call('fzf#vim#ag_raw', insert(args, command, 0))
+-- endfunction
+-- command! -bang -nargs=* MyAg call g:Myag(<q-args>, <bang>0)
+-- ]]
+-- )
+-- map('n', ',', ':MyAg ')
 
--- Search through all files in the current buffer's directory with ; when in a
+-- Search through all files in the current buffer's directory with " when in a
 -- vim-dirvish directory buffer.
 vim.cmd(
 [[
 function! g:Dirag(query, ...)
-  if type(a:query) != g:types.string
+  if type(a:query) != type('')
     return g:Warn('Invalid query argument')
   endif
   let query = empty(a:query) ? '^(?=.)' : a:query
   let args = copy(a:000)
   echo args
-  let ag_opts = len(args) > 1 && type(args[0]) == g:types.string ? remove(args, 0) : ''
+  let ag_opts = len(args) > 1 && type(args[0]) == type('') ? remove(args, 0) : ''
   let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' . expand('%:h')
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-autocmd FileType dirvish nnoremap <buffer> ; :DirAg<CR>
+autocmd FileType dirvish nnoremap <buffer> <space> :DirAg<CR>
 ]]
 )
 
--- Search in all buffer lines with the ; key.
-map('n', ';', ':Lines<CR>')
+-- Search in all buffer lines with the " key.
+map('n', '<space>', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
 vim.g.fzf_mru_max = 100000
