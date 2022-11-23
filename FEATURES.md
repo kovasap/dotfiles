@@ -33,7 +33,6 @@ tasks that touch many of my config's features.  It would go something like this:
 ### Ways to Record
 
  - https://obsproject.com/download#linux
- - https://www.maartenbaert.be/simplescreenrecorder/
 
 ## By Program
 
