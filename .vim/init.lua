@@ -832,12 +832,12 @@ function! g:Dirag(query, ...)
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-autocmd FileType dirvish nnoremap <buffer> <space> :DirAg<CR>
+autocmd FileType dirvish nnoremap <buffer> <space><space> :DirAg<CR>
 ]]
 )
 
 -- Search in all buffer lines with the " key.
-map('n', '<space>', ':Lines<CR>')
+map('n', '<space><space>', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
 vim.g.fzf_mru_max = 100000
