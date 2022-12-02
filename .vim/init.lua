@@ -87,6 +87,7 @@ require('packer').startup(function(use)
   use 'mhinz/vim-signify';
   use {'rafamadriz/friendly-snippets'};
   use {'hrsh7th/cmp-buffer'};
+  use {'hrsh7th/cmp-cmdline'};
   use {'hrsh7th/cmp-emoji'};
   use {'hrsh7th/cmp-calc'};
   use {'hrsh7th/cmp-path'};
@@ -935,10 +936,6 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
 local source_names = {
   nvim_lsp = "(LSP)",
   emoji = "(Emoji)",
@@ -954,7 +951,6 @@ local source_names = {
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
-
 
 cmp.setup({
   snippet = {
@@ -979,7 +975,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "s" }),
+    end, { "i", "s", "c" }),
 
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -989,7 +985,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "s" }),
+    end, { "i", "s", "c" }),
 
   },
   sources = {
