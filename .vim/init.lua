@@ -47,6 +47,7 @@ local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+  use 'eandrju/cellular-automaton.nvim';
   use 'yuttie/comfortable-motion.vim';
   use 'ggvgc/vim-fuzzysearch';
   use 'AndrewRadev/splitjoin.vim';
