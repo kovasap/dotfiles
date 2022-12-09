@@ -155,6 +155,11 @@ end)
 
 vim.g.maplocalleader=" "
 
+--                          /// Right Click Menu ///
+
+vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
+
+
 --                          /// Navigation ///
 
 require('leap').set_default_keymaps()
