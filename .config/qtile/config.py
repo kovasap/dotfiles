@@ -47,7 +47,7 @@ def get_primary_secondary_groups(qtile, group_name):
 
 
 # https://github.com/qtile/qtile/issues/1378#issuecomment-516111306
-def toscreen(qtile, group_name):
+def group_to_screens(qtile, group_name):
   cur_screen, second_screen = get_two_main_screens(qtile)
   # If you want this fn to switch to the last group, uncomment this.
   # if group_name == cur_screen.group.name:
@@ -60,6 +60,16 @@ def toscreen(qtile, group_name):
     cur_screen.set_group(primary_group)
     if second_screen:
       second_screen.set_group(secondary_group)
+
+
+def group_to_screen(qtile, group_name):
+  cur_screen, second_screen = get_two_main_screens(qtile)
+  primary_group, secondary_group = get_primary_secondary_groups(
+      qtile, group_name)
+  if group_name == cur_screen.group.name:
+    cur_screen.set_group(secondary_group)
+  else:
+    cur_screen.set_group(primary_group)
 
 
 def swap_primary_secondary_screens(qtile):
@@ -76,7 +86,7 @@ def swap_primary_secondary_screens(qtile):
       second_screen.set_group(secondary_group)
 
 
-def togroup(qtile, n):
+def window_to_group(qtile, n):
   cur_screen, _ = get_two_main_screens(qtile)
   primary_group, secondary_group = get_primary_secondary_groups(qtile, n)
 
@@ -94,7 +104,7 @@ def togroup(qtile, n):
 # --------------------------------------------------------------------------
 
 
-mod = "mod4"
+mod = 'mod4'
 
 
 # Options at https://dunst-project.org/documentation/#COLORS
@@ -125,64 +135,66 @@ for n in '12345qwf':
   groups.append(Group(n + 'a'))
   keys.extend([
       # mod1 + letter of group = switch to group
-      Key([mod], n, lazy.function(toscreen, n)),
+      Key([mod], n, lazy.function(group_to_screens, n)),
+
+      Key([mod, 'control'], n, lazy.function(group_to_screen, n)),
 
       # mod1 + shift + letter of group = move focused window to group
-      # Key([mod, "shift"], n, lazy.window.togroup(n, switch_group=False)),
-      Key([mod, "shift"], n, lazy.function(togroup, n)),
+      # Key([mod, 'shift'], n, lazy.window.window_to_group(n, switch_group=False)),
+      Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
 
 
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], "Tab", lazy.layout.up()),
-    # Key([mod, 'shift'], "Tab", lazy.layout.down()),
-    Key([mod], "grave", lazy.prev_screen()),
-    Key([mod, 'shift'], "grave", lazy.next_screen()),
+    Key([mod], 'Tab', lazy.layout.up()),
+    # Key([mod, 'shift'], 'Tab', lazy.layout.down()),
+    Key([mod], 'grave', lazy.prev_screen()),
+    Key([mod, 'shift'], 'grave', lazy.next_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
     # adds this command)
-    Key([mod, "shift"], "period", lazy.swap_screens()),
-    Key([mod, "shift"], "comma", lazy.swap_screens()),
-    Key([mod, 'shift'], "Tab",
+    Key([mod, 'shift'], 'period', lazy.swap_screens()),
+    Key([mod, 'shift'], 'comma', lazy.swap_screens()),
+    Key([mod, 'shift'], 'Tab',
         lazy.layout.shuffle_up().when(layout='monadtall'),
         lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, "shift", 'control'], "Tab",
+    Key([mod, 'shift', 'control'], 'Tab',
         lazy.layout.shuffle_down().when(layout='monadtall'),
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
 
     # Skip managed ignores groups already on a screen.
-    Key([mod], "h", lazy.screen.prev_group(skip_managed=True)),
-    Key([mod], "l", lazy.screen.next_group(skip_managed=True)),
-    Key([mod], "o", lazy.screen.toggle_group()),
-    Key([mod], "equal", lazy.layout.grow()),
-    Key([mod], "minus", lazy.layout.shrink()),
-    Key([mod], "bracketright", lazy.layout.maximize()),
-    Key([mod], "bracketleft", lazy.layout.minimize()),
-    # Key([mod, "control"], "h", lazy.layout.grow_left()),
-    # Key([mod, "control"], "l", lazy.layout.grow_right()),
-    Key([], "XF86AudioRaiseVolume",
+    Key([mod], 'h', lazy.screen.prev_group(skip_managed=True)),
+    Key([mod], 'l', lazy.screen.next_group(skip_managed=True)),
+    Key([mod], 'o', lazy.screen.toggle_group()),
+    Key([mod], 'equal', lazy.layout.grow()),
+    Key([mod], 'minus', lazy.layout.shrink()),
+    Key([mod], 'bracketright', lazy.layout.maximize()),
+    Key([mod], 'bracketleft', lazy.layout.minimize()),
+    # Key([mod, 'control'], 'h', lazy.layout.grow_left()),
+    # Key([mod, 'control'], 'l', lazy.layout.grow_right()),
+    Key([], 'XF86AudioRaiseVolume',
         spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
-    Key([], "XF86AudioLowerVolume",
+    Key([], 'XF86AudioLowerVolume',
         spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
-    Key([], "XF86AudioMute",
+    Key([], 'XF86AudioMute',
         spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
 
     # This is way harder than it should be
     # Key([mod],
-    #     "leftsinglequotemark",  # "XF86AudioPlay",
-    #     lazy.spawn("clementine --play-pause")),
+    #     'leftsinglequotemark',  # 'XF86AudioPlay',
+    #     lazy.spawn('clementine --play-pause')),
     # Key([mod],
-    #     "thorn",  # "XF86AudioPrev",
-    #     lazy.spawn("clementine --previous")),
+    #     'thorn',  # 'XF86AudioPrev',
+    #     lazy.spawn('clementine --previous')),
     # Key([mod],
-    #     "rightsinglequotemark",  # "XF86AudioNext",
-    #     lazy.spawn("clementine --next")),
+    #     'rightsinglequotemark',  # 'XF86AudioNext',
+    #     lazy.spawn('clementine --next')),
 
-    Key([], "XF86MonBrightnessUp",
+    Key([], 'XF86MonBrightnessUp',
         spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
-    Key([], "XF86MonBrightnessDown",
+    Key([], 'XF86MonBrightnessDown',
         spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
 
     # Run this command to make an image file from the screenshot:
@@ -192,77 +204,77 @@ keys.extend([
         'Print',
         spawn_multi_cmd(
             # https://github.com/naelstrof/maim/issues/182
-            "pkill compton",
-            "maim -s | tee ~/clipboard.png | "
-            "xclip -selection clipboard -t image/png; ")),
+            'pkill compton',
+            'maim -s | tee ~/clipboard.png | '
+            'xclip -selection clipboard -t image/png; ')),
     # This part is not working for some reason at the moment.  I think it
     # works when i switch away from the image clipboard content and back
     # to it with copyq.
-    # "xclip –selection clipboard –t image/png –o > ~/clipboard.png"])),
+    # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
     # Take an entire screenshot:
-    # lazy.spawn("scrot -s -e 'mv $f ~/pictures/screenshots/'")
-    Key([mod], "t", lazy.window.toggle_floating()),
+    # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
+    Key([mod], 't', lazy.window.toggle_floating()),
     Key([mod],
-        "space",
-        lazy.widget["keyboardlayout"].next_keyboard(),
-        desc="Next keyboard layout."),
+        'space',
+        lazy.widget['keyboardlayout'].next_keyboard(),
+        desc='Next keyboard layout.'),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack
-    # Key([mod], "z", lazy.layout.toggle_split()),
-    # Key([mod, "control"], "z", lazy.layout.swap_column_left()),
-    Key([mod], "slash", lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
-    Key([mod, 'shift'], "slash",
+    # Key([mod], 'z', lazy.layout.toggle_split()),
+    # Key([mod, 'control'], 'z', lazy.layout.swap_column_left()),
+    Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
+    Key([mod, 'shift'], 'slash',
         lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-    Key([mod], "p",
+    Key([mod], 'p',
         lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
-    Key([mod], "c", lazy.spawn('copyq next')),
-    Key([mod], "v", lazy.spawn('copyq previous')),
-    Key([mod], "b", lazy.spawn('copyq menu')),
-    Key([mod], "r",
+    Key([mod], 'c', lazy.spawn('copyq next')),
+    Key([mod], 'v', lazy.spawn('copyq previous')),
+    Key([mod], 'b', lazy.spawn('copyq menu')),
+    Key([mod], 'r',
         spawn_multi_cmd(
-            "~/bin/setup-monitors.bash forked &> ~/setup-monitors.log")),
-    Key([mod, 'control'], "r",
+            '~/bin/setup-monitors.bash forked &> ~/setup-monitors.log')),
+    Key([mod, 'control'], 'r',
         spawn_multi_cmd(
-            "~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log")
+            '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
-    Key([mod], "s", spawn_multi_cmd("pkill compton", "run-compton.bash")),
-    Key([mod], "Escape", lazy.spawn("screensaver.sh")),
-    Key([mod, 'shift'], "Escape", lazy.spawn("systemctl suspend")),
-    Key([mod], "Return", lazy.spawn("kitty")),
-    Key([mod, 'shift', 'control'], "Return",
+    Key([mod], 's', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
+    Key([mod, 'shift'], 'Escape', lazy.spawn('systemctl suspend')),
+    Key([mod], 'Return', lazy.spawn('kitty')),
+    Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
-    Key([mod, 'shift'], "Return",
+    Key([mod, 'shift'], 'Return',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], "backslash", lazy.spawn("google-chrome")),
-    Key([mod], "y", lazy.spawn("kitty /bin/zsh -c dl-and-play-yt.bash")),
-    Key([mod], "n", lazy.spawn("nvim-textarea.bash")),
+    Key([mod], 'backslash', lazy.spawn('google-chrome')),
+    Key([mod], 'y', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
+    Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
     # Toggle between different layouts as defined below
-    Key([mod], "a", lazy.next_layout()),
-    Key([mod], "x", lazy.window.kill()),
-    Key([mod, "control"], "t", lazy.function(lambda qt: qt.cmd_restart())),
-    Key([mod, "control"], "q", lazy.restart()),
-    Key([mod, "control", "shift"], "q", lazy.shutdown()),
-    Key([mod], "g", lazy.spawn("j4-dmenu-desktop")),
-    Key([mod], "m", lazy.spawn("clementine")),
+    Key([mod], 'a', lazy.next_layout()),
+    Key([mod], 'x', lazy.window.kill()),
+    Key([mod, 'control'], 't', lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, 'control'], 'q', lazy.restart()),
+    Key([mod, 'control', 'shift'], 'q', lazy.shutdown()),
+    Key([mod], 'g', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'm', lazy.spawn('clementine')),
 ])
 
 mouse = [
     # Drag floating layouts.
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+    Drag([mod], 'Button1', lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button2", lazy.window.set_size_floating(),
+    Drag([mod], 'Button2', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+    Click([mod], 'Button2', lazy.window.bring_to_front()),
     # Rearrange and resize windows with mouse wheel
     # For MonadTall layout
     Click([mod], 'Button4', lazy.layout.grow()),
     Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, "shift"], "Button5", lazy.layout.shuffle_down()),
-    Click([mod, "shift"], "Button4", lazy.layout.shuffle_up()),
+    Click([mod, 'shift'], 'Button5', lazy.layout.shuffle_down()),
+    Click([mod, 'shift'], 'Button4', lazy.layout.shuffle_up()),
     # For Columns Layouts
     Click([mod], 'Button4', lazy.layout.grow_left()),
     Click([mod], 'Button5', lazy.layout.grow_right()),
@@ -295,17 +307,17 @@ def movescreens(qtile, offset):
 
 keys.extend([
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod, "control"], "l", lazy.function(movescreens, 1)),
-    Key([mod, "control"], "h", lazy.function(movescreens, -1)),
+    Key([mod, 'control'], 'l', lazy.function(movescreens, 1)),
+    Key([mod, 'control'], 'h', lazy.function(movescreens, -1)),
 ])
 
 layout_theme = {
-    "border_width": 2,
-    "fullscreen_border_width": 2,
-    "max_border_width": 2,
-    "margin": 3,
-    "border_focus": colors['color10'],
-    "border_normal": colors['background'],
+    'border_width': 2,
+    'fullscreen_border_width': 2,
+    'max_border_width': 2,
+    'margin': 3,
+    'border_focus': colors['color10'],
+    'border_normal': colors['background'],
 }
 
 
@@ -358,7 +370,7 @@ def custom_configure_layout(self, client, screen_rect):
 
 custom_monad_3col = layout.MonadThreeCol(
     ratio=0.67, min_secondary_size=100, main_centered=False,
-    new_client_position="after_current",
+    new_client_position='after_current',
     # Strangely, change_size works for secondary window changes in pixels, and
     # change_ratio works for main window changes in percent of size.
     change_size=60, **layout_theme)
@@ -458,46 +470,46 @@ def get_widgets(systray=False):
           this_current_screen_border=colors['color2'],
           active=colors['color7']),
       widget.CurrentLayoutIcon(
-          # custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+          # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
           scale=0.8,
       ),
       widget.WindowName(),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       widget.Clipboard(max_width=50, timeout=None),
-      widget.TextBox(" | ", name="separator"),
-      # widget.TextBox("CPU", name="cpu_label"),
+      widget.TextBox(' | ', name='separator'),
+      # widget.TextBox('CPU', name='cpu_label'),
       # widget.CPUGraph(**graph_args),
-      widget.TextBox("Mem", name="memory_label"),
+      widget.TextBox('Mem', name='memory_label'),
       ColoredMemoryGraph(**graph_args),
-      # widget.TextBox("Net", name="net_label"),
+      # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**graph_args),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       widget.DF(
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
           format='{uf}/{s}{m} free on {p}',
           visible_on_warn=False),
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**graph_args),
-      # widget.TextBox(" | ", name="separator"),
+      # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
       # #              margin_y=4),
-      # widget.TextBox("vol:", name="volume_label"),
+      # widget.TextBox('vol:', name='volume_label'),
       # widget.Volume(fmt='{}'),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
-      widget.TextBox("bat:", name="battery_label"),
+      widget.TextBox('bat:', name='battery_label'),
       widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
                      charge_char='+', discharge_char='-',
                      update_interval=15,  # seconds
                      ),
-      # widget.TextBox(" | ", name="separator"),
+      # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
       # #              margin_x=1,
       # #              margin_y=4.5),
-      # widget.TextBox("brt:", name="brightness_label"),
+      # widget.TextBox('brt:', name='brightness_label'),
       # widget.Backlight(format='{percent: 2.0%}',
       #                  backlight_name='intel_backlight'),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       # Requires
       # sudo apt install libiw-dev
       # pip install iwlib
@@ -507,13 +519,13 @@ def get_widgets(systray=False):
           mouse_callbacks=dict(
               Button1=lambda: qtile.cmd_spawn(
                   'gnome-control-center network'))),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
           configured_keyboards=['us colemak', 'us'],  # , 'us dvorak'],
           display_map={'us': 'qw', 'us dvorak': 'dv', 'us colemak': 'cl'}),
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
   ] + ([widget.Systray()] if systray else []) + [
-      widget.TextBox(" | ", name="separator"),
+      widget.TextBox(' | ', name='separator'),
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
 
@@ -539,9 +551,9 @@ def get_num_monitors():
   try:
     for monitor in get_monitors():
       preferred = False
-      if hasattr(monitor, "preferred"):
+      if hasattr(monitor, 'preferred'):
         preferred = monitor.preferred
-      elif hasattr(monitor, "num_preferred"):
+      elif hasattr(monitor, 'num_preferred'):
         preferred = monitor.num_preferred
       if preferred:
         num_monitors += 1
@@ -614,7 +626,7 @@ floating_layout = layout.Floating(
     border_focus=colors['color10'],
 )
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+focus_on_window_activation = 'smart'
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
@@ -624,4 +636,4 @@ focus_on_window_activation = "smart"
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = 'LG3D'
