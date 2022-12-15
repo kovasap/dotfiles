@@ -1,7 +1,8 @@
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == *.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}~/.fzf/bin"
+  fzf_bin=~/.fzf/bin/
+  PATH="${PATH:+${PATH}:}${fzf_bin}"
 fi
 
 # Auto-completion
