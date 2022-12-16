@@ -136,13 +136,15 @@ for n in '12345qwf':
   keys.extend([
       # mod1 + letter of group = switch to group
       Key([mod], n, lazy.function(group_to_screens, n)),
-
       Key([mod, 'control'], n, lazy.function(group_to_screen, n)),
 
       # mod1 + shift + letter of group = move focused window to group
       # Key([mod, 'shift'], n, lazy.window.window_to_group(n, switch_group=False)),
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
+keys.append(
+    Key([mod, 'control'], 'grave',
+        lazy.function(swap_primary_secondary_screens)))
 
 
 # Key name reference:
