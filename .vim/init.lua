@@ -1415,6 +1415,19 @@ vim.cmd('autocmd Filetype markdown setlocal spell spelllang=en_us')
 vim.cmd('autocmd FileType markdown set foldmethod=expr')
 
 
+--                          /// Language - HTML/CSS ///
+
+-- Need to run this to install:
+-- npm i -g vscode-langservers-extracted
+
+nvim_lsp.html.setup {
+  on_attach = on_attach
+}
+nvim_lsp.cssls.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+}
+
 --                          /// Language - LaTeX ///
 
 vim.cmd('autocmd Filetype latex setlocal spell spelllang=en_us')
