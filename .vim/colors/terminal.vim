@@ -103,6 +103,8 @@ hi ALEStyleWarningSign cterm=bold ctermfg=3 ctermbg=8
 " what will be used to hi similar words
 hi illuminatedWord cterm=bold
 
+hi default link PathfinderPopup Comment
+
 " Kitty color 16 is set to be the background color of the terminal
 hi VertSplit ctermfg=16 ctermbg=8
 

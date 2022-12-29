@@ -47,6 +47,7 @@ local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+  use 'danth/pathfinder.vim';
   use 'eandrju/cellular-automaton.nvim';
   use 'yuttie/comfortable-motion.vim';
   use 'ggvgc/vim-fuzzysearch';
@@ -196,6 +197,10 @@ map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = tr
 map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
 vim.g.CoolTotalMatches = true
 
+
+map('n', '<localleader>pe', ':PathfinderExplain<CR>')
+vim.g.pf_autorun_delay = 1
+
 --                          /// Editing and Formatting ///
 
 -- Rename word and prime to replace other occurances
@@ -228,13 +233,10 @@ map('n', "d'", 'd/[\\]\\}\\)\'"]<CR>:let @/ = ""<CR>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
--- Wrap lines automatically at 79 characters.
--- vim.wo.wrap = true
 vim.wo.linebreak = true
 vim.o.textwidth = 79
 vim.bo.wrapmargin = 0
-vim.bo.formatoptions = vim.o.formatoptions .. 'l'
--- vim.bo.formatoptions = vim.o.formatoptions .. 't'
+vim.bo.formatoptions = 'jcroql'
 
 -- Make new lines indent automatically.
 vim.bo.autoindent = true
