@@ -107,7 +107,7 @@ require('packer').startup(function(use)
   use 'nvim-lua/lsp-status.nvim';
   use 'mgedmin/python-imports.vim';
   use 'Olical/conjure';
-  use {'eraserhd/parinfer-rust', run = 'cargo build --release'};
+  use 'gpanders/nvim-parinfer';
   use 'mechatroner/rainbow_csv';
   use 'masukomi/vim-markdown-folding';
   use 'ron89/thesaurus_query.vim';
@@ -233,7 +233,9 @@ map('n', "d'", 'd/[\\]\\}\\)\'"]<CR>:let @/ = ""<CR>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
-vim.wo.linebreak = true
+-- False to play nicely with parinfer, see
+-- https://github.com/eraserhd/parinfer-rust/issues/136
+vim.wo.linebreak = false
 vim.o.textwidth = 79
 vim.bo.wrapmargin = 0
 vim.bo.formatoptions = 'jcroql'
@@ -1350,6 +1352,8 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 --                          /// Language - Clojure ///
 
+-- See ~/.zprint.edn for clojure formatting configuration
+
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 -- Note that the clojure project must have this dependency for Conjure to work:
@@ -1380,8 +1384,6 @@ map('n', '<localleader>ed',
 -- Generate an example for the spec below the cursor.
 map('n', '<localleader>eg',
     ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
-
-vim.g.clj_fmt_autosave = 0
 
 vim.cmd(
 [[
