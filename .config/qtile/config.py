@@ -143,8 +143,7 @@ for n in '12345qwf':
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
 keys.append(
-    Key([mod, 'control'], 'grave',
-        lazy.function(swap_primary_secondary_screens)))
+    Key([mod], 'grave', lazy.function(swap_primary_secondary_screens)))
 
 
 # Key name reference:
@@ -152,7 +151,7 @@ keys.append(
 keys.extend([
     Key([mod], 'Tab', lazy.layout.up()),
     # Key([mod, 'shift'], 'Tab', lazy.layout.down()),
-    Key([mod], 'grave', lazy.prev_screen()),
+    Key([mod, 'control'], 'Tab', lazy.prev_screen()),
     Key([mod, 'shift'], 'grave', lazy.next_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
