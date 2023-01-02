@@ -1,8 +1,8 @@
 ; For clojure autoformatting.
 ; https://cljdoc.org/d/zprint/zprint/1.1.2/doc/zprint-reference
 {:style [:hiccup :justified]
- :map {:comma? false}
- ; These settings are required to play nicely with parinfer
+ :map {:comma? false
+       :indent 0}
+ ; These :indent settings are required to play nicely with parinfer
  :pair {:indent 0}
- :binding {:indent 0}
- :map {:indent 0}}
+ :binding {:indent 0}}
