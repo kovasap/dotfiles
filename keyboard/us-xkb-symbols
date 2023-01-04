@@ -838,8 +838,8 @@ xkb_symbols "colemak" {
     key <AC05> { [            d,            D,  dead_diaeresis,       asciitilde ] };
     key <AC06> { [            h,            H,      BackSpace,       asciitilde ] };
     key <AC07> { [            n,            N,          parenleft,           Ntilde ] };
-    key <AC08> { [            e,            E,          bracketleft,           Eacute ] };
-    key <AC09> { [            i,            I,          braceleft,           Iacute ] };
+    key <AC08> { [            e,            E,          parenright,           Eacute ] };
+    key <AC09> { [            i,            I,          asciicircum,           Iacute ] };
     key <AC10> { [            o,            O,          oacute,           Oacute ] };
     key <AC11> { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
 
@@ -849,9 +849,9 @@ xkb_symbols "colemak" {
     key <AB04> { [            v,            V,              oe,               OE ] };
     key <AB05> { [            b,            B,      dead_breve,       asciitilde ] };
     key <AB06> { [            k,            K,      underscore,       asciitilde ] };
-    key <AB07> { [            m,            M,     parenright,       asciitilde ] };
-    key <AB08> { [        comma,         less,    bracketright,       asciitilde ] };
-    key <AB09> { [       period,      greater,   braceright,       asciitilde ] };
+    key <AB07> { [            m,            M,     braceleft,       asciitilde ] };
+    key <AB08> { [        comma,         less,    braceright,       asciitilde ] };
+    key <AB09> { [       period,      greater,   percent,       asciitilde ] };
     key <AB10> { [        slash,     question,    questiondown,       asciitilde ] };
 
     key <CAPS> { [        Escape,      BackSpace,          Escape,           Escape ] };
