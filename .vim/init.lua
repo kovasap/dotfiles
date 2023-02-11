@@ -47,7 +47,7 @@ local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'danth/pathfinder.vim';
+  -- use 'danth/pathfinder.vim';
   use 'eandrju/cellular-automaton.nvim';
   use 'yuttie/comfortable-motion.vim';
   use 'ggvgc/vim-fuzzysearch';
@@ -121,7 +121,8 @@ require('packer').startup(function(use)
   use 'whonore/vim-sentencer';
   use 'ruanyl/vim-gh-line';
   use 'ggandor/leap.nvim';
-  use 'narutoxy/dim.lua';
+  -- TODO reenable once https://github.com/0oAstro/dim.lua/issues/20 is fixed
+  -- use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
   -- use 'echasnovski/mini.nvim';
   use {'gorbit99/codewindow.nvim',
@@ -1061,7 +1062,7 @@ map('i', '<C-l>', '<plug>(fzf-complete-line)')
 
 --                          /// Language - General ///
 
-require('dim').setup({})
+-- require('dim').setup({})
 
 vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
