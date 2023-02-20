@@ -17,9 +17,11 @@
 
   ;; External dependencies
  
-  :deps {hashp/hashp {:mvn/version "0.2.2"}
-         cljfmt/cljfmt {:mvn/version "0.9.2"}}
   :aliases {
+            ; See https://clojurians.slack.com/archives/C6N245JGG/p1676923660003989?thread_ts=1676846114.239759&cid=C6N245JGG
+            :tools
+            {:extra-deps {hashp/hashp {:mvn/version "0.2.2"}
+                          cljfmt/cljfmt {:mvn/version "0.9.2"}}}
             :cider
             {:extra-deps {cider/cider-nrepl {:mvn/version "RELEASE"}}
              :main-opts ["-m" "nrepl.cmdline"
