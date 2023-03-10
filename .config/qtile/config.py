@@ -264,8 +264,8 @@ keys.extend([
 ])
 
 mouse = [
-    # Drag floating layouts.
-    Drag([mod], 'Button1', lazy.window.set_position_floating(),
+    # Drag windows around.
+    Drag([mod], 'Button1', lazy.window.set_position(),
          start=lazy.window.get_position()),
     Drag([mod], 'Button2', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
