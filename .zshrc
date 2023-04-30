@@ -257,6 +257,8 @@ zplug load
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin"
 if [[ $(hostname) == *googlers* ]]; then
   eval "$(~/.linuxbrew/bin/brew shellenv)"
+elif [[ $(hostname) == *raspberrypi* ]]; then
+  # do nothing
 else
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
