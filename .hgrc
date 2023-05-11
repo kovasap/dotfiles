@@ -17,6 +17,10 @@ merge = vimdiff
 # (see 'hg help pager' for details)
 # paginate = never
 
+[templatealias]
+google_default_commit_description = 'What is this change doing?: TODO(kovas)\n\nWhy is this change necessary?: TODO(kovas)'
+google_commit_description_custom_footer = 'custom footer'
+
 [commands]
 # important for fig to work properly with vim plugins
 status.relative = False
