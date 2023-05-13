@@ -1357,6 +1357,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
+vim.cmd('let g:conjure#log#wrap = v:true')
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
 -- See
