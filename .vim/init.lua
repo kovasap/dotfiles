@@ -121,6 +121,7 @@ require('packer').startup(function(use)
   use 'whonore/vim-sentencer';
   use 'ruanyl/vim-gh-line';
   use 'ggandor/leap.nvim';
+  use 'guns/vim-sexp';
   -- TODO reenable once https://github.com/0oAstro/dim.lua/issues/20 is fixed
   -- use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
@@ -1282,6 +1283,7 @@ vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("
 -- https://stackoverflow.com/a/54647696 explains why the \<lt> escape is
 -- important
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('v', 'f', ':FormatLines<CR>', {noremap = true})
 
 
 vim.lsp.set_log_level("DEBUG")
@@ -1358,6 +1360,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
+map('n', '<localleader>cc', ':ConjureConnect<CR>', {silent = true})
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
 -- See
