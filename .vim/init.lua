@@ -650,8 +650,8 @@ vim.o.autochdir = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-map('n', '(', ':wincmd W<CR>')
-map('n', ')', ':wincmd w<CR>')
+map('n', 'œ', ':wincmd W<CR>')
+map('n', '_', ':wincmd w<CR>')
 
 map('n', '<BS>', ':bn<CR>')
 
