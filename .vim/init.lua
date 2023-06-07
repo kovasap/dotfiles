@@ -1357,6 +1357,8 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 -- See ~/.zprint.edn for clojure formatting configuration
 
+vim.cmd('let g:sexp_enable_insert_mode_mappings = 0')
+
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
