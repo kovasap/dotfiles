@@ -254,7 +254,6 @@ keys.extend([
     Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
     # Toggle between different layouts as defined below
-    Key([mod], 'a', lazy.next_layout()),
     Key([mod], 'x', lazy.window.kill()),
     Key([mod, 'control'], 't', lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, 'control'], 'q', lazy.restart()),
@@ -405,6 +404,12 @@ layouts = [
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
     # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
 ]
+
+keys.extend(
+    [Key([mod, 'control'], str(i + 1), lazy.to_layout_index(i))
+     for i, _ in enumerate(layouts)],
+)
+
 
 
 @hook.subscribe.layout_change
