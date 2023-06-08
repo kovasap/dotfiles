@@ -847,10 +847,10 @@ xkb_symbols "colemak" {
     key <AB02> { [            x,            X,              cent,       asciitilde ] };
     key <AB03> { [            c,            C,        ccedilla,         Ccedilla ] };
     key <AB04> { [            v,            V,              oe,               OE ] };
-    key <AB05> { [            b,            B,      oe,       asciitilde ] };
+    key <AB05> { [            b,            B,      ae,       asciitilde ] };
     key <AB06> { [            k,            K,      underscore,       asciitilde ] };
-    key <AB07> { [            m,            M,     braceleft,       asciitilde ] };
-    key <AB08> { [        comma,         less,    braceright,       asciitilde ] };
+    key <AB07> { [            m,            M,     oe,       asciitilde ] };
+    key <AB08> { [        comma,         less,    oe,       asciitilde ] };
     key <AB09> { [       period,      greater,   percent,       asciitilde ] };
     key <AB10> { [        slash,     question,    questiondown,       asciitilde ] };
 

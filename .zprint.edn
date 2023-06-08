@@ -5,4 +5,5 @@
        :indent 0}
  ; These :indent settings are required to play nicely with parinfer
  :pair {:indent 0}
+ :list {:indent 1}
  :binding {:indent 0}}
