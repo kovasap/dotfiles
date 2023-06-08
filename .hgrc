@@ -19,6 +19,7 @@ merge = vimdiff
 
 [google-change-tags]
 default.markdown=true
+default.bug=000
 
 [templatealias]
 google_default_commit_description = 'What is this change doing?: TODO(kovas)\n\nWhy is this change necessary?: TODO(kovas)'

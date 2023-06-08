@@ -3,7 +3,9 @@
 {:style [:hiccup :justified]
  :map {:comma? false
        :indent 0}
- ; These :indent settings are required to play nicely with parinfer
- :pair {:indent 0}
- :list {:indent 1}
- :binding {:indent 0}}
+ :binding {:force-nl? true}
+ ; This :indent setting is required to play nicely with parinfer - it forces 1
+ ; space indent if the first element of a list is a list (otherwise the other
+ ; elements will get sucked into it)
+ ; See https://github.com/kkinnear/zprint/issues/299#issuecomment-1583065561
+ :fn-map {:list [:none {:list {:indent 1}}]}}
