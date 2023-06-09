@@ -105,6 +105,8 @@ hi illuminatedWord cterm=bold
 
 hi default link PathfinderPopup Comment
 
+hi default link ScrollViewSearch Character
+
 " Kitty color 16 is set to be the background color of the terminal
 hi VertSplit ctermfg=16 ctermbg=8
 
