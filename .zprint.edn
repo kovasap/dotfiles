@@ -2,7 +2,6 @@
 ; https://cljdoc.org/d/zprint/zprint/1.1.2/doc/zprint-reference
 {:style   [:hiccup :justified]
  :map     {:comma?    false
-           :force-nl? true
            :indent    0}
  :binding {:force-nl? true
            ; This is important for parinfer compatability
