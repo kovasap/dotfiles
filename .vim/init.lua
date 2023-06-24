@@ -75,7 +75,10 @@ require('packer').startup(function(use)
   use 'zhimsel/vim-stay';
   -- Better directory browsing.  Access the directory the current file is in with
   -- the - key.
-  use 'justinmk/vim-dirvish';
+  use {
+    'stevearc/oil.nvim',
+    config = function() require('oil').setup() end
+  }
   use 'tpope/vim-eunuch';
   -- Make it so that when a buffer is deleted, the window stays.
   use 'qpkorr/vim-bufkill';
@@ -646,9 +649,11 @@ map('n', 'yl',
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
--- Disable netrw so dirvish is used for everything
+-- Disable netrw so oil is used for everything
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+require("oil").setup({})
+vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
 map('n', '_', ':wincmd W<CR>')
 map('n', 'œ', ':wincmd w<CR>')
@@ -830,7 +835,7 @@ vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 -- map('n', ',', ':MyAg ')
 
 -- Search through all files in the current buffer's directory with " when in a
--- vim-dirvish directory buffer.
+-- oil directory buffer.
 vim.cmd(
 [[
 function! g:Dirag(query, ...)
@@ -839,13 +844,13 @@ function! g:Dirag(query, ...)
   endif
   let query = empty(a:query) ? '^(?=.)' : a:query
   let args = copy(a:000)
-  echo args
   let ag_opts = len(args) > 1 && type(args[0]) == type('') ? remove(args, 0) : ''
-  let command = ag_opts . ' ' . fzf#shellescape(query) . ' ' . expand('%:h')
+  let directory = substitute(expand('%:h'), 'oil:\/\/', '', '')
+  let command = ag_opts . ' -a ' . fzf#shellescape(query) . ' ' . directory
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-autocmd FileType dirvish nnoremap <buffer> <space><space> :DirAg<CR>
+autocmd FileType oil nnoremap <buffer> <space><space> :DirAg<CR>
 ]]
 )
 
