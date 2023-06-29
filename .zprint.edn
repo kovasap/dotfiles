@@ -6,6 +6,8 @@
  :binding {:force-nl? true
            ; This is important for parinfer compatability
            :indent 0}
+ ; This is important for parinfer compatability
+ :pair {:indent 0}
  ; See
  ; https://github.com/kkinnear/zprint/blob/d0bb27e51ac97b1cdae5ea32b9b953f66cd650b2/src/zprint/config.cljc#L320
  ; for the default :fn-map

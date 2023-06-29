@@ -130,7 +130,7 @@ keys = []
 
 
 groups = []
-for n in '12345qwf':
+for n in '1234567qwf':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
