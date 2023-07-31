@@ -652,7 +652,10 @@ vim.o.autochdir = false
 -- Disable netrw so oil is used for everything
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-require("oil").setup({})
+require("oil").setup({
+  prompt_save_on_select_new_entry = false,
+  skip_confirm_for_simple_edits = true,
+})
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
 map('n', '_', ':wincmd W<CR>')
