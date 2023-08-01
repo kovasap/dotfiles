@@ -655,6 +655,7 @@ vim.g.loaded_netrwPlugin = 1
 require("oil").setup({
   prompt_save_on_select_new_entry = false,
   skip_confirm_for_simple_edits = true,
+  use_default_keymaps = false,
 })
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
