@@ -71,6 +71,7 @@ require('packer').startup(function(use)
   -- Add scrollbars.
   use { 'dstein64/nvim-scrollview', branch = 'main' };
   use 'vim-airline/vim-airline';
+  use { "scheisa/relpointers.nvim" }
   -- Persist settings between sessions
   use 'zhimsel/vim-stay';
   -- Better directory browsing.  Access the directory the current file is in with
@@ -698,6 +699,12 @@ end
 -- my custom C-w slow. See
 -- https://github.com/dstein64/nvim-scrollview/blob/d03d1e305306b8b6927d63182384be0831fa3831/plugin/scrollview.vim#L164.
 vim.g.scrollview_auto_workarounds = 0
+
+-- Relative line underlines
+require("relpointers").setup({
+    amount = 1, -- amount of pointers
+    distance = 10, -- distance between pointers
+})
 
 -- Close windows, then the whole session, with C-w
 vim.keymap.set("n", "<C-w>", function()
