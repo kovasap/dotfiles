@@ -10,4 +10,4 @@ for album in $(cat bandcamp-link.txt); do (bandcamp-dl -r --base-dir . --templat
 rm bandcamp-link.txt
 
 # This is my "music" dir in Google Drive
-gdrive upload -r -p 1ahywjLw_cL4Tg1IJgl30jfpvmcvCZVs3 **
+for d in *; do gdrive upload -r -p 1ahywjLw_cL4Tg1IJgl30jfpvmcvCZVs3 "$d"; done
