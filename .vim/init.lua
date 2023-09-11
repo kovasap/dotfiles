@@ -1333,6 +1333,12 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 end
 
+-- close quickfix menu after selecting choice
+vim.api.nvim_create_autocmd(
+  "FileType", {
+  pattern={"qf"},
+  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]})
+
 
 --                          /// Language - Python ///
 -- This requires: pip install 'python-lsp-server[all]'
