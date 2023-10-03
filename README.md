@@ -102,8 +102,9 @@ sudo udevadm control --reload
 # Required for copyq to work
 sudo dbus-uuidgen > /var/lib/dbus/machine-id
 
-# Install activitywatch
+# Install activitywatch into ~/activitywatch/
 # https://docs.activitywatch.net/en/latest/getting-started.html
+# It will be autostarted via ~/.xinitrc
 
 # Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
 git clone git@github.com:kovasap/compton.git
