@@ -468,17 +468,15 @@ wireless_interface = subprocess.run(
 
 def get_widgets(systray=False):
   return [
-      widget.GroupBox(
-          disable_drag=True,
-          highlight_method='line',
-          highlight_color=['000000', colors['color2']],
-          this_screen_border=colors['color10'],
-          this_current_screen_border=colors['color2'],
-          active=colors['color7']),
+      widget.GroupBox(disable_drag=True,
+                      highlight_method='line',
+                      highlight_color=['000000', colors['color2']],
+                      this_screen_border=colors['color10'],
+                      this_current_screen_border=colors['color2'],
+                      active=colors['color7']),
       widget.CurrentLayoutIcon(
           # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
-          scale=0.8,
-      ),
+          scale=0.8,),
       widget.WindowName(),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(max_width=50, timeout=None),
@@ -504,10 +502,12 @@ def get_widgets(systray=False):
       widget.TextBox(' | ', name='separator'),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
       widget.TextBox('bat:', name='battery_label'),
-      widget.Battery(format='{percent:2.0%} {char}{watt:.1f}W',
-                     charge_char='+', discharge_char='-',
-                     update_interval=15,  # seconds
-                     ),
+      widget.Battery(
+          format='{percent:2.0%} {char}{watt:.1f}W',
+          charge_char='+',
+          discharge_char='-',
+          update_interval=15,  # seconds
+      ),
       # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
       # #              margin_x=1,
@@ -523,12 +523,20 @@ def get_widgets(systray=False):
           interface=wireless_interface,
           format=' {essid} {quality}%',
           mouse_callbacks=dict(
-              Button1=lambda: qtile.cmd_spawn(
-                  'gnome-control-center network'))),
+              Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
           configured_keyboards=['us colemak', 'us'],  # , 'us dvorak'],
-          display_map={'us': 'qw', 'us dvorak': 'dv', 'us colemak': 'cl'}),
+          display_map={
+              'us': 'qw',
+              'us dvorak': 'dv',
+              'us colemak': 'cl'
+          }),
+      widget.TextBox(' | ', name='separator'),
+      widget.TextBox(
+          '⚙',
+          name='settings',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('gnome-control-center')}),
       widget.TextBox(' | ', name='separator'),
   ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(' | ', name='separator'),
