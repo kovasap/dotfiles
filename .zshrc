@@ -32,6 +32,7 @@ source $ZSH/oh-my-zsh.sh
 
 # --------------------------- Window Title -----------------------------------
 
+# Currently seems to be overridden by something else...
 function precmd () {
   # Show last commit's description for mercurial repositories
   hg_name=$(hg log -r . --template "{desc}" 2>/dev/null | sed 's/`//g')
