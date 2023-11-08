@@ -1381,7 +1381,8 @@ vim.cmd('let g:sexp_enable_insert_mode_mappings = 0')
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
-map('n', '<localleader>cc', ':ConjureConnect<CR>', {silent = true})
+-- Port is at ~/.nrepl/nrepl.edn
+map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', {silent = true})
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
 -- See
