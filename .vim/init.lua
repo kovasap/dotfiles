@@ -866,7 +866,7 @@ autocmd FileType oil nnoremap <buffer> <space><space> :DirAg<CR>
 map('n', '<space><space>', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
-vim.g.fzf_mru_max = 100000
+vim.g.fzf_mru_max = 1000000
 -- This is used instead of 'google3' because when fig uses vimdiff it puts the
 -- vim instance at the root of the CitC client (the dir _containing_ google3).
 vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
@@ -874,9 +874,9 @@ vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
 -- merged via vimdiff.
 vim.g.fzf_mru_exclude = '/tmp/\\|google3'
 map('n', "'", ":FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'bat --color=always --style=plain --theme=base16 {}'<CR>")
--- The '1000 part of this will make it so that 1000 oldfiles are remembered (the
--- last 1000 files will be available with the FZFMru command)
-vim.o.shada = "!,'1000,<50,s10,h"
+-- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
+-- last 10000 files will be available with the FZFMru command)
+vim.o.shada = "!,'10000,<50,s10,h"
 
 
 --                          /// Version Control ///
