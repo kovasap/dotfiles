@@ -8,5 +8,5 @@ then
   # We are using the computer, so should take a screenshot.  We don't want to
   # take a screenshot when the computer isn't being used.
   scrot
-  gphotos-uploader-cli
+  # gphotos-uploader-cli
 fi
