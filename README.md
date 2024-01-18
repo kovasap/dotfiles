@@ -83,6 +83,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 brew install clojure/tools/clojure
 brew install borkdude/brew/babashka
 
+# Install my cron jobs
+crontab ~/crontab
+
 # Jet for handy formatting
 bash < <(curl -s https://raw.githubusercontent.com/borkdude/jet/master/install)
 

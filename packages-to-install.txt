@@ -45,3 +45,6 @@ silversearcher-ag
 
 cmus
 # See also https://github.com/hakerdefo/cmus-lyrics
+
+scrot
+xprintidle
