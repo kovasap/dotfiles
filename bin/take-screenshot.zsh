@@ -9,4 +9,6 @@ then
   # take a screenshot when the computer isn't being used.
   scrot
   # gphotos-uploader-cli
+else
+  echo "computer idle!"
 fi
