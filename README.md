@@ -258,6 +258,15 @@ One very useful tool for debugging (neo)vim hangs is running `strace -r nvim`.
 This helped me determine once that my vim was hanging on quit because it was
 trying to cd to an unmounted directory.
 
+## Windows
+
+### Automatic Screenshooting
+
+1. Download https://www.nirsoft.net/utils/nircmd.html
+2. Make a new task in Windows "Task Scheduler" with program `cmd.exe` and arguments `/c C:\Users\kovas\Downloads\nircmd\nircmd.exe savescreenshotfull "C:\Users\kovas\OneDrive\Pictures\Screenshots\screenshot_%time:~0,2%%time:~3,2%%time:~6,2%_%date:~-10,2%%date:~-7,2%%date:~-4,4%.png"`
+3. Set the task to run on your preferred schedule.
+4. Use the Google Drive app to sync your screenshot directory to Google Photos.
+
 ## Future Improvements
 
  - Setting up https://nixos.org/ package management should make installation of
