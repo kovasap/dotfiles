@@ -666,8 +666,6 @@ vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" }
 map('n', '_', ':wincmd W<CR>')
 map('n', 'œ', ':wincmd w<CR>')
 
-map('n', '<BS>', ':bn<CR>')
-
 -- "Chrome-like" mappings
 
 map('n', '<C-l>', ':')
