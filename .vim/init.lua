@@ -178,6 +178,8 @@ map('n', 'e', 'gj')
 map('n', 'E', 'J')
 map('v', 'e', 'j')
 map('v', 'E', 'J')
+map('n', 'j', 'e')
+map('n', 'J', 'E')
 
 -- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
 vim.g.comfortable_motion_no_default_key_mappings = true
