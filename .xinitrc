@@ -10,6 +10,9 @@ export CALIBRE_USE_DARK_PALETTE=1
 # Ensure color schemes are propogated
 xrdb ~/.XResources
 
+# Make shift-caps enable caps lock (and just caps escape instead)
+setxkbmap -option "caps:escape_shifted_capslock"
+
 xclickroot -r ~/bin/run-xmenu.sh &
 
 # This changes the mouse sensitivity via a matrix that transforms mouse

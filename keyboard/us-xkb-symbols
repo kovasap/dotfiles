@@ -854,8 +854,8 @@ xkb_symbols "colemak" {
     key <AB09> { [       period,      greater,   percent,       asciitilde ] };
     key <AB10> { [        slash,     question,    questiondown,       asciitilde ] };
 
-    key <CAPS> { [        Escape,      BackSpace,          Escape,           Escape ] };
-    key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
+    key <CAPS> { [        Escape,      Caps_Lock,          Escape,           Escape ] };
+    key <LSGT> { [        minus,   underscore,          underscore,           underscore ] };
     key <SPCE> { 
           // type="PC_CONTROL_LEVEL2_ALT_LEVEL3",
           // type="PC_CONTROL_LEVEL2",
