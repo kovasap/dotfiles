@@ -587,11 +587,8 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Adds indentation line hints.
-require("indent_blankline").setup {
-    char = "¦",
-    buftype_exclude = {"terminal"},
-    show_current_context = true,
-    max_indent_increase = 1,
+require('ibl').setup{
+    indent = {char = "¦"},
 }
 
 -- Syntax highlighting for specific filetypes
