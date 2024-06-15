@@ -526,11 +526,10 @@ def get_widgets(systray=False):
               Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
-          configured_keyboards=['us colemak', 'us'],  # , 'us dvorak'],
+          configured_keyboards=['us colemak_dh', 'us'],
           display_map={
               'us': 'qw',
-              'us dvorak': 'dv',
-              'us colemak': 'cl'
+              'us colemak_dh': 'cl'
           }),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox(
