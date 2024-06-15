@@ -931,7 +931,7 @@ xkb_symbols "colemak_dh" {
     key <SPCE> { [        space,        space,           space,     nobreakspace ] };
     key <CAPS> { [        Escape,      Escape,          Escape,           Escape ] };
 
-    include "level3(ralt_switch)"
+    include "level3(lalt_switch)"
 };
 
 // Colemak-DH (ISO) symbols for xkb on X.Org Server 7.x
