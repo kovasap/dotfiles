@@ -130,7 +130,7 @@ keys = []
 
 
 groups = []
-for n in '1234567qwf':
+for n in 'qwfpbarstg':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -166,8 +166,6 @@ keys.extend([
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
 
     # Skip managed ignores groups already on a screen.
-    Key([mod], 'h', lazy.screen.prev_group(skip_managed=True)),
-    Key([mod], 'l', lazy.screen.next_group(skip_managed=True)),
     Key([mod], 'o', lazy.screen.toggle_group()),
     Key([mod], 'equal', lazy.layout.grow()),
     Key([mod], 'minus', lazy.layout.shrink()),
@@ -214,7 +212,7 @@ keys.extend([
     # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
     # Take an entire screenshot:
     # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
-    Key([mod], 't', lazy.window.toggle_floating()),
+    Key([mod], 'i', lazy.window.toggle_floating()),
     Key([mod],
         'space',
         lazy.widget['keyboardlayout'].next_keyboard(),
@@ -229,19 +227,19 @@ keys.extend([
     Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
     Key([mod, 'shift'], 'slash',
         lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-    Key([mod], 'p',
+    Key([mod], 'y',
         lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
     Key([mod], 'c', lazy.spawn('copyq next')),
-    Key([mod], 'v', lazy.spawn('copyq previous')),
-    Key([mod], 'b', lazy.spawn('copyq menu')),
-    Key([mod], 'r',
+    Key([mod], 'd', lazy.spawn('copyq previous')),
+    Key([mod], 'v', lazy.spawn('copyq menu')),
+    Key([mod], 'z',
         spawn_multi_cmd(
             '~/bin/setup-monitors.bash forked &> ~/setup-monitors.log')),
-    Key([mod, 'control'], 'r',
+    Key([mod, 'control'], 'z',
         spawn_multi_cmd(
             '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
-    Key([mod], 's', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod, 'control', 'shift'], 'z', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
     Key([mod, 'shift'], 'Escape', lazy.spawn('systemctl suspend')),
     Key([mod], 'Return', lazy.spawn('kitty')),
@@ -250,15 +248,14 @@ keys.extend([
     Key([mod, 'shift'], 'Return',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], 'backslash', lazy.spawn('google-chrome')),
-    Key([mod], 'y', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
+    Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
     # Toggle between different layouts as defined below
     Key([mod], 'x', lazy.window.kill()),
-    Key([mod, 'control'], 't', lazy.function(lambda qt: qt.cmd_restart())),
-    Key([mod, 'control'], 'q', lazy.restart()),
-    Key([mod, 'control', 'shift'], 'q', lazy.shutdown()),
-    Key([mod], 'g', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod, 'shift'], 'h', lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, 'control'], 'h',lazy.restart()),
+    Key([mod], 'j', lazy.spawn('j4-dmenu-desktop')),
     Key([mod], 'm', lazy.spawn('clementine')),
 ])
 
@@ -526,7 +523,7 @@ def get_widgets(systray=False):
               Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
-          configured_keyboards=['us colemak_dh', 'us'],
+          configured_keyboards=['us', 'us colemak_dh'],
           display_map={
               'us': 'qw',
               'us colemak_dh': 'cl'
