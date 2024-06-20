@@ -242,12 +242,16 @@ keys.extend([
     Key([mod, 'control', 'shift'], 'z', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
     Key([mod, 'shift'], 'Escape', lazy.spawn('systemctl suspend')),
+
+    # Programs
     Key([mod], 'Return', lazy.spawn('kitty')),
+    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'm', lazy.spawn('clementine')),
     Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], 'Return',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], 'backslash', lazy.spawn('google-chrome')),
+    Key([mod], 'apostrophe', lazy.spawn('google-chrome')),
     Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
@@ -255,8 +259,6 @@ keys.extend([
     Key([mod], 'x', lazy.window.kill()),
     Key([mod, 'shift'], 'h', lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, 'control'], 'h',lazy.restart()),
-    Key([mod], 'j', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod], 'm', lazy.spawn('clementine')),
 ])
 
 mouse = [
