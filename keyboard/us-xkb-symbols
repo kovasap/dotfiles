@@ -966,6 +966,10 @@ xkb_symbols "colemak_dh" {
 
     key <SPCE> { [        space,        space,           space,     nobreakspace ] };
     key <CAPS> { [        Escape,      Escape,          Escape,           Escape ] };
+    key <LFSH> { [        z, Z, ae, AE  ] };
+    key <RTSH> { [        slash,     question,    questiondown,       asciitilde ] };
+
+    replace key <RALT> { [ Shift_L ]};
 
     include "level3(lalt_switch)"
 };
