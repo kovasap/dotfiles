@@ -873,6 +873,7 @@ xkb_symbols "colemak" {
 // 2014-10-25 by SteveP, https://colemakmods.github.io/mod-dh/
 
 // Modified by kovas to add the "wide" mod and some modifier keys.
+// See /usr/share/X11/xkb/keycodes/hp for keycode examples.
 xkb_symbols "colemak_dh" {
 
     name[Group1]= "English (Colemak-DH)";
@@ -906,15 +907,15 @@ xkb_symbols "colemak_dh" {
     key <AD07> 
     { [            j,            J,         dstroke,          Dstroke ] };
     key <AD08> 
-    { [            l,            L,         lstroke,          Lstroke ] };
+    { [            l,            L,         braceleft,          Lstroke ] };
     key <AD09> 
-    { [            u,            U,          uacute,           Uacute ] };
+    { [            u,            U,          braceright,           Uacute ] };
     key <AD10> 
     { [            y,            Y,      udiaeresis,       Udiaeresis ] };
     key <AD11> 
     { [    semicolon,        colon,      odiaeresis,       Odiaeresis ] };
     key <AD12> 
-    { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
+    { [        slash,     question,    questiondown,       asciitilde ] };
     key <BKSL> 
     { [    backslash,          bar,      asciitilde,       asciitilde ] };
 
@@ -958,16 +959,20 @@ xkb_symbols "colemak_dh" {
     key <AB07> 
     { [            k,            K,  underscore,       asciitilde ] };
     key <AB08> 
-    { [            h,            H,      dead_caron,       asciitilde ] };
+    { [            h,            H,      bracketleft,       asciitilde ] };
     key <AB09> 
-    { [        comma,         less,    dead_cedilla,       asciitilde ] };
+    { [        comma,         less,    bracketright,       asciitilde ] };
     key <AB10> 
     { [       period,      greater,   dead_abovedot,       asciitilde ] };
 
     key <SPCE> { [        space,        space,           space,     nobreakspace ] };
     key <CAPS> { [        Escape,      Escape,          Escape,           Escape ] };
     key <LFSH> { [        z, Z, ae, AE  ] };
-    key <RTSH> { [        slash,     question,    questiondown,       asciitilde ] };
+    key <RTSH>
+    { [        Return,     Return,    Return,       Return ] };
+
+    key <RTRN>
+    { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
 
     replace key <RALT> { [ Shift_L ]};
 
