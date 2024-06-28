@@ -67,5 +67,7 @@ echo $xrandr_cmd
 eval $xrandr_cmd
 /home/kovas/bin/run-compton.bash
 feh --bg-fill /home/kovas/wallpaper
-# Reset qtile.  Could also use qtile-cmd cli for this but I don't know how.
-xdotool key 'ctrl+super+q'
+# Reset qtile by sending the right key command.  
+# This must match the command in the qtile config file. 
+# Could also use qtile-cmd cli for this but I don't know how.
+xdotool key 'ctrl+super+Escape'

@@ -130,7 +130,7 @@ keys = []
 
 
 groups = []
-for n in 'qwfpbarstg':
+for n in 'fpbarstg':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -151,7 +151,7 @@ keys.append(
 keys.extend([
     Key([mod], 'Tab', lazy.layout.up()),
     # Key([mod, 'shift'], 'Tab', lazy.layout.down()),
-    Key([mod, 'control'], 'Tab', lazy.prev_screen()),
+    Key([mod], 'q', lazy.prev_screen()),
     Key([mod, 'shift'], 'grave', lazy.next_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
@@ -239,7 +239,7 @@ keys.extend([
         spawn_multi_cmd(
             '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
-    Key([mod, 'control', 'shift'], 'z', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
     Key([mod, 'shift'], 'Escape', lazy.spawn('systemctl suspend')),
 
@@ -256,9 +256,9 @@ keys.extend([
     Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
     # Toggle between different layouts as defined below
-    Key([mod], 'x', lazy.window.kill()),
-    Key([mod, 'shift'], 'h', lazy.function(lambda qt: qt.cmd_restart())),
-    Key([mod, 'control'], 'h',lazy.restart()),
+    Key([mod], 'w', lazy.window.kill()),
+    Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, 'control'], 'Escape',lazy.restart()),
 ])
 
 mouse = [
@@ -525,7 +525,7 @@ def get_widgets(systray=False):
               Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
-          configured_keyboards=['us', 'us colemak_dh'],
+          configured_keyboards=['us colemak_dh', 'us'],
           display_map={
               'us': 'qw',
               'us colemak_dh': 'cl'

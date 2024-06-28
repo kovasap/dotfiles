@@ -173,7 +173,7 @@ require('leap').set_default_keymaps()
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
--- Colemak rebind
+-- Colemak-DH rebind
 map('n', 'e', 'gj')
 map('n', 'E', 'J')
 map('v', 'e', 'j')
