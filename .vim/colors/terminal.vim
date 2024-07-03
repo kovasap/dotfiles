@@ -6,8 +6,6 @@ if exists('syntax_on')
   syntax reset
 endif
 
-hi NormalFloat ctermfg=7 ctermbg=16
-
 hi Normal ctermfg=7
 hi Comment ctermfg=8
 hi default link shComment Comment
@@ -107,8 +105,8 @@ hi default link PathfinderPopup Comment
 
 hi default link ScrollViewSearch Character
 
-" Kitty color 16 is set to be the background color of the terminal
-hi VertSplit ctermfg=16 ctermbg=8
+" Kitty color 17 is set to be ALMOST the background color of the terminal
+hi WinSeparator ctermfg=17 ctermbg=17 cterm=none
 
 hi Folded ctermfg=6 ctermbg=none
 hi FoldColumn ctermfg=8 ctermbg=none
@@ -119,22 +117,21 @@ hi StatusLine ctermfg=6 ctermbg=15 cterm=none
 hi StatusLineNC ctermfg=6 ctermbg=15 cterm=none
 hi CursorLine cterm=none ctermbg=17
 hi CursorColumn cterm=none ctermbg=17
-if version >= 700
-  " uncomment if you want a cursorline
-  hi CursorLine cterm=none ctermbg=17
-  " hi CursorLineNr term=underline cterm=bold ctermfg=148 ctermbg=235
-  hi CursorLineNr term=NONE ctermbg=NONE
+" uncomment if you want a cursorline
+hi CursorLine cterm=none ctermbg=17
+" hi CursorLineNr term=underline cterm=bold ctermfg=148 ctermbg=235
+hi CursorLineNr term=NONE ctermbg=NONE
 
-  " Kitty color 17 is set to be ALMOST the background color of the terminal
-  hi ColorColumn ctermbg=17
-  hi Cursor term=reverse cterm=reverse
-  hi LineNr ctermfg=8
-  hi MatchParen ctermbg=8
-  hi Pmenu ctermfg=8 ctermbg=0
-  hi PmenuSel ctermfg=8 ctermbg=6
-  hi PmenuSbar ctermfg=8 ctermbg=5
-  hi PmenuThumb ctermfg=8 ctermbg=7
-endif
+" Kitty color 17 is set to be ALMOST the background color of the terminal
+hi ColorColumn ctermbg=17 ctermfg=none cterm=none
+hi Cursor term=reverse cterm=reverse
+hi LineNr ctermfg=8
+hi MatchParen ctermbg=8
+hi NormalFloat ctermfg=8 ctermbg=0
+hi Pmenu ctermfg=8 ctermbg=0 cterm=none
+hi PmenuSel ctermfg=8 ctermbg=6 cterm=none
+hi PmenuSbar ctermfg=8 ctermbg=5 cterm=none
+hi PmenuThumb ctermfg=8 ctermbg=7 cterm=none
 hi FoldColumn ctermfg=3
 hi Search ctermbg=2 cterm=underline
 hi IncSearch cterm=reverse ctermbg=2

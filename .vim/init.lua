@@ -558,6 +558,7 @@ vim.wo.listchars = 'tab:>-'
 
 -- My custom colorscheme defined in ~/.vim/colors.
 vim.cmd('colorscheme terminal')
+vim.o.termguicolors = false
 vim.o.background = 'dark'
 
 -- Function to determine the highlight group under the cursor (to help change
