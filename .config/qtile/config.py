@@ -152,7 +152,6 @@ keys.extend([
     Key([mod], 'Tab', lazy.layout.up()),
     # Key([mod, 'shift'], 'Tab', lazy.layout.down()),
     Key([mod], 'q', lazy.prev_screen()),
-    Key([mod, 'shift'], 'grave', lazy.next_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
     # adds this command)
