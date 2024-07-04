@@ -1,15 +1,7 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *.fzf/bin* ]]; then
-  fzf_bin=~/.fzf/bin/
-  PATH="${PATH:+${PATH}:}${fzf_bin}"
+if [[ ! "$PATH" == */home/kovas/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/home/kovas/.fzf/bin"
 fi
 
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source ~/.fzf/shell/completion.zsh 2> /dev/null
-
-# Key bindings
-# ------------
-source ~/.fzf/shell/key-bindings.zsh
-export FZF_DEFAULT_OPTS='--bind=ctrl-k:up,ctrl-e:down'
+source <(fzf --zsh)
