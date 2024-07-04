@@ -256,6 +256,8 @@ keys.extend([
 
     # Toggle between different layouts as defined below
     Key([mod], 'w', lazy.window.kill()),
+    # If this binding is changed, make sure to also change the reference to it
+    # in ~/bin/setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
 ])
