@@ -180,22 +180,23 @@ map('v', 'e', 'j')
 map('v', 'E', 'J')
 map('n', 'j', 'e')
 map('n', 'J', 'E')
+map('n', ',', 'k')
 
--- Smooth scrolling, ctrl-j or enter to go down, ctrl-k or tab to go up.
+-- Smooth scrolling
 vim.g.comfortable_motion_no_default_key_mappings = true
-map('n', '<C-e>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('n', '<Down>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<C-u>', '<tab>')
 -- map('n', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('n', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('n', '<Up>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('n', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<C-e>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
+map('v', '<Down>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 -- map('v', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('v', '<C-u>', '<tab>')
 -- map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<C-k>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('v', '<Up>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 
 -- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
@@ -1081,7 +1082,7 @@ vim.cmd [[
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'python', 'clojure'},
+  ensure_installed = {'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc'},
   highlight = {enable = true},
   -- TODO Re-enable when this works better for python.
   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
