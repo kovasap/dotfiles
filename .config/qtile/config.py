@@ -166,8 +166,8 @@ keys.extend([
 
     # Skip managed ignores groups already on a screen.
     Key([mod], 'o', lazy.screen.toggle_group()),
-    Key([mod], 'equal', lazy.layout.grow()),
-    Key([mod], 'minus', lazy.layout.shrink()),
+    Key([mod], 'e', lazy.layout.grow()),
+    Key([mod], 'comma', lazy.layout.shrink()),
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
     # Key([mod, 'control'], 'h', lazy.layout.grow_left()),
