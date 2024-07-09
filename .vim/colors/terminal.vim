@@ -18,7 +18,7 @@ hi Boolean ctermfg=3
 hi Float ctermfg=3
 
 hi Identifier cterm=none ctermfg=6
-hi Function ctermfg=5
+hi Function ctermfg=6
 
 hi Statement ctermfg=1
 hi Conditional ctermfg=1
