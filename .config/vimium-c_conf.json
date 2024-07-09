@@ -1,15 +1,15 @@
 {
 	"name": "Vimium C",
-	"@time": "7/27/2022, 1:12:41 PM",
-	"time": 1658952761263,
+	"@time": "7/8/2024, 10:20:29 PM",
+	"time": 1720502429140,
 	"environment": {
-		"extension": "1.98.3",
+		"extension": "1.99.994",
 		"platform": "linux",
-		"chromium": "103"
+		"chromium": 126
 	},
 	"exclusionRules": [
 		{
-			"passKeys": "# / ? c d e h i l l l m n p r s u x ",
+			"passKeys": "# / ? c d h i l l l m n p r s u x ",
 			"pattern": "^https?://mail.google.com/*"
 		},
 		{
@@ -59,6 +59,18 @@
 		{
 			"passKeys": "/ ",
 			"pattern": ":https://play.google.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://ssh.cloud.google.com/"
+		},
+		{
+			"passKeys": "r ",
+			"pattern": ":https://docs.google.com/"
+		},
+		{
+			"passKeys": "x ",
+			"pattern": "^https?://"
 		}
 	],
 	"extAllowList": [
@@ -80,10 +92,10 @@
 		"map <a-/> Vomnibar.activateTabSelection",
 		"map <c-/> Vomnibar.activateInNewTab",
 		"",
-		"map <a-k> previousTab",
-		"map <a-e> nextTab",
-		"map <a-h> goBack",
-		"map <a-l> goForward",
+		"map ( previousTab",
+		"map ) nextTab",
+		"map <c-o> goBack",
+		"map <c-i> goForward",
 		"map e scrollDown",
 		"unmap J",
 		"unmap K",

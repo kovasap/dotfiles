@@ -146,8 +146,6 @@ require('packer').startup(function(use)
   use {'google/vim-maktaba'};
   use {'google/vim-codefmt'};
 
-
-
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
@@ -184,20 +182,10 @@ map('n', ',', 'k')
 
 -- Smooth scrolling
 vim.g.comfortable_motion_no_default_key_mappings = true
-map('n', '<Down>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
--- map('n', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
 map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
-map('n', '<C-u>', '<tab>')
--- map('n', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('n', '<Up>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
 map('n', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<Down>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
--- map('v', '<CR>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
-map('v', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
-map('v', '<C-u>', '<tab>')
--- map('v', '<tab>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<Up>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
-map('v', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('v', '<PageDown>', '10jzz', { silent = true })
+map('v', '<PageUp>', '10kzz', { silent = true })
 
 -- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
 -- this obselete.
@@ -664,7 +652,8 @@ require("oil").setup({
 })
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
-map('n', '+', ':wincmd W<CR>')
+map('n', '(', ':wincmd W<CR>')
+map('n', ')', ':wincmd w<CR>')
 
 -- "Chrome-like" mappings
 
