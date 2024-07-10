@@ -130,7 +130,7 @@ keys = []
 
 
 groups = []
-for n in 'arstgfpb':
+for n in 'arstgb':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -150,8 +150,8 @@ keys.append(
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
     Key([mod], 'Tab', lazy.layout.up()),
-    Key([mod], 'parenleft', lazy.layout.up()),
-    Key([mod], 'parenright', lazy.layout.down()),
+    Key([mod], 'f', lazy.layout.up()),
+    Key([mod], 'p', lazy.layout.down()),
     Key([mod], 'q', lazy.prev_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
