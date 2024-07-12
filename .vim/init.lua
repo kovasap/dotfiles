@@ -127,7 +127,7 @@ require('packer').startup(function(use)
   -- TODO reenable once https://github.com/0oAstro/dim.lua/issues/20 is fixed
   -- use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
-  -- use 'echasnovski/mini.nvim';
+  use 'echasnovski/mini.nvim';
   use {'gorbit99/codewindow.nvim',
        config = function()
          require('codewindow').setup({auto_enable = false})
@@ -197,6 +197,9 @@ map('n', '<localleader>pe', ':PathfinderExplain<CR>')
 vim.g.pf_autorun_delay = 1
 
 --                          /// Editing and Formatting ///
+
+-- Use "gm" to duplicate lines (faster than copy/pasting).
+require('mini.operators').setup({})
 
 -- Rename word and prime to replace other occurances
 -- Can also search for something then use 'cgn' to "change next searched occurance".
