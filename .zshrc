@@ -182,6 +182,9 @@ fi
 
 # ------------------------- Miscellaneous -------------------------
 
+# Make ctrl-w exit, just as it does for vim and chrome
+bindkey -s '^W' '^D'
+
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 unsetopt autocd
