@@ -172,13 +172,13 @@ map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
 -- Colemak-DH rebind
-map('n', 'e', 'gj')
-map('n', 'E', 'J')
-map('v', 'e', 'j')
-map('v', 'E', 'J')
-map('n', 'j', 'e')
-map('n', 'J', 'E')
-map('n', ',', 'k')
+-- map('n', 'e', 'gj')
+-- map('n', 'E', 'J')
+-- map('v', 'e', 'j')
+-- map('v', 'E', 'J')
+-- map('n', 'j', 'e')
+-- map('n', 'J', 'E')
+-- map('n', ',', 'k')
 
 -- Smooth scrolling
 vim.g.comfortable_motion_no_default_key_mappings = true
