@@ -48,7 +48,7 @@ for o in "${outputs[@]}"; do
         # See https://unix.stackexchange.com/a/502883
         # mouse_flicker_fix="--scale 0.9999x0.9999"
         mouse_flicker_fix=""
-        xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --auto $relative_loc"
+        xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix --mode 2560x1440 $relative_loc"
         relative_loc="--right-of $o"
     fi
 done

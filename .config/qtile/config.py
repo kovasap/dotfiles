@@ -164,6 +164,12 @@ keys.extend([
     Key([mod, 'shift', 'control'], 'Tab',
         lazy.layout.shuffle_down().when(layout='monadtall'),
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
+    Key([mod, 'shift'], 's',
+        lazy.layout.shuffle_up().when(layout='monadtall'),
+        lazy.layout.shuffle_up().when(layout='monadthreecol')),
+    Key([mod, 'shift'], 't',
+        lazy.layout.shuffle_down().when(layout='monadtall'),
+        lazy.layout.shuffle_down().when(layout='monadthreecol')),
 
     # Skip managed ignores groups already on a screen.
     Key([mod], 'o', lazy.screen.toggle_group()),
