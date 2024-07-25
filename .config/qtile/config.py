@@ -130,7 +130,7 @@ keys = []
 
 
 groups = []
-for n in 'arfpbg':
+for n in 'arqwfpbg':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -149,10 +149,9 @@ keys.append(
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], 'Tab', lazy.layout.up()),
     Key([mod], 's', lazy.layout.up()),
     Key([mod], 't', lazy.layout.down()),
-    Key([mod], 'q', lazy.prev_screen()),
+    Key([mod], 'Tab', lazy.prev_screen()),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
     # adds this command)
@@ -233,8 +232,8 @@ keys.extend([
     Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
     Key([mod, 'shift'], 'slash',
         lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-    Key([mod], 'y',
-        lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
+    # Key([mod], 'y',
+    #     lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
     Key([mod], 'c', lazy.spawn('copyq next')),
     Key([mod], 'd', lazy.spawn('copyq previous')),
     Key([mod], 'v', lazy.spawn('copyq menu')),
@@ -247,22 +246,21 @@ keys.extend([
        ),
     Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
-    Key([mod, 'shift'], 'Escape', lazy.spawn('systemctl suspend')),
+    Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
     # Programs
     Key([mod], 'Return', lazy.spawn('kitty')),
-    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'slash', lazy.spawn('j4-dmenu-desktop')),
     Key([mod], 'm', lazy.spawn('clementine')),
     Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod, 'shift'], 'Return',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], 'apostrophe', lazy.spawn('google-chrome')),
-    Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
+    # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
 
-    # Toggle between different layouts as defined below
-    Key([mod], 'w', lazy.window.kill()),
+    Key([mod], 'Alt_L', lazy.window.kill()),
     # If this binding is changed, make sure to also change the reference to it
     # in ~/bin/setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
