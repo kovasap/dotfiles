@@ -182,6 +182,9 @@ fi
 
 # ------------------------- Miscellaneous -------------------------
 
+# Open scrollback in vim
+bindkey -s '^S' '~/bin/view-scrollback.zsh\n' 
+
 # Make ctrl-w exit, just as it does for vim and chrome
 bindkey -s '^W' '^D'
 
