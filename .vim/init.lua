@@ -164,15 +164,6 @@ require('leap').set_default_keymaps()
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
--- Colemak-DH rebind
--- map('n', 'e', 'gj')
--- map('n', 'E', 'J')
--- map('v', 'e', 'j')
--- map('v', 'E', 'J')
--- map('n', 'j', 'e')
--- map('n', 'J', 'E')
--- map('n', ',', 'k')
-
 -- Smooth scrolling
 vim.g.comfortable_motion_no_default_key_mappings = true
 map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
@@ -202,13 +193,6 @@ map('n', 'cT', '*Ncw')
 
 -- Make U redo
 map('n', 'U', '<C-r>')
-
--- Copy the line N lines above/below the current line and put it below the
--- current line. See https://vi.stackexchange.com/q/3231
--- e.g. 4TT gets the line 4 lines below the current line.
--- This is somewhat obselete by the ctrl-l fzf lines functionality.
-map('n', 'tt', [[:<C-u>execute ':-' . v:count . 't.'<CR>]])
-map('n', 'TT', [[:<C-u>execute ':+' . v:count . 't.'<CR>]])
 
 -- Rename word across file
 map('n', 'cW', ':%s/\\<<C-r><C-w>\\>/')
@@ -805,12 +789,12 @@ function! g:Dirag(query, ...)
   return call('fzf#vim#ag_raw', insert(args, command, 0))
 endfunction
 command! -bang -nargs=* DirAg call g:Dirag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-autocmd FileType oil nnoremap <buffer> <space><space> :DirAg<CR>
+autocmd FileType oil nnoremap <buffer> ? :DirAg<CR>
 ]]
 )
 
--- Search in all buffer lines with the " key.
-map('n', '<space><space>', ':Lines<CR>')
+-- Search in all buffer lines.
+map('n', '?', ':Lines<CR>')
 
 -- Search through most recently used files with the ' key.
 vim.g.fzf_mru_max = 1000000
@@ -1266,16 +1250,16 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'tT', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'tt', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'cd', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '(', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ')', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   -- buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 end
@@ -1324,6 +1308,10 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 nvim_lsp.clangd.setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  cmd = {
+    "clangd",
+    "--offset-encoding=utf-16",
+  },
 }
 
 
