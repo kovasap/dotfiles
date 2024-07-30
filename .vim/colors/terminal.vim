@@ -81,6 +81,11 @@ hi LspDiagnosticsUnderlineWarning cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineInformation cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineHint cterm=underline ctermbg=0
 
+
+hi IlluminatedWordText cterm=underline
+hi IlluminatedWordRead cterm=underline
+hi IlluminatedWordWrite cterm=underline
+
 hi default link MiniMapSymbolLine Comment
 hi default link MiniMapSymbolView Comment
 
