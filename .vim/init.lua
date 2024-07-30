@@ -1362,6 +1362,14 @@ map('n', 'gai', ':ImportName<CR>')
 
 vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
+--                          /// Language - C++ ///
+
+nvim_lsp.clangd.setup {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
+
+
 --                          /// Language - Clojure ///
 
 -- See ~/.zprint.edn for clojure formatting configuration
