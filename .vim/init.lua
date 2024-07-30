@@ -124,15 +124,8 @@ require('packer').startup(function(use)
   use 'ruanyl/vim-gh-line';
   use 'ggandor/leap.nvim';
   use 'guns/vim-sexp';
-  -- TODO reenable once https://github.com/0oAstro/dim.lua/issues/20 is fixed
-  -- use 'narutoxy/dim.lua';
   use 'romainl/vim-cool';
   use 'echasnovski/mini.nvim';
-  use {'gorbit99/codewindow.nvim',
-       config = function()
-         require('codewindow').setup({auto_enable = false})
-         map('n', 'm', ':lua require("codewindow").toggle_minimap()<CR>')
-       end}
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
@@ -206,6 +199,9 @@ require('mini.operators').setup({})
 map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 map('n', 'ct', '*Ncw<C-r>"')
 map('n', 'cT', '*Ncw')
+
+-- Make U redo
+map('n', 'U', '<C-r>')
 
 -- Copy the line N lines above/below the current line and put it below the
 -- current line. See https://vi.stackexchange.com/q/3231
@@ -655,8 +651,8 @@ require("oil").setup({
 })
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
-map('n', '(', ':wincmd W<CR>')
-map('n', ')', ':wincmd w<CR>')
+map('n', 'm', ':wincmd W<CR>')
+map('n', 'M', ':wincmd w<CR>')
 
 -- "Chrome-like" mappings
 
@@ -702,50 +698,6 @@ end,
 
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
-
--- MiniMap = require('mini.map')
--- MiniMap.setup({
---     -- Highlight integrations (none by default)
---     integrations = {
---       MiniMap.gen_integration.builtin_search(),
---       MiniMap.gen_integration.diagnostic({
---         error = 'DiagnosticFloatingError',
---         warn  = 'DiagnosticFloatingWarn',
---         info  = 'DiagnosticFloatingInfo',
---         hint  = 'DiagnosticFloatingHint',
---       }),
---     },
--- 
---     -- Symbols used to display data
---     symbols = {
---       -- Encode symbols. See `:h MiniMap.config` for specification and
---       -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
---       -- Default: solid blocks with 3x2 resolution.
---       encode = MiniMap.gen_encode_symbols.dot('3x2'),
--- 
---       -- Scrollbar parts for view and line. Use empty string to disable any.
---       -- scroll_line = '█',
---       scroll_line = '▶',
---       scroll_view = '┃',
---     },
--- 
---     -- Window options
---     window = {
---       -- Side to stick ('left' or 'right')
---       side = 'right',
--- 
---       -- Whether to show count of multiple integration highlights
---       show_integration_count = false,
--- 
---       -- Total width
---       width = 2,
--- 
---       -- Value of 'winblend' option
---       winblend = 25,
---     },
---   })
--- vim.cmd('au VimEnter * lua MiniMap.open()')
-
 
 
 --                          /// Buffers and Files ///
