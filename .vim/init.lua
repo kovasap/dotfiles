@@ -540,6 +540,11 @@ npairs.setup({
 
 --                          /// Visuals ///
 
+require('illuminate').configure()
+vim.cmd('hi IlluminatedWordText gui=underline')
+vim.cmd('hi IlluminatedWordRead gui=underline')
+vim.cmd('hi IlluminatedWordWrite gui=underline')
+
 -- Show tabs as actual characters.
 vim.wo.list = true
 vim.wo.listchars = 'tab:>-'
