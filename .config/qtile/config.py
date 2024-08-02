@@ -154,7 +154,7 @@ def movescreens(qtile, offset):
   for screen in sorted(
       qtile.screens,
       key=lambda s: group_names.index(s.group.name),
-      reverse=(offset != 1 if screens_wrap else offset == 1)):
+      reverse=(offset < 0 if screens_wrap else offset > 0)):
     group_idx = (
         (group_names.index(screen.group.name) + offset) % len(group_names))
     next_group_name = group_names[group_idx]
@@ -173,13 +173,12 @@ keys.extend([
     Key([mod], 'Tab', lazy.prev_screen()),
 
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod], 'p', lazy.function(movescreens, 1)),
-    Key([mod], 'f', lazy.function(movescreens, -1)),
+    Key([mod], 'p', lazy.function(movescreens, 2)),
+    Key([mod], 'f', lazy.function(movescreens, -2)),
 
-    # TODO remove and maybe go back to main qtile git repo (not my fork, which
-    # adds this command)
-    Key([mod, 'shift'], 'period', lazy.swap_screens()),
-    Key([mod, 'shift'], 'comma', lazy.swap_screens()),
+    # Note that this command is added by my custom qtile fork.
+    Key([mod], 'q', lazy.swap_screens()),
+
     Key([mod, 'shift'], 's',
         lazy.layout.shuffle_up().when(layout='monadtall'),
         lazy.layout.shuffle_up().when(layout='monadthreecol')),
@@ -225,7 +224,7 @@ keys.extend([
     Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
     # Programs
-    Key([mod], 'q', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
     Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod], 'a',

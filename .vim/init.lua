@@ -160,6 +160,10 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 require('leap').set_default_keymaps()
 
+-- Left hand back/forward commands
+map('n', '<C-p>', '<C-o>')
+map('n', '<C-d>', '<C-i>')
+
 -- Nicer up/down movement on long lines.
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
@@ -842,7 +846,6 @@ vim.cmd("command! SignifyNewer call ChangeTargetCommit('younger')")
 map('n', ']r', ':SignifyOlder<CR>')
 map('n', '[r', ':SignifyNewer<CR>')
 
--- Toggle mercurial diff of current file with alt-d.
 -- TODO Add this for git too.
 vim.cmd(
 [[
@@ -854,7 +857,6 @@ endfunction
 command! HgDiffTargetCmd call HgDiffTarget()
 ]]
 )
-map('n', '<C-d>', ':HgDiffTargetCmd<CR>')
 
 
 --                          /// Diffing ///

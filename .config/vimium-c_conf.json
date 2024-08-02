@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "7/8/2024, 10:20:29 PM",
-	"time": 1720502429140,
+	"@time": "8/2/2024, 2:18:55 PM",
+	"time": 1722633535742,
 	"environment": {
-		"extension": "1.99.994",
+		"extension": "2.11.2",
 		"platform": "linux",
-		"chromium": 126
+		"chromium": 127
 	},
 	"exclusionRules": [
 		{
@@ -94,8 +94,8 @@
 		"",
 		"map ( previousTab",
 		"map ) nextTab",
-		"map <c-o> goBack",
-		"map <c-i> goForward",
+		"map <c-p> goBack",
+		"map <c-d> goForward",
 		"map e scrollDown",
 		"unmap J",
 		"unmap K",
