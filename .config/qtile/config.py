@@ -173,8 +173,8 @@ keys.extend([
     Key([mod], 'Tab', lazy.prev_screen()),
 
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod], 'f', lazy.function(movescreens, 1)),
-    Key([mod], 'p', lazy.function(movescreens, -1)),
+    Key([mod], 'p', lazy.function(movescreens, 1)),
+    Key([mod], 'f', lazy.function(movescreens, -1)),
 
     # TODO remove and maybe go back to main qtile git repo (not my fork, which
     # adds this command)
