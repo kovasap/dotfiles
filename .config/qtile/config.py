@@ -128,9 +128,8 @@ def spawn_multi_cmd(*args):
 
 keys = []
 
-
 groups = []
-for n in 'arqwfpbg':
+for n in 'jluymneikh':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -144,149 +143,6 @@ for n in 'arqwfpbg':
   ])
 keys.append(
     Key([mod], 'grave', lazy.function(swap_primary_secondary_screens)))
-
-
-# Key name reference:
-# https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
-keys.extend([
-    Key([mod], 's', lazy.layout.up()),
-    Key([mod], 't', lazy.layout.down()),
-    Key([mod], 'Tab', lazy.prev_screen()),
-
-    # TODO remove and maybe go back to main qtile git repo (not my fork, which
-    # adds this command)
-    Key([mod, 'shift'], 'period', lazy.swap_screens()),
-    Key([mod, 'shift'], 'comma', lazy.swap_screens()),
-    Key([mod, 'shift'], 'Tab',
-        lazy.layout.shuffle_up().when(layout='monadtall'),
-        lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, 'shift', 'control'], 'Tab',
-        lazy.layout.shuffle_down().when(layout='monadtall'),
-        lazy.layout.shuffle_down().when(layout='monadthreecol')),
-    Key([mod, 'shift'], 's',
-        lazy.layout.shuffle_up().when(layout='monadtall'),
-        lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, 'shift'], 't',
-        lazy.layout.shuffle_down().when(layout='monadtall'),
-        lazy.layout.shuffle_down().when(layout='monadthreecol')),
-
-    # Skip managed ignores groups already on a screen.
-    Key([mod], 'o', lazy.screen.toggle_group()),
-    Key([mod], 'e', lazy.layout.grow()),
-    Key([mod], 'comma', lazy.layout.shrink()),
-    Key([mod], 'bracketright', lazy.layout.maximize()),
-    Key([mod], 'bracketleft', lazy.layout.minimize()),
-    # Key([mod, 'control'], 'h', lazy.layout.grow_left()),
-    # Key([mod, 'control'], 'l', lazy.layout.grow_right()),
-    Key([], 'XF86AudioRaiseVolume',
-        spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
-    Key([], 'XF86AudioLowerVolume',
-        spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
-    Key([], 'XF86AudioMute',
-        spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
-
-    # This is way harder than it should be
-    # Key([mod],
-    #     'leftsinglequotemark',  # 'XF86AudioPlay',
-    #     lazy.spawn('clementine --play-pause')),
-    # Key([mod],
-    #     'thorn',  # 'XF86AudioPrev',
-    #     lazy.spawn('clementine --previous')),
-    # Key([mod],
-    #     'rightsinglequotemark',  # 'XF86AudioNext',
-    #     lazy.spawn('clementine --next')),
-
-    Key([], 'XF86MonBrightnessUp',
-        spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
-    Key([], 'XF86MonBrightnessDown',
-        spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
-
-    # Run this command to make an image file from the screenshot:
-    # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
-    Key(
-        [],
-        'Print',
-        spawn_multi_cmd(
-            # https://github.com/naelstrof/maim/issues/182
-            'pkill compton',
-            'maim -s | tee ~/clipboard.png | '
-            'xclip -selection clipboard -t image/png; ')),
-    # This part is not working for some reason at the moment.  I think it
-    # works when i switch away from the image clipboard content and back
-    # to it with copyq.
-    # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
-    # Take an entire screenshot:
-    # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
-    Key([mod], 'i', lazy.window.toggle_floating()),
-    Key([mod],
-        'space',
-        lazy.widget['keyboardlayout'].next_keyboard(),
-        desc='Next keyboard layout.'),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack
-    # Key([mod], 'z', lazy.layout.toggle_split()),
-    # Key([mod, 'control'], 'z', lazy.layout.swap_column_left()),
-    Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
-    Key([mod, 'shift'], 'slash',
-        lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
-    # Key([mod], 'y',
-    #     lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
-    Key([mod], 'c', lazy.spawn('copyq next')),
-    Key([mod], 'd', lazy.spawn('copyq previous')),
-    Key([mod], 'v', lazy.spawn('copyq menu')),
-    Key([mod], 'z',
-        spawn_multi_cmd(
-            '~/bin/setup-monitors.bash forked &> ~/setup-monitors.log')),
-    Key([mod, 'control'], 'z',
-        spawn_multi_cmd(
-            '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
-       ),
-    Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
-    Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
-    Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
-
-    # Programs
-    Key([mod], 'Return', lazy.spawn('kitty')),
-    Key([mod], 'slash', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod], 'm', lazy.spawn('clementine')),
-    Key([mod, 'shift', 'control'], 'Return',
-        lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
-    Key([mod, 'shift'], 'Return',
-        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], 'apostrophe', lazy.spawn('google-chrome')),
-    # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
-    Key([mod], 'n', lazy.spawn('nvim-textarea.bash')),
-
-    Key([mod], 'Alt_L', lazy.window.kill()),
-    # If this binding is changed, make sure to also change the reference to it
-    # in ~/bin/setup-monitors.bash.
-    Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
-    Key([mod, 'control'], 'Escape',lazy.restart()),
-])
-
-mouse = [
-    # Drag windows around.
-    Drag([mod], 'Button1', lazy.window.set_position(),
-         start=lazy.window.get_position()),
-    Drag([mod], 'Button2', lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], 'Button2', lazy.window.bring_to_front()),
-    # Rearrange and resize windows with mouse wheel
-    # For MonadTall layout
-    Click([mod], 'Button4', lazy.layout.grow()),
-    Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, 'shift'], 'Button5', lazy.layout.shuffle_down()),
-    Click([mod, 'shift'], 'Button4', lazy.layout.shuffle_up()),
-    # For Columns Layouts
-    Click([mod], 'Button4', lazy.layout.grow_left()),
-    Click([mod], 'Button5', lazy.layout.grow_right()),
-    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
-    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
-]
-
 
 def movescreens(qtile, offset):
   group_names = [g.name for g in groups]
@@ -309,12 +165,140 @@ def movescreens(qtile, offset):
         screen.set_group(group)
         break
 
-
+# Key name reference:
+# https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
+    Key([mod], 's', lazy.layout.up()),
+    Key([mod], 't', lazy.layout.down()),
+    Key([mod], 'Tab', lazy.prev_screen()),
+
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod, 'control'], 'l', lazy.function(movescreens, 1)),
-    Key([mod, 'control'], 'h', lazy.function(movescreens, -1)),
+    Key([mod], 'f', lazy.function(movescreens, 1)),
+    Key([mod], 'p', lazy.function(movescreens, -1)),
+
+    # TODO remove and maybe go back to main qtile git repo (not my fork, which
+    # adds this command)
+    Key([mod, 'shift'], 'period', lazy.swap_screens()),
+    Key([mod, 'shift'], 'comma', lazy.swap_screens()),
+    Key([mod, 'shift'], 's',
+        lazy.layout.shuffle_up().when(layout='monadtall'),
+        lazy.layout.shuffle_up().when(layout='monadthreecol')),
+    Key([mod, 'shift'], 't',
+        lazy.layout.shuffle_down().when(layout='monadtall'),
+        lazy.layout.shuffle_down().when(layout='monadthreecol')),
+
+    # Skip managed ignores groups already on a screen.
+    Key([mod], 'o', lazy.screen.toggle_group()),
+    Key([mod], 'comma', lazy.layout.grow()),
+    Key([mod], 'period', lazy.layout.shrink()),
+    Key([mod], 'bracketright', lazy.layout.maximize()),
+    Key([mod], 'bracketleft', lazy.layout.minimize()),
+
+
+    # This part is not working for some reason at the moment.  I think it
+    # works when i switch away from the image clipboard content and back
+    # to it with copyq.
+    # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
+    # Take an entire screenshot:
+    # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
+    Key([mod], 'w', lazy.next_layout()),
+    Key([mod],
+        'space',
+        lazy.widget['keyboardlayout'].next_keyboard(),
+        desc='Next keyboard layout.'),
+
+    Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
+    Key([mod, 'shift'], 'slash',
+        lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
+    Key([mod], 'c', lazy.spawn('copyq next')),
+    Key([mod], 'd', lazy.spawn('copyq previous')),
+    Key([mod], 'v', lazy.spawn('copyq menu')),
+    Key([mod], 'z',
+        spawn_multi_cmd(
+            '~/bin/setup-monitors.bash forked &> ~/setup-monitors.log')),
+    Key([mod, 'control'], 'z',
+        spawn_multi_cmd(
+            '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
+       ),
+    Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
+    Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
+
+    # Programs
+    Key([mod], 'q', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod, 'shift', 'control'], 'Return',
+        lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
+    Key([mod], 'a',
+        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
+    Key([mod], 'r', lazy.spawn('google-chrome')),
+    # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
+    Key([mod], 'g', lazy.spawn('nvim-textarea.bash')),
+    Key([mod], 'b',
+        lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
+
+    Key([mod], 'Alt_L', lazy.window.kill()),
+
+    # If this binding is changed, make sure to also change the reference to it
+    # in ~/bin/setup-monitors.bash.
+    Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, 'control'], 'Escape',lazy.restart()),
+
+    # Audio
+    Key([], 'XF86AudioRaiseVolume',
+        spawn_multi_cmd('amixer sset Master 5%+', notify_vol_cmd)),
+    Key([], 'XF86AudioLowerVolume',
+        spawn_multi_cmd('amixer sset Master 5%-', notify_vol_cmd)),
+    Key([], 'XF86AudioMute',
+        spawn_multi_cmd('amixer sset Master toggle', notify_vol_cmd)),
+    # This is way harder than it should be
+    # Key([mod],
+    #     'leftsinglequotemark',  # 'XF86AudioPlay',
+    #     lazy.spawn('clementine --play-pause')),
+    # Key([mod],
+    #     'thorn',  # 'XF86AudioPrev',
+    #     lazy.spawn('clementine --previous')),
+    # Key([mod],
+    #     'rightsinglequotemark',  # 'XF86AudioNext',
+    #     lazy.spawn('clementine --next')),
+
+    # Brightness
+    Key([], 'XF86MonBrightnessUp',
+        spawn_multi_cmd('brightness.sh up', notify_brightness_cmd)),
+    Key([], 'XF86MonBrightnessDown',
+        spawn_multi_cmd('brightness.sh down', notify_brightness_cmd)),
+
+    # Run this command to make an image file from the screenshot:
+    # xclip –selection clipboard –t image/png –o > /tmp/nameofyourfile.png
+    Key(
+        [],
+        'Print',
+        spawn_multi_cmd(
+            # https://github.com/naelstrof/maim/issues/182
+            'pkill compton',
+            'maim -s | tee ~/clipboard.png | '
+            'xclip -selection clipboard -t image/png; ')),   
 ])
+
+mouse = [
+    # Drag windows around.
+    Drag([mod], 'Button1', lazy.window.set_position(),
+         start=lazy.window.get_position()),
+    Drag([mod], 'Button2', lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], 'Button2', lazy.window.bring_to_front()),
+    # Rearrange and resize windows with mouse wheel
+    # For MonadTall layout
+    Click([mod], 'Button4', lazy.layout.grow()),
+    Click([mod], 'Button5', lazy.layout.shrink()),
+    Click([mod, 'shift'], 'Button5', lazy.layout.shuffle_down()),
+    Click([mod, 'shift'], 'Button4', lazy.layout.shuffle_up()),
+    # For Columns Layouts
+    Click([mod], 'Button4', lazy.layout.grow_left()),
+    Click([mod], 'Button5', lazy.layout.grow_right()),
+    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
+    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
+]
+
 
 layout_theme = {
     'border_width': 2,
@@ -402,8 +386,8 @@ layouts = [
     layout.Zoomy(
       columnwidth=20,
       **layout_theme),
-    custom_monad_3col,
-    layout.Floating(**layout_theme),
+    # custom_monad_3col,
+    # layout.Floating(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),

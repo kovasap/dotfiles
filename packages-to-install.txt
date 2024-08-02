@@ -29,7 +29,6 @@ calibre
 
 tldr # https://tldr.sh/
 bat # https://github.com/sharkdp/bat
-cmatrix
 qdirstat
 xautolock
 cmake
