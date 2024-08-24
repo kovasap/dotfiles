@@ -450,7 +450,7 @@ class ColoredMemoryGraph(MemoryGraph):
 
 
 wireless_interface = subprocess.run(
-    "ifconfig | grep wlp | awk '{print $1}' | tr -d :",
+    "ifconfig | grep wl | awk '{print $1}' | tr -d :",
     shell=True, capture_output=True).stdout.decode('utf-8').strip()
 
 
@@ -503,15 +503,16 @@ def get_widgets(systray=False):
       # widget.TextBox('brt:', name='brightness_label'),
       # widget.Backlight(format='{percent: 2.0%}',
       #                  backlight_name='intel_backlight'),
-      widget.TextBox(' | ', name='separator'),
+      # widget.TextBox(' | ', name='separator'),
+      # Am currently using nm-applet instead.
       # Requires
       # sudo apt install libiw-dev
       # pip install iwlib
-      widget.Wlan(
-          interface=wireless_interface,
-          format=' {essid} {quality}%',
-          mouse_callbacks=dict(
-              Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
+      # widget.Wlan(
+      #     interface=wireless_interface,
+      #     format=' {essid} {quality}%',
+      #     mouse_callbacks=dict(
+      #         Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
           configured_keyboards=['us colemak_dh', 'us'],
