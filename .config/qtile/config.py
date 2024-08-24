@@ -141,8 +141,6 @@ for n in 'jluymneikh':
       # Key([mod, 'shift'], n, lazy.window.window_to_group(n, switch_group=False)),
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
-keys.append(
-    Key([mod], 'grave', lazy.function(swap_primary_secondary_screens)))
 
 def movescreens(qtile, offset):
   group_names = [g.name for g in groups]
@@ -179,6 +177,8 @@ keys.extend([
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
 
+    Key([mod], 'g', lazy.function(swap_primary_secondary_screens)),
+
     Key([mod, 'shift'], 's',
         lazy.layout.shuffle_up().when(layout='monadtall'),
         lazy.layout.shuffle_up().when(layout='monadthreecol')),
@@ -205,6 +205,7 @@ keys.extend([
         'space',
         lazy.widget['keyboardlayout'].next_keyboard(),
         desc='Next keyboard layout.'),
+    Key([mod, 'shift'], "space", lazy.hide_show_bar(), desc="Hides the bar"),
 
     Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
     Key([mod, 'shift'], 'slash',
@@ -231,11 +232,11 @@ keys.extend([
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], 'r', lazy.spawn('google-chrome')),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
-    Key([mod], 'g', lazy.spawn('nvim-textarea.bash')),
+    Key([mod, 'shift'], 'g', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',
         lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
 
-    Key([mod], 'Alt_L', lazy.window.kill()),
+    Key([mod, 'shift'], 'w', lazy.window.kill()),
 
     # If this binding is changed, make sure to also change the reference to it
     # in ~/bin/setup-monitors.bash.
