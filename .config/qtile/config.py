@@ -187,7 +187,7 @@ keys.extend([
         lazy.layout.shuffle_down().when(layout='monadthreecol')),
 
     # Skip managed ignores groups already on a screen.
-    Key([mod], 'o', lazy.screen.toggle_group()),
+    # Key([mod], 'o', lazy.screen.toggle_group()),
     Key([mod], 'comma', lazy.layout.grow()),
     Key([mod], 'period', lazy.layout.shrink()),
     Key([mod], 'bracketright', lazy.layout.maximize()),
@@ -232,7 +232,7 @@ keys.extend([
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], 'r', lazy.spawn('google-chrome')),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
-    Key([mod, 'shift'], 'g', lazy.spawn('nvim-textarea.bash')),
+    Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',
         lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
 
@@ -618,7 +618,7 @@ floating_layout = layout.Floating(
         Match(wm_class='splash'),
         Match(wm_class='toolbar'),
         Match(title='meet.google.com is sharing a window.'),
-        Match(title='nvim-textarea'),
+        # Match(title='nvim-textarea'),
         Match(wm_class='confirmreset'),  # gitk
         Match(wm_class='makebranch'),  # gitk
         Match(wm_class='maketag'),  # gitk

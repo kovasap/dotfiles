@@ -22,7 +22,7 @@ default.markdown=true
 default.bug=
 
 [templatealias]
-google_default_commit_description = 'What is this change doing?: TODO(kovas)\n\nWhy is this change necessary?: TODO(kovas)\n\nWhat state is this CL in (ready to do, draft, etc.)?  If ready to do, make sure to do a separate review myself.'
+google_default_commit_description = 'What is this change doing?: TODO(kovas)\n\nWhy is this change necessary?: TODO(kovas)\n\nWhat state is this CL in (ready to go, draft, etc.)?  If ready to go, make sure to do a separate review myself.'
 google_commit_description_custom_footer = 'custom footer'
 
 [commands]
