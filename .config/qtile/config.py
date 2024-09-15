@@ -1,4 +1,5 @@
 import os
+import socket
 import shlex
 import subprocess
 import types
@@ -281,11 +282,11 @@ keys.extend([
 
 mouse = [
     # Drag windows around.
-    Drag([mod], 'Button1', lazy.window.set_position(),
+    Drag([mod], 'Button1', lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
+    Click([mod], 'Button1', lazy.window.toggle_floating()),
     Drag([mod], 'Button2', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], 'Button2', lazy.window.bring_to_front()),
     # Rearrange and resize windows with mouse wheel
     # For MonadTall layout
     Click([mod], 'Button4', lazy.layout.grow()),
@@ -298,6 +299,14 @@ mouse = [
     Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
+
+@hook.subscribe.current_screen_change
+@hook.subscribe.focus_change
+def float_to_front(qtile):
+    """Bring all floating windows of the group to front."""
+    for window in qtile.currentGroup.windows:
+        if window.floating:
+            window.cmd_bring_to_front()
 
 
 layout_theme = {
@@ -516,7 +525,10 @@ def get_widgets(systray=False):
       #         Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
-          configured_keyboards=['us colemak_dh', 'us'],
+          # Colemak is useful on a normal keyboard (like a laptop keyboard).
+          configured_keyboards=(['us colemak_dh', 'us']
+                                if socket.gethostname() != 'frostyarch' else 
+                                ['us', 'us colemak_dh']),
           display_map={
               'us': 'qw',
               'us colemak_dh': 'cl'
