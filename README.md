@@ -73,6 +73,9 @@ sudo systemctl start systemd-resolved
 sudo systemctl start systemd-networkd
 ln -sf ../run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
+# Time
+timedatectl set-ntp true
+
 # Install yay
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
