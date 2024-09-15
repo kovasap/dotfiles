@@ -243,6 +243,7 @@ keys.extend([
     # in ~/bin/setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
+    Key([mod, "control"], "Tab", lazy.shutdown()),
 
     # Audio
     Key([], 'XF86AudioRaiseVolume',
