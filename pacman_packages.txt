@@ -2,6 +2,7 @@ asciidoc
 base
 base-devel
 bat
+cmus
 copyq
 cronie
 difftastic
@@ -16,6 +17,7 @@ grub
 inetutils
 j4-dmenu-desktop
 kitty
+lib32-systemd
 libconfig
 libev
 lightdm
@@ -34,6 +36,9 @@ python-virtualenvwrapper
 python-xlib
 qtile
 redshift
+steam
+the_silver_searcher
+udisks2
 xcb-util-image
 xdotool
 xorg-xinit

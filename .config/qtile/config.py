@@ -206,10 +206,10 @@ keys.extend([
         'space',
         lazy.widget['keyboardlayout'].next_keyboard(),
         desc='Next keyboard layout.'),
-    Key([mod, 'shift'], "space", lazy.hide_show_bar(), desc="Hides the bar"),
+    Key([mod, 'control'], "space", lazy.hide_show_bar(), desc="Hides the bar"),
 
     Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
-    Key([mod, 'shift'], 'slash',
+    Key([mod, 'control'], 'slash',
         lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
     Key([mod], 'c', lazy.spawn('copyq next')),
     Key([mod], 'd', lazy.spawn('copyq previous')),
@@ -237,7 +237,7 @@ keys.extend([
     Key([mod], 'b',
         lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
 
-    Key([mod, 'shift'], 'w', lazy.window.kill()),
+    Key([mod, 'control'], 'w', lazy.window.kill()),
 
     # If this binding is changed, make sure to also change the reference to it
     # in ~/bin/setup-monitors.bash.
@@ -291,8 +291,8 @@ mouse = [
     # For MonadTall layout
     Click([mod], 'Button4', lazy.layout.grow()),
     Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, 'shift'], 'Button5', lazy.layout.shuffle_down()),
-    Click([mod, 'shift'], 'Button4', lazy.layout.shuffle_up()),
+    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down()),
+    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up()),
     # For Columns Layouts
     Click([mod], 'Button4', lazy.layout.grow_left()),
     Click([mod], 'Button5', lazy.layout.grow_right()),
@@ -300,14 +300,13 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-@hook.subscribe.current_screen_change
-@hook.subscribe.focus_change
-def float_to_front(qtile):
-    """Bring all floating windows of the group to front."""
-    for window in qtile.currentGroup.windows:
-        if window.floating:
-            window.cmd_bring_to_front()
-
+@hook.subscribe.float_change
+def make_floating_window_big_so_mouse_stays_on_it():
+  logger.warning("resizing")
+  for window in qtile.current_group.windows:
+    if window.floating:
+      window.bring_to_front()
+      window.tweak_float(w=2000, h=2000)
 
 layout_theme = {
     'border_width': 2,
@@ -408,8 +407,6 @@ keys.extend(
      for i, _ in enumerate(layouts)],
 )
 
-
-
 @hook.subscribe.layout_change
 def resize_floating_windows(layout, group):
   if layout.name == 'floating':
@@ -497,6 +494,7 @@ def get_widgets(systray=False):
       # #              margin_y=4),
       # widget.TextBox('vol:', name='volume_label'),
       # widget.Volume(fmt='{}'),
+      ] + ([
       widget.TextBox(' | ', name='separator'),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
       widget.TextBox('bat:', name='battery_label'),
@@ -506,6 +504,7 @@ def get_widgets(systray=False):
           discharge_char='-',
           update_interval=15,  # seconds
       ),
+      ] if socket.gethostname() != 'frostyarch' else []) + [
       # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
       # #              margin_x=1,
