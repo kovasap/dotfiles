@@ -230,7 +230,7 @@ keys.extend([
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod], 'a',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], 'r', lazy.spawn('google-chrome')),
+    Key([mod], 'r', lazy.spawn('google-chrome-stable')),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',

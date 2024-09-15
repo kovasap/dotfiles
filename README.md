@@ -9,7 +9,10 @@ See feature overview at [FEATURES.md](FEATURES.md).
 
 ## Installation
 
-### For All Systems (headless and graphical)
+### For All Systems
+
+May need to install some packages from `pacman_packages.txt` or
+`packages-to-install.txt` to run some of these commands.
 
 ```
 # Note, look for *.ssh directories in my home dir in case i copied frequently used keys for e.g. cloud machines.
@@ -31,6 +34,59 @@ git remote add -t \* -f origin git@github.com:kovasap/dotfiles.git
 git pull
 git checkout master
 
+# Install oh my zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+# Install zplug
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+# Install p10k zsh theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Install autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# Open a new zsh terminal and run:
+zplug install
+
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --key-bindings --completion --no-update-rc
+
+# Install my cron jobs
+crontab ~/crontab
+
+# Jet for handy formatting
+bash < <(curl -s https://raw.githubusercontent.com/borkdude/jet/master/install)
+
+# Required for copyq to work
+sudo dbus-uuidgen > /var/lib/dbus/machine-id
+```
+
+#### Arch Linux (Graphical)
+
+```
+pacman -S - < pacman_packages.txt
+
+# Install yay
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+yay -S - < yay_packages.txt
+
+# Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
+git clone git@github.com:kovasap/compton.git
+cd compton
+make
+make docs
+sudo make install
+cd ~/
+
+```
+
+#### All Others
+
+```
 # Install linuxbrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -62,38 +118,10 @@ cd ~/
 pip install neovim
 pip install 'python-lsp-server[all]'
 
-# Install oh my zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
-# Install zplug
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-# Install p10k zsh theme
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-# Install autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# Open a new zsh terminal and run:
-zplug install
-
-# Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --key-bindings --completion --no-update-rc
-
 # Linuxbrew and clojure
 brew install clojure/tools/clojure
 brew install borkdude/brew/babashka
 
-# Install my cron jobs
-crontab ~/crontab
-
-# Jet for handy formatting
-bash < <(curl -s https://raw.githubusercontent.com/borkdude/jet/master/install)
-
-```
-
-### Graphical Only
-
-```
 # TODO remove if unused
 # Link udev rules to /etc/udev/rules.d/
 sudo ln -s ~/udev_rules/mouse.rules /etc/udev/rules.d/mouse.rules
@@ -101,9 +129,6 @@ sudo ln -s ~/udev_rules/fix_mouse_sens.bash /usr/local/bin/fix_mouse_sens.bash
 sudo udevadm control --reload
 # Can monitor activity with:
 # udevadm monitor --environment
-
-# Required for copyq to work
-sudo dbus-uuidgen > /var/lib/dbus/machine-id
 
 # Install activitywatch into ~/activitywatch/
 # https://docs.activitywatch.net/en/latest/getting-started.html

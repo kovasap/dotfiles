@@ -170,7 +170,12 @@ alias icat='kitty +kitten icat'
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+if [[ $(hostname) == *googlers* ]]; then
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+else
+  source /usr/bin/virtualenvwrapper.sh
+fi
 
 
 # ------------------------- Google -------------------------
@@ -265,6 +270,8 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin
 if [[ $(hostname) == *googlers* ]]; then
   eval "$(~/.linuxbrew/bin/brew shellenv)"
 elif [[ $(hostname) == *raspberrypi* ]]; then
+  # do nothing
+elif [[ $(hostname) == frostyarch ]]; then
   # do nothing
 else
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

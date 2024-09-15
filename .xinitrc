@@ -7,9 +7,6 @@ fi
 
 export CALIBRE_USE_DARK_PALETTE=1
 
-# Ensure color schemes are propogated
-xrdb ~/.XResources
-
 # Make shift-caps enable caps lock (and just caps escape instead)
 setxkbmap -option "caps:escape_shifted_capslock"
 
@@ -38,27 +35,19 @@ done &
 # natural scrolling for thinkpad touchpad
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled' 1
 
-# auto lock screen using securelock after a certain time
-# https://g3doc.corp.google.com/company/teams/i3/index.md?cl=head#locking-your-screen
-# exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 1 -locker /usr/share/goobuntu-desktop-files/xsecurelock.sh
-# xautolock -time 10 -locker ~/bin/screensaver.sh &
-
 # change brightness and color 
 redshift -x
 redshift -O 4000 # -b 0.9:0.9
 
-# hide mouse pointer after idling
-# unclutter -idle 10 -root -grab &
-
 # Start selfspy
-(pkill selfspy; rm ~/.selfspy/selfspy.pid.lock; cd ~/autojournal; nohup poetry run selfspy -n -v &> ~/.selfspy/selfspy.log &)
+# (pkill selfspy; rm ~/.selfspy/selfspy.pid.lock; cd ~/autojournal; nohup poetry run selfspy -n -v &> ~/.selfspy/selfspy.log &)
 
 # Start ActivityWatch
 # If activitywatch was installed from source:
 # (sleep 5; cd ~/activitywatch; nohup poetry run aw-qt &> ~/activitywatch.log &) &
 # If activitywatch was installed normally
 # (https://docs.activitywatch.net/en/latest/getting-started.html):
-(sleep 5; nohup ~/activitywatch/aw-qt &> ~/activitywatch.log &) &
+# (sleep 5; nohup ~/activitywatch/aw-qt &> ~/activitywatch.log &) &
 
 # Start auto screenshot utility.
 # nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
@@ -83,3 +72,7 @@ feh --bg-fill ~/wallpaper
 
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
+
+if [[ `hostname` = 'frostyarch' ]]; then 
+  qtile start
+fi
