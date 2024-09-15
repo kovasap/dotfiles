@@ -1,0 +1,7 @@
+gdm-settings
+google-chrome
+xclickroot-git
+xclickroot-git-debug
+xinit-xsession
+yay
+yay-debug
