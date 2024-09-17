@@ -375,6 +375,8 @@ require("oil").setup({
         ["<CR>"] = "actions.select",
         ["<C-l>"] = "actions.refresh",
         ["g?"] = "actions.show_help",
+        -- This conflicts with my custom <C-p> mapping
+        ["<C-p>"] = false,
   },
   use_default_keymaps = false,
 })
