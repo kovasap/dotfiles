@@ -18,6 +18,7 @@ grub
 inetutils
 j4-dmenu-desktop
 kitty
+lib32-mangohud
 lib32-systemd
 libconfig
 libev
@@ -25,6 +26,7 @@ lightdm
 lightdm-gtk-greeter
 linux
 linux-firmware
+mangohud
 neovim
 network-manager-applet
 nvidia-open
@@ -36,10 +38,12 @@ python-pip
 python-psutil
 python-virtualenvwrapper
 python-xlib
+qt6ct
 qtile
 ranger
 redshift
 steam
+strawberry
 the_silver_searcher
 thunar
 udiskie
