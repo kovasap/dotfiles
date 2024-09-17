@@ -566,6 +566,11 @@ def get_widgets(systray=False):
           foreground=colors['color3'],
           name='web browser',
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('google-chrome-stable')}),
+      widget.TextBox(
+          'M',
+          foreground=colors['color1'],
+          name='music',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('strawberry')}),
       widget.TextBox(' | ', name='separator'),
   ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(' | ', name='separator'),
