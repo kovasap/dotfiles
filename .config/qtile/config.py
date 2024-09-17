@@ -439,6 +439,7 @@ graph_args = dict(
     fill_color=colors['color2'] + '.3',
     border_color=colors['background'] + '.5',
     width=40,
+    foreground=colors['color8'],
 )
 
 
@@ -475,16 +476,21 @@ def get_widgets(systray=False):
           scale=0.8,),
       widget.WindowName(),
       widget.TextBox(' | ', name='separator'),
-      widget.Clipboard(max_width=50, timeout=None),
+      widget.Clipboard(
+        foreground=colors['color3'],
+        max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),
       # widget.TextBox('CPU', name='cpu_label'),
       # widget.CPUGraph(**graph_args),
-      widget.TextBox('Mem', name='memory_label'),
+      widget.TextBox('Mem',
+                     foreground=colors['color8'],
+                     name='memory_label'),
       ColoredMemoryGraph(**graph_args),
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**graph_args),
       widget.TextBox(' | ', name='separator'),
       widget.DF(
+          foreground=colors['color8'],
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
           format='{uf}/{s}{m} free on {p}',
           visible_on_warn=False),
@@ -525,6 +531,7 @@ def get_widgets(systray=False):
       #         Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
+          foreground=colors['color8'],
           # Colemak is useful on a normal keyboard (like a laptop keyboard).
           configured_keyboards=(['us colemak_dh', 'us']
                                 if socket.gethostname() != 'frostyarch' else 
@@ -535,13 +542,31 @@ def get_widgets(systray=False):
           }),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox(
-          '⚙',
+          'S',
+          foreground=colors['color8'],
           name='settings',
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('gnome-control-center')}),
+      widget.TextBox(
+          'F',
+          foreground=colors['color5'],
+          name='file manager',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('thunar')}),
+      widget.TextBox(
+          'T',
+          foreground=colors['color2'],
+          name='terminal',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('kitty')}),
+      widget.TextBox(
+          'W',
+          foreground=colors['color4'],
+          name='web browser',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('google-chrome-stable')}),
       widget.TextBox(' | ', name='separator'),
   ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(' | ', name='separator'),
-      widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+      widget.Clock(
+        foreground=colors['color8'],
+        format='%Y-%m-%d %a %I:%M %p'),
   ]
 
 
@@ -638,7 +663,7 @@ floating_layout = layout.Floating(
         Match(title='pinentry'),  # GPG key password entry
         Match(wm_class='ssh-askpass'),  # ssh-askpass
     ],
-    border_focus=colors['color10'],
+    border_focus=colors['color11'],
 )
 auto_fullscreen = True
 focus_on_window_activation = 'smart'

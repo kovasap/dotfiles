@@ -1,3 +1,4 @@
+alsa-utils
 asciidoc
 base
 base-devel
@@ -28,6 +29,7 @@ neovim
 network-manager-applet
 nvidia-open
 openssh
+pipewire-alsa
 pkgfile
 python-iwlib
 python-pip
@@ -35,12 +37,18 @@ python-psutil
 python-virtualenvwrapper
 python-xlib
 qtile
+ranger
 redshift
 steam
 the_silver_searcher
+thunar
+udiskie
 udisks2
 xcb-util-image
+xclip
 xdotool
+xorg-xev
+xorg-xhost
 xorg-xinit
 xorg-xinput
 xterm
