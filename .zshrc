@@ -171,7 +171,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
-if [[ $(hostname) == *googlers* ]]; then
+if [[ $(hostname) == *googlers* || $(hostname) == *kovas2* ]]; then
   source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 else
   source /usr/bin/virtualenvwrapper.sh
