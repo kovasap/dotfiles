@@ -544,8 +544,13 @@ def get_widgets(systray=False):
       widget.TextBox(
           'S',
           foreground=colors['color8'],
-          name='settings',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('gnome-control-center')}),
+          name='Steam',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('steam')}),
+      widget.TextBox(
+          'D',
+          foreground=colors['color4'],
+          name='Discord',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('vesktop')}),
       widget.TextBox(
           'F',
           foreground=colors['color5'],
@@ -558,7 +563,7 @@ def get_widgets(systray=False):
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('kitty')}),
       widget.TextBox(
           'W',
-          foreground=colors['color4'],
+          foreground=colors['color3'],
           name='web browser',
           mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('google-chrome-stable')}),
       widget.TextBox(' | ', name='separator'),
