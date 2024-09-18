@@ -221,7 +221,7 @@ keys.extend([
         spawn_multi_cmd(
             '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
-    Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod], 'x', spawn_multi_cmd('pkill compton', '~/bin/run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
     Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
