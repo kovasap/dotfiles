@@ -8,7 +8,7 @@ if [[ `hostname` = 'raspberrypi' ]]; then
   exit
 fi
 
-# remove state file to avoid getting xmonad confused about number of monitors
-# rm ~/.xmonad/xmonad.state
-# exec xmonad
-exec /home/kovas/qtile/qtile-venv-entry
+source ~/.bashrc
+source ~/.xinitrc
+
+qtile start -c /home/kovas/.config/qtile/config.py
