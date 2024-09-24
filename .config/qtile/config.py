@@ -208,21 +208,21 @@ keys.extend([
         desc='Next keyboard layout.'),
     Key([mod, 'control'], "space", lazy.hide_show_bar(), desc="Hides the bar"),
 
-    Key([mod], 'slash', lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh'")),
+    Key([mod], 'slash', lazy.spawn("kitty zsh -c 'chrome-history.zsh'")),
     Key([mod, 'control'], 'slash',
-        lazy.spawn("kitty zsh -c '~/bin/chrome-history.zsh 1'")),
+        lazy.spawn("kitty zsh -c 'chrome-history.zsh 1'")),
     Key([mod], 'c', lazy.spawn('copyq next')),
     Key([mod], 'd', lazy.spawn('copyq previous')),
     Key([mod], 'v', lazy.spawn('copyq menu')),
     Key([mod], 'z',
         spawn_multi_cmd(
-            '~/bin/setup-monitors.bash forked &> ~/setup-monitors.log')),
+            'setup-monitors.bash forked &> ~/setup-monitors.log')),
     Key([mod, 'control'], 'z',
         spawn_multi_cmd(
-            '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
+            'setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
-    Key([mod], 'x', spawn_multi_cmd('pkill compton', '~/bin/run-compton.bash')),
-    Key([mod], 'Escape', lazy.spawn('~/bin/screensaver.sh')),
+    Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
+    Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
     Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
     # Programs
@@ -235,12 +235,12 @@ keys.extend([
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',
-        lazy.spawn("kitty env RUN='source ~/bin/edit-website.zsh' zsh")),
+        lazy.spawn("kitty env RUN='source edit-website.zsh' zsh")),
 
     Key([mod, 'control'], 'w', lazy.window.kill()),
 
     # If this binding is changed, make sure to also change the reference to it
-    # in ~/bin/setup-monitors.bash.
+    # in setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
     Key([mod, "control"], "Tab", lazy.shutdown()),
