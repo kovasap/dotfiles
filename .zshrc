@@ -58,13 +58,6 @@ zplug romkatv/powerlevel10k, as:theme, depth:1
 bindkey '^L' forward-word
 bindkey '^[[Z' autosuggest-accept
 
-# ------------------------- Fuzzy Searching (FZF) ------------------------- 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey -r "^T"
-bindkey -r "^[c"
-bindkey "^ " fzf-history-widget
-
 # ------------------------- Command History ------------------------- 
 
 HISTFILE="$HOME/.zsh_history"
@@ -276,6 +269,14 @@ elif [[ $(hostname) == frostyarch ]]; then
 else
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# ------------------------- Fuzzy Searching (FZF) ------------------------- 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey -r "^T"
+bindkey -r "^[c"
+bindkey "^ " fzf-history-widget
+
 
 # Uncomment to profile zsh startup
 # zprof
