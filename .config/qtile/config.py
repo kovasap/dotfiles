@@ -222,7 +222,7 @@ keys.extend([
             '~/bin/setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
     Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
-    Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
+    Key([mod], 'Escape', lazy.spawn('~/bin/screensaver.sh')),
     Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
     # Programs
@@ -475,6 +475,9 @@ def get_widgets(systray=False):
           # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
           scale=0.8,),
       widget.WindowName(),
+      widget.TextBox('X',
+                     foreground=colors['color1'],
+                     mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
         foreground=colors['color3'],
