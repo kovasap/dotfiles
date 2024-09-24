@@ -69,6 +69,8 @@ udiskie &
 # TODO rewrite this script so it doesn't break on first launch.
 # ~/bin/setup-monitors.bash forked
 
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin"
+
 # set background image
 feh --bg-fill ~/wallpaper
 
