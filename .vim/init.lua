@@ -74,10 +74,7 @@ require('packer').startup(function(use)
   use 'zhimsel/vim-stay';
   -- Better directory browsing.  Access the directory the current file is in with
   -- the - key.
-  use {
-    'stevearc/oil.nvim',
-    config = function() require('oil').setup() end
-  }
+  use 'stevearc/oil.nvim';
   use 'tpope/vim-eunuch';
   -- Make it so that when a buffer is deleted, the window stays.
   use 'qpkorr/vim-bufkill';
@@ -365,18 +362,17 @@ map('n', 'yl',
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
--- Disable netrw so oil is used for everything
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 require("oil").setup({
+  default_file_explorer = true,
   prompt_save_on_select_new_entry = false,
   skip_confirm_for_simple_edits = true,
   keymaps = {
         ["<CR>"] = "actions.select",
         ["<C-l>"] = "actions.refresh",
         ["g?"] = "actions.show_help",
-        -- This conflicts with my custom <C-p> mapping
+        -- These conflict with my custom mappings for all buffer types
         ["<C-p>"] = false,
+        ["<C-s>"] = false,
   },
   use_default_keymaps = false,
 })
