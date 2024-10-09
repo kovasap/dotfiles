@@ -953,7 +953,7 @@ xkb_symbols "colemak_dh" {
     key <AB04> 
     { [            v,            V,              oe,               OE ] };
     key <AB05> 
-    { [            z,            Z,              ae,               AE ] }; //Z appears here too because <LSGT> key is not present on ANSI keyboards
+    {         Return,       Return,          Return,           Return ] };
     key <AB06> 
     { [        slash,     question,    questiondown,       asciitilde ] };
     key <AB07> 
@@ -969,7 +969,7 @@ xkb_symbols "colemak_dh" {
     key <CAPS> { [        Escape,      Escape,          Escape,           Escape ] };
     key <LFSH> { [        z, Z, ae, AE  ] };
     key <RTSH>
-    { [        Return,     Return,    Return,       Return ] };
+    { [        slash,     slash,    slash,       slash ] };
 
     key <RTRN>
     { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
