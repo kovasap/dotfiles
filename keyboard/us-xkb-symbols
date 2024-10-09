@@ -953,7 +953,7 @@ xkb_symbols "colemak_dh" {
     key <AB04> 
     { [            v,            V,              oe,               OE ] };
     key <AB05> 
-    {         Return,       Return,          Return,           Return ] };
+    { [        Return,     Return,    Return,       Return ] };
     key <AB06> 
     { [        slash,     question,    questiondown,       asciitilde ] };
     key <AB07> 
@@ -969,7 +969,7 @@ xkb_symbols "colemak_dh" {
     key <CAPS> { [        Escape,      Escape,          Escape,           Escape ] };
     key <LFSH> { [        z, Z, ae, AE  ] };
     key <RTSH>
-    { [        slash,     slash,    slash,       slash ] };
+    { [        slash,     question,    questiondown,       asciitilde ] };
 
     key <RTRN>
     { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
