@@ -362,19 +362,26 @@ map('n', 'yl',
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
-require("oil").setup({
-  default_file_explorer = true,
-  prompt_save_on_select_new_entry = false,
-  skip_confirm_for_simple_edits = true,
-  keymaps = {
-        ["<CR>"] = "actions.select",
-        ["<C-l>"] = "actions.refresh",
-        ["g?"] = "actions.show_help",
-        -- These conflict with my custom mappings for all buffer types
-        ["<C-p>"] = false,
-        ["<C-s>"] = false,
-  },
-  use_default_keymaps = false,
+-- For some unknown reason, on some machines the oil config gets overwritten by
+-- a startup script.  So I load it last here with a VimEnter autocommand to
+-- make sure this is the config I end up with.
+vim.api.nvim_create_autocmd({"VimEnter"}, {
+  callback = function()
+    require("oil").setup({
+      default_file_explorer = true,
+      prompt_save_on_select_new_entry = false,
+      skip_confirm_for_simple_edits = true,
+      keymaps = {
+            ["<CR>"] = "actions.select",
+            ["<C-l>"] = "actions.refresh",
+            ["g?"] = "actions.show_help",
+            -- These conflict with my custom mappings for all buffer types
+            ["<C-p>"] = false,
+            ["<C-s>"] = false,
+      },
+      use_default_keymaps = false,
+    })
+  end,
 })
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
