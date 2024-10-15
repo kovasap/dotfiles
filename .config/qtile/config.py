@@ -578,7 +578,6 @@ def get_widgets(systray=False):
   ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(' | ', name='separator'),
       widget.Clock(
-        foreground=colors['color8'],
         format='%Y-%m-%d %a %I:%M %p'),
   ]
 
@@ -618,6 +617,8 @@ def get_num_monitors():
 
 
 num_monitors = get_num_monitors()
+logger.warning(f'num_monitors: {num_monitors}')
+num_monitors = 3  # TODO remove this hack
 
 bars = [bar.Bar(get_widgets(systray=True), **bar_config)]
 screens = [Screen(top=bars[0])]
