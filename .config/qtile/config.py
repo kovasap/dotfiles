@@ -618,7 +618,7 @@ def get_num_monitors():
 
 num_monitors = get_num_monitors()
 logger.warning(f'num_monitors: {num_monitors}')
-num_monitors = 3  # TODO remove this hack
+num_monitors = 3  # TODO remove this hack that fixes bars not being present on all monitors
 
 bars = [bar.Bar(get_widgets(systray=True), **bar_config)]
 screens = [Screen(top=bars[0])]
