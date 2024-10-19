@@ -5,3 +5,4 @@ xclickroot-git-debug
 xinit-xsession
 yay
 yay-debug
+joker
