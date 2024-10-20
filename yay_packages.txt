@@ -1,8 +1,10 @@
+clojure-lsp-bin
 gdm-settings
 google-chrome
+joker
+memtest86-efi
+vesktop-bin
 xclickroot-git
-xclickroot-git-debug
 xinit-xsession
 yay
 yay-debug
-joker
