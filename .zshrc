@@ -54,9 +54,12 @@ zplug romkatv/powerlevel10k, as:theme, depth:1
 
 # ------------------------- Completion -------------------------------
 
-# shift-tab accept the current suggestion by word
+# ctrl-l accept the current suggestion by word
 bindkey '^L' forward-word
-bindkey '^[[Z' autosuggest-accept
+# ctrl-n accept the current suggestion entirely
+bindkey '^N' autosuggest-accept
+# shift-tab accept the current suggestion entirely
+# bindkey '^[[Z' autosuggest-accept
 
 # ------------------------- Command History ------------------------- 
 
