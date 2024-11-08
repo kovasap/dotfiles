@@ -547,9 +547,9 @@ vim.g.fzf_mru_max = 1000000
 -- This is used instead of 'google3' because when fig uses vimdiff it puts the
 -- vim instance at the root of the CitC client (the dir _containing_ google3).
 vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
--- Exclude files with google3 in them - these will be opened only when things are
+-- Exclude files with google3/ in them - these will be opened only when things are
 -- merged via vimdiff.
-vim.g.fzf_mru_exclude = '/tmp/\\|google3'
+vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
 map('n', "'", ":FZFMru -m -x --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'<CR>")
 -- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
 -- last 10000 files will be available with the FZFMru command)
@@ -1011,6 +1011,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'tT', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'tt', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
