@@ -59,6 +59,9 @@ bash < <(curl -s https://raw.githubusercontent.com/borkdude/jet/master/install)
 
 # Required for copyq to work
 sudo dbus-uuidgen > /var/lib/dbus/machine-id
+
+# Gdrive CLI is handy
+https://github.com/glotlabs/gdrive?tab=readme-ov-file
 ```
 
 #### Arch Linux (Graphical)
