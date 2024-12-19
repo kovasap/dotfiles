@@ -124,6 +124,7 @@ require('packer').startup(function(use)
   use 'guns/vim-sexp';
   use 'romainl/vim-cool';
   use 'echasnovski/mini.nvim';
+  use 'lewis6991/whatthejump.nvim';
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
@@ -158,9 +159,17 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 require('leap').set_default_keymaps()
 
--- Left hand back/forward commands
-map('n', '<C-p>', '<C-o>')
-map('n', '<C-d>', '<C-i>')
+-- Jump backwards
+vim.keymap.set('n', '<C-p>', function()
+  require 'whatthejump'.show_jumps(false)
+  return '<C-o>'
+end, {expr = true})
+
+-- Jump forwards
+vim.keymap.set('n', '<C-d>', function()
+  require 'whatthejump'.show_jumps(true)
+  return '<C-i>'
+end, {expr = true})
 
 -- Nicer up/down movement on long lines.
 map('n', 'j', 'gj')
