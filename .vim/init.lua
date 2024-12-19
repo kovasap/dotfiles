@@ -559,7 +559,7 @@ vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
 -- Exclude files with google3/ in them - these will be opened only when things are
 -- merged via vimdiff.
 vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
-map('n', "'", ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'<CR>")
+map('n', "'", ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'<CR><CR>")
 -- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
 -- last 10000 files will be available with the FZFMru command)
 vim.o.shada = "!,'10000,<50,s10,h"
