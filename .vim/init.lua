@@ -559,7 +559,15 @@ vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
 -- Exclude files with google3/ in them - these will be opened only when things are
 -- merged via vimdiff.
 vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
-map('n', "'", ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'<CR><CR>")
+-- Make a separate function here to avoid the "press enter to continue" prompts
+-- vim uses when the command line exceeds the size of the command window.  The
+-- separate function does not show the FZFMru command in the window.
+vim.api.nvim_create_user_command('MRU', function()
+    vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
+  end,
+  {nargs = 0, desc = 'Find most recently used files.'}
+)
+map('n', "'", ":MRU<CR>")
 -- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
 -- last 10000 files will be available with the FZFMru command)
 vim.o.shada = "!,'10000,<50,s10,h"
