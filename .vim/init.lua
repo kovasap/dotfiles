@@ -125,6 +125,12 @@ require('packer').startup(function(use)
   use 'romainl/vim-cool';
   use 'echasnovski/mini.nvim';
   use 'lewis6991/whatthejump.nvim';
+  use {
+    'rachartier/tiny-glimmer.nvim',
+    config = function()
+        require('tiny-glimmer').setup()
+    end
+}
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
