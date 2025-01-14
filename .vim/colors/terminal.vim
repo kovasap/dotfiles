@@ -141,6 +141,9 @@ hi FoldColumn ctermfg=3
 hi Search ctermbg=2 cterm=underline
 hi IncSearch cterm=reverse ctermbg=2
 
+" For TinyGlimmer
+hi CurSearch ctermbg=8
+
 hi SpellBad cterm=none ctermfg=5 ctermbg=none cterm=underline
 hi SpellCap cterm=none ctermfg=5 ctermbg=none cterm=underline
 hi SpellLocal cterm=none ctermfg=5 ctermbg=none cterm=underline
