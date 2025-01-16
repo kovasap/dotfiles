@@ -96,7 +96,7 @@ require('packer').startup(function(use)
   use {'f3fora/cmp-spell'};
   use {'hrsh7th/cmp-nvim-lsp'};
   use 'L3MON4D3/LuaSnip';
-  use 'saadparwaiz1/cmp_luasnip';
+use 'saadparwaiz1/cmp_luasnip';
   use {'hrsh7th/nvim-cmp'};
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
   use 'nvim-treesitter/nvim-treesitter-textobjects';
@@ -130,16 +130,19 @@ require('packer').startup(function(use)
     config = function()
         require('tiny-glimmer').setup()
     end
-}
+};
   use {'gen740/SmoothCursor.nvim',
        config = function() require('smoothcursor').setup({cursor = ">",
                                                           linehl = "CursorLine",
-                                                          texthl = "CursorLine"}) end}
+                                                          texthl = "CursorLine"}) end};
   if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-    require('google_dotfiles/google').load_google_plugins(use)
+    require('google_dotfiles/google').load_google_plugins(use);
   -- else
     -- TODO find a way to put the codefmt lines here so that I can source
     -- google.vim in my google-specific config.
+  end
+  if not_in_google3 then
+    use 'github/copilot.vim';
   end
   use {'google/vim-maktaba'};
   use {'google/vim-codefmt'};
@@ -650,6 +653,14 @@ com! DiffSaved call g:DiffWithSaved()
 
 
 --                          /// Completion and Snippets ///
+
+-- Setup copilot.
+vim.g.copilot_workspace_folders = {'~/'}
+vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<C-e>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
