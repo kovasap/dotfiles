@@ -177,6 +177,10 @@ hi default link markdownH1 Identifier
 hi default link markdownH2 String
 hi default link markdownH3 Type
 
+hi default link LeapBackdrop Comment
+hi LeapMatch ctermfg=1 term=bold
+hi LeapLabel ctermfg=1 term=bold
+
 " Conceal
 " CursorIM
 hi Directory ctermfg=2 ctermbg=none
