@@ -1074,28 +1074,30 @@ vim.api.nvim_create_autocmd(
 -- See
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
 -- for config tips.
-nvim_lsp.pylsp.setup {
-  on_attach = function(client, bufnr)
-    -- No pyls formatting when using Google config.
-    if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-      -- print(client.name)
-      -- client.request("textDocument/formatting", {} , nil, vim.api.nvim_get_current_buf())
-      client.server_capabilities.document_formatting = false
-    end
-    on_attach(client, bufnr)
-  end,
-  settings = {
-    pyls = {
-      plugins = {
-        -- This requires: pip install yapf
-        yapf = { enabled = true },
-        autopep8 = { enabled = false },
-        pylint = { enabled = true },
-        pycodestyle = { enabled = false },
+if not_in_google3 then
+  nvim_lsp.pylsp.setup {
+    on_attach = function(client, bufnr)
+      -- No pyls formatting when using Google config.
+      if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
+        -- print(client.name)
+        -- client.request("textDocument/formatting", {} , nil, vim.api.nvim_get_current_buf())
+        client.server_capabilities.document_formatting = false
+      end
+      on_attach(client, bufnr)
+    end,
+    settings = {
+      pyls = {
+        plugins = {
+          -- This requires: pip install yapf
+          yapf = { enabled = true },
+          autopep8 = { enabled = false },
+          pylint = { enabled = true },
+          pycodestyle = { enabled = false },
+        }
       }
     }
   }
-}
+end
 -- Auto add imports from file ~/.vim/python-imports.cfg
 map('n', 'gai', ':ImportName<CR>')
 
