@@ -662,15 +662,16 @@ com! DiffSaved call g:DiffWithSaved()
 --                          /// Completion and Snippets ///
 
 -- Setup Gemini
+local gemini_api = require('gemini.api')
 require('gemini').setup({
-  -- model_config = {
-  --   completion_delay = 1000,
-  --   model_id = api.MODELS.GEMINI_2_0_FLASH,
-  --   temperature = 0.2,
-  --   top_k = 20,
-  --   max_output_tokens = 8196,
-  --   response_mime_type = 'text/plain',
-  -- },
+  model_config = {
+    completion_delay = 1000,
+    model_id = gemini_api.MODELS.GEMINI_2_0_FLASH,
+    temperature = 0.2,
+    top_k = 20,
+    max_output_tokens = 8196,
+    response_mime_type = 'text/plain',
+  },
   chat_config = {
     enabled = true,
   },
