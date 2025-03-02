@@ -183,6 +183,8 @@ fi
 
 # ------------------------- Miscellaneous -------------------------
 
+source ~/gemini_api_key.zsh
+
 # Open scrollback in vim
 bindkey -s '^S' '~/bin/view-scrollback.zsh\n' 
 

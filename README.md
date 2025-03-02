@@ -62,6 +62,12 @@ sudo dbus-uuidgen > /var/lib/dbus/machine-id
 
 # Gdrive CLI is handy
 https://github.com/glotlabs/gdrive?tab=readme-ov-file
+
+# Get Gemini API key
+# Go to https://aistudio.google.com/apikey
+# Then make a file like 
+echo "export GEMINI_API_KEY='<key>' >> ~/gemini_api_key.zsh"
+# This is useful to use https://github.com/kiddos/gemini.nvim
 ```
 
 #### Arch Linux (Graphical)
