@@ -1328,6 +1328,11 @@ vim.cmd('autocmd Filetype markdown setlocal spell spelllang=en_us')
 vim.cmd('autocmd FileType markdown set foldmethod=expr')
 
 
+--                          /// Language - ZMK Config ///
+
+vim.cmd('autocmd FileType dts setlocal textwidth=300')
+
+
 --                          /// Language - HTML/CSS ///
 
 -- Need to run this to install:
