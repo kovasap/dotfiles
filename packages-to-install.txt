@@ -27,6 +27,9 @@ maim
 
 calibre
 
+thunar
+thunar-archive-plugin
+
 tldr # https://tldr.sh/
 bat # https://github.com/sharkdp/bat
 qdirstat
