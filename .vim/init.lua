@@ -143,9 +143,7 @@ use 'saadparwaiz1/cmp_luasnip';
   end
   if not_in_google3 then
     -- use 'github/copilot.vim';
-    use {'kiddos/gemini.nvim',
-          config = function()
-          end};
+    use 'kiddos/gemini.nvim';
   end
   use {'google/vim-maktaba'};
   use {'google/vim-codefmt'};
