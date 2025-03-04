@@ -660,6 +660,7 @@ com! DiffSaved call g:DiffWithSaved()
 --                          /// Completion and Snippets ///
 
 -- Setup Gemini
+if not_in_google3 then
 local gemini_api = require('gemini.api')
 require('gemini').setup({
   model_config = {
@@ -796,6 +797,7 @@ require('gemini').setup({
     end
   },
 })
+end
 
 -- Setup copilot.
 -- vim.g.copilot_workspace_folders = {'~/'}
