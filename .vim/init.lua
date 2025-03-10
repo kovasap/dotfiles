@@ -281,10 +281,10 @@ require("nvim-surround").setup({
 })
 
 -- Automatically close parens.
-local npairs = require('nvim-autopairs')
-npairs.setup({
-  disable_filetype = { "TelescopePrompt" , "clojure" },
-})
+-- local npairs = require('nvim-autopairs')
+-- npairs.setup({
+--   disable_filetype = { "TelescopePrompt" , "clojure" },
+-- })
 
 --                          /// Visuals ///
 
@@ -909,20 +909,20 @@ cmp.setup.cmdline(":", {
 -- }
 
 -- Integration with nvim-autopairs.
-_G.MUtils= {}  -- skip it, if you use another global object
-vim.g.completion_confirm_key = ""
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
-    else
-      return npairs.esc("<cr>")
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
+-- _G.MUtils= {}  -- skip it, if you use another global object
+-- vim.g.completion_confirm_key = ""
+-- MUtils.completion_confirm=function()
+--   if vim.fn.pumvisible() ~= 0  then
+--     if vim.fn.complete_info()["selected"] ~= -1 then
+--       return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+--     else
+--       return npairs.esc("<cr>")
+--     end
+--   else
+--     return npairs.autopairs_cr()
+--   end
+-- end
+-- map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
 
 
 map('i', '<C-l>', '<plug>(fzf-complete-line)')
