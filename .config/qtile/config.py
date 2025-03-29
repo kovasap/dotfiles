@@ -223,9 +223,9 @@ keys.extend([
        ),
     Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
-    # Key([mod], 'BackSpace', lazy.spawn('systemctl suspend')),
 
     # Programs
+    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
     Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
     Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
@@ -544,6 +544,11 @@ def get_widgets(systray=False):
               'us colemak_dh': 'cl'
           }),
       widget.TextBox(' | ', name='separator'),
+      widget.TextBox(
+          'A',
+          foreground=colors['color3'],
+          name='Steam',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('pavucontrol')}),
       widget.TextBox(
           'S',
           foreground=colors['color8'],

@@ -30,6 +30,9 @@ calibre
 thunar
 thunar-archive-plugin
 
+# Audio control
+pavucontrol
+
 tldr # https://tldr.sh/
 bat # https://github.com/sharkdp/bat
 qdirstat
