@@ -545,6 +545,11 @@ def get_widgets(systray=False):
           }),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox(
+          'A',
+          foreground=colors['color3'],
+          name='Steam',
+          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('pavucontrol')}),
+      widget.TextBox(
           'S',
           foreground=colors['color8'],
           name='Steam',
