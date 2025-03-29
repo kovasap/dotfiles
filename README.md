@@ -324,6 +324,7 @@ Can also install other stuff like memtest on the same usb with Ventoy.
  - [ ] Google Drive Syncer
  - [ ] https://github.com/Toxblh/WinToLinux
  - [ ] https://pangobright.com/
+ - [ ] https://diskanalyzer.com/
 
 ### Automatic Screenshooting
 
