@@ -329,8 +329,9 @@ Can also install other stuff like memtest on the same usb with Ventoy.
 
 1. Download https://www.nirsoft.net/utils/nircmd.html
 2. Make a new task in Windows "Task Scheduler" with program `cmd.exe` and arguments `/c C:\Users\kovas\Downloads\nircmd\nircmd.exe savescreenshotfull "C:\Users\kovas\OneDrive\Pictures\Screenshots\screenshot_%time:~0,2%%time:~3,2%%time:~6,2%_%date:~-10,2%%date:~-7,2%%date:~-4,4%.png"`
-     - This actually is problematic because if you use the "Run only when user is logged on" option, you will get a popup command line when the command executes that gets included in the screenshot.  If you use "Run whether user is logged on or not, the screenshots will be black".  To fix this, use program `C:\Users\kovas\Downloads\nircmd\nircmd.exe` 
+     - This actually is problematic because if you use the "Run only when user is logged on" option, you will get a popup command line when the command executes that gets included in the screenshot.  If you use "Run whether user is logged on or not, the screenshots will be black".  To fix this, use program `C:\Users\kovas\Downloads\nircmd\nircmd.exe`
+     - You can set this program by adding a new "Action" to the task
  and argument `savescreenshotfull "C:\Users\kovas\OneDrive\Pictures\Screenshots\screenshot.png"`.  Then you need to make sure this is synced to Google photos before it gets overwritten.  Or make another task to move it to a unique filename with program `cmd.exe`.
-4. Set the task to run on your preferred schedule.
+4. Set the task to run on your preferred schedule by adding a new "Trigger".
 5. Use the Google Drive app to sync your screenshot directory to Google Photos.
 
