@@ -312,6 +312,9 @@ trying to cd to an unmounted directory.
 
 ## Windows
 
+Use a USB with Ventoy and a official ISO to install.
+Can also install other stuff like memtest on the same usb with Ventoy.
+
 ### Programs to Install
 
  - [ ] foobar2000
