@@ -312,6 +312,16 @@ trying to cd to an unmounted directory.
 
 ## Windows
 
+### Programs to Install
+
+ - [ ] foobar2000
+ - [ ] Nvidia stuff
+ - [ ] VLC media player
+ - [ ] Steam
+ - [ ] Google Drive Syncer
+ - [ ] https://github.com/Toxblh/WinToLinux
+ - [ ] https://pangobright.com/
+
 ### Automatic Screenshooting
 
 1. Download https://www.nirsoft.net/utils/nircmd.html
@@ -321,8 +331,3 @@ trying to cd to an unmounted directory.
 4. Set the task to run on your preferred schedule.
 5. Use the Google Drive app to sync your screenshot directory to Google Photos.
 
-## Future Improvements
-
- - Setting up https://nixos.org/ package management should make installation of
-   everything much easier.
- - https://curryncode.com/2018/11/27/using-the-fingerprint-reader-to-unlock-arch-linux/
