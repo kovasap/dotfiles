@@ -284,21 +284,25 @@ exit 0
 
 ### Window Manager Issues
 
-`startx <wm-name>` will start a WM from the terminal.  `startx` with no args will
-start the default WM as defined in `~/.xsession` (**i think**).
+`startx <wm-name>` will start a WM from the terminal.
+`startx` with no args will start the default WM as defined in `~/.xsession` (**i
+think**).
+You can also just start qtile directly to troubleshoot via `qtile start`.
 
 Possible WMs to start with as understood by a display manager (gdm, lightdm) are
-listed in `/usr/share/xsessions`. I think these are also the possibilties that can
-be fed to `startx`.
+listed in `/usr/share/xsessions`.
+I think these are also the possibilities that can be fed to `startx`.
 
 Logs to look at for issues:
 
- - xorg.log
- - qtile.log
+ - xorg.log in ~/.local/share/xorg/Xorg.1.log and /var/log/
+ - ~/.xsession-errors
+ - ~/.local/share/qtile/qtile.log
 
-When running QTile with a virtualenv Python, updates to the system Python can break it. 
-Re-creating the virtualenv and reinstalling QTile in it should fix the problem. See the
-QTile section in the installation commands above.
+When running QTile with a virtualenv Python, updates to the system Python can
+break it.
+Re-creating the virtualenv and reinstalling QTile in it should fix the problem.
+See the QTile section in the installation commands above.
 
 ### NeoVim
 
