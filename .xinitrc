@@ -59,6 +59,8 @@ nm-applet &
 
 udiskie &
 
+/usr/lib/xfce-polkit/xfce-polkit &
+
 # Mount Google Drive
 # See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
 # rclone mount --allow-non-empty googledrive: ~/google-drive/ &
