@@ -16,7 +16,12 @@ xclickroot -r ~/bin/run-xmenu.sh &
 # coordinates to screen coordinates.
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration
 xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
-xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
+# The coordinate transformation matrix sometimes leads to to the cursor jumping to the top corner, 
+# see https://unix.stackexchange.com/a/639730/537424.
+# Use of acceleration with the selected "flat" profile works to get around
+# this, since I don't care about using acceleration myself.
+xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Speed" -0.2
+xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
 
 # https://unix.stackexchange.com/questions/332573/how-to-make-xinput-commands-permanent
 # Map mouse button 8 (top right) to button 2 (top left) and vice versa, run when changes to the mouse occur

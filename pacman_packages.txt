@@ -13,6 +13,9 @@ dmidecode
 dunst
 efibootmgr
 feh
+file-roller
+gamemode
+gamescope
 gdm
 git
 gnome-desktop
@@ -22,6 +25,8 @@ imagemagick
 inetutils
 j4-dmenu-desktop
 kitty
+kvantum
+lib32-gamemode
 lib32-mangohud
 lib32-systemd
 libconfig
@@ -30,12 +35,14 @@ lightdm
 lightdm-gtk-greeter
 linux
 linux-firmware
+man-db
 mangohud
 neovim
 network-manager-applet
 npm
 nvidia-open
 openssh
+pavucontrol
 pipewire-alsa
 pkgfile
 python-iwlib
@@ -54,6 +61,7 @@ steam
 strawberry
 the_silver_searcher
 thunar
+thunar-archive-plugin
 udiskie
 udisks2
 xcb-util-image
