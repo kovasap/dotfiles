@@ -223,6 +223,7 @@ keys.extend([
        ),
     Key([mod], 'x', spawn_multi_cmd('pkill compton', 'run-compton.bash')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
+    Key([mod, 'control'], 't', lazy.spawn('systemctl suspend')),
 
     # Programs
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
