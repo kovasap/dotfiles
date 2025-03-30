@@ -29,6 +29,7 @@ calibre
 
 thunar
 thunar-archive-plugin
+file-roller
 
 # Audio control
 pavucontrol
