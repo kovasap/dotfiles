@@ -178,7 +178,7 @@ keys.extend([
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
 
-    Key([mod], 'g', lazy.function(swap_primary_secondary_screens)),
+    Key([mod], 'a', lazy.function(swap_primary_secondary_screens)),
 
     Key([mod, 'shift'], 's',
         lazy.layout.shuffle_up().when(layout='monadtall'),
@@ -229,7 +229,7 @@ keys.extend([
     Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
     Key([mod, 'shift', 'control'], 'Return',
         lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
-    Key([mod], 'a',
+    Key([mod], 'g',
         lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
     Key([mod], 'r', lazy.spawn('google-chrome-stable')),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
