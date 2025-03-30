@@ -235,9 +235,8 @@ keys.extend([
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',
-        lazy.spawn("kitty env RUN='source edit-website.zsh' zsh")),
-
-    Key([mod, 'control'], 'w', lazy.window.kill()),
+        lazy.window.kill()),
+        # lazy.spawn("kitty env RUN='source edit-website.zsh' zsh")),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
