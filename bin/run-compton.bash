@@ -8,6 +8,6 @@ xhost +local:
 # double applied.
 compton \
     --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast.glsl:'(class_g="Google-chrome")' \
-    --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast-medium.glsl:'!(class_g="kitty" || name="qtile_bar" || class_g="Google-chrome")' \
+    --glx-prog-win-rule ~kovas/compton-chg-saturate-brightness-contrast-medium.glsl:'!(class_g="kitty" || name="qtile_bar" || name="Dark and Darker  " || class_g="Google-chrome")' \
     --backend glx \
     --config ~/.config/compton.conf
