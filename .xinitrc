@@ -77,21 +77,10 @@ feh --bg-fill ~/wallpaper
 # fix for gcert SSH_AUTH_SOCK not defined problem
 eval $(ssh-agent)
 
+# See .config/qtile/autostart.sh for programs that are autostarted that used to
+# be started here.  I moved them so that their icons would appear in the
+# started qtile session.
+
 if [[ `hostname` = 'frostyarch' ]]; then 
   qtile start
 fi
-
-# These programs spawn applets, which should be started after qtile to appear
-# in the bar.
-
-# Start copyq
-nohup copyq &
-
-nm-applet &
-
-udiskie &
-
-# Mount all drives when starting up
-udiskie-mount -a
-
-/usr/lib/xfce-polkit/xfce-polkit &

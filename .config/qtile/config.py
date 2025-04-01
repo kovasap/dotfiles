@@ -15,6 +15,9 @@ from Xlib import display as xdisplay
 
 # Log location is at ~/.local/share/qtile/qtile.log
 
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
 
 # Get colors from currently active kitty terminal theme
 colors = {}
