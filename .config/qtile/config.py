@@ -474,13 +474,15 @@ def get_widgets(systray=False):
       widget.CurrentLayoutIcon(
           # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
           scale=0.8,),
-      widget.WindowName(),
+      widget.WindowName(
+        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn(os.path.expanduser('~/bin/run-xmenu.sh'))}),
       widget.TextBox('X',
                      foreground=colors['color1'],
                      mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
         foreground=colors['color3'],
+        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn(copyq menu)},
         max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),
       # widget.TextBox('CPU', name='cpu_label'),
@@ -543,42 +545,6 @@ def get_widgets(systray=False):
               'us': 'qw',
               'us colemak_dh': 'cl'
           }),
-      widget.TextBox(' | ', name='separator'),
-      widget.TextBox(
-          'A',
-          foreground=colors['color3'],
-          name='Steam',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('pavucontrol')}),
-      widget.TextBox(
-          'S',
-          foreground=colors['color8'],
-          name='Steam',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('steam')}),
-      widget.TextBox(
-          'D',
-          foreground=colors['color4'],
-          name='Discord',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('vesktop')}),
-      widget.TextBox(
-          'F',
-          foreground=colors['color5'],
-          name='file manager',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('thunar')}),
-      widget.TextBox(
-          'T',
-          foreground=colors['color2'],
-          name='terminal',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('kitty')}),
-      widget.TextBox(
-          'W',
-          foreground=colors['color3'],
-          name='web browser',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('google-chrome-stable')}),
-      widget.TextBox(
-          'M',
-          foreground=colors['color1'],
-          name='music',
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('strawberry')}),
       widget.TextBox(' | ', name='separator'),
   ] + ([widget.Systray()] if systray else []) + [
       widget.TextBox(' | ', name='separator'),

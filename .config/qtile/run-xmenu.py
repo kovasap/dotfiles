@@ -54,10 +54,11 @@ all_items = {
         'Logs\tkitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
     ],
     '': [],  # Horizontal bar.
+    'Sleep\tsystemctl suspend': [],
     'Shutdown\tpoweroff': [],
     'Reboot\treboot': [],
 }
-all_items = add_qtile_items(all_items)
+# all_items = add_qtile_items(all_items)
 xmenu_input_str = make_xmenu_input_str(all_items)
 
 subprocess.run('xmenu <<EOF | sh &' + xmenu_input_str + 'EOF', shell=True)

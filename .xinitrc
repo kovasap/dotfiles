@@ -57,15 +57,6 @@ redshift -O 4000 # -b 0.9:0.9
 # Start auto screenshot utility.
 # nohup /home/kovas/.virtualenvs/auto_screenshooter/bin/auto-screenshooter &> ~/auto_screenshooter_data/auto_screenshooter.log &
 
-# Start copyq
-nohup copyq &
-
-nm-applet &
-
-udiskie &
-
-/usr/lib/xfce-polkit/xfce-polkit &
-
 # Mount Google Drive
 # See https://www.ostechnix.com/how-to-mount-google-drive-locally-as-virtual-file-system-in-linux/
 # rclone mount --allow-non-empty googledrive: ~/google-drive/ &
@@ -87,3 +78,18 @@ eval $(ssh-agent)
 if [[ `hostname` = 'frostyarch' ]]; then 
   qtile start
 fi
+
+# These programs spawn applets, which should be started after qtile to appear
+# in the bar.
+
+# Start copyq
+nohup copyq &
+
+nm-applet &
+
+udiskie &
+
+# Mount all drives when starting up
+udiskie-mount -a
+
+/usr/lib/xfce-polkit/xfce-polkit &

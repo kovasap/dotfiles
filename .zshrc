@@ -230,8 +230,6 @@ function = {
 
 alias calc="="
 
-alias bat='batcat'
-
 # Don't feed long commands to a pager program.
 unset LESS
 
