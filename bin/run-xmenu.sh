@@ -13,7 +13,7 @@ Applications
 	IMG:./.local/share/icons/mementodb.svg	MementoDB	/opt/mementodb/bin/mementodb
 	Terminal (xterm)	xterm
 Settings
-	IMG:/usr/share/icons/Adwaita/symbolic/status/audio-volume-high-symbolic.svg	Audio	pavucontrol
+	IMG:/usr/share/icons/Adwaita/symbolic/status/audio-volume-high-symbolic.svg	Audio	pavucontrol-qt
 Qtile
 	Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
 IMG:/usr/share/icons/hicolor/48x48/apps/steam.png	Sleep		systemctl suspend
