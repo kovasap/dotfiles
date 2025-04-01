@@ -12,6 +12,8 @@ setxkbmap -option "caps:escape_shifted_capslock"
 
 xclickroot -r ~/bin/run-xmenu.sh &
 
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
 # This changes the mouse sensitivity via a matrix that transforms mouse
 # coordinates to screen coordinates.
 # see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration

@@ -482,7 +482,7 @@ def get_widgets(systray=False):
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
         foreground=colors['color3'],
-        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn(copyq menu)},
+        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn('copyq menu')},
         max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),
       # widget.TextBox('CPU', name='cpu_label'),
