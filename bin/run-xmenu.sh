@@ -8,8 +8,8 @@ Applications
 	IMG:/usr/share/icons/hicolor/48x48/apps/herioc.png	Heroic	heroic
 	IMG:/usr/share/icons/hicolor/48x48/apps/strawberry.png	Music (strawberry)	strawberry
 	IMG:/usr/share/icons/hicolor/256x256/apps/kitty.png	Terminal (kitty)	kitty 
-	IMG:/usr/share/icons/hicolor/48x48/apps/vdesktop.png	Discord	vdesktop 
-	IMG:/usr/share/icons/hicolor/32x32/apps/calibre-gui.png	Ebooks (calibre)	kitty 
+	IMG:/usr/share/icons/hicolor/48x48/apps/vdesktop.png	Discord	vesktop 
+	IMG:/usr/share/icons/hicolor/32x32/apps/calibre-gui.png	Ebooks (calibre)	calibre
 	IMG:./.local/share/icons/mementodb.svg	MementoDB	/opt/mementodb/bin/mementodb
 	Terminal (xterm)	xterm
 Settings
