@@ -71,6 +71,9 @@ redshift -O 4000 # -b 0.9:0.9
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin"
 
+# Without this Qt 5 apps have way too big text.
+export QT_FONT_DPI=96
+
 # set background image
 feh --bg-fill ~/wallpaper
 
