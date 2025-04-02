@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Start copyq
 nohup copyq &
 
