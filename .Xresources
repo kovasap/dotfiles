@@ -1,30 +1,32 @@
 ! Font
-XMenu.faceName:                 DejaVu Sans,Noto Sans CJK JP
-XMenu.faceSize:                 12
+xmenu.faceName:                 Fira Code
+xmenu.faceSize:                 9
 
-! Windows 98 colors and border size
-XMenu.background:               #D4D0C8
-XMenu.foreground:               #000000
-XMenu.activeBackground:         #0A246A
-XMenu.activeForeground:         #FFFFFF
-XMenu.separatorColor:           #808080
-XMenu.borderColor:              #404040
-XMenu.borderWidth:              1
+! Colors come from ~/.config/kitty/kitty-themes/themes/Medallion.conf
+
+xmenu.background:               #1D1808
+xmenu.foreground:               #C9C199
+xmenu.activeBackground:         #7C8A16
+xmenu.activeForeground:         #C9C199
+xmenu.separatorColor:           #808080
+xmenu.borderColor:              #7C8A16
+xmenu.borderWidth:              1
 
 ! 3D/Motif-like relief
-XMenu.shadowThickness:          1
-XMenu.topShadowColor:           #FFFFFF
-XMenu.bottomShadowColor:        #808080
-XMenu.middleShadowColor:        #D4D0C8
+xmenu.shadowThickness:          1
+xmenu.topShadowColor:           #FFFFFF
+xmenu.bottomShadowColor:        #808080
+xmenu.middleShadowColor:        #D4D0C8
 
 ! Menu alignment
-XMenu.alignment:                right
+xmenu.alignment:                right
 
 ! Enable torn off menus
-XMenu.tearOff:                  On
+xmenu.tearOff:                  On
 
 ! Transparency
-XMenu.opacity:                  0.9
+! This is actually handled by compton in .config/compton.conf
+xmenu.opacity:                  1.0
 
 ! Useless gaps, in pixels
-XMenu.gap:                      3
+xmenu.gap:                      3
