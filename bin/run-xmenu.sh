@@ -1,7 +1,7 @@
 #!/bin/sh
 
 xmenu <<EOF | sh &
-Applications
+Applications->
 	IMG:/usr/share/icons/hicolor/48x48/apps/org.xfce.thunar.png	Files	thunar
 	IMG:/usr/share/icons/hicolor/48x48/apps/google-chrome.png	Google Chrome	google-chrome-stable
 	IMG:/usr/share/icons/hicolor/48x48/apps/steam.png	Steam	steam

@@ -1,13 +1,14 @@
 ! Font
-xmenu.faceName:                 Fira Code
-xmenu.faceSize:                 9
+xmenu.facename:                 Fira Code
+xmenu.facesize:                 9
 
 ! Colors come from ~/.config/kitty/kitty-themes/themes/Medallion.conf
 
 xmenu.background:               #1D1808
 xmenu.foreground:               #C9C199
 xmenu.activeBackground:         #7C8A16
-xmenu.activeForeground:         #C9C199
+xmenu.selbackground:            #7C8A16
+xmenu.selforeground:            #C9C199
 xmenu.separatorColor:           #808080
 xmenu.borderColor:              #7C8A16
 xmenu.borderWidth:              1
