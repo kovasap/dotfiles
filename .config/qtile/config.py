@@ -167,6 +167,15 @@ def movescreens(qtile, offset):
         screen.set_group(group)
         break
 
+def window_to_paired_group(qtile):
+  logger.error('calling')
+  cur_screen, _ = get_two_main_screens(qtile)
+  if len(cur_screen.group.name) == 2:
+    target_group_name = cur_screen.group.name[0]
+  else:
+    target_group_name = cur_screen.group.name + 'a'
+  cur_screen.group.current_window.togroup(target_group_name, switch_group=False)
+
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
@@ -175,8 +184,10 @@ keys.extend([
     Key([mod], 'Tab', lazy.prev_screen()),
 
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod], 'p', lazy.function(movescreens, 2)),
-    Key([mod], 'f', lazy.function(movescreens, -2)),
+    Key([mod, 'control'], 'f', lazy.function(movescreens, -2)),
+    Key([mod], 'f', lazy.function(movescreens, 2)),
+
+    Key([mod], 'p', lazy.function(window_to_paired_group)),
 
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
