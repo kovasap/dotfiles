@@ -176,6 +176,10 @@ def window_to_paired_group(qtile):
     target_group_name = cur_screen.group.name + 'a'
   cur_screen.group.current_window.togroup(target_group_name, switch_group=False)
 
+def window_to_paired_group_then_swap(qtile):
+  window_to_paired_group(qtile)
+  swap_primary_secondary_screens(qtile)
+
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
@@ -187,7 +191,8 @@ keys.extend([
     Key([mod, 'control'], 'f', lazy.function(movescreens, -2)),
     Key([mod], 'f', lazy.function(movescreens, 2)),
 
-    Key([mod], 'p', lazy.function(window_to_paired_group)),
+    Key([mod], 'p', lazy.function(window_to_paired_group_then_swap)),
+    Key([mod, 'control'], 'p', lazy.function(window_to_paired_group)),
 
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
