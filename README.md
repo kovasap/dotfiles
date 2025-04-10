@@ -93,14 +93,6 @@ makepkg -si
 
 yay -S - < yay_packages.txt
 
-# Clone, build and install compton: https://github.com/kovasap/compton#how-to-build
-git clone git@github.com:kovasap/compton.git
-cd compton
-make
-make docs
-sudo make install
-cd ~/
-
 ```
 
 #### All Others
