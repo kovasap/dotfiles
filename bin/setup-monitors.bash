@@ -77,10 +77,10 @@ done
 echo "Starting with..."
 echo $xrandr_cmd
 if [ "$1" != "dry_run" ]; then
-    pkill compton
+    pkill picom 
     eval $xrandr_cmd
-    /home/kovas/bin/run-compton.bash
-    feh --bg-fill /home/kovas/wallpaper
+    picom
+    feh --bg-fill ~/wallpaper
     # Reset qtile by sending the right key command.  
     # This must match the command in the qtile config file. 
     # Could also use qtile-cmd cli for this but I don't know how.

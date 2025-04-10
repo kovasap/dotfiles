@@ -36,7 +36,9 @@ lightdm
 lightdm-gtk-greeter
 linux
 linux-firmware
+lutris
 lxappearance
+lynx
 man-db
 mangohud
 neovim
@@ -45,11 +47,13 @@ npm
 nvidia-open
 openssh
 pavucontrol-qt
+picom
 pipewire-alsa
 pkgfile
 python-iwlib
 python-lsp-server
 python-pip
+python-pipx
 python-psutil
 python-virtualenvwrapper
 python-xlib
@@ -67,6 +71,8 @@ thunar
 thunar-archive-plugin
 udiskie
 udisks2
+wine
+wine-mono
 xcb-util-image
 xclip
 xdotool
@@ -109,4 +115,5 @@ xorg-xwininfo
 xorg-xwud
 xterm
 yarn
+zip
 zsh
