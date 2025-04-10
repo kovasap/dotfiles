@@ -9,4 +9,4 @@ xhost +local:
 picom \
     --config ~kovas/.config/picom.conf \
     -b \
-    --experimental-backends
+    --window-shader-fg-rule=picom-brightness.glsl:'(class_g="Google-chrome" || class_g="google-chrome")'

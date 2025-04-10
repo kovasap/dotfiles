@@ -107,6 +107,7 @@ vec3 ColorTemperatureToRGB(float tempKelvins) {
     return retColor;
 }
 
+/*
 void main() {
     vec4 c = texture2D(tex, gl_TexCoord[0].st);
     // c = vec4(chg_saturation(vec3(c), 0.5), c.a);
@@ -119,4 +120,17 @@ void main() {
         c = vec4(vec3(c.a, c.a, c.a) - vec3(c), c.a);
     c *= opacity;
     gl_FragColor = c;
+}
+*/
+
+in vec2 texcoord;
+
+vec4 default_post_processing(vec4 c);
+
+vec4 window_shader() {
+        vec4 color = texture2D(tex, gl_TexCoord[0].st);
+
+        color = vec4(chg_brightness(vec3(color), 0.45), color.a);
+
+	return default_post_processing(color);
 }
