@@ -25,9 +25,9 @@ xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
-    main_output="DP-0.8"
+    main_output="DP-4.8"
     main_output_config="--auto"
-    other_output_config='--auto'
+    other_output_config='--mode 2560x1440 --rate 165'
 else
     main_output="eDP-1"
     main_output_config="--scale 1x1 --mode 1920x1200"
@@ -79,10 +79,10 @@ echo $xrandr_cmd
 if [ "$1" != "dry_run" ]; then
     pkill picom 
     eval $xrandr_cmd
-    picom
     feh --bg-fill ~/wallpaper
     # Reset qtile by sending the right key command.  
     # This must match the command in the qtile config file. 
     # Could also use qtile-cmd cli for this but I don't know how.
     xdotool key 'ctrl+super+Escape'
+    picom
 fi
