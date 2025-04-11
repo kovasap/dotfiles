@@ -82,10 +82,8 @@ eval $(ssh-agent)
 # be started here.  I moved them so that their icons would appear in the
 # started qtile session.
 
-picom
-
 if [[ `hostname` = 'frostyarch' ]]; then 
   qtile start
+  sleep 1
+  ~/bin/setup-monitors.bash forked
 fi
-
-~/bin/setup-monitors.bash forked

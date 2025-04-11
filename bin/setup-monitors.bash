@@ -27,7 +27,7 @@ if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
     main_output="DP-4.8"
     main_output_config="--auto"
-    other_output_config='--mode 2560x1440 --rate 165'
+    other_output_config='--mode 2560x1440 --rate 144'
 else
     main_output="eDP-1"
     main_output_config="--scale 1x1 --mode 1920x1200"
