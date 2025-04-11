@@ -66,8 +66,6 @@ redshift -O 4000 # -b 0.9:0.9
 
 # Set up xrandr daemon for managing monitors.
 # nohup /usr/lib/x86_64-linux-gnu/cinnamon-settings-daemon/csd-xrandr &
-# TODO rewrite this script so it doesn't break on first launch.
-# ~/bin/setup-monitors.bash forked
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin"
 
@@ -89,3 +87,5 @@ picom
 if [[ `hostname` = 'frostyarch' ]]; then 
   qtile start
 fi
+
+~/bin/setup-monitors.bash forked
