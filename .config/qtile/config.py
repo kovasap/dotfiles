@@ -134,7 +134,7 @@ def spawn_multi_cmd(*args):
 keys = []
 
 groups = []
-for n in 'jluymneikh':
+for n in 'pjluymnei':
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -190,14 +190,14 @@ keys.extend([
     Key([mod], 's', lazy.layout.rotate_up()),
     Key([mod, 'control'], 's', lazy.layout.rotate_down()),
 
-    Key([mod], 'r', lazy.prev_screen()),
+    Key([mod], 'f', lazy.prev_screen()),
 
     Key([mod], 'a', lazy.function(window_to_paired_group)),
     Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
 
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod, 'control'], 'f', lazy.function(movescreens, -2)),
-    Key([mod], 'f', lazy.function(movescreens, 2)),
+    Key([mod], 'x', lazy.function(movescreens, -2)),
+    Key([mod], 'r', lazy.function(movescreens, 2)),
 
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
@@ -245,13 +245,10 @@ keys.extend([
     # Programs
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
     Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod], 'g',
-        lazy.spawn("xmenu")),
+    Key([mod], 'g', lazy.spawn("run-xmenu.sh")),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
-    Key([mod], 'b',
-        lazy.window.kill()),
-        # lazy.spawn("kitty env RUN='source edit-website.zsh' zsh")),
+    Key([mod], 'b', lazy.window.kill()),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
