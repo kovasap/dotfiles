@@ -15,7 +15,7 @@ from Xlib import display as xdisplay
 
 # Log location is at ~/.local/share/qtile/qtile.log
 
-@hook.subscribe.startup_once
+@hook.subscribe.startup
 def autostart():
     subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
 
@@ -183,28 +183,30 @@ def window_to_paired_group_then_swap(qtile):
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], 's', lazy.layout.up()),
-    Key([mod], 't', lazy.layout.down()),
-    Key([mod], 'Tab', lazy.prev_screen()),
+    Key([mod], 't', lazy.layout.up()),
+    Key([mod, 'control'], 't', lazy.layout.down()),
+
+    Key([mod], 's',
+        lazy.layout.shuffle_up().when(layout='monadtall'),
+        lazy.layout.shuffle_up().when(layout='monadthreecol')),
+    Key([mod, 'control'], 's',
+        lazy.layout.shuffle_down().when(layout='monadtall'),
+        lazy.layout.shuffle_down().when(layout='monadthreecol')),
+
+    Key([mod], 'r', lazy.prev_screen()),
+
+    Key([mod], 'a', lazy.function(window_to_paired_group)),
+    Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
 
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod, 'control'], 'f', lazy.function(movescreens, -2)),
     Key([mod], 'f', lazy.function(movescreens, 2)),
-
-    Key([mod], 'p', lazy.function(window_to_paired_group_then_swap)),
-    Key([mod, 'control'], 'p', lazy.function(window_to_paired_group)),
 
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
 
     Key([mod], 'a', lazy.function(swap_primary_secondary_screens)),
 
-    Key([mod, 'shift'], 's',
-        lazy.layout.shuffle_up().when(layout='monadtall'),
-        lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, 'shift'], 't',
-        lazy.layout.shuffle_down().when(layout='monadtall'),
-        lazy.layout.shuffle_down().when(layout='monadthreecol')),
 
     # Skip managed ignores groups already on a screen.
     # Key([mod], 'o', lazy.screen.toggle_group()),
@@ -212,7 +214,6 @@ keys.extend([
     Key([mod], 'period', lazy.layout.shrink()),
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
-
 
     # This part is not working for some reason at the moment.  I think it
     # works when i switch away from the image clipboard content and back
@@ -247,11 +248,8 @@ keys.extend([
     # Programs
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
     Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod, 'shift', 'control'], 'Return',
-        lazy.spawn("kitty zsh -c 'cmatrix -u 10 -s; zsh -i'")),
     Key([mod], 'g',
-        lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
-    Key([mod], 'r', lazy.spawn('google-chrome-stable')),
+        lazy.spawn("xmenu")),
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b',
