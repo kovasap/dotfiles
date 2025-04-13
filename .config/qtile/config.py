@@ -5,6 +5,7 @@ import subprocess
 import types
 from typing import List  # noqa: F401
 
+from libqtile.command.base import expose_command
 from libqtile import bar, hook, layout, widget
 from libqtile import qtile
 from libqtile.config import Click, Drag, Group, Key, Screen, Match
@@ -186,12 +187,8 @@ keys.extend([
     Key([mod], 't', lazy.layout.up()),
     Key([mod, 'control'], 't', lazy.layout.down()),
 
-    Key([mod], 's',
-        lazy.layout.shuffle_up().when(layout='monadtall'),
-        lazy.layout.shuffle_up().when(layout='monadthreecol')),
-    Key([mod, 'control'], 's',
-        lazy.layout.shuffle_down().when(layout='monadtall'),
-        lazy.layout.shuffle_down().when(layout='monadthreecol')),
+    Key([mod], 's', lazy.layout.rotate_up()),
+    Key([mod, 'control'], 's', lazy.layout.rotate_down()),
 
     Key([mod], 'r', lazy.prev_screen()),
 
@@ -394,7 +391,24 @@ custom_monad_3col = layout.MonadThreeCol(
 #     custom_monad_3col, layout.MonadThreeCol)
 
 
-custom_monad_tall = layout.MonadTall(
+class CustomMonadTall(layout.MonadTall):
+
+  @expose_command()
+  def rotate_up(self):
+      """Shuffle the client up the stack, or all the way around if at the end"""
+      self.clients.rotate_up()
+      self.group.layout_all()
+      self.group.focus(self.clients.current_client)
+
+  @expose_command()
+  def rotate_down(self):
+      """Shuffle the client down the stack, or all the way around if at the end"""
+      self.clients.rotate_down()
+      self.group.layout_all()
+      self.group.focus(self.clients.current_client)
+
+
+custom_monad_tall = CustomMonadTall(
     # This max_ratio is just enough for a 80-char wide vim window on a 1080p
     # screen.
     ratio=0.67, min_secondary_size=100,
