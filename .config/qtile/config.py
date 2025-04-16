@@ -202,9 +202,6 @@ keys.extend([
     # Note that this command is added by my custom qtile fork.
     Key([mod], 'q', lazy.swap_screens()),
 
-    Key([mod], 'a', lazy.function(swap_primary_secondary_screens)),
-
-
     # Skip managed ignores groups already on a screen.
     # Key([mod], 'o', lazy.screen.toggle_group()),
     Key([mod], 'comma', lazy.layout.grow()),
