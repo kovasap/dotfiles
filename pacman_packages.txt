@@ -48,6 +48,7 @@ neovim
 network-manager-applet
 nfs-utils
 npm
+nvidia-settings
 openssh
 pavucontrol-qt
 picom

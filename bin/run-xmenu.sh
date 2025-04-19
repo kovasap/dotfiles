@@ -18,6 +18,7 @@ Desktop Environment
 	Run picom	picom
 Utilities
 	MangoHud Config	goverlay
+	Nvidia Settings	nvidia-settings
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-shutdown-symbolic.svg	Sleep		systemctl suspend
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-shutdown-symbolic.svg	Shutdown		poweroff
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-reboot-symbolic.svg	Reboot			reboot
