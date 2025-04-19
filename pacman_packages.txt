@@ -1,5 +1,6 @@
 alsa-utils
 asciidoc
+at
 base
 base-devel
 bat
@@ -20,10 +21,12 @@ gamescope
 gdm
 git
 gnome-desktop
+goverlay
 grub
 hugo
 imagemagick
 inetutils
+inxi
 j4-dmenu-desktop
 kitty
 kvantum
@@ -43,8 +46,8 @@ man-db
 mangohud
 neovim
 network-manager-applet
+nfs-utils
 npm
-nvidia-open
 openssh
 pavucontrol-qt
 picom
@@ -55,6 +58,7 @@ python-lsp-server
 python-pip
 python-pipx
 python-psutil
+python-pynvim
 python-virtualenvwrapper
 python-xlib
 qmk
