@@ -12,8 +12,10 @@ IMG:/usr/share/icons/hicolor/32x32/apps/calibre-gui.png	Ebooks (calibre)	calibre
 IMG:./.local/share/icons/mementodb.svg	MementoDB	/opt/mementodb/bin/mementodb
 Terminal (xterm)	xterm
 IMG:/usr/share/icons/Adwaita/symbolic/status/audio-volume-high-symbolic.svg	Audio	pavucontrol-qt
-Qtile
-	Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
+Desktop Environment
+	Qtile Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
+	Kill picom	pkill picom
+	Run picom	picom
 Utilities
 	MangoHud Config	goverlay
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-shutdown-symbolic.svg	Sleep		systemctl suspend
