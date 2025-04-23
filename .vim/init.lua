@@ -1211,7 +1211,8 @@ vim.api.nvim_create_autocmd(
 
 --                          /// Language - SQL ///
 
-vim.treesitter.language.register('sql', 'googlesql')
+-- This is actually worse...
+-- vim.treesitter.language.register('sql', 'googlesql')
 
 
 --                          /// Language - Python ///
