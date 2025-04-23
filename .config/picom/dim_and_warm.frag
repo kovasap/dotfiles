@@ -1,7 +1,7 @@
 #version 330
 
 // Changes brightness of windows
-float brightness_level = 0.65; // Value between 0.0 and 1.0. Change to your liking
+float brightness_level = 0.6; // Value between 0.0 and 1.0. Change to your liking
 
 // Changes color of windows
 float temperature_kelvin = 5000.0;
