@@ -938,7 +938,7 @@ vim.cmd [[
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc'},
+  ensure_installed = {'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql'},
   highlight = {enable = true},
   -- TODO Re-enable when this works better for python.
   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
@@ -1208,6 +1208,10 @@ vim.api.nvim_create_autocmd(
   "FileType", {
   pattern={"qf"},
   command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]})
+
+--                          /// Language - SQL ///
+
+vim.treesitter.language.register('sql', 'googlesql')
 
 
 --                          /// Language - Python ///
