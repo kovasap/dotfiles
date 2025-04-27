@@ -1,14 +1,13 @@
 babashka-bin
 clojure-lsp-bin
+downgrade
 gdm-settings
 gdrive
 google-chrome
 heroic-games-launcher-bin
 joker
-lib32-nvidia-utils-beta
 mementodb
 memtest86-efi
-nvidia-beta
 phoronix-test-suite
 pwvucontrol
 qdirstat-bin
@@ -21,3 +20,4 @@ xinit-xsession
 xmenu
 yay
 yay-debug
+zenmonitor
