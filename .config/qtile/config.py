@@ -199,8 +199,7 @@ keys.extend([
     Key([mod], 'x', lazy.function(movescreens, -2)),
     Key([mod], 'r', lazy.function(movescreens, 2)),
 
-    # Note that this command is added by my custom qtile fork.
-    Key([mod], 'q', lazy.swap_screens()),
+    Key([mod], 'q', lazy.function(swap_primary_secondary_screens)),
 
     # Skip managed ignores groups already on a screen.
     # Key([mod], 'o', lazy.screen.toggle_group()),
