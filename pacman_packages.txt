@@ -1,4 +1,5 @@
 alsa-utils
+amd-ucode
 asciidoc
 at
 base
@@ -8,6 +9,7 @@ calibre
 clojure
 cmus
 copyq
+cpupower
 cronie
 difftastic
 dmenu
@@ -23,6 +25,7 @@ git
 gnome-desktop
 goverlay
 grub
+htop
 hugo
 imagemagick
 inetutils
@@ -32,6 +35,8 @@ kitty
 kvantum
 lib32-gamemode
 lib32-mangohud
+lib32-nvidia-utils
+lib32-opencl-nvidia
 lib32-systemd
 libconfig
 libev
@@ -48,12 +53,17 @@ neovim
 network-manager-applet
 nfs-utils
 npm
+nvidia
 nvidia-settings
+nvidia-utils
+opencl-nvidia
 openssh
 pavucontrol-qt
 picom
 pipewire-alsa
 pkgfile
+proton-vpn-gtk-app
+psensor
 python-iwlib
 python-lsp-server
 python-pip
@@ -62,6 +72,7 @@ python-psutil
 python-pynvim
 python-virtualenvwrapper
 python-xlib
+qbittorrent
 qmk
 qt5ct
 qt6ct
@@ -118,6 +129,7 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xsensors
 xterm
 yarn
 zip

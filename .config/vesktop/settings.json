@@ -3,5 +3,9 @@
     "minimizeToTray": true,
     "arRPC": true,
     "splashColor": "oklab(0.952331 0.000418991 -0.00125992)",
-    "splashBackground": "oklab(0.245196 0.00206329 -0.00723176)"
+    "splashBackground": "oklab(0.245196 0.00206329 -0.00723176)",
+    "spellCheckLanguages": [
+        "en-US",
+        "c"
+    ]
 }
