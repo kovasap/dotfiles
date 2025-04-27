@@ -20,4 +20,4 @@ xinit-xsession
 xmenu
 yay
 yay-debug
-zenmonitor
+zenpower3-dkms
