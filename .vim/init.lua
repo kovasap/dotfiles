@@ -102,7 +102,7 @@ use 'saadparwaiz1/cmp_luasnip';
   use 'nvim-treesitter/nvim-treesitter-textobjects';
   use 'nvim-treesitter/nvim-treesitter-context';
   use 'nvim-treesitter/playground';
-  use 'p00f/nvim-ts-rainbow';
+  use 'HiPhish/rainbow-delimiters.nvim';
   use { 'neovim/nvim-lspconfig', run = install_python_ls };
   use 'nvim-lua/lsp-status.nvim';
   use 'mgedmin/python-imports.vim';
