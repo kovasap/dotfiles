@@ -72,6 +72,9 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin
 # Without this Qt 5 apps have way too big text.
 export QT_FONT_DPI=96
 
+# Prevent fullscreen games from minimizing
+export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
+
 # This is necessary to get GreenWithEnvy to run
 # Follow instructions at https://wiki.archlinux.org/title/Locale for en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
