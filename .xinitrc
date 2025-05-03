@@ -72,6 +72,11 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin
 # Without this Qt 5 apps have way too big text.
 export QT_FONT_DPI=96
 
+# This is necessary to get GreenWithEnvy to run
+# Follow instructions at https://wiki.archlinux.org/title/Locale for en_US.UTF-8
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
 # set background image
 feh --bg-fill ~/wallpaper
 

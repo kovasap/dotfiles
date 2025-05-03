@@ -96,6 +96,8 @@ makepkg -si
 
 yay -S - < yay_packages.txt
 
+# Follow instructions at https://wiki.archlinux.org/title/Locale for en_US.UTF-8
+
 ```
 
 #### All Others
