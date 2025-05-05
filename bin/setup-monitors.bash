@@ -20,14 +20,14 @@ fi
 export XAUTHORITY=/home/kovas/.Xauthority
 
 # order matters, outputs will be laid out left to right
-outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-1' 'DP-3-8' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0')
+outputs=('DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-1' 'DP-3-8' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0' 'HDMI-0')
 xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
     main_output="DP-4.8"
     main_output_config="--auto"
-    other_output_config='--mode 2560x1440 --rate 144'
+    other_output_config='--auto'
 else
     main_output="eDP-1"
     main_output_config="--scale 1x1 --mode 1920x1200"
@@ -61,6 +61,11 @@ for o in "${outputs[@]}"; do
             # See https://unix.stackexchange.com/a/502883
             # mouse_flicker_fix="--scale 0.9999x0.9999"
             mouse_flicker_fix=""
+            if [ "$o" == "DP-0" ]; then
+               other_output_config='--mode 2560x1440 --rate 144'
+            else 
+               other_output_config='--auto'
+            fi
             xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix $other_output_config $relative_loc"
             relative_loc="--right-of $o"
         fi
