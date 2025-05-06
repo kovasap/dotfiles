@@ -27,10 +27,11 @@ if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
     main_output="DP-4.8"
     main_output_config="--auto"
+    default_other_output_config='--auto'
 else
     main_output="eDP-1"
     main_output_config="--scale 1x1 --mode 1920x1200"
-    other_output_config='--mode 2560x1440'
+    default_other_output_config='--mode 2560x1440'
 fi
 
 reset_cmd="xrandr --output $main_output --primary --auto"
@@ -65,7 +66,7 @@ for o in "${outputs[@]}"; do
             elif [ "$o" == "HDMI-0" ]; then
                other_output_config='--mode 1920x1080'
             else 
-               other_output_config='--auto'
+               other_output_config=$default_other_output_config
             fi
             xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix $other_output_config $relative_loc"
             relative_loc="--right-of $o"
