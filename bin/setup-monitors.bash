@@ -62,7 +62,7 @@ for o in "${outputs[@]}"; do
             # mouse_flicker_fix="--scale 0.9999x0.9999"
             mouse_flicker_fix=""
             if [ "$o" == "DP-0" ]; then
-               other_output_config='--mode 2560x1440 --rate 144'
+               other_output_config='--mode 2560x1440 --rate 165'
             elif [ "$o" == "HDMI-0" ]; then
                other_output_config='--mode 1920x1080'
             else 
