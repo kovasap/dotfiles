@@ -266,7 +266,7 @@ keys.extend([
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
-    Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.cmd_restart())),
+    Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
     Key([mod, "control"], "Tab", lazy.shutdown()),
 
@@ -340,7 +340,7 @@ mouse = [
 
 @hook.subscribe.client_focus
 def client_focused(client):
-    client.cmd_bring_to_front()
+    client.bring_to_front()
 
 @hook.subscribe.client_mouse_enter
 def client_mouse_enter(client):
@@ -370,7 +370,7 @@ def custom_configure_layout(self, client, screen_rect):
 
   # if no sizes or normalize flag is set, normalize
   if not self.relative_sizes or self.do_normalize:
-    self.cmd_normalize(False)
+    self.normalize(False)
 
   # if client not in this layout
   if not self.clients or client not in self.clients:
@@ -457,7 +457,7 @@ class CustomMonadTall(layout.MonadTall):
   #     self.clients.add_client(client, client_position=self.new_client_position)
   #     self.do_normalize = True
   #     self.focus(client)
-  #     client.cmd_bring_to_front()
+  #     client.bring_to_front()
 
 
 custom_monad_tall = CustomMonadTall(
@@ -541,14 +541,14 @@ def get_widgets(systray=False):
       #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
       #     scale=0.8,),
       widget.WindowName(
-        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn(os.path.expanduser('~/bin/run-xmenu.sh'))}),
+        mouse_callbacks={'Button3': lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))}),
       widget.TextBox('X',
                      foreground=colors['color1'],
                      mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
         foreground=colors['color3'],
-        mouse_callbacks={'Button3': lambda: qtile.cmd_spawn('copyq menu')},
+        mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
         max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),
       # widget.TextBox('CPU', name='cpu_label'),
@@ -556,14 +556,14 @@ def get_widgets(systray=False):
       widget.TextBox('Mem',
                      foreground=colors['color8'],
                      name='memory_label',
-                     mouse_callbacks={'Button1': lambda: qtile.cmd_spawn("kitty zsh -c 'htop'")}),
+                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}),
       ColoredMemoryGraph(**graph_args),
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**graph_args),
       widget.TextBox(' | ', name='separator'),
       widget.DF(
           foreground=colors['color8'],
-          mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('qdirstat')},
+          mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
           format='{uf}/{s}{m} free on {p}',
           visible_on_warn=False),
       # TODO figure out why this doesn't work
@@ -600,7 +600,7 @@ def get_widgets(systray=False):
       #     interface=wireless_interface,
       #     format=' {essid} {quality}%',
       #     mouse_callbacks=dict(
-      #         Button1=lambda: qtile.cmd_spawn('gnome-control-center network'))),
+      #         Button1=lambda: qtile.spawn('gnome-control-center network'))),
       widget.TextBox(' | ', name='separator'),
       widget.KeyboardLayout(
           foreground=colors['color8'],
