@@ -449,6 +449,9 @@ class CustomMonadTall(layout.MonadTall):
       self.group.layout_all()
       self.group.focus(self.clients.current_client)
 
+  # This is an attempt to solve the problem where when dragging a window
+  # between different screens, the window appears behind existing windows on
+  # the screen already.
   # def add_client(self, client) -> None:  # type: ignore[override]
   #     "Add client to layout"
   #     self.clients.add_client(client, client_position=self.new_client_position)
