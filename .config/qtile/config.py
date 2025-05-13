@@ -253,7 +253,6 @@ keys.extend([
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')
        ),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
-    Key([mod, 'control'], 't', lazy.spawn('systemctl suspend')),
 
     # Programs
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
@@ -262,6 +261,8 @@ keys.extend([
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
     Key([mod], 'b', lazy.window.kill()),
+    Key([mod, 'control'], 'a', lazy.spawn("kitty")),
+    Key([mod, 'control'], 'r', lazy.spawn("google-chrome")),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
