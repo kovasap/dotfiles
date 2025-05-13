@@ -331,11 +331,6 @@ mouse = [
     Click([mod], 'Button5', lazy.layout.shrink()),
     Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down()),
     Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up()),
-    # For Columns Layouts
-    Click([mod], 'Button4', lazy.layout.grow_left()),
-    Click([mod], 'Button5', lazy.layout.grow_right()),
-    Click([mod, 'control'], 'Button4', lazy.layout.grow_up()),
-    Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
 @hook.subscribe.client_focus
@@ -480,10 +475,6 @@ layouts = [
     #   columnwidth=20,
     #   **layout_theme),
     # custom_monad_3col,
-    # layout.Columns(name='2cols', num_columns=2, **layout_theme),
-    # layout.Columns(name='3cols', num_columns=3, **layout_theme),
-    # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
-    # layout.Stack(name='3stack', num_stacks=3, **layout_theme),
 ]
 
 keys.extend(
