@@ -200,8 +200,8 @@ keys.extend([
     Key([mod], 't', lazy.group.next_window()),
     Key([mod, 'control'], 't', lazy.group.prev_window()),
 
-    Key([mod], 's', lazy.layout.rotate_up()),
-    Key([mod, 'control'], 's', lazy.layout.rotate_down()),
+    Key([mod], 's', lazy.layout.shuffle_up_wraparound()),
+    Key([mod, 'control'], 's', lazy.layout.shuffle_down_wraparound()),
 
     Key([mod], 'Tab', lazy.prev_screen()),
 
@@ -339,8 +339,17 @@ mouse = [
 ]
 
 @hook.subscribe.client_focus
-def window_focused(window):
-    window.cmd_bring_to_front()
+def client_focused(client):
+    client.cmd_bring_to_front()
+
+@hook.subscribe.client_mouse_enter
+def client_mouse_enter(client):
+  client.group.focus(client)
+
+@hook.subscribe.current_screen_change
+def screen_change():
+  cur_window = qtile.current_screen.group.current_window
+  cur_window.group.focus(cur_window)
 
 layout_theme = {
     'border_width': 2,
@@ -413,18 +422,39 @@ custom_monad_3col = layout.MonadThreeCol(
 class CustomMonadTall(layout.MonadTall):
 
   @expose_command()
-  def rotate_up(self):
+  def shuffle_up_wraparound(self):
       """Shuffle the client up the stack, or all the way around if at the end"""
-      self.clients.rotate_up()
+      idx = self.clients._current_idx
+      if idx > 0:
+        new_idx = idx - 1
+      else:
+        new_idx = len(self.clients.clients) - 1
+      self.clients.clients[idx], self.clients.clients[new_idx] = (
+          self.clients.clients[new_idx], self.clients.clients[idx])
+      self.clients.current_index = new_idx
       self.group.layout_all()
       self.group.focus(self.clients.current_client)
 
   @expose_command()
-  def rotate_down(self):
+  def shuffle_down_wraparound(self):
       """Shuffle the client down the stack, or all the way around if at the end"""
-      self.clients.rotate_down()
+      idx = self.clients._current_idx
+      if idx + 1 < len(self.clients):
+        new_idx = idx + 1
+      else:
+        new_idx = 0 
+      self.clients.clients[idx], self.clients.clients[new_idx] = (
+          self.clients.clients[new_idx], self.clients.clients[idx])
+      self.clients.current_index = new_idx
       self.group.layout_all()
       self.group.focus(self.clients.current_client)
+
+  # def add_client(self, client) -> None:  # type: ignore[override]
+  #     "Add client to layout"
+  #     self.clients.add_client(client, client_position=self.new_client_position)
+  #     self.do_normalize = True
+  #     self.focus(client)
+  #     client.cmd_bring_to_front()
 
 
 custom_monad_tall = CustomMonadTall(
@@ -658,7 +688,7 @@ def floating_dialogs(window):
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
@@ -684,7 +714,7 @@ floating_layout = layout.Floating(
     ],
     border_focus=colors['color11'],
 )
-auto_fullscreen = True
+# auto_fullscreen = True
 focus_on_window_activation = 'smart'
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
