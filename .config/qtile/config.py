@@ -306,13 +306,17 @@ keys.extend([
             'xclip -selection clipboard -t image/png; ')),   
 ])
 
+def get_mouse_position(qtile):
+  return (qtile.core.get_mouse_position()[0] - 50,
+          qtile.core.get_mouse_position()[1] - 50)
+
 mouse = [
     # Drag windows around.
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
+         start=lazy.function(get_mouse_position)),
     Click([mod], 'Button1', lazy.window.enable_floating()),
-    Click([mod], 'Button3', lazy.window.disable_floating()),
-    Drag([mod], 'Button2', lazy.window.set_size_floating(),
+    Click([mod], 'Button2', lazy.window.disable_floating()),
+    Drag([mod], 'Button3', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
     # Rearrange and resize windows with mouse wheel
     # For MonadTall layout
@@ -327,13 +331,27 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-@hook.subscribe.float_change
-def make_floating_window_big_so_mouse_stays_on_it():
-  logger.warning("resizing")
-  for window in qtile.current_group.windows:
-    if window.floating:
-      window.bring_to_front()
-      window.tweak_float(w=2000, h=2000)
+@hook.subscribe.layout_change
+def resize_floating_windows(layout, group):
+  if layout.name == 'floating':
+    pass
+  # width = 600
+  # height = 1100
+  # margin = 25
+  # for i, w in enumerate(group.windows):
+  #   w.tweak_float(
+  #       x=margin + i * width + i * margin + group.screen.x,
+  #       y=margin,
+  #       w=width,
+  #       h=height)
+  else:
+    for w in group.windows:
+      w.floating = False
+
+@hook.subscribe.client_focus
+def window_focused(window):
+  if window.floating:
+    window.cmd_bring_to_front()
 
 layout_theme = {
     'border_width': 2,
@@ -435,11 +453,11 @@ custom_monad_tall = CustomMonadTall(
 layouts = [
     custom_monad_tall,
     # layout.Max(**layout_theme),
+    layout.Floating(**layout_theme),
     layout.Zoomy(
       columnwidth=20,
       **layout_theme),
     # custom_monad_3col,
-    layout.Floating(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
@@ -450,23 +468,6 @@ keys.extend(
     [Key([mod, 'control'], str(i + 1), lazy.to_layout_index(i))
      for i, _ in enumerate(layouts)],
 )
-
-@hook.subscribe.layout_change
-def resize_floating_windows(layout, group):
-  if layout.name == 'floating':
-    width = 600
-    height = 1100
-    margin = 25
-    for i, w in enumerate(group.windows):
-      w.tweak_float(
-          x=margin + i * width + i * margin + group.screen.x,
-          y=margin,
-          w=width,
-          h=height)
-  else:
-    for w in group.windows:
-      w.floating = False
-
 
 widget_defaults = dict(
     font='FiraCode Bold',
