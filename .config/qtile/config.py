@@ -197,8 +197,8 @@ def window_to_adjacent_group_pair(qtile, offset):
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], 't', lazy.layout.up()),
-    Key([mod, 'control'], 't', lazy.layout.down()),
+    Key([mod], 't', lazy.group.next_window()),
+    Key([mod, 'control'], 't', lazy.group.prev_window()),
 
     Key([mod], 's', lazy.layout.rotate_up()),
     Key([mod, 'control'], 's', lazy.layout.rotate_down()),
@@ -338,26 +338,8 @@ mouse = [
     Click([mod, 'control'], 'Button5', lazy.layout.grow_down()),
 ]
 
-@hook.subscribe.layout_change
-def resize_floating_windows(layout, group):
-  if layout.name == 'floating':
-    pass
-  # width = 600
-  # height = 1100
-  # margin = 25
-  # for i, w in enumerate(group.windows):
-  #   w.tweak_float(
-  #       x=margin + i * width + i * margin + group.screen.x,
-  #       y=margin,
-  #       w=width,
-  #       h=height)
-  else:
-    for w in group.windows:
-      w.floating = False
-
 @hook.subscribe.client_focus
 def window_focused(window):
-  if window.floating:
     window.cmd_bring_to_front()
 
 layout_theme = {
@@ -460,10 +442,10 @@ custom_monad_tall = CustomMonadTall(
 layouts = [
     custom_monad_tall,
     # layout.Max(**layout_theme),
-    layout.Floating(**layout_theme),
-    layout.Zoomy(
-      columnwidth=20,
-      **layout_theme),
+    # layout.Floating(**layout_theme),
+    # layout.Zoomy(
+    #   columnwidth=20,
+    #   **layout_theme),
     # custom_monad_3col,
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
@@ -522,9 +504,9 @@ def get_widgets(systray=False):
                       this_screen_border=colors['color10'],
                       this_current_screen_border=colors['color2'],
                       active=colors['color7']),
-      widget.CurrentLayoutIcon(
-          # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
-          scale=0.8,),
+      # widget.CurrentLayoutIcon(
+      #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
+      #     scale=0.8,),
       widget.WindowName(
         mouse_callbacks={'Button3': lambda: qtile.cmd_spawn(os.path.expanduser('~/bin/run-xmenu.sh'))}),
       widget.TextBox('X',
