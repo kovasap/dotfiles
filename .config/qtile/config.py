@@ -310,7 +310,8 @@ mouse = [
     # Drag windows around.
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Click([mod], 'Button1', lazy.window.toggle_floating()),
+    Click([mod], 'Button1', lazy.window.enable_floating()),
+    Click([mod], 'Button3', lazy.window.disable_floating()),
     Drag([mod], 'Button2', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
     # Rearrange and resize windows with mouse wheel
@@ -438,7 +439,7 @@ layouts = [
       columnwidth=20,
       **layout_theme),
     # custom_monad_3col,
-    # layout.Floating(**layout_theme),
+    layout.Floating(**layout_theme),
     # layout.Columns(name='2cols', num_columns=2, **layout_theme),
     # layout.Columns(name='3cols', num_columns=3, **layout_theme),
     # layout.Stack(name='2stack', num_stacks=2, **layout_theme),
