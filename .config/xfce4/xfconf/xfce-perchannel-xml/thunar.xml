@@ -9,7 +9,7 @@
   <property name="last-separator-position" type="int" value="170"/>
   <property name="misc-single-click" type="bool" value="false"/>
   <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_38_PERCENT"/>
-  <property name="last-details-view-column-widths" type="string" value="50,50,127,50,85,389,50,50,308,50,50,72,50,620"/>
+  <property name="last-details-view-column-widths" type="string" value="50,50,127,50,85,389,50,50,319,50,50,72,50,620"/>
   <property name="last-sort-column" type="string" value="THUNAR_COLUMN_DATE_MODIFIED"/>
   <property name="last-sort-order" type="string" value="GTK_SORT_DESCENDING"/>
   <property name="last-show-hidden" type="bool" value="true"/>

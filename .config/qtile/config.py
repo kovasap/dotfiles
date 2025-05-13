@@ -133,8 +133,9 @@ def spawn_multi_cmd(*args):
 
 keys = []
 
+group_letters = 'jluymnei'
 groups = []
-for n in 'pjluymnei':
+for n in group_letters:
   groups.append(Group(n))
   groups.append(Group(n + 'a'))
   keys.extend([
@@ -169,7 +170,6 @@ def movescreens(qtile, offset):
         break
 
 def window_to_paired_group(qtile):
-  logger.error('calling')
   cur_screen, _ = get_two_main_screens(qtile)
   if len(cur_screen.group.name) == 2:
     target_group_name = cur_screen.group.name[0]
@@ -181,6 +181,19 @@ def window_to_paired_group_then_swap(qtile):
   window_to_paired_group(qtile)
   swap_primary_secondary_screens(qtile)
 
+def window_to_adjacent_group_pair(qtile, offset):
+  cur_screen, _ = get_two_main_screens(qtile)
+  cur_group_letter = cur_screen.group.name[0]
+  cur_group_idx = group_letters.index(cur_group_letter) 
+  next_group_idx = cur_group_idx + offset
+  if next_group_idx >= len(group_letters):
+    next_group_idx = next_group_idx - len(group_letters)
+  elif next_group_idx < 0:
+    next_group_idx = len(group_letters) + next_group_idx
+  next_group_letter = group_letters[next_group_idx]
+  cur_screen.group.current_window.togroup(next_group_letter, switch_group=False)
+  movescreens(qtile, offset * 2)
+
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
@@ -190,14 +203,19 @@ keys.extend([
     Key([mod], 's', lazy.layout.rotate_up()),
     Key([mod, 'control'], 's', lazy.layout.rotate_down()),
 
-    Key([mod], 'f', lazy.prev_screen()),
+    Key([mod], 'Tab', lazy.prev_screen()),
 
     Key([mod], 'a', lazy.function(window_to_paired_group)),
     Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
 
+
     # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod], 'x', lazy.function(movescreens, -2)),
-    Key([mod], 'r', lazy.function(movescreens, 2)),
+    Key([mod], 'f', lazy.function(movescreens, -2)),
+    Key([mod], 'p', lazy.function(movescreens, 2)),
+
+    # Carry a window to the next group pairing
+    Key([mod], 'r', lazy.function(window_to_adjacent_group_pair, 1)),
+    Key([mod], 'x', lazy.function(window_to_adjacent_group_pair, -1)),
 
     Key([mod], 'q', lazy.function(swap_primary_secondary_screens)),
 
