@@ -306,14 +306,21 @@ keys.extend([
             'xclip -selection clipboard -t image/png; ')),   
 ])
 
-def get_mouse_position(qtile):
-  return (qtile.core.get_mouse_position()[0] - 50,
-          qtile.core.get_mouse_position()[1] - 50)
+def sum_elementwise(t1, t2):
+  return tuple([sum(x) for x in zip(t1,t2)])
+
+def get_float_drag_position(qtile):
+  # TODO make it so that this code always ensures that the mouse cursor is in
+  # the floating window when dragging, preferring to not move the window to the
+  # mouse cursor location, but doing so if necessary
+  cur_window = qtile.current_screen.group.current_window
+  return (qtile.core.get_mouse_position()[0] - 200,
+          qtile.core.get_mouse_position()[1] - 200)
 
 mouse = [
     # Drag windows around.
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
-         start=lazy.function(get_mouse_position)),
+         start=lazy.function(get_float_drag_position)),
     Click([mod], 'Button1', lazy.window.enable_floating()),
     Click([mod], 'Button2', lazy.window.disable_floating()),
     Drag([mod], 'Button3', lazy.window.set_size_floating(),
