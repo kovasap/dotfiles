@@ -326,13 +326,13 @@ def get_float_drag_position(qtile):
 
 mouse = [
     # Drag windows around.
-    Click([mod], 'Button3', lazy.spawn('kitty')),
-    Drag([mod], 'Button3', lazy.spawn('kitty')),
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
          start=lazy.function(get_float_drag_position)),
     Click([mod], 'Button1', lazy.window.enable_floating()),
-    Click([mod], 'Button2', lazy.window.disable_floating()),
-    Drag([mod], 'Button3', lazy.window.set_size_floating(),
+    Click([mod], 'Button3', lazy.window.disable_floating()),
+    Drag([mod], 'Button2', lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Drag([mod, 'control'], 'Button3', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
     # Rearrange and resize windows with mouse wheel
     # For MonadTall layout
