@@ -11,8 +11,16 @@ from libqtile import qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
-from libqtile.widget.graph import MemoryGraph
-from Xlib import display as xdisplay
+# On systems where I cannot install psutil, this still allows qtile to run.
+try:
+  from libqtile.widget.graph import MemoryGraph
+except ModuleNotFoundError:
+  MemoryGraph = None
+# On systems where I cannot install xlib, this still allows qtile to run.
+try:
+  from Xlib import display as xdisplay
+except ModuleNotFoundError:
+  xdisplay = None
 
 # Log location is at ~/.local/share/qtile/qtile.log
 
@@ -506,19 +514,20 @@ graph_args = dict(
 )
 
 
-class ColoredMemoryGraph(MemoryGraph):
-  """Shows the memory graph in red if above 80%."""
+if MemoryGraph is not None:
+  class ColoredMemoryGraph(MemoryGraph):
+    """Shows the memory graph in red if above 80%."""
 
-  def update_graph(self):
-    val = self._getvalues()
-    mem = val['MemTotal'] - val['MemFree'] - val['Buffers'] - val['Cached']
-    if mem / val['MemTotal'] > 0.8:
-      self.graph_color = colors['color1']
-      self.fill_color = colors['color1'] + '.3'
-    else:
-      self.graph_color = colors['color2']
-      self.fill_color = colors['color2'] + '.3'
-    super().update_graph()
+    def update_graph(self):
+      val = self._getvalues()
+      mem = val['MemTotal'] - val['MemFree'] - val['Buffers'] - val['Cached']
+      if mem / val['MemTotal'] > 0.8:
+        self.graph_color = colors['color1']
+        self.fill_color = colors['color1'] + '.3'
+      else:
+        self.graph_color = colors['color2']
+        self.fill_color = colors['color2'] + '.3'
+      super().update_graph()
 
 
 wireless_interface = subprocess.run(
@@ -553,8 +562,8 @@ def get_widgets(systray=False):
       widget.TextBox('Mem',
                      foreground=colors['color8'],
                      name='memory_label',
-                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}),
-      ColoredMemoryGraph(**graph_args),
+                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")})
+      ] + ([ColoredMemoryGraph(**graph_args)] if MemoryGraph is not None else []) + [
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**graph_args),
       widget.TextBox(' | ', name='separator'),
