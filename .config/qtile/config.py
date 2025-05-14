@@ -11,6 +11,9 @@ from libqtile import qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
+
+# If using pipx to install qtile, use `pipx inject qtile psutil xlib` to make
+# sure these libraries are available.
 # On systems where I cannot install psutil, this still allows qtile to run.
 try:
   from libqtile.widget.graph import MemoryGraph
