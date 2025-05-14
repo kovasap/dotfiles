@@ -199,6 +199,13 @@ _update_lastdir() {
   echo $PWD > ~/lastdir
 }
 
+# Swap two files
+function swap()         
+{
+    local TMPFILE=tmp.$$
+    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
+}
+
 add-zsh-hook chpwd _update_lastdir
 
 alias nv='nvim'

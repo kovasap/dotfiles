@@ -8,7 +8,7 @@ from typing import List  # noqa: F401
 from libqtile.command.base import expose_command
 from libqtile import bar, hook, layout, widget
 from libqtile import qtile
-from libqtile.config import Click, Drag, Group, Key, Screen, Match
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 from libqtile.widget.graph import MemoryGraph
@@ -232,7 +232,6 @@ keys.extend([
     # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
     # Take an entire screenshot:
     # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
-    Key([mod], 'w', lazy.next_layout()),
     Key([mod],
         'space',
         lazy.widget['keyboardlayout'].next_keyboard(),
@@ -254,15 +253,23 @@ keys.extend([
        ),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
 
-    # Programs
-    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod], 'Return', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod], 'g', lazy.spawn("run-xmenu.sh")),
+    Key([mod], 'b', lazy.window.kill()),
+
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
-    Key([mod], 'b', lazy.window.kill()),
-    Key([mod, 'control'], 'a', lazy.spawn("kitty")),
-    Key([mod, 'control'], 'r', lazy.spawn("google-chrome")),
+
+    # Open text prompt to open any program on the system
+    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
+    # Open xmenu for a visual way to open programs
+    Key([mod], 'g', lazy.spawn("run-xmenu.sh")),
+    # Open programs with a keychord
+    KeyChord([mod], "w", [
+        Key([], "t", lazy.spawn("kitty")),
+        Key([], "c", lazy.spawn("google-chrome-stable")),
+        Key([], "f", lazy.spawn("thunar")),
+        Key([], "s", lazy.spawn("steam")),
+        Key([], "g", lazy.spawn("strawberry")),
+    ]),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
@@ -301,7 +308,7 @@ keys.extend([
         'Print',
         spawn_multi_cmd(
             # https://github.com/naelstrof/maim/issues/182
-            'pkill compton',
+            'pkill picom',
             'maim -s | tee ~/clipboard.png | '
             'xclip -selection clipboard -t image/png; ')),   
 ])
@@ -319,6 +326,8 @@ def get_float_drag_position(qtile):
 
 mouse = [
     # Drag windows around.
+    Click([mod], 'Button3', lazy.spawn('kitty')),
+    Drag([mod], 'Button3', lazy.spawn('kitty')),
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
          start=lazy.function(get_float_drag_position)),
     Click([mod], 'Button1', lazy.window.enable_floating()),
@@ -329,22 +338,24 @@ mouse = [
     # For MonadTall layout
     Click([mod], 'Button4', lazy.layout.grow()),
     Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down()),
-    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up()),
+    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
+    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
 ]
 
-@hook.subscribe.client_focus
-def client_focused(client):
-    client.bring_to_front()
+# @hook.subscribe.client_focus
+# def client_focused(client):
+#     client.bring_to_front()
+# 
+# @hook.subscribe.client_mouse_enter
+# def client_mouse_enter(client):
+#   client.group.focus(client)
+# 
+# @hook.subscribe.current_screen_change
+# def screen_change():
+#   cur_window = qtile.current_screen.group.current_window
+#   cur_window.group.focus(cur_window)
 
-@hook.subscribe.client_mouse_enter
-def client_mouse_enter(client):
-  client.group.focus(client)
-
-@hook.subscribe.current_screen_change
-def screen_change():
-  cur_window = qtile.current_screen.group.current_window
-  cur_window.group.focus(cur_window)
+follow_mouse_focus = True
 
 layout_theme = {
     'border_width': 2,
@@ -476,11 +487,6 @@ layouts = [
     #   **layout_theme),
     # custom_monad_3col,
 ]
-
-keys.extend(
-    [Key([mod, 'control'], str(i + 1), lazy.to_layout_index(i))
-     for i, _ in enumerate(layouts)],
-)
 
 widget_defaults = dict(
     font='FiraCode Bold',
@@ -682,7 +688,6 @@ def floating_dialogs(window):
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
-follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
