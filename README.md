@@ -224,8 +224,7 @@ cd ~/
 deactivate
 # Alternatively, install qtile from pipx and use .xsession to run it:
 # pipx install qtile
-# pipx inject qtile psutil
-# pipx inject qtile Xlib
+# pipx inject qtile psutil xlib
 
 # Make sure brightness controls work
 sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness
