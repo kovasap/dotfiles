@@ -10,7 +10,12 @@ export CALIBRE_USE_DARK_PALETTE=1
 # Make shift-caps enable caps lock (and just caps escape instead)
 setxkbmap -option "caps:escape_shifted_capslock"
 
-xclickroot -r ~/bin/run-xmenu.sh &
+# Spawn xmenu when right clicking on the "desktop".
+# When this program starts, it messes with qtile's ability to get the right
+# click signal, so i'm disabling it for now (since I get the same effect from
+# right clicking on the bar anyway).
+# See details at https://www.reddit.com/r/qtile/comments/1kltu6g/mod_right_click_button3_cannot_be_bound_to_an/
+# xclickroot -r ~/bin/run-xmenu.sh &
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
