@@ -1,5 +1,6 @@
 alsa-utils
 amd-ucode
+arch-install-scripts
 asciidoc
 at
 base
@@ -16,6 +17,7 @@ dmenu
 dmidecode
 dunst
 efibootmgr
+egl-gbm
 feh
 file-roller
 gamemode
@@ -44,16 +46,18 @@ lightdm
 lightdm-gtk-greeter
 linux
 linux-firmware
+linux-headers
 lutris
 lxappearance
 lynx
+maim
 man-db
 mangohud
 neovim
 network-manager-applet
 nfs-utils
 npm
-nvidia
+nvidia-open
 nvidia-settings
 nvidia-utils
 opencl-nvidia
