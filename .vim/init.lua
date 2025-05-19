@@ -161,6 +161,8 @@ end)
 --                          /// General ///
 
 vim.g.maplocalleader=" "
+require("hardtime").setup({restriction_mode = "hint",
+                           disable_mouse = false})
 
 
 --                          /// Right Click Menu ///
