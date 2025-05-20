@@ -87,6 +87,13 @@ def group_to_screen(qtile, group_name):
   else:
     cur_screen.set_group(primary_group)
 
+def call_primary_or_secondary_group(qtile):
+  """Makes it so that both primary and secondary groups are displayed on screens."""
+  cur_screen, second_screen = get_two_main_screens(qtile)
+  primary_group, secondary_group = get_primary_secondary_groups(
+      qtile, cur_screen.group.name)
+  cur_screen.set_group(primary_group)
+  second_screen.set_group(secondary_group)
 
 def swap_primary_secondary_screens(qtile):
   cur_screen, second_screen = get_two_main_screens(qtile)
@@ -160,6 +167,9 @@ for n in group_letters:
   ])
 
 def movescreens(qtile, offset):
+  # Make it so that when we are moving screens we are always doing so with a
+  # group pair.
+  call_primary_or_secondary_group(qtile)
   group_names = [g.name for g in groups]
   screen_group_names = [s.group.name for s in qtile.screens]
   screens_wrap = (group_names[-1] in screen_group_names
