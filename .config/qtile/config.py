@@ -257,7 +257,7 @@ keys.extend([
         'space',
         lazy.widget['keyboardlayout'].next_keyboard(),
         desc='Next keyboard layout.'),
-    Key([mod, 'control'], "space", lazy.hide_show_bar(), desc="Hides the bar"),
+    Key([mod, 'control'], 'space', lazy.hide_show_bar(), desc='Hides the bar'),
 
     Key([mod], 'slash', lazy.spawn("kitty zsh -c 'chrome-history.zsh'")),
     Key([mod, 'control'], 'slash',
@@ -282,21 +282,21 @@ keys.extend([
     # Open text prompt to open any program on the system
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
     # Open xmenu for a visual way to open programs
-    Key([mod], 'g', lazy.spawn("run-xmenu.sh")),
+    Key([mod], 'g', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
-    KeyChord([mod], "w", [
-        Key([], "t", lazy.spawn("kitty")),
-        Key([], "c", lazy.spawn("google-chrome-stable")),
-        Key([], "f", lazy.spawn("thunar")),
-        Key([], "s", lazy.spawn("steam")),
-        Key([], "g", lazy.spawn("strawberry")),
+    KeyChord([mod], 'w', [
+        Key([mod], 't', lazy.spawn('kitty')),
+        Key([mod], 'c', lazy.spawn('google-chrome-stable')),
+        Key([mod], 'f', lazy.spawn('thunar')),
+        Key([mod], 's', lazy.spawn('steam')),
+        Key([mod], 'g', lazy.spawn('strawberry')),
     ]),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
-    Key([mod, "control"], "Tab", lazy.shutdown()),
+    Key([mod, 'control'], 'Tab', lazy.shutdown()),
 
     # Audio
     Key([], 'XF86AudioRaiseVolume',
