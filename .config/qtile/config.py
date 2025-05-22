@@ -285,7 +285,7 @@ keys.extend([
     Key([mod], 'g', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
     KeyChord([mod], 'w', [
-        Key([mod], 't', lazy.spawn('kitty')),
+        Key([mod], 't', lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
         Key([mod], 'c', lazy.spawn('google-chrome-stable')),
         Key([mod], 'f', lazy.spawn('thunar')),
         Key([mod], 's', lazy.spawn('steam')),
