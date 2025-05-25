@@ -29,6 +29,8 @@ xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coor
 # this, since I don't care about using acceleration myself.
 xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Speed" -0.2
 xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
+xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Speed" -0.5
+xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
 
 # natural scrolling for thinkpad touchpad
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled' 1
