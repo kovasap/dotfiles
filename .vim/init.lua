@@ -1172,9 +1172,6 @@ vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('v', 'f', ':FormatLines<CR>', {noremap = true})
 
-
-vim.lsp.set_log_level("DEBUG")
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
