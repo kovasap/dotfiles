@@ -1275,6 +1275,17 @@ vim.cmd('let g:sexp_enable_insert_mode_mappings = 0')
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
+-- Workaround https://github.com/Olical/conjure/issues/644
+vim.api.nvim_create_autocmd("ExitPre", {
+  pattern = "*",
+  callback = function(event)
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end,
+})
 -- Port is at ~/.nrepl/nrepl.edn
 map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', {silent = true})
 -- Note that the clojure project must have this dependency for Conjure to work:
