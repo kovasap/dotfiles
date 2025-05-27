@@ -53,7 +53,7 @@ hi Visual ctermbg=8
 hi default link VisualNOS Visual
 hi Underlined cterm=underline
 hi Error ctermbg=1
-hi WarningMsg ctermfg=3 ctermbg=1
+hi WarningMsg ctermfg=3
 hi WildMenu  ctermbg=1
 hi Todo cterm=underline ctermfg=15 ctermbg=none
 hi DiffAdd cterm=none ctermfg=14 ctermbg=none
