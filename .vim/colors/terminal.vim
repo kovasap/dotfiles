@@ -12,6 +12,11 @@ hi default link shComment Comment
 hi default link vimLineComment Comment
 hi Constant ctermfg=7
 hi String ctermfg=2
+hi link @string.regexp String
+hi link @string.special String
+hi link @string.special.symbol String
+hi link @string.special.path String
+hi link @lsp.type.keyword.clojure String
 hi Character ctermfg=10
 hi Number ctermfg=3
 hi Boolean ctermfg=3
