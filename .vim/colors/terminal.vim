@@ -22,10 +22,10 @@ hi Number ctermfg=3
 hi Boolean ctermfg=3
 hi Float ctermfg=3
 
-hi Identifier cterm=none ctermfg=6
+hi Identifier cterm=none ctermfg=7
 hi Function ctermfg=6
 
-hi Statement ctermfg=1
+hi Statement ctermfg=3
 hi Conditional ctermfg=1
 hi default link Repeat Statement
 hi default link Label Statement
@@ -39,10 +39,10 @@ hi Define ctermfg=11
 hi Macro ctermfg=11
 hi PreCondit ctermfg=11
 
-hi Type ctermfg=4
-hi StorageClass ctermfg=5
-hi Typedef ctermfg=5
-hi Structure ctermfg=5
+hi Type ctermfg=6
+hi StorageClass ctermfg=6
+hi Typedef ctermfg=6
+hi Structure ctermfg=6
 
 hi Special ctermfg=6
 hi SpecialChar ctermfg=1
