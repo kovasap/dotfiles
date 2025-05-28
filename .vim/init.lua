@@ -126,7 +126,7 @@ use 'saadparwaiz1/cmp_luasnip';
   use 'echasnovski/mini.nvim';
   use  "MunifTanjim/nui.nvim";
   use "m4xshen/hardtime.nvim";
-  -- use 'lewis6991/whatthejump.nvim';
+  use "michaelb/vim-tips";
   use {
     'rachartier/tiny-glimmer.nvim',
     config = function()
