@@ -126,7 +126,12 @@ use 'saadparwaiz1/cmp_luasnip';
   use 'echasnovski/mini.nvim';
   use  "MunifTanjim/nui.nvim";
   use "m4xshen/hardtime.nvim";
-  use "michaelb/vim-tips";
+  use {
+	"cksidharthan/mentor.nvim",
+	config = function()
+		require("mentor")
+	end,
+};
   use {
     'rachartier/tiny-glimmer.nvim',
     config = function()
