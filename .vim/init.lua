@@ -2,33 +2,32 @@
 
 -- Taken from https://oroques.dev/notes/neovim-init
 function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
+  local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- Debug print a lua datastructure
 function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..tostring(k)..'"' end
-         s = s .. '['..tostring(k)..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
+  if type(o) == 'table' then
+    local s = '{ '
+    for k, v in pairs(o) do
+      if type(k) ~= 'number' then k = '"' .. tostring(k) .. '"' end
+      s = s .. '[' .. tostring(k) .. '] = ' .. dump(v) .. ','
+    end
+    return s .. '} '
+  else
+    return tostring(o)
+  end
 end
-
 
 --                          /// Plugin Management ///
 
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -81,24 +80,24 @@ require('packer').startup(function(use)
   use 'kana/vim-altr';
   -- Open files at specified lines using file:line syntax.
   use 'wsdjeg/vim-fetch';
-  use {'junegunn/fzf', run = vim.fn['fzf#install']};
+  use { 'junegunn/fzf', run = vim.fn['fzf#install'] };
   use { 'junegunn/fzf.vim' };
   use 'pbogut/fzf-mru.vim';
   use 'ludovicchabant/vim-lawrencium';
   use 'mhinz/vim-signify';
-  use {'rafamadriz/friendly-snippets'};
-  use {'hrsh7th/cmp-buffer'};
-  use {'hrsh7th/cmp-cmdline'};
-  use {'hrsh7th/cmp-emoji'};
-  use {'hrsh7th/cmp-calc'};
-  use {'hrsh7th/cmp-path'};
-  use {'hrsh7th/cmp-nvim-lua'};
-  use {'f3fora/cmp-spell'};
-  use {'hrsh7th/cmp-nvim-lsp'};
+  use { 'rafamadriz/friendly-snippets' };
+  use { 'hrsh7th/cmp-buffer' };
+  use { 'hrsh7th/cmp-cmdline' };
+  use { 'hrsh7th/cmp-emoji' };
+  use { 'hrsh7th/cmp-calc' };
+  use { 'hrsh7th/cmp-path' };
+  use { 'hrsh7th/cmp-nvim-lua' };
+  use { 'f3fora/cmp-spell' };
+  use { 'hrsh7th/cmp-nvim-lsp' };
   use 'L3MON4D3/LuaSnip';
-use 'saadparwaiz1/cmp_luasnip';
-  use {'hrsh7th/nvim-cmp'};
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
+  use 'saadparwaiz1/cmp_luasnip';
+  use { 'hrsh7th/nvim-cmp' };
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' };
   use 'nvim-treesitter/nvim-treesitter-textobjects';
   use 'nvim-treesitter/nvim-treesitter-context';
   use 'nvim-treesitter/playground';
@@ -124,27 +123,35 @@ use 'saadparwaiz1/cmp_luasnip';
   use 'guns/vim-sexp';
   use 'romainl/vim-cool';
   use 'echasnovski/mini.nvim';
-  use  "MunifTanjim/nui.nvim";
+  use "MunifTanjim/nui.nvim";
   use "m4xshen/hardtime.nvim";
   use {
-	"cksidharthan/mentor.nvim",
-	config = function()
-		require("mentor")
-	end,
-};
+    "cksidharthan/mentor.nvim",
+    config = function()
+      require("mentor").setup({
+        tips = {
+          "Use :Inspect with cursor above text to see why it is colored the way it is."
+        }
+      })
+    end,
+  };
   use {
     'rachartier/tiny-glimmer.nvim',
     config = function()
-        require('tiny-glimmer').setup()
+      require('tiny-glimmer').setup()
     end
-};
-  use {'gen740/SmoothCursor.nvim',
-       config = function() require('smoothcursor').setup({cursor = ">",
-                                                          linehl = "CursorLine",
-                                                          texthl = "CursorLine"}) end};
+  };
+  use { 'gen740/SmoothCursor.nvim',
+    config = function()
+      require('smoothcursor').setup({
+        cursor = ">",
+        linehl = "CursorLine",
+        texthl = "CursorLine"
+      })
+    end };
   if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
     require('google_dotfiles/google').load_google_plugins(use);
-  -- else
+    -- else
     -- TODO find a way to put the codefmt lines here so that I can source
     -- google.vim in my google-specific config.
   end
@@ -152,8 +159,8 @@ use 'saadparwaiz1/cmp_luasnip';
     -- use 'github/copilot.vim';
     -- use 'kiddos/gemini.nvim';
   end
-  use {'google/vim-maktaba'};
-  use {'google/vim-codefmt'};
+  use { 'google/vim-maktaba' };
+  use { 'google/vim-codefmt' };
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -165,9 +172,11 @@ end)
 
 --                          /// General ///
 
-vim.g.maplocalleader=" "
-require("hardtime").setup({restriction_mode = "hint",
-                           disable_mouse = false})
+vim.g.maplocalleader = " "
+require("hardtime").setup({
+  restriction_mode = "hint",
+  disable_mouse = false
+})
 
 
 --                          /// Right Click Menu ///
@@ -178,22 +187,22 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 --                          /// Navigation ///
 
 require('leap').set_default_keymaps()
-vim.keymap.set('n',        's', '<Plug>(leap)')
-vim.keymap.set('n',        'S', '<Plug>(leap-from-window)')
-vim.keymap.set({'x', 'o'}, 's', '<Plug>(leap-forward)')
-vim.keymap.set({'x', 'o'}, 'S', '<Plug>(leap-backward)')
+vim.keymap.set('n', 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+vim.keymap.set({ 'x', 'o' }, 's', '<Plug>(leap-forward)')
+vim.keymap.set({ 'x', 'o' }, 'S', '<Plug>(leap-backward)')
 
 -- Jump backwards
 vim.keymap.set('n', '<C-p>', function()
   -- require 'whatthejump'.show_jumps(false)
   return '<C-o>'
-end, {expr = true})
+end, { expr = true })
 
 -- Jump forwards
 vim.keymap.set('n', '<C-d>', function()
   -- require 'whatthejump'.show_jumps(true)
   return '<C-i>'
-end, {expr = true})
+end, { expr = true })
 
 -- Nicer up/down movement on long lines.
 map('n', 'j', 'gj')
@@ -208,7 +217,7 @@ map('v', '<PageUp>', '10kzz', { silent = true })
 
 -- Hit escape twice to clear old search highlighting.  vim-cool kinda makes
 -- this obselete.
-map('n', '<Esc><Esc>', ':let @/=""<CR>', {silent = true})
+map('n', '<Esc><Esc>', ':let @/=""<CR>', { silent = true })
 vim.g.CoolTotalMatches = true
 
 
@@ -273,7 +282,7 @@ vim.o.expandtab = true
 
 -- Command to trim all trailing whitespace in the file.
 vim.cmd(
-[[
+  [[
 function! TrimWhitespace()
     let l:save = winsaveview()
     %s/\s\+$//e
@@ -285,9 +294,9 @@ command! TrimWhitespace call TrimWhitespace()
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
 require("nvim-surround").setup({
-    keymaps = { -- vim-surround style keymaps
-        visual = "F",
-    },
+  keymaps = { -- vim-surround style keymaps
+    visual = "F",
+  },
 })
 
 -- Automatically close parens.
@@ -312,9 +321,9 @@ vim.o.background = 'dark'
 -- Function to determine the highlight group under the cursor (to help change
 -- its color).
 vim.cmd(
-[[
-function! SynGroup()                                                            
-    let l:s = synID(line('.'), col('.'), 1)                                       
+  [[
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 command! SynGroup call SynGroup()
@@ -336,13 +345,13 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Adds indentation line hints.
-require('ibl').setup{
-    indent = {char = "¦"},
+require('ibl').setup {
+  indent = { char = "¦" },
 }
 
 -- Syntax highlighting for specific filetypes
 vim.cmd(
-[[
+  [[
 au BufRead,BufNewFile *.blueprint set filetype=gcl
 ]]
 )
@@ -365,7 +374,7 @@ vim.o.titlestring = "%t (%{expand('%:~:.:h')}) - NVIM"
 -- See https://github.com/vim-airline/vim-airline/issues/694 for some
 -- explanation.
 vim.cmd(
-[[
+  [[
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#ale#enabled = 1
@@ -390,7 +399,7 @@ map('n', 'yf', ':let @+ = expand("%:p")<CR>')
 -- TODO add this to a local vimrc file in the website directory, once I find a
 -- clean way to do that.
 map('n', 'yl',
-    ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
+  ':let @+ = \'{{< relref "\' .. substitute(expand("%:p"), "/home/kovas/website/content", "", "") .. \'\" >}}\'<CR>')
 
 -- stay/view will annoyingly remember to change working dirs when opening files
 -- sometimes, this should prevent that
@@ -399,19 +408,19 @@ vim.o.autochdir = false
 -- For some unknown reason, on some machines the oil config gets overwritten by
 -- a startup script.  So I load it last here with a VimEnter autocommand to
 -- make sure this is the config I end up with.
-vim.api.nvim_create_autocmd({"VimEnter"}, {
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     require("oil").setup({
       default_file_explorer = true,
       prompt_save_on_select_new_entry = false,
       skip_confirm_for_simple_edits = true,
       keymaps = {
-            ["<CR>"] = "actions.select",
-            ["<C-l>"] = "actions.refresh",
-            ["g?"] = "actions.show_help",
-            -- These conflict with my custom mappings for all buffer types
-            ["<C-p>"] = false,
-            ["<C-s>"] = false,
+        ["<CR>"] = "actions.select",
+        ["<C-l>"] = "actions.refresh",
+        ["g?"] = "actions.show_help",
+        -- These conflict with my custom mappings for all buffer types
+        ["<C-p>"] = false,
+        ["<C-s>"] = false,
       },
       use_default_keymaps = false,
     })
@@ -454,15 +463,17 @@ vim.g.scrollview_auto_workarounds = 0
 
 -- Close windows, then the whole session, with C-w
 vim.keymap.set("n", "<C-w>", function()
-  local win_amount = get_num_windows()
-  if win_amount == 1 then
-    vim.cmd(':wqa<CR>')
-  else
-    vim.cmd('wincmd q')
-  end
-end,
-{noremap = true,
- nowait = true})
+    local win_amount = get_num_windows()
+    if win_amount == 1 then
+      vim.cmd(':wqa<CR>')
+    else
+      vim.cmd('wincmd q')
+    end
+  end,
+  {
+    noremap = true,
+    nowait = true
+  })
 
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
@@ -483,7 +494,8 @@ if not_in_google3 then
   vim.cmd('autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif')
   -- Notification after file change
   -- https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-  vim.cmd('autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None')
+  vim.cmd(
+    'autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None')
 else
   vim.o.autoread = false
 end
@@ -498,7 +510,7 @@ map('n', 'gb', ":execute 'e +/' . escape(escape(expand('%:t'), '.'), '.') . ' %:
 -- Create directories on write if they don't already exist.
 -- See also https://github.com/pbrisbin/vim-mkdir
 vim.cmd(
-[[
+  [[
 function g:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -555,7 +567,7 @@ vim.g.fzf_history_dir = '~/.local/share/fzf-history'
 -- Search through all files in the current buffer's directory with " when in a
 -- oil directory buffer.
 vim.cmd(
-[[
+  [[
 function! g:Dirag(query, ...)
   if type(a:query) != type('')
     return g:Warn('Invalid query argument')
@@ -579,7 +591,7 @@ map('n', '?', ':Lines<CR>')
 vim.g.fzf_mru_max = 1000000
 -- This is used instead of 'google3' because when fig uses vimdiff it puts the
 -- vim instance at the root of the CitC client (the dir _containing_ google3).
-vim.g.fzf_mru_store_relative_dirs = {'/google/src/cloud/'}
+vim.g.fzf_mru_store_relative_dirs = { '/google/src/cloud/' }
 -- Exclude files with google3/ in them - these will be opened only when things are
 -- merged via vimdiff.
 vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
@@ -589,7 +601,7 @@ vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
 vim.api.nvim_create_user_command('MRU', function()
     vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
   end,
-  {nargs = 0, desc = 'Find most recently used files.'}
+  { nargs = 0, desc = 'Find most recently used files.' }
 )
 map('n', "'", ":MRU<CR>")
 -- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
@@ -606,7 +618,7 @@ vim.g.signify_cursorhold_normal = false
 -- taken from https://github.com/mhinz/vim-signify/issues/284
 vim.g.target_commit = 0
 vim.cmd(
-[[
+  [[
 function ChangeTargetCommit(older_or_younger)
   if a:older_or_younger ==# 'older'
     let g:target_commit += 1
@@ -634,7 +646,7 @@ map('n', '[r', ':SignifyNewer<CR>')
 
 -- TODO Add this for git too.
 vim.cmd(
-[[
+  [[
 function HgDiffTarget()
   let l:cur_rev_cmd = printf('hg log --rev .~%d --template ''{node}''', g:target_commit)
   let l:cur_rev = system(l:cur_rev_cmd)
@@ -654,7 +666,7 @@ map('n', 'dp', 'dp]c')
 -- Get diff between current buffer and what is saved to disk using the
 -- DiffSaved command.
 vim.cmd(
-[[
+  [[
 function! g:DiffWithSaved()
   let filetype=&ft
   diffthis
@@ -693,7 +705,7 @@ com! DiffSaved call g:DiffWithSaved()
 --       local filetype = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
 --       local prompt = [[
 --   Instruction: Use 1 or 2 sentences to describe what the following {filetype} function does:
---   
+--
 --   ```{filetype}
 --   {code_block}
 --   ```]]
@@ -785,7 +797,7 @@ com! DiffSaved call g:DiffWithSaved()
 --     get_prompt = function(bufnr, user_prompt)
 --       local buffers = vim.api.nvim_list_bufs()
 --       local file_contents = {}
--- 
+--
 --       for _, b in ipairs(buffers) do
 --         if vim.api.nvim_buf_is_loaded(b) then -- Only get content from loaded buffers
 --           local lines = vim.api.nvim_buf_get_lines(b, 0, -1, false)
@@ -797,10 +809,10 @@ com! DiffSaved call g:DiffWithSaved()
 --           table.insert(file_contents, file_content)
 --         end
 --       end
--- 
+--
 --       local current_filepath = vim.api.nvim_buf_get_name(bufnr)
 --       current_filepath = vim.fn.fnamemodify(current_filepath, ":.")
--- 
+--
 --       local context = table.concat(file_contents, "\n\n")
 --       return string.format('%s\n\nCurrent Opened File: %s\n\nTask: %s',
 --         context, current_filepath, user_prompt)
@@ -818,7 +830,7 @@ com! DiffSaved call g:DiffWithSaved()
 -- })
 
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -886,7 +898,8 @@ cmp.setup({
     { name = 'spell' },
     { name = 'path' },
     { name = 'nvim_lua' },
-    { name = 'buffer',
+    {
+      name = 'buffer',
       option = {
         -- Complete from all open buffers, not just the current one.
         -- https://github.com/hrsh7th/cmp-buffer/issues/1.
@@ -897,20 +910,20 @@ cmp.setup({
     },
   },
   formatting = {
-      fields = { "kind", "abbr", "menu" },
-      format = function(entry, vim_item)
-        vim_item.kind = vim_item.kind
-        vim_item.menu = source_names[entry.source.name]
-        -- vim_item.dup = duplicates[entry.source.name]
-        return vim_item
-      end
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      vim_item.kind = vim_item.kind
+      vim_item.menu = source_names[entry.source.name]
+      -- vim_item.dup = duplicates[entry.source.name]
+      return vim_item
+    end
   },
 })
 
-cmp.setup.cmdline("/", {sources = {{name = "buffer"}}})
+cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
 
 cmp.setup.cmdline(":", {
-    sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } })
 })
 
 -- Setup lspconfig.
@@ -948,15 +961,15 @@ vim.cmd [[
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql'},
-  highlight = {enable = true},
+  ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql' },
+  highlight = { enable = true },
   -- TODO Re-enable when this works better for python.
   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
   -- related
   -- indent = {enable = true},
   rainbow = {
     enable = true,
-    extended_mode = true, -- Highlight also non-parentheses delimiters
+    extended_mode = true,  -- Highlight also non-parentheses delimiters
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines
     termcolors = { '3', '4', '1', '3', '4', '1', '3', '4' }
   },
@@ -1002,7 +1015,7 @@ require('nvim-treesitter.configs').setup {
   playground = {
     enable = true,
     disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
       toggle_query_editor = 'o',
@@ -1019,130 +1032,130 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
-require'treesitter-context'.setup{
-  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+require 'treesitter-context'.setup {
+  enable = true,           -- Enable this plugin (Can be enabled/disabled later via commands)
+  max_lines = 0,           -- How many lines the window should span. Values <= 0 mean no limit.
+  min_window_height = 0,   -- Minimum editor window height to enable context. Values <= 0 mean no limit.
   line_numbers = true,
   multiline_threshold = 2, -- Maximum number of lines to show for a single context
-  trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-  mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+  trim_scope = 'outer',    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+  mode = 'cursor',         -- Line used to calculate context. Choices: 'cursor', 'topline'
   -- Separator between context and content. Should be a single character string, like '-'.
   -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
   separator = nil,
-  zindex = 20, -- The Z-index of the context window
+  zindex = 20,     -- The Z-index of the context window
   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 
 local hl = function(group, opts)
-    opts.default = true
-    vim.api.nvim_set_hl(0, group, opts)
+  opts.default = true
+  vim.api.nvim_set_hl(0, group, opts)
 end
 
 -- Misc {{{
-hl('@comment', {link = 'Comment'})
+hl('@comment', { link = 'Comment' })
 -- hl('@error', {link = 'Error'})
-hl('@none', {bg = 'NONE', fg = 'NONE'})
-hl('@preproc', {link = 'PreProc'})
-hl('@define', {link = 'Define'})
-hl('@operator', {link = 'Operator'})
+hl('@none', { bg = 'NONE', fg = 'NONE' })
+hl('@preproc', { link = 'PreProc' })
+hl('@define', { link = 'Define' })
+hl('@operator', { link = 'Operator' })
 -- }}}
 
 -- Punctuation {{{
-hl('@punctuation.delimiter', {link = 'Delimiter'})
-hl('@punctuation.bracket', {link = 'Delimiter'})
-hl('@punctuation.special', {link = 'Delimiter'})
+hl('@punctuation.delimiter', { link = 'Delimiter' })
+hl('@punctuation.bracket', { link = 'Delimiter' })
+hl('@punctuation.special', { link = 'Delimiter' })
 -- }}}
 
 -- Literals {{{
-hl('@string', {link = 'String'})
-hl('@string.regex', {link = 'String'})
-hl('@string.escape', {link = 'SpecialChar'})
-hl('@string.special', {link = 'SpecialChar'})
+hl('@string', { link = 'String' })
+hl('@string.regex', { link = 'String' })
+hl('@string.escape', { link = 'SpecialChar' })
+hl('@string.special', { link = 'SpecialChar' })
 
-hl('@character', {link = 'Character'})
-hl('@character.special', {link = 'SpecialChar'})
+hl('@character', { link = 'Character' })
+hl('@character.special', { link = 'SpecialChar' })
 
-hl('@boolean', {link = 'Boolean'})
-hl('@number', {link = 'Number'})
-hl('@float', {link = 'Float'})
+hl('@boolean', { link = 'Boolean' })
+hl('@number', { link = 'Number' })
+hl('@float', { link = 'Float' })
 -- }}}
 
 -- Functions {{{
-hl('@function', {link = 'Function'})
-hl('@function.call', {link = 'Function'})
-hl('@function.builtin', {link = 'Special'})
-hl('@function.macro', {link = 'Macro'})
+hl('@function', { link = 'Function' })
+hl('@function.call', { link = 'Function' })
+hl('@function.builtin', { link = 'Special' })
+hl('@function.macro', { link = 'Macro' })
 
-hl('@method', {link = 'Function'})
-hl('@method.call', {link = 'Function'})
+hl('@method', { link = 'Function' })
+hl('@method.call', { link = 'Function' })
 
-hl('@constructor', {link = 'Function'})
-hl('@parameter', {link = 'Identifier'})
+hl('@constructor', { link = 'Function' })
+hl('@parameter', { link = 'Identifier' })
 -- }}}
 
 -- Keywords {{{
-hl('@keyword', {link = 'Keyword'})
-hl('@keyword.function', {link = 'Keyword'})
-hl('@keyword.operator', {link = 'Keyword'})
-hl('@keyword.return', {link = 'Keyword'})
+hl('@keyword', { link = 'Keyword' })
+hl('@keyword.function', { link = 'Keyword' })
+hl('@keyword.operator', { link = 'Keyword' })
+hl('@keyword.return', { link = 'Keyword' })
 
-hl('@conditional', {link = 'Conditional'})
-hl('@repeat', {link = 'Repeat'})
-hl('@debug', {link = 'Debug'})
-hl('@label', {link = 'Label'})
-hl('@include', {link = 'Include'})
-hl('@exception', {link = 'Exception'})
+hl('@conditional', { link = 'Conditional' })
+hl('@repeat', { link = 'Repeat' })
+hl('@debug', { link = 'Debug' })
+hl('@label', { link = 'Label' })
+hl('@include', { link = 'Include' })
+hl('@exception', { link = 'Exception' })
 -- }}}
 
 -- Types {{{
-hl('@type', {link = 'Type'})
-hl('@type.builtin', {link = 'Type'})
-hl('@type.qualifier', {link = 'Type'})
-hl('@type.definition', {link = 'Typedef'})
+hl('@type', { link = 'Type' })
+hl('@type.builtin', { link = 'Type' })
+hl('@type.qualifier', { link = 'Type' })
+hl('@type.definition', { link = 'Typedef' })
 
-hl('@storageclass', {link = 'StorageClass'})
-hl('@attribute', {link = 'PreProc'})
-hl('@field', {link = 'Normal'})
-hl('@property', {link = 'Identifier'})
+hl('@storageclass', { link = 'StorageClass' })
+hl('@attribute', { link = 'PreProc' })
+hl('@field', { link = 'Normal' })
+hl('@property', { link = 'Identifier' })
 -- }}}
 
 -- Identifiers {{{
-hl('@variable', {link = 'Normal'})
-hl('@variable.builtin', {link = 'Normal'})
+hl('@variable', { link = 'Normal' })
+hl('@variable.builtin', { link = 'Normal' })
 
-hl('@constant', {link = 'Constant'})
-hl('@constant.builtin', {link = 'Special'})
-hl('@constant.macro', {link = 'Define'})
+hl('@constant', { link = 'Constant' })
+hl('@constant.builtin', { link = 'Special' })
+hl('@constant.macro', { link = 'Define' })
 
-hl('@namespace', {link = 'Include'})
-hl('@symbol', {link = 'Identifier'})
+hl('@namespace', { link = 'Include' })
+hl('@symbol', { link = 'Identifier' })
 -- }}}
 
 -- Text {{{
-hl('@text', {link = 'Normal'})
-hl('@text.strong', {bold = true})
-hl('@text.emphasis', {italic = true})
-hl('@text.underline', {underline = true})
-hl('@text.strike', {strikethrough = true})
-hl('@text.title', {link = 'Title'})
-hl('@text.literal', {link = 'String'})
-hl('@text.uri', {link = 'Underlined'})
-hl('@text.math', {link = 'Special'})
-hl('@text.environment', {link = 'Macro'})
-hl('@text.environment.name', {link = 'Type'})
-hl('@text.reference', {link = 'Constant'})
+hl('@text', { link = 'Normal' })
+hl('@text.strong', { bold = true })
+hl('@text.emphasis', { italic = true })
+hl('@text.underline', { underline = true })
+hl('@text.strike', { strikethrough = true })
+hl('@text.title', { link = 'Title' })
+hl('@text.literal', { link = 'String' })
+hl('@text.uri', { link = 'Underlined' })
+hl('@text.math', { link = 'Special' })
+hl('@text.environment', { link = 'Macro' })
+hl('@text.environment.name', { link = 'Type' })
+hl('@text.reference', { link = 'Constant' })
 
-hl('@text.todo', {link = 'Todo'})
-hl('@text.note', {link = 'SpecialComment'})
-hl('@text.warning', {link = 'WarningMsg'})
-hl('@text.danger', {link = 'ErrorMsg'})
+hl('@text.todo', { link = 'Todo' })
+hl('@text.note', { link = 'SpecialComment' })
+hl('@text.warning', { link = 'WarningMsg' })
+hl('@text.danger', { link = 'ErrorMsg' })
 -- }}}
 
 -- Tags {{{
-hl('@tag', {link = 'Tag'})
-hl('@tag.attribute', {link = 'Identifier'})
-hl('@tag.delimiter', {link = 'Delimiter'})
+hl('@tag', { link = 'Tag' })
+hl('@tag.attribute', { link = 'Identifier' })
+hl('@tag.delimiter', { link = 'Delimiter' })
 -- }}}
 
 -- vim.wo.foldmethod = 'expr'
@@ -1156,26 +1169,7 @@ local function install_python_ls()
 end
 local nvim_lsp = require('lspconfig')
 
--- Range formatting
--- See https://github.com/neovim/neovim/issues/14680
-function format_range_operator(motion)
-  local old_func = vim.go.operatorfunc
-  _G.op_func_formatting = function()
-    local start = vim.api.nvim_buf_get_mark(0, '[')
-    local finish = vim.api.nvim_buf_get_mark(0, ']')
-    vim.lsp.buf.range_formatting({}, start, finish)
-    vim.go.operatorfunc = old_func
-    _G.op_func_formatting = nil
-  end
-  vim.go.operatorfunc = 'v:lua.op_func_formatting'
-  vim.api.nvim_feedkeys('g@' .. motion, 'n', false)
-end
-vim.api.nvim_set_keymap('n', '<localleader>g', '<cmd>lua format_range_operator("")<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<localleader>f', '<cmd>lua format_range_operator("ip")<CR>', {noremap = true})
--- https://stackoverflow.com/a/54647696 explains why the \<lt> escape is
--- important
-vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('v', 'f', ':FormatLines<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -1192,7 +1186,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- local opts = { noremap=true, silent=true }
-  local opts = { noremap=true }
+  local opts = { noremap = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'tT', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -1206,15 +1200,81 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '(', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ')', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  -- buf_set_keymap('v', 'gQ', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+  buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
+  buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 end
 
 -- close quickfix menu after selecting choice
 vim.api.nvim_create_autocmd(
   "FileType", {
-  pattern={"qf"},
-  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]})
+    pattern = { "qf" },
+    command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
+  })
+
+--                          /// Language - Lua ///
+
+nvim_lsp.lua_ls.setup {
+  on_attach = on_attach
+}
+
+vim.lsp.config('lua_ls', {
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if
+          path ~= vim.fn.stdpath('config')
+          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+      then
+        return
+      end
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most
+        -- likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Tell the language server how to find Lua modules same way as Neovim
+        -- (see `:h lua-module-load`)
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
+        },
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+          -- Depending on the usage, you might want to add additional paths
+          -- here.
+          -- '${3rd}/luv/library'
+          -- '${3rd}/busted/library'
+        }
+        -- Or pull in all of 'runtimepath'.
+        -- NOTE: this is a lot slower and will cause issues when working on
+        -- your own configuration.
+        -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+        -- library = {
+        --   vim.api.nvim_get_runtime_file('', true),
+        -- }
+      }
+    })
+  end,
+  settings = {
+    Lua = {
+      format = {
+        enable = true,
+        -- Put format options here
+        -- NOTE: the value should be String!
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2",
+        }
+      },
+    }
+  }
+})
 
 --                          /// Language - SQL ///
 
@@ -1289,7 +1349,7 @@ vim.api.nvim_create_autocmd("ExitPre", {
   end,
 })
 -- Port is at ~/.nrepl/nrepl.edn
-map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', {silent = true})
+map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', { silent = true })
 -- Note that the clojure project must have this dependency for Conjure to work:
 -- [cider/cider-nrepl "0.24.0"]
 -- See
@@ -1298,7 +1358,7 @@ map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', {silent = true})
 
 -- Clerk: https://github.com/nextjournal/clerk#neovim--conjure
 vim.cmd(
-[[
+  [[
 function! ClerkShow()
   exe "w"
   exe "ConjureEval (nextjournal.clerk/show! \"" . expand("%:p") . "\")"
@@ -1309,18 +1369,18 @@ nmap <silent> <localleader>ec :execute ClerkShow()<CR>
 )
 
 map('n', '<localleader>ed',
-    ':ConjureEval ' ..
-    '(require \'[flow-storm.api :refer [remote-connect]] ' ..
-    -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
-    ')' ..
-    ' (remote-connect)<CR>')
+  ':ConjureEval ' ..
+  '(require \'[flow-storm.api :refer [remote-connect]] ' ..
+  -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
+  ')' ..
+  ' (remote-connect)<CR>')
 
 -- Generate an example for the spec below the cursor.
 map('n', '<localleader>eg',
-    ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
+  ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
 
 vim.cmd(
-[[
+  [[
 " Treat joke files as clojure files
 autocmd BufEnter *.joke,*.slang :setlocal filetype=clojure
 " See https://github.com/Olical/conjure/issues/318
