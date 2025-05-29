@@ -74,6 +74,14 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
+# ------------------------- Fuzzy Searching (FZF) ------------------------- 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey -r "^T"
+bindkey -r "^[c"
+bindkey "^ " fzf-history-widget
+
+
 # ------------------------- Vi Mode ------------------------- 
 
 # Change cursor shape for different vi modes.
@@ -287,14 +295,6 @@ elif [[ $(hostname) == frostyarch ]]; then
 else
   # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-# ------------------------- Fuzzy Searching (FZF) ------------------------- 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey -r "^T"
-bindkey -r "^[c"
-bindkey "^ " fzf-history-widget
-
 
 # Uncomment to profile zsh startup
 # zprof
