@@ -169,7 +169,11 @@ for n in group_letters:
 def movescreens(qtile, offset):
   # Make it so that when we are moving screens we are always doing so with a
   # group pair.
-  call_primary_or_secondary_group(qtile)
+  try:
+    call_primary_or_secondary_group(qtile)
+  except Exception:
+    # If this breaks, proceed anyway
+    pass
   group_names = [g.name for g in groups]
   screen_group_names = [s.group.name for s in qtile.screens]
   screens_wrap = (group_names[-1] in screen_group_names
