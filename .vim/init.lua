@@ -1404,11 +1404,6 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 --                          /// Language - Terminal ///
 
 
---                          /// Language - GDScript ///
-nvim_lsp.gdscript.setup {
-  on_attach = on_attach
-}
-
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google').load_google_config(nvim_lsp, on_attach)
