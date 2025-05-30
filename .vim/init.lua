@@ -175,7 +175,13 @@ end)
 vim.g.maplocalleader = " "
 require("hardtime").setup({
   restriction_mode = "hint",
-  disable_mouse = false
+  disable_mouse = false,
+  disabled_keys = {
+    ["<Up>"] = false,
+    ["<Down>"] = false,
+    ["<Left>"] = false,
+    ["<Right>"] = false,
+  }
 })
 
 

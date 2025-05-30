@@ -47,6 +47,7 @@ lightdm-gtk-greeter
 linux
 linux-firmware
 linux-headers
+lua-language-server
 lutris
 lxappearance
 lynx
