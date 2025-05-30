@@ -1200,8 +1200,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '(', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ')', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
-  buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+  local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  -- Do not use lsp formatting for languages that I would rather use codefmt
+  -- with via the above FormatLines binding.
+  if filetype ~= 'clojure' then
+    buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
+    buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+  end
 end
 
 -- close quickfix menu after selecting choice
