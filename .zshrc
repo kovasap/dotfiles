@@ -285,7 +285,7 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 zplug load
 
 for d in $HOME/bin/*/bin; do export PATH="$PATH:$d"; done
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin:/usr/games"
 if [[ $(hostname) == *googlers* ]]; then
   # eval "$(~/.linuxbrew/bin/brew shellenv)"
 elif [[ $(hostname) == *raspberrypi* ]]; then
