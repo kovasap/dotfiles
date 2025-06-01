@@ -1228,6 +1228,7 @@ nvim_lsp.lua_ls.setup {
   on_attach = on_attach
 }
 
+pcall(function ()
 vim.lsp.config('lua_ls', {
   on_init = function(client)
     if client.workspace_folders then
@@ -1286,6 +1287,7 @@ vim.lsp.config('lua_ls', {
     }
   }
 })
+end)
 
 --                          /// Language - SQL ///
 
