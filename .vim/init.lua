@@ -1348,8 +1348,8 @@ nvim_lsp.clangd.setup {
 vim.cmd([[
   let g:sexp_enable_insert_mode_mappings = 0
   let s:sexp_mappings = {
-    \ 'sexp_move_to_prev_bracket':      'g{',
-    \ 'sexp_move_to_next_bracket':      'g}',
+    \ 'sexp_move_to_prev_bracket':      '',
+    \ 'sexp_move_to_next_bracket':      '',
     \ }
 ]])
 
