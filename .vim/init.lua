@@ -1345,7 +1345,14 @@ nvim_lsp.clangd.setup {
 
 -- See ~/.zprint.edn for clojure formatting configuration
 
-vim.cmd('let g:sexp_enable_insert_mode_mappings = 0')
+vim.cmd([[
+  let g:sexp_enable_insert_mode_mappings = 0
+  let s:sexp_mappings = {
+    \ 'sexp_move_to_prev_bracket':      'g{',
+    \ 'sexp_move_to_next_bracket':      'g}',
+    \ }
+]])
+
 
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
