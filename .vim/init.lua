@@ -193,6 +193,23 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 --                          /// Navigation ///
 
+-- vim.keymap.set("n", ")", function()
+--     local cursor = vim.api.nvim_win_get_cursor(0)
+--     local line = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)
+--     line = string.sub(line[1], cursor[2] + 2)
+--     local idx = string.find(line, "[;,\"'%.]")
+--     if idx then
+--         vim.api.nvim_win_set_cursor(0, {cursor[1], idx + cursor[2]})
+--     end
+-- end)
+
+vim.keymap.set({"n", "x"}, "(", function()
+  vim.fn.search("['\"[({<]", 'bW')
+end)
+vim.keymap.set({"n", "x"}, ")", function()
+  vim.fn.search("[]'\")}>]", 'W')
+end)
+
 require('flash').setup({
   modes = {
     char = {
@@ -1214,9 +1231,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'cd', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '(', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', 'tD', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ')', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'td', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
   -- Do not use lsp formatting for languages that I would rather use codefmt
