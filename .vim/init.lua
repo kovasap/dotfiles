@@ -119,6 +119,7 @@ require('packer').startup(function(use)
   use 'dhruvasagar/vim-table-mode';
   use 'whonore/vim-sentencer';
   use 'ruanyl/vim-gh-line';
+  use 'folke/flash.nvim';
   use 'ggandor/leap.nvim';
   use 'guns/vim-sexp';
   use 'romainl/vim-cool';
@@ -191,6 +192,15 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 
 --                          /// Navigation ///
+
+require('flash').setup({
+  modes = {
+    char = {
+      jump_labels = true,
+      search = { wrap = true },
+    }
+  }
+})
 
 require('leap').set_default_keymaps()
 vim.keymap.set('n', 's', '<Plug>(leap)')
@@ -1205,7 +1215,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '(', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', 'tD', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ')', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'td', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
   -- Do not use lsp formatting for languages that I would rather use codefmt
   -- with via the above FormatLines binding.
