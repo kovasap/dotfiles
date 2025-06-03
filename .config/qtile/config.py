@@ -2,6 +2,7 @@ import os
 import socket
 import shlex
 import subprocess
+import time
 import types
 from typing import List  # noqa: F401
 
@@ -31,7 +32,7 @@ except ModuleNotFoundError:
 def autostart():
     logger.warning('startup hook running')
     subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
-    os.sleep(1)
+    time.sleep(1)
     subprocess.call(['zsh', '-c', 'setup-monitors.bash forked &> ~/setup-monitors.log'])
     logger.warning('startup hook done')
 
@@ -694,11 +695,14 @@ if num_monitors > 1:
     screens.append(Screen(top=bars[-1]))
 
 
-@hook.subscribe.startup
-def _():
-  for b in bars:
-    b.window.window.set_property(
-        'WM_NAME', 'qtile_bar', type='UTF8_STRING', format=8)
+# I think this is a fix for some utf8 locale issues.
+# If you find this later commented out and everything is working just delete
+# it.
+# @hook.subscribe.startup
+# def _():
+#   for b in bars:
+#     b.window.window.set_property(
+#         'WM_NAME', 'qtile_bar', type='UTF8_STRING', format=8)
 
 
 @hook.subscribe.client_new
