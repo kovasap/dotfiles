@@ -87,6 +87,4 @@ if [[ `hostname` = 'frostyarch' ]]; then
   qtile start
   sleep 1
   ~/bin/setup-monitors.bash forked
-  sleep 1
-  ~/bin/setup-monitors.bash forked
 fi

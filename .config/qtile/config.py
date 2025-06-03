@@ -31,6 +31,11 @@ except ModuleNotFoundError:
 def autostart():
     subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
 
+@hook.subscribe.startup_once
+def fix_monitors():
+    os.sleep(1)
+    subprocess.call('setup-monitors.bash forked &> ~/setup-monitors.log')
+
 # Get colors from currently active kitty terminal theme
 colors = {}
 theme_filepath = None
