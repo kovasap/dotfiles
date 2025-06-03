@@ -34,7 +34,7 @@ def autostart():
 @hook.subscribe.startup_once
 def fix_monitors():
     os.sleep(1)
-    subprocess.call('setup-monitors.bash forked &> ~/setup-monitors.log')
+    subprocess.call(['zsh', '-c', 'setup-monitors.bash forked &> ~/setup-monitors.log'])
 
 # Get colors from currently active kitty terminal theme
 colors = {}
