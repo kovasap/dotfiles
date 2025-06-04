@@ -2,6 +2,7 @@ import os
 import socket
 import shlex
 import subprocess
+import time
 import types
 from typing import List  # noqa: F401
 
@@ -30,6 +31,11 @@ except ModuleNotFoundError:
 @hook.subscribe.startup
 def autostart():
     subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
+
+# I wish this worked... 
+# @hook.subscribe.startup_complete
+# def reset_monitors():
+#     subprocess.call(['zsh', '-c', 'setup-monitors.bash forked &> ~/setup-monitors.log'])
 
 # Get colors from currently active kitty terminal theme
 colors = {}
@@ -690,11 +696,14 @@ if num_monitors > 1:
     screens.append(Screen(top=bars[-1]))
 
 
-@hook.subscribe.startup
-def _():
-  for b in bars:
-    b.window.window.set_property(
-        'WM_NAME', 'qtile_bar', type='UTF8_STRING', format=8)
+# I think this is a fix for some utf8 locale issues.
+# If you find this later commented out and everything is working just delete
+# it.
+# @hook.subscribe.startup
+# def _():
+#   for b in bars:
+#     b.window.window.set_property(
+#         'WM_NAME', 'qtile_bar', type='UTF8_STRING', format=8)
 
 
 @hook.subscribe.client_new

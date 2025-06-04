@@ -25,7 +25,7 @@ xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
-    main_output="DP-4.8"
+    main_output="DP-4"
     main_output_config="--auto"
     default_other_output_config='--auto'
 else
@@ -61,8 +61,8 @@ for o in "${outputs[@]}"; do
             # See https://unix.stackexchange.com/a/502883
             # mouse_flicker_fix="--scale 0.9999x0.9999"
             mouse_flicker_fix=""
-            if [ "$o" == "DP-0" ]; then
-               other_output_config='--mode 2560x1440 --rate 165'
+            if [ "$o" == "DP-2" ]; then
+               other_output_config='--mode 2560x1440 --rate 144'
             elif [ "$o" == "HDMI-0" ]; then
                other_output_config='--mode 1920x1080'
             else 

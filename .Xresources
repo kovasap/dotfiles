@@ -31,3 +31,6 @@ xmenu.opacity:                  1.0
 
 ! Useless gaps, in pixels
 xmenu.gap:                      3
+
+xterm*Background:               #1D1808
+xterm*Foreground:               #C9C199
