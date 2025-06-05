@@ -1,3 +1,7 @@
+[global]
+font = FiraCode Bold 12
+icon_position = off
+
 [urgency_low]
 background = "#1d1808"
 foreground = "#cac296"
@@ -16,7 +20,7 @@ default_icon = dialog-information
 [urgency_critical]
 background = "#b54c00"
 foreground = "#cac296"
-frame_color = "#ff0000"
+#frame_color = "#ff0000"
 timeout = 0
 override_pause_level = 60
 # Icon for notifications with critical urgency
