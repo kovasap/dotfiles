@@ -1,6 +1,5 @@
 ! Font
-xmenu.facename:                 Fira Code
-xmenu.facesize:                 9
+xmenu.font:                     Fira Code:size=10:style=Bold
 
 ! Colors come from ~/.config/kitty/kitty-themes/themes/Medallion.conf
 
