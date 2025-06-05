@@ -1,3 +1,7 @@
+! Run  
+! [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources 
+! to reload settings.
+
 ! Font
 xmenu.font:                     Fira Code:size=10:style=Bold
 
@@ -19,7 +23,7 @@ xmenu.bottomShadowColor:        #808080
 xmenu.middleShadowColor:        #D4D0C8
 
 ! Menu alignment
-xmenu.alignment:                right
+xmenu.alignment:                left
 
 ! Enable torn off menus
 xmenu.tearOff:                  On
