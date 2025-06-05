@@ -1,4 +1,5 @@
 alsa-utils
+amd-debug-tools
 amd-ucode
 arch-install-scripts
 asciidoc
@@ -6,6 +7,7 @@ at
 base
 base-devel
 bat
+busybox
 calibre
 clojure
 cmus
@@ -82,6 +84,7 @@ redshift
 rlwrap
 steam
 strawberry
+syncthing
 the_silver_searcher
 thunar
 thunar-archive-plugin
