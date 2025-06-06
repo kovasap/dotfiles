@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Start copyq
 nohup copyq &
 
 nm-applet &
 
 udiskie &
+
+nohup syncthingtray-qt6 &
 
 # Mount all drives when starting up
 udiskie-mount -a

@@ -560,12 +560,24 @@ wireless_interface = subprocess.run(
 
 def get_widgets(systray=False):
   return [
+      widget.TextBox('<->', name='swap windows',
+                     markup=False,
+        foreground=colors['color3'],
+        mouse_callbacks={'Button1': lambda: swap_primary_secondary_screens(qtile)}),
       widget.GroupBox(disable_drag=True,
                       highlight_method='line',
                       highlight_color=['000000', colors['color2']],
                       this_screen_border=colors['color10'],
                       this_current_screen_border=colors['color2'],
                       active=colors['color7']),
+      widget.TextBox('|<-', name='move window left',
+                     markup=False,
+        foreground=colors['color3'],
+        mouse_callbacks={'Button1': lambda: window_to_adjacent_group_pair(qtile, -1)}),
+      widget.TextBox('->|', name='move window right',
+                     markup=False,
+        foreground=colors['color3'],
+        mouse_callbacks={'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)}),
       # widget.CurrentLayoutIcon(
       #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
       #     scale=0.8,),
@@ -576,7 +588,7 @@ def get_widgets(systray=False):
                      mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
-        foreground=colors['color3'],
+        foreground=colors['color2'],
         mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
         max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),

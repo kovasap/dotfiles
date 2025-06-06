@@ -213,7 +213,7 @@ end)
 require('flash').setup({
   modes = {
     char = {
-      jump_labels = true,
+      -- jump_labels = true,
       search = { wrap = true },
     }
   }
@@ -1231,8 +1231,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'cd', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', 'tD', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', 'td', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'tS', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', 'ts', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
   -- Do not use lsp formatting for languages that I would rather use codefmt
   -- with via the above FormatLines binding.
