@@ -213,7 +213,7 @@ end)
 require('flash').setup({
   modes = {
     char = {
-      jump_labels = true,
+      -- jump_labels = true,
       search = { wrap = true },
     }
   }
