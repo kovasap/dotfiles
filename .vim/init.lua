@@ -632,7 +632,7 @@ vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
 -- vim uses when the command line exceeds the size of the command window.  The
 -- separate function does not show the FZFMru command in the window.
 vim.api.nvim_create_user_command('MRU', function()
-    vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
+    vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1 --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
   end,
   { nargs = 0, desc = 'Find most recently used files.' }
 )
