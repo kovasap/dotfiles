@@ -1,10 +1,10 @@
 #version 330
 
 // Changes brightness of windows
-float brightness_level = 0.6; // Value between 0.0 and 1.0. Change to your liking
+float brightness_level = 0.55; // Value between 0.0 and 1.0. Change to your liking
 
 // Changes color of windows
-float temperature_kelvin = 5000.0;
+float temperature_kelvin = 4000.0;
 
 in vec2 texcoord;             // texture coordinate of the fragment
 
@@ -40,6 +40,13 @@ vec3 ColorTemperatureToRGB(float tempKelvins) {
     return retColor;
 }
 
+
+vec3 hueShift(vec3 color, float hue) {
+    const vec3 k = vec3(0.57735, 0.57735, 0.57735);
+    float cosAngle = cos(hue);
+    return vec3(color * cosAngle + cross(k, color) * sin(hue) + k * dot(k, color) * (1.0 - cosAngle));
+}
+
 // Default window post-processing:
 // 1) invert color
 // 2) opacity / transparency
@@ -47,19 +54,31 @@ vec3 ColorTemperatureToRGB(float tempKelvins) {
 // 4) rounded corners
 vec4 default_post_processing(vec4 c);
 
+// #1d1808 from kitty background color theme
+vec3 background_color = vec3(29.0/255.0, 24.0/255.0, 8.0/255.0);
+
 vec4 window_shader() {
     vec4 c = texelFetch(tex, ivec2(texcoord), 0);
 
     c = default_post_processing(c);
 
+    vec3 c3 = vec3(c);
+
+    // Make brighter colors more like the background_color
+    float brightness = dot(c3, vec3(0.2126, 0.7152, 0.0722));
+    c3 = mix(c3, background_color, brightness/3);
+
+    // Makes dark colors green
+    // c = vec4(hueShift(vec3(c), 1.8*3.1415), c.a);
+
+    // Set color temperature
+    vec3 temp = ColorTemperatureToRGB(temperature_kelvin);
+    c = vec4(c3 * temp, c.a);
+
     // Multiply all color values with brightness_level
     c.x *= brightness_level;
     c.y *= brightness_level;
     c.z *= brightness_level;
-
-    // Set color temperature
-    vec3 temp = ColorTemperatureToRGB(temperature_kelvin);
-    c = vec4(vec3(c) * temp, c.a);
 
     return c;
 }
