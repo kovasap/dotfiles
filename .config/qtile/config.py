@@ -749,6 +749,7 @@ floating_layout = layout.Floating(
         Match(wm_class='notification'),
         Match(wm_class='splash'),
         Match(wm_class='toolbar'),
+        Match(title='Tempo Launcher'),
         Match(title='meet.google.com is sharing a window.'),
         # Match(title='nvim-textarea'),
         Match(wm_class='confirmreset'),  # gitk
