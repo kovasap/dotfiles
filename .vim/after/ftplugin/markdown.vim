@@ -30,8 +30,8 @@ set formatexpr=sentencer#Format()
 
 echo 'Use ctrl+a to auto reformat sentences!'
 let g:reformat_sentences = 0
-nnoremap <C-a> :let g:reformat_sentences = !get(g:, 'reformat_sentences', 1)<cr>
+nnoremap <buffer> <C-a> :let g:reformat_sentences = !get(g:, 'reformat_sentences', 1)<cr>
 autocmd InsertLeave * if get(g:, 'reformat_sentences', 1) | execute "normal gqip}b$" | endif
-nnoremap <localleader>f :execute "normal gqip}b$"<CR>
+nnoremap <buffer> <localleader>f :execute "normal gqip}b$"<CR>
 " This keeps the cursor in the same place but doesn't use formatexpr.
 " autocmd InsertLeave * execute "normal gwap"
