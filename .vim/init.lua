@@ -126,6 +126,7 @@ require('packer').startup(function(use)
   use 'echasnovski/mini.nvim';
   use "MunifTanjim/nui.nvim";
   use "m4xshen/hardtime.nvim";
+  use 'nvim-lua/plenary.nvim';
   use {
     "cksidharthan/mentor.nvim",
     config = function()
@@ -157,7 +158,7 @@ require('packer').startup(function(use)
     -- google.vim in my google-specific config.
   end
   if not_in_google3 then
-    use 'whatever555/free-pilot-vim';
+    use 'tzachar/cmp-ai';
     -- use 'github/copilot.vim';
     -- use 'kiddos/gemini.nvim';
   end
@@ -170,46 +171,6 @@ require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
-
-vim.cmd([[
-" How long to wait before triggering completion (in ms)
-let g:free_pilot_debounce_delay = 500
-
-" Maximum number of suggestions to show
-let g:free_pilot_max_suggestions = 3
-
-" Enable debug logging
-let g:free_pilot_debug = 0
-
-" Choose backend: 'ollama' or 'openrouter'
-let g:free_pilot_backend = 'ollama'
-
-" AI temperature (0.0 - 1.0, lower = more focused)
-let g:free_pilot_temperature = 0.1
-
-" Debug log file location (empty = no logging)
-let g:free_pilot_log_file = ''
-
-" Maximum tokens to generate
-let g:free_pilot_max_tokens = 120
-
-" Model to use with Ollama
-let g:free_pilot_ollama_model = 'codellama:13b'
-
-" Ollama API endpoint
-let g:free_pilot_ollama_url = 'http://localhost:11434/api/generate'
-
-" Enable on startup
-let g:free_pilot_autostart = 1
-
-" Only enable for specific filetypes (empty = all)
-let g:free_pilot_include_filetypes = []
-
-" Disable for specific filetypes
-let g:free_pilot_exclude_filetypes = ['help', 'netrw', 'NvimTree', 'TelescopePrompt', 
-    \ 'fugitive', 'gitcommit', 'quickfix', 'prompt']
-]])
 
 
 --                          /// General ///
@@ -927,7 +888,42 @@ local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
 
+require('cmp_ai.config'):setup({
+  max_lines = 5,
+  provider = 'Ollama',
+  provider_options = {
+    model = 'qwen2.5-coder:7b-base-q4_K_M',
+    prompt = function(lines_before, lines_after)
+      return "<|fim_prefix|>" .. lines_before .. "<|fim_suffix|>" .. lines_after .. "<|fim_middle|>"
+    end,
+    auto_unload = false
+  },
+  notify = true,
+  notify_callback = function(msg)
+    vim.notify(msg)
+  end,
+  run_on_every_keystroke = true,
+  ignored_file_types = {
+  },
+})
+
+local compare = require('cmp.config.compare')
+
 cmp.setup({
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require('cmp_ai.compare'),
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -972,6 +968,7 @@ cmp.setup({
     { name = 'spell' },
     { name = 'path' },
     { name = 'nvim_lua' },
+    { name = 'cmp_ai' },
     {
       name = 'buffer',
       option = {

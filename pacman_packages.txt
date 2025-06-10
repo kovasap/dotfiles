@@ -58,9 +58,12 @@ mangohud
 neovim
 network-manager-applet
 nfs-utils
+noto-fonts-emoji
 npm
+ollama-rocm
 openssh
 pavucontrol-qt
+perl-image-exiftool
 picom
 pipewire-alsa
 pkgfile
@@ -79,6 +82,7 @@ qmk
 qt5ct
 qt6ct
 qtile
+radeontop
 ranger
 redshift
 rlwrap
