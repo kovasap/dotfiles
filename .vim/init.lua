@@ -888,24 +888,24 @@ local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
 
-require('cmp_ai.config'):setup({
-  max_lines = 5,
-  provider = 'Ollama',
-  provider_options = {
-    model = 'qwen2.5-coder:7b-base-q4_K_M',
-    prompt = function(lines_before, lines_after)
-      return "<|fim_prefix|>" .. lines_before .. "<|fim_suffix|>" .. lines_after .. "<|fim_middle|>"
-    end,
-    auto_unload = false
-  },
-  notify = true,
-  notify_callback = function(msg)
-    vim.notify(msg)
-  end,
-  run_on_every_keystroke = true,
-  ignored_file_types = {
-  },
-})
+-- require('cmp_ai.config'):setup({
+--   max_lines = 5,
+--   provider = 'Ollama',
+--   provider_options = {
+--     model = 'qwen2.5-coder:7b-base-q4_K_M',
+--     prompt = function(lines_before, lines_after)
+--       return "<|fim_prefix|>" .. lines_before .. "<|fim_suffix|>" .. lines_after .. "<|fim_middle|>"
+--     end,
+--     auto_unload = false
+--   },
+--   notify = true,
+--   notify_callback = function(msg)
+--     vim.notify(msg)
+--   end,
+--   run_on_every_keystroke = true,
+--   ignored_file_types = {
+--   },
+-- })
 
 local compare = require('cmp.config.compare')
 
@@ -913,7 +913,7 @@ cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
-      require('cmp_ai.compare'),
+      -- require('cmp_ai.compare'),
       compare.offset,
       compare.exact,
       compare.score,
@@ -960,15 +960,15 @@ cmp.setup({
 
   },
   sources = {
-    { name = 'nvim_ciderlsp' },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'emoji' },
-    { name = 'calc' },
-    { name = 'spell' },
-    { name = 'path' },
-    { name = 'nvim_lua' },
-    { name = 'cmp_ai' },
+    { name = 'nvim_ciderlsp', priority = 1000 },
+    { name = 'nvim_lsp', priority = 500 },
+    { name = 'luasnip', priority = 500 },
+    { name = 'emoji', priority = 500 },
+    { name = 'calc', priority = 500 },
+    { name = 'spell', priority = 500 },
+    { name = 'path', priority = 500 },
+    { name = 'nvim_lua', priority = 500 },
+    -- { name = 'cmp_ai', priority = 500 },
     {
       name = 'buffer',
       option = {
