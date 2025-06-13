@@ -195,28 +195,18 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 --                          /// Navigation ///
 
--- vim.keymap.set("n", ")", function()
---     local cursor = vim.api.nvim_win_get_cursor(0)
---     local line = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)
---     line = string.sub(line[1], cursor[2] + 2)
---     local idx = string.find(line, "[;,\"'%.]")
---     if idx then
---         vim.api.nvim_win_set_cursor(0, {cursor[1], idx + cursor[2]})
---     end
--- end)
-
 vim.keymap.set({"n", "x"}, "(", function()
-  vim.fn.search("['\"[({<]", 'bW')
+  vim.fn.search("['\"[](){}<>]", 'bW')
 end)
 vim.keymap.set({"n", "x"}, ")", function()
-  vim.fn.search("[]'\")}>]", 'W')
+  vim.fn.search("['\"[](){}<>]", 'W')
 end)
 
 require('flash').setup({
   modes = {
     char = {
-      -- jump_labels = true,
       search = { wrap = true },
+      highlight = { backdrop = false},
     }
   }
 })

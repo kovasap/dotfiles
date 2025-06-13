@@ -143,7 +143,7 @@ hi PmenuSel ctermfg=8 ctermbg=6 cterm=none
 hi PmenuSbar ctermfg=8 ctermbg=5 cterm=none
 hi PmenuThumb ctermfg=8 ctermbg=7 cterm=none
 hi FoldColumn ctermfg=3
-hi Search ctermbg=2 cterm=underline
+hi Search ctermbg=5 cterm=underline
 hi IncSearch cterm=reverse ctermbg=2
 
 " For TinyGlimmer
