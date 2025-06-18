@@ -1412,6 +1412,8 @@ vim.cmd([[
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
+vim.cmd('let g:conjure#mapping#doc_word = v:false')
+
 -- Workaround https://github.com/Olical/conjure/issues/644
 vim.api.nvim_create_autocmd("ExitPre", {
   pattern = "*",
