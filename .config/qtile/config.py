@@ -598,7 +598,7 @@ def get_widgets(systray=False):
       widget.CPUGraph(mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}, **graph_args),
       widget.ThermalSensor(tag_sensor='Tdie', threshold=85,
                            foreground=colors['color8'],
-                           mouse_callbacks={'Button1': lambda: qtile.spawn("kitty env RUN='sensors' zsh")}
+                           mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")}
                            ),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox('Mem',
