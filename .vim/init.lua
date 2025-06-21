@@ -45,7 +45,6 @@ local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  -- use 'danth/pathfinder.vim';
   use 'eandrju/cellular-automaton.nvim';
   use 'yuttie/comfortable-motion.vim';
   use 'ggvgc/vim-fuzzysearch';
@@ -246,9 +245,6 @@ map('n', '<Esc><Esc>', ':let @/=""<CR>', { silent = true })
 vim.g.CoolTotalMatches = true
 
 
-map('n', '<localleader>pe', ':PathfinderExplain<CR>')
-vim.g.pf_autorun_delay = 1
-
 --                          /// Editing and Formatting ///
 
 -- Use "gm" to duplicate lines (faster than copy/pasting).
@@ -257,14 +253,14 @@ require('mini.operators').setup({})
 -- Rename word and prime to replace other occurances
 -- Can also search for something then use 'cgn' to "change next searched occurance".
 map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
-map('n', 'ct', '*Ncw<C-r>"')
-map('n', 'cT', '*Ncw')
+map('n', '<localleader>t', '*Ncw<C-r>"')
+map('n', '<localleader>p', '*Ncw')
 
 -- Make U redo
 map('n', 'U', '<C-r>')
 
 -- Rename word across file
-map('n', 'cW', ':%s/\\<<C-r><C-w>\\>/')
+map('n', '<localleader>d', ':%s/\\<<C-r><C-w>\\>/')
 
 -- Transform single line code blocks to multi-line ones and vice-versa.
 vim.g.splitjoin_split_mapping = ''
