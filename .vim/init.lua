@@ -1394,7 +1394,8 @@ nvim_lsp.clangd.setup {
 
 --                          /// Language - Clojure ///
 
--- See ~/.zprint.edn for clojure formatting configuration
+-- See ~/.zprint.edn for clojure formatting configuration.  I do not use the
+-- lsp formatter (cljfmt). 
 
 vim.cmd([[
   let g:sexp_enable_insert_mode_mappings = 0
