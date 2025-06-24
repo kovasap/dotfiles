@@ -17,7 +17,8 @@
            ; https://github.com/kkinnear/zprint/issues/299#issuecomment-1583065561
            :list          [:none {:list {:indent 1}}]
            "swap!"        :arg1
+           "register!"    :arg1
            ; re-frame specific formatting
-           "reg-event-db" :force-nl-body
-           "reg-event-fx" :force-nl-body
-           "reg-sub"      :force-nl-body}}
+           "reg-event-db" :flow-body
+           "reg-event-fx" :flow-body
+           "reg-sub"      :flow-body}}

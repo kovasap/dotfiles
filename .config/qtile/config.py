@@ -592,13 +592,20 @@ def get_widgets(systray=False):
         mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
         max_width=50, timeout=None),
       widget.TextBox(' | ', name='separator'),
-      # widget.TextBox('CPU', name='cpu_label'),
-      # widget.CPUGraph(**graph_args),
+      widget.TextBox('CPU', name='cpu_label',
+                     foreground=colors['color8'],
+                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}),
+      widget.CPUGraph(mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}, **graph_args),
+      widget.ThermalSensor(tag_sensor='Tdie', threshold=85,
+                           foreground=colors['color8'],
+                           mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")}
+                           ),
+      widget.TextBox(' | ', name='separator'),
       widget.TextBox('Mem',
                      foreground=colors['color8'],
                      name='memory_label',
                      mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")})
-      ] + ([ColoredMemoryGraph(**graph_args)] if MemoryGraph is not None else []) + [
+      ] + ([ColoredMemoryGraph(mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}, **graph_args)] if MemoryGraph is not None else []) + [
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**graph_args),
       widget.TextBox(' | ', name='separator'),
