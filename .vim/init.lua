@@ -200,8 +200,12 @@ local plugins_spec = {
       texthl = "CursorLine"
     }
   },
-  -- { 'google/vim-maktaba' },
-  -- { 'google/vim-codefmt' }
+  {
+    'google/vim-codefmt',
+    dependencies = {
+      { 'google/vim-maktaba' }
+    }
+  }
 }
 
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
@@ -1586,6 +1590,3 @@ end
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google').load_google_config(nvim_lsp, on_attach)
 end
-
-
-
