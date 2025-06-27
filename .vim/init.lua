@@ -23,159 +23,200 @@ end
 
 --                          /// Plugin Management ///
 
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
-  return false
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.maplocalleader = " "
 
-local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
-
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use 'eandrju/cellular-automaton.nvim';
-  use 'yuttie/comfortable-motion.vim';
-  use 'ggvgc/vim-fuzzysearch';
-  use 'AndrewRadev/splitjoin.vim';
+local plugins_spec = {
+  { 'eandrju/cellular-automaton.nvim' },
+  { 'yuttie/comfortable-motion.vim' },
+  { 'ggvgc/vim-fuzzysearch' },
+  { 'AndrewRadev/splitjoin.vim' },
   -- Automatically delete extra characters (like quotes) when joining lines.
-  use 'flwyd/vim-conjoin';
+  { 'flwyd/vim-conjoin' },
   -- Automatically set tabstop/shiftwidth based on current file or nearby files.
-  use 'tpope/vim-sleuth';
+  { 'tpope/vim-sleuth' },
   -- Change cases using e.g. cru for upper case.
-  use 'tpope/vim-abolish';
-  use 'kylechui/nvim-surround';
-  use 'tpope/vim-repeat';
-  use 'windwp/nvim-autopairs';
+  { 'tpope/vim-abolish' },
+  { 'kylechui/nvim-surround' },
+  { 'tpope/vim-repeat' },
+  { 'windwp/nvim-autopairs' },
   -- Automatically align code.
-  use 'junegunn/vim-easy-align';
+  { 'junegunn/vim-easy-align' },
   -- Highlight current word with cursor on it across whole buffer.
-  use 'RRethy/vim-illuminate';
+  { 'RRethy/vim-illuminate' },
   -- Animates window resizing.
-  use 'camspiers/animate.vim';
-  use 'lukas-reineke/indent-blankline.nvim';
+  { 'camspiers/animate.vim' },
+  { 'lukas-reineke/indent-blankline.nvim' },
   -- Add scrollbars.
-  use { 'dstein64/nvim-scrollview', branch = 'main' };
-  use 'vim-airline/vim-airline';
+  { 'dstein64/nvim-scrollview',           branch = 'main' },
+  { 'vim-airline/vim-airline' },
   -- Persist settings between sessions
-  use 'zhimsel/vim-stay';
+  { 'zhimsel/vim-stay' },
   -- Better directory browsing.  Access the directory the current file is in with
   -- the - key.
-  use 'stevearc/oil.nvim';
-  use 'tpope/vim-eunuch';
+  { 'stevearc/oil.nvim' },
+  { 'tpope/vim-eunuch' },
   -- Make it so that when a buffer is deleted, the window stays.
-  use 'qpkorr/vim-bufkill';
-  use 'kana/vim-altr';
+  { 'qpkorr/vim-bufkill' },
+  { 'kana/vim-altr' },
   -- Open files at specified lines using file:line syntax.
-  use 'wsdjeg/vim-fetch';
-  use { 'junegunn/fzf', run = vim.fn['fzf#install'] };
-  use { 'junegunn/fzf.vim' };
-  use 'pbogut/fzf-mru.vim';
-  use 'ludovicchabant/vim-lawrencium';
-  use 'mhinz/vim-signify';
-  use { 'rafamadriz/friendly-snippets' };
-  use { 'hrsh7th/cmp-buffer' };
-  use { 'hrsh7th/cmp-cmdline' };
-  use { 'hrsh7th/cmp-emoji' };
-  use { 'hrsh7th/cmp-calc' };
-  use { 'hrsh7th/cmp-path' };
-  use { 'hrsh7th/cmp-nvim-lua' };
-  use { 'f3fora/cmp-spell' };
-  use { 'hrsh7th/cmp-nvim-lsp' };
-  use 'L3MON4D3/LuaSnip';
-  use 'saadparwaiz1/cmp_luasnip';
-  use { 'hrsh7th/nvim-cmp' };
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' };
-  use 'nvim-treesitter/nvim-treesitter-textobjects';
-  use 'nvim-treesitter/nvim-treesitter-context';
-  use 'nvim-treesitter/playground';
-  use 'HiPhish/rainbow-delimiters.nvim';
-  use { 'neovim/nvim-lspconfig', run = install_python_ls };
-  use 'nvim-lua/lsp-status.nvim';
-  use 'mgedmin/python-imports.vim';
-  use 'Olical/conjure';
-  use 'gpanders/nvim-parinfer';
-  use 'mechatroner/rainbow_csv';
-  use 'masukomi/vim-markdown-folding';
-  use 'ron89/thesaurus_query.vim';
-  use 'tikhomirov/vim-glsl';
-  use 'dart-lang/dart-vim-plugin';
+  { 'wsdjeg/vim-fetch' },
+  {
+    'junegunn/fzf',
+    build = function(plugin)
+      vim.fn['fzf#install']()
+    end
+  },
+  { 'junegunn/fzf.vim' },
+  { 'pbogut/fzf-mru.vim' },
+  { 'ludovicchabant/vim-lawrencium' },
+  { 'mhinz/vim-signify' },
+  { 'rafamadriz/friendly-snippets' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/cmp-emoji' },
+  { 'hrsh7th/cmp-calc' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-nvim-lua' },
+  { 'f3fora/cmp-spell' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'L3MON4D3/LuaSnip' },
+  'saadparwaiz1/cmp_luasnip',
+  { 'hrsh7th/nvim-cmp' },
+  { 'nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
+  { 'nvim-treesitter/playground' },
+  { 'HiPhish/rainbow-delimiters.nvim' },
+  { 'neovim/nvim-lspconfig',                      build = install_python_ls },
+  { 'nvim-lua/lsp-status.nvim' },
+  { 'mgedmin/python-imports.vim' },
+  { 'Olical/conjure' },
+  { 'gpanders/nvim-parinfer' },
+  { 'mechatroner/rainbow_csv' },
+  { 'masukomi/vim-markdown-folding' },
+  { 'ron89/thesaurus_query.vim' },
+  { 'tikhomirov/vim-glsl' },
+  { 'dart-lang/dart-vim-plugin' },
   -- Attmpts to make vim better when reading terminal data from kitty
   -- TODO FIX
-  use 'rkitover/vimpager';
-  use 'habamax/vim-godot';
-  use 'dhruvasagar/vim-table-mode';
-  use 'whonore/vim-sentencer';
-  use 'ruanyl/vim-gh-line';
-  use 'folke/flash.nvim';
-  use 'ggandor/leap.nvim';
-  use 'guns/vim-sexp';
-  use 'romainl/vim-cool';
-  use 'echasnovski/mini.nvim';
-  use "MunifTanjim/nui.nvim";
-  use "m4xshen/hardtime.nvim";
-  use 'nvim-lua/plenary.nvim';
-  use 'MeanderingProgrammer/render-markdown.nvim'
-  use {
-    'yetone/avante.nvim',
-    branch = 'main',
-    run = 'make',
-  };
-  use {
-    "cksidharthan/mentor.nvim",
-    config = function()
-      require("mentor").setup({
-        tips = {
-          "Use :Inspect with cursor above text to see why it is colored the way it is."
-        }
-      })
+  { 'rkitover/vimpager' },
+  { 'habamax/vim-godot' },
+  { 'dhruvasagar/vim-table-mode' },
+  { 'whonore/vim-sentencer' },
+  { 'ruanyl/vim-gh-line' },
+  { 'folke/flash.nvim' },
+  { 'ggandor/leap.nvim' },
+  { 'guns/vim-sexp' },
+  { 'romainl/vim-cool' },
+  { 'echasnovski/mini.nvim' },
+  { "MunifTanjim/nui.nvim" },
+  { "m4xshen/hardtime.nvim" },
+  { 'nvim-lua/plenary.nvim' },
+  {
+    "yetone/avante.nvim",
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    -- ⚠️ must add this setting! ! !
+    build = function()
+      -- conditionally use the correct build system for the current OS
+      if vim.fn.has("win32") == 1 then
+        return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      else
+        return "make"
+      end
     end,
-  };
-  use {
+    event = "VeryLazy",
+    version = false, -- Never set this value to "*"! Never!
+    ---@module 'avante'
+    ---@type avante.Config
+    opts = {
+      provider = "claude",
+      providers = {
+        claude = {
+          endpoint = "https://api.anthropic.com",
+          model = "claude-sonnet-4-20250514",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "ibhagwan/fzf-lua",            -- for file_selector provider fzf
+      "stevearc/dressing.nvim",      -- for input provider dressing
+      "folke/snacks.nvim",           -- for input provider snacks
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",      -- for providers='copilot'
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  },
+  {
+    "cksidharthan/mentor.nvim",
+    opts = {
+      tips = {
+        "Use :Inspect with cursor above text to see why it is colored the way it is."
+      }
+    }
+  },
+  {
     'rachartier/tiny-glimmer.nvim',
-    config = function()
-      require('tiny-glimmer').setup()
-    end
-  };
-  use { 'gen740/SmoothCursor.nvim',
-    config = function()
-      require('smoothcursor').setup({
-        cursor = ">",
-        linehl = "CursorLine",
-        texthl = "CursorLine"
-      })
-    end };
-  if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-    require('google_dotfiles/google').load_google_plugins(use);
-    -- else
-    -- TODO find a way to put the codefmt lines here so that I can source
-    -- google.vim in my google-specific config.
-  end
-  if not_in_google3 then
-    use 'tzachar/cmp-ai';
-    -- use 'github/copilot.vim';
-    -- use 'kiddos/gemini.nvim';
-  end
-  use { 'google/vim-maktaba' };
-  use { 'google/vim-codefmt' };
+    config = true
+  },
+  {
+    'gen740/SmoothCursor.nvim',
+    opts = {
+      cursor = ">",
+      linehl = "CursorLine",
+      texthl = "CursorLine"
+    }
+  },
+  -- { 'google/vim-maktaba' },
+  -- { 'google/vim-codefmt' }
+}
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
+  require('google_dotfiles/google').add_google_plugins(plugins_spec);
+end
 
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = plugins_spec,
+  -- automatically check for plugin updates
+  checker = { enabled = true },
+})
 
 --                          /// General ///
 
-vim.g.maplocalleader = " "
 require("hardtime").setup({
   restriction_mode = "hint",
   disable_mouse = false,
@@ -194,10 +235,10 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 --                          /// Navigation ///
 
-vim.keymap.set({'n', 'x'}, '(', function()
+vim.keymap.set({ 'n', 'x' }, '(', function()
   vim.fn.search("['\"\\[\\](){}<>]", 'bW')
 end)
-vim.keymap.set({'n', 'x'}, ')', function()
+vim.keymap.set({ 'n', 'x' }, ')', function()
   vim.fn.search("['\"\\[\\](){}<>]", 'W')
 end)
 
@@ -205,7 +246,7 @@ require('flash').setup({
   modes = {
     char = {
       search = { wrap = true },
-      highlight = { backdrop = false},
+      highlight = { backdrop = false },
     }
   }
 })
@@ -947,13 +988,13 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_ciderlsp', priority = 1000 },
-    { name = 'nvim_lsp', priority = 500 },
-    { name = 'luasnip', priority = 500 },
-    { name = 'emoji', priority = 500 },
-    { name = 'calc', priority = 500 },
-    { name = 'spell', priority = 500 },
-    { name = 'path', priority = 500 },
-    { name = 'nvim_lua', priority = 500 },
+    { name = 'nvim_lsp',      priority = 500 },
+    { name = 'luasnip',       priority = 500 },
+    { name = 'emoji',         priority = 500 },
+    { name = 'calc',          priority = 500 },
+    { name = 'spell',         priority = 500 },
+    { name = 'path',          priority = 500 },
+    { name = 'nvim_lua',      priority = 500 },
     -- { name = 'cmp_ai', priority = 500 },
     {
       name = 'buffer',
@@ -1279,65 +1320,65 @@ nvim_lsp.lua_ls.setup {
   on_attach = on_attach
 }
 
-pcall(function ()
-vim.lsp.config('lua_ls', {
-  on_init = function(client)
-    if client.workspace_folders then
-      local path = client.workspace_folders[1].name
-      if
-          path ~= vim.fn.stdpath('config')
-          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-      then
-        return
+pcall(function()
+  vim.lsp.config('lua_ls', {
+    on_init = function(client)
+      if client.workspace_folders then
+        local path = client.workspace_folders[1].name
+        if
+            path ~= vim.fn.stdpath('config')
+            and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+        then
+          return
+        end
       end
-    end
 
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most
-        -- likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Tell the language server how to find Lua modules same way as Neovim
-        -- (see `:h lua-module-load`)
-        path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
+      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most
+          -- likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Tell the language server how to find Lua modules same way as Neovim
+          -- (see `:h lua-module-load`)
+          path = {
+            'lua/?.lua',
+            'lua/?/init.lua',
+          },
         },
-      },
-      -- Make the server aware of Neovim runtime files
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME
-          -- Depending on the usage, you might want to add additional paths
-          -- here.
-          -- '${3rd}/luv/library'
-          -- '${3rd}/busted/library'
+        -- Make the server aware of Neovim runtime files
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME
+            -- Depending on the usage, you might want to add additional paths
+            -- here.
+            -- '${3rd}/luv/library'
+            -- '${3rd}/busted/library'
+          }
+          -- Or pull in all of 'runtimepath'.
+          -- NOTE: this is a lot slower and will cause issues when working on
+          -- your own configuration.
+          -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+          -- library = {
+          --   vim.api.nvim_get_runtime_file('', true),
+          -- }
         }
-        -- Or pull in all of 'runtimepath'.
-        -- NOTE: this is a lot slower and will cause issues when working on
-        -- your own configuration.
-        -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-        -- library = {
-        --   vim.api.nvim_get_runtime_file('', true),
-        -- }
+      })
+    end,
+    settings = {
+      Lua = {
+        format = {
+          enable = true,
+          -- Put format options here
+          -- NOTE: the value should be String!
+          defaultConfig = {
+            indent_style = "space",
+            indent_size = "2",
+          }
+        },
       }
-    })
-  end,
-  settings = {
-    Lua = {
-      format = {
-        enable = true,
-        -- Put format options here
-        -- NOTE: the value should be String!
-        defaultConfig = {
-          indent_style = "space",
-          indent_size = "2",
-        }
-      },
     }
-  }
-})
+  })
 end)
 
 --                          /// Language - SQL ///
@@ -1395,7 +1436,7 @@ nvim_lsp.clangd.setup {
 --                          /// Language - Clojure ///
 
 -- See ~/.zprint.edn for clojure formatting configuration.  I do not use the
--- lsp formatter (cljfmt). 
+-- lsp formatter (cljfmt).
 
 vim.cmd([[
   let g:sexp_enable_insert_mode_mappings = 0
@@ -1545,3 +1586,6 @@ end
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google').load_google_config(nvim_lsp, on_attach)
 end
+
+
+
