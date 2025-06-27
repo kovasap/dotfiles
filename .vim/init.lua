@@ -36,11 +36,6 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-local function notInGoogle3()
-  print(string.find(vim.fn.getcwd(), '/google/src') == nil)
-  return string.find(vim.fn.getcwd(), '/google/src') == nil
-end
-
 local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
 
 require('packer').startup(function(use)
@@ -126,6 +121,12 @@ require('packer').startup(function(use)
   use "MunifTanjim/nui.nvim";
   use "m4xshen/hardtime.nvim";
   use 'nvim-lua/plenary.nvim';
+  use 'MeanderingProgrammer/render-markdown.nvim'
+  use {
+    'yetone/avante.nvim',
+    branch = 'main',
+    run = 'make',
+  };
   use {
     "cksidharthan/mentor.nvim",
     config = function()
@@ -185,7 +186,6 @@ require("hardtime").setup({
     ["<Right>"] = false,
   }
 })
-
 
 --                          /// Right Click Menu ///
 
@@ -1537,6 +1537,9 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 
 --                          /// Language - Terminal ///
 
+if not_in_google3 then
+  require('avante').setup()
+end
 
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
