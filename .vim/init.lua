@@ -194,11 +194,11 @@ vim.cmd('nnoremenu PopUp.Rain <Cmd>CellularAutomaton make_it_rain<CR>')
 
 --                          /// Navigation ///
 
-vim.keymap.set({"n", "x"}, "(", function()
-  vim.fn.search("['\"[](){}<>]", 'bW')
+vim.keymap.set({'n', 'x'}, '(', function()
+  vim.fn.search("['\"\\[\\](){}<>]", 'bW')
 end)
-vim.keymap.set({"n", "x"}, ")", function()
-  vim.fn.search("['\"[](){}<>]", 'W')
+vim.keymap.set({'n', 'x'}, ')', function()
+  vim.fn.search("['\"\\[\\](){}<>]", 'W')
 end)
 
 require('flash').setup({
