@@ -215,8 +215,6 @@ end
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = plugins_spec,
-  -- automatically check for plugin updates
-  checker = { enabled = true },
 })
 
 --                          /// General ///
