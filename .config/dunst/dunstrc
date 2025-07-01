@@ -18,9 +18,9 @@ override_pause_level = 30
 default_icon = dialog-information
 
 [urgency_critical]
-background = "#b54c00"
+background = "#1d1808"
 foreground = "#cac296"
-#frame_color = "#ff0000"
+frame_color = "#b54c00"
 timeout = 0
 override_pause_level = 60
 # Icon for notifications with critical urgency
