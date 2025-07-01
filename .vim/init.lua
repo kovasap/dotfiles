@@ -101,7 +101,7 @@ local plugins_spec = {
   { 'L3MON4D3/LuaSnip' },
   'saadparwaiz1/cmp_luasnip',
   { 'hrsh7th/nvim-cmp' },
-  { 'nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter', lazy = false, branch = 'master', build = ':TSUpdate' },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'nvim-treesitter/nvim-treesitter-context' },
   { 'nvim-treesitter/playground' },
@@ -132,6 +132,37 @@ local plugins_spec = {
   { "m4xshen/hardtime.nvim" },
   { 'nvim-lua/plenary.nvim' },
   {
+    "cksidharthan/mentor.nvim",
+    opts = {
+      tips = {
+        "Use :Inspect with cursor above text to see why it is colored the way it is."
+      }
+    }
+  },
+  {
+    'rachartier/tiny-glimmer.nvim',
+    config = true
+  },
+  {
+    'gen740/SmoothCursor.nvim',
+    opts = {
+      cursor = ">",
+      linehl = "CursorLine",
+      texthl = "CursorLine"
+    }
+  },
+  {
+    'google/vim-codefmt',
+    dependencies = {
+      { 'google/vim-maktaba' }
+    }
+  }
+}
+
+if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
+  require('google_dotfiles/google').add_google_plugins(plugins_spec);
+else
+  table.insert(plugins_spec, {
     "yetone/avante.nvim",
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- ⚠️ must add this setting! ! !
@@ -166,10 +197,10 @@ local plugins_spec = {
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
       "ibhagwan/fzf-lua",            -- for file_selector provider fzf
-      "stevearc/dressing.nvim",      -- for input provider dressing
-      "folke/snacks.nvim",           -- for input provider snacks
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",      -- for providers='copilot'
+      -- "stevearc/dressing.nvim",      -- for input provider dressing
+      -- "folke/snacks.nvim",           -- for input provider snacks
+      -- "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      -- "zbirenbaum/copilot.lua",      -- for providers='copilot'
       {
         -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',
@@ -179,37 +210,7 @@ local plugins_spec = {
         ft = { "markdown", "Avante" },
       },
     },
-  },
-  {
-    "cksidharthan/mentor.nvim",
-    opts = {
-      tips = {
-        "Use :Inspect with cursor above text to see why it is colored the way it is."
-      }
-    }
-  },
-  {
-    'rachartier/tiny-glimmer.nvim',
-    config = true
-  },
-  {
-    'gen740/SmoothCursor.nvim',
-    opts = {
-      cursor = ">",
-      linehl = "CursorLine",
-      texthl = "CursorLine"
-    }
-  },
-  {
-    'google/vim-codefmt',
-    dependencies = {
-      { 'google/vim-maktaba' }
-    }
-  }
-}
-
-if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-  require('google_dotfiles/google').add_google_plugins(plugins_spec);
+  })
 end
 
 -- Setup lazy.nvim
@@ -1579,10 +1580,6 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 
 
 --                          /// Language - Terminal ///
-
-if not_in_google3 then
-  require('avante').setup()
-end
 
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
