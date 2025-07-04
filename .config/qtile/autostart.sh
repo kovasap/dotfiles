@@ -6,7 +6,11 @@ nm-applet &
 
 udiskie &
 
+# Only try to run if it isn't already running
+if ! pgrep -x "syncthingtray-qt6" > /dev/null
+then
 nohup syncthingtray-qt6 &
+fi
 
 # Mount all drives when starting up
 udiskie-mount -a
