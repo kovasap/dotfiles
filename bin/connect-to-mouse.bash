@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAC="F9:32:58:CE:C8:8B"
+MAC="D9:83:07:36:6D:CC"
 
 bluetoothctl devices
 bluetoothctl scan on
