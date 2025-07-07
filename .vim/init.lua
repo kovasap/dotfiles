@@ -101,7 +101,7 @@ local plugins_spec = {
   { 'L3MON4D3/LuaSnip' },
   'saadparwaiz1/cmp_luasnip',
   { 'hrsh7th/nvim-cmp' },
-  { 'nvim-treesitter/nvim-treesitter', lazy = false, branch = 'master', build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter',            lazy = false,             branch = 'master', build = ':TSUpdate' },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'nvim-treesitter/nvim-treesitter-context' },
   { 'nvim-treesitter/playground' },
@@ -196,7 +196,7 @@ else
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
-      "ibhagwan/fzf-lua",            -- for file_selector provider fzf
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
       -- "stevearc/dressing.nvim",      -- for input provider dressing
       -- "folke/snacks.nvim",           -- for input provider snacks
       -- "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
@@ -1027,27 +1027,6 @@ cmp.setup.cmdline(":", {
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } })
 })
 
--- Setup lspconfig.
--- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
---   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- }
-
--- Integration with nvim-autopairs.
--- _G.MUtils= {}  -- skip it, if you use another global object
--- vim.g.completion_confirm_key = ""
--- MUtils.completion_confirm=function()
---   if vim.fn.pumvisible() ~= 0  then
---     if vim.fn.complete_info()["selected"] ~= -1 then
---       return vim.fn["compe#confirm"](npairs.esc("<cr>"))
---     else
---       return npairs.esc("<cr>")
---     end
---   else
---     return npairs.autopairs_cr()
---   end
--- end
--- map('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true})
-
 
 map('i', '<C-l>', '<plug>(fzf-complete-line)')
 
@@ -1272,6 +1251,55 @@ local nvim_lsp = require('lspconfig')
 
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
 
+-- execute an lsp command at given position allowing extra arguments
+function execute_at(command_name, file_uri, cursor, ...)
+  local row, col = unpack(cursor)
+  vim.lsp.buf.execute_command {
+    command = command_name,
+    arguments = { file_uri, row - 1, col, ... }
+  }
+end
+
+-- delegate command execution as a callback function receiving user input
+function execute_with_input(command_name, file_uri, cursor)
+  return function(user_input)
+    execute_at(command_name, file_uri, cursor, user_input)
+  end
+end
+
+-- capture buffer location before running lsp command,
+-- to enable async execution when user input is required
+function with_current_position(runnable)
+  return function()
+    local file_uri = 'file://' .. vim.fn.expand('%:p')
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    runnable(file_uri, cursor)
+  end
+end
+
+-- create a callback that immediately executes an lsp command
+function run_immediately(command_name, ...)
+  local extra_args = { ... }
+  return with_current_position(function(file_uri, cursor)
+    execute_at(command_name, file_uri, cursor, unpack(extra_args))
+  end)
+end
+
+-- create a callback that reads user input and feeds to an lsp command
+function run_with_input(command_name, opts)
+  return with_current_position(function(file_uri, cursor)
+    vim.ui.input(opts, execute_with_input(command_name, file_uri, cursor))
+  end)
+end
+
+-- create a callback that prompts user to select data from a list
+-- feeds the selection to an lsp command
+function run_with_select(command_name, opts, select_options)
+  return with_current_position(function(file_uri, cursor)
+    vim.ui.select(select_options, opts, execute_with_input(command_name, file_uri, cursor))
+  end)
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -1307,6 +1335,53 @@ local on_attach = function(client, bufnr)
   if filetype ~= 'clojure' then
     buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
     buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+  else
+    -- Copied from https://github.com/thegards/dotfiles/blob/76ed05d61039ff657e7ece5ba59d916f551f19ec/neovim/nvimdir/after/ftplugin/clojure.lua
+    vim.keymap.set('n', 'cred', run_with_input("extract-to-def", { prompt = "def name:" }), opts)
+    vim.keymap.set("n", "crai", run_immediately("add-missing-import"), { desc = "Add import to namespace" })
+    vim.keymap.set("n", "cram", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
+    vim.keymap.set("n", "cras", run_immediately("add-require-suggestion"), { desc = "Add require suggestion" })
+    vim.keymap.set("n", "crcc", run_immediately("cycle-coll"), { desc = "Cycle collection (#{}, {}, [], ())" })
+    vim.keymap.set("n", "crck", run_immediately("cycle-keyword-auto-resolve"), { desc = "Cycle keyword auto-resolve" })
+    vim.keymap.set("n", "crcn", run_immediately("clean-ns"), { desc = "Clean namespace" })
+    vim.keymap.set("n", "crcp", run_immediately("cycle-privacy"), { desc = "Cycle privacy of def/defn" })
+    vim.keymap.set("n", "crct", run_immediately("create-test"), { desc = "Create test" })
+    vim.keymap.set("n", "crdf", run_immediately("demote-fn"), { desc = "Demote fn to #()" })
+    --vim.keymap.set("n", "crdb", run_immediately("drag-backward"), { desc = "Drag backward" })
+    --vim.keymap.set("n", "crdf", run_immediately("drag-forward"), { desc = "Drag forward" })
+    vim.keymap.set("n", "crdk", run_immediately("destructure-keys"), { desc = "Destructure keys" })
+    vim.keymap.set("n", "cred", run_with_input("extract-to-def", { prompt = "def name:" }), { desc = "Extract to def" })
+    vim.keymap.set("n", "cref", run_with_input("extract-function", { prompt = "Function name:" }), { desc = "Extract function" })
+    vim.keymap.set("n", "crel", run_immediately("expand-let"), { desc = "Expand let" })
+    vim.keymap.set("n", "crfe", run_immediately("create-function"), { desc = "Create function from example" })
+    vim.keymap.set("n", "crga", run_immediately("get-in-all"), { desc = "Move all expressions to get/get-in" })
+    vim.keymap.set("n", "crgl", run_immediately("get-in-less"), { desc = "Remove one element from get/get-in" })
+    vim.keymap.set("n", "crgm", run_immediately("get-in-more"), { desc = "Move another expression to get/get-in" })
+    vim.keymap.set("n", "crgn", run_immediately("get-in-none"), { desc = "Unwind whole get/get-in" })
+    vim.keymap.set("n", "cril", run_with_input("introduce-let", { prompt = "Binding name:" }), { desc = "Introduce let" })
+    vim.keymap.set("n", "cris", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
+    vim.keymap.set("n", "crma", run_immediately("resolve-macro-as"), { desc = "Resolve macro as" })
+    vim.keymap.set("n", "crmf", run_with_input("move-form", { prompt = "Filename:" }), { desc = "Move form" })
+    vim.keymap.set("n", "crml", run_with_input("move-to-let", { prompt = "Binding name:" }), { desc = "Move expression to let" })
+    vim.keymap.set("n", "crpf", run_with_input("promote-fn", { prompt = "Function name:" }), { desc = "Promote #() to fn, or fn to defn" })
+    vim.keymap.set("n", "crrr", run_immediately("replace-refer-all-with-refer"), { desc = "Replace ':refer :all' with ':refer [...]'" })
+    vim.keymap.set("n", "crra", run_immediately("replace-refer-all-with-alias"), { desc = "Replace ':refer :all' with alias" })
+    vim.keymap.set("n", "crrk", run_immediately("restructure-keys"), { desc = "Restructure keys" })
+    vim.keymap.set("n", "crscc", run_with_select("change-coll", { prompt = "New type:" }, { "map", "list", "set", "vector" }), { desc = "Switch collection to {}, (), #{}, []" })
+    vim.keymap.set("n", "crscm", run_immediately("change-coll", "map"), { desc = "Switch collection to {}" })
+    vim.keymap.set("n", "crscv", run_immediately("change-coll", "vector"), { desc = "Switch collection to []" })
+    vim.keymap.set("n", "crscl", run_immediately("change-coll", "list"), { desc = "Switch collection to ()" })
+    vim.keymap.set("n", "crsl", run_immediately("sort-clauses"), { desc = "Sort map/vector/list/set/clauses" })
+    vim.keymap.set("n", "crtf", run_immediately("thread-first-all"), { desc = "Thread first all" })
+    vim.keymap.set("n", "crth", run_immediately("thread-first"), { desc = "Thread first expression" })
+    vim.keymap.set("n", "crtl", run_immediately("thread-last-all"), { desc = "Thread last all" })
+    vim.keymap.set("n", "crtt", run_immediately("thread-last"), { desc = "Thread last expression" })
+    vim.keymap.set("n", "crua", run_immediately("unwind-all"), { desc = "Unwind whole thread" })
+    vim.keymap.set("n", "cruw", run_immediately("unwind-thread"), { desc = "Unwind thread once" })
+    --vim.keymap.set("n", "crfs", run_immediately("forward-slurp"), { desc = "Paredit: forward slurp" })
+    --vim.keymap.set("n", "crfb", run_immediately("forward-barf"), { desc = "Paredit: forward barf" })
+    --vim.keymap.set("n", "crbs", run_immediately("backward-slurp"), { desc = "Paredit: backward slurp" })
+    --vim.keymap.set("n", "crbb", run_immediately("backward-barf"), { desc = "Paredit: backward barf" })
   end
 end
 
