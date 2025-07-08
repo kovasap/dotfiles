@@ -1035,6 +1035,8 @@ map('i', '<C-l>', '<plug>(fzf-complete-line)')
 
 -- require('dim').setup({})
 
+vim.cmd('set spellsuggest=best,5')
+
 vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
 ]]
