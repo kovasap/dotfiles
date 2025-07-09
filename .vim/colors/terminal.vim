@@ -149,10 +149,10 @@ hi IncSearch cterm=reverse ctermbg=2
 " For TinyGlimmer
 hi CurSearch ctermbg=8
 
-hi SpellBad cterm=none ctermfg=5 ctermbg=none cterm=underline
-hi SpellCap cterm=none ctermfg=5 ctermbg=none cterm=underline
-hi SpellLocal cterm=none ctermfg=5 ctermbg=none cterm=underline
-hi SpellRare cterm=none ctermfg=5 ctermbg=none cterm=underline
+hi SpellBad cterm=none ctermfg=1 ctermbg=none
+hi SpellCap cterm=none ctermfg=1 ctermbg=none
+hi SpellLocal cterm=none ctermfg=1 ctermbg=none
+hi SpellRare cterm=none ctermfg=1 ctermbg=none
 
 hi default link vimCmplxRepeat Normal
 
@@ -177,10 +177,12 @@ hi default link DateWeek Identifier
 hi default link DateOld Comment
 hi default link Path Preproc
 hi default link Marked StorageClass
-hi default link Title Identifier
-hi default link markdownH1 Identifier
-hi default link markdownH2 String
-hi default link markdownH3 Type
+
+hi Title ctermfg=11
+hi @markup.heading.1.markdown ctermfg=3
+hi @markup.heading.2.markdown ctermfg=5
+hi @markup.heading.3.markdown ctermfg=2
+hi @markup.heading.4.markdown ctermfg=6
 
 hi default link LeapBackdrop Comment
 hi LeapMatch ctermfg=1 term=bold

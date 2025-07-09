@@ -205,9 +205,9 @@ else
         -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
-          file_types = { "markdown", "Avante" },
+          file_types = { "Avante" },
         },
-        ft = { "markdown", "Avante" },
+        ft = { "Avante" },
       },
     },
   })
@@ -1034,6 +1034,8 @@ map('i', '<C-l>', '<plug>(fzf-complete-line)')
 --                          /// Language - General ///
 
 -- require('dim').setup({})
+
+vim.cmd('set spellsuggest=best,5')
 
 vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
