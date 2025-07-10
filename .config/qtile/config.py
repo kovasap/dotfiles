@@ -239,6 +239,7 @@ keys.extend([
     Key([mod], 'a', lazy.function(window_to_paired_group)),
     Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
 
+    Key([mod], 'g', lazy.layout.flip()),
 
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod], 'f', lazy.function(movescreens, -2)),
@@ -280,8 +281,7 @@ keys.extend([
             'setup-monitors.bash forked &> ~/setup-monitors.log')),
     Key([mod, 'control'], 'z',
         spawn_multi_cmd(
-            'setup-monitors.bash forked rotated &> ~/setup-monitors.log')
-       ),
+            'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
 
     Key([mod], 'b', lazy.window.kill()),
@@ -292,7 +292,7 @@ keys.extend([
     # Open text prompt to open any program on the system
     Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
     # Open xmenu for a visual way to open programs
-    Key([mod], 'g', lazy.spawn('run-xmenu.sh')),
+    Key([mod], 'Delete', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
     KeyChord([mod], 'w', [
         Key([mod], 't', lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
