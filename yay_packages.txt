@@ -1,4 +1,5 @@
 babashka-bin
+clj-kondo-bin
 clojure-lsp-bin
 downgrade
 gdm-settings
@@ -6,11 +7,14 @@ gdrive
 google-chrome
 heroic-games-launcher-bin
 joker
+lyricsfinder
 mementodb
 memtest86-efi
 phoronix-test-suite
 pwvucontrol
+python-tree-sitter
 qdirstat-bin
+slack-desktop
 syncthingtray-qt6
 ventoy
 vesktop-bin

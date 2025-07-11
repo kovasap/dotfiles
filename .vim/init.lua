@@ -101,12 +101,15 @@ local plugins_spec = {
   { 'L3MON4D3/LuaSnip' },
   'saadparwaiz1/cmp_luasnip',
   { 'hrsh7th/nvim-cmp' },
-  { 'nvim-treesitter/nvim-treesitter',            lazy = false,             branch = 'master', build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'master',
+    build = ':TSUpdate' },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'nvim-treesitter/nvim-treesitter-context' },
   { 'nvim-treesitter/playground' },
   { 'HiPhish/rainbow-delimiters.nvim' },
-  { 'neovim/nvim-lspconfig',                      build = install_python_ls },
+  { 'neovim/nvim-lspconfig' },
   { 'nvim-lua/lsp-status.nvim' },
   { 'mgedmin/python-imports.vim' },
   { 'Olical/conjure' },
@@ -1044,6 +1047,7 @@ vim.cmd [[
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
   ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql' },
+  sync_install = false,
   highlight = { enable = true },
   -- TODO Re-enable when this works better for python.
   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136 might be
@@ -1246,9 +1250,6 @@ vim.cmd('set foldmethod=expr')
 vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
 vim.cmd('set foldlevelstart=99')
 
-local function install_python_ls()
-  vim.cmd('!pip install python-language-server[all] yapf')
-end
 local nvim_lsp = require('lspconfig')
 
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
@@ -1353,7 +1354,8 @@ local on_attach = function(client, bufnr)
     --vim.keymap.set("n", "crdf", run_immediately("drag-forward"), { desc = "Drag forward" })
     vim.keymap.set("n", "crdk", run_immediately("destructure-keys"), { desc = "Destructure keys" })
     vim.keymap.set("n", "cred", run_with_input("extract-to-def", { prompt = "def name:" }), { desc = "Extract to def" })
-    vim.keymap.set("n", "cref", run_with_input("extract-function", { prompt = "Function name:" }), { desc = "Extract function" })
+    vim.keymap.set("n", "cref", run_with_input("extract-function", { prompt = "Function name:" }),
+      { desc = "Extract function" })
     vim.keymap.set("n", "crel", run_immediately("expand-let"), { desc = "Expand let" })
     vim.keymap.set("n", "crfe", run_immediately("create-function"), { desc = "Create function from example" })
     vim.keymap.set("n", "crga", run_immediately("get-in-all"), { desc = "Move all expressions to get/get-in" })
@@ -1364,12 +1366,18 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "cris", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
     vim.keymap.set("n", "crma", run_immediately("resolve-macro-as"), { desc = "Resolve macro as" })
     vim.keymap.set("n", "crmf", run_with_input("move-form", { prompt = "Filename:" }), { desc = "Move form" })
-    vim.keymap.set("n", "crml", run_with_input("move-to-let", { prompt = "Binding name:" }), { desc = "Move expression to let" })
-    vim.keymap.set("n", "crpf", run_with_input("promote-fn", { prompt = "Function name:" }), { desc = "Promote #() to fn, or fn to defn" })
-    vim.keymap.set("n", "crrr", run_immediately("replace-refer-all-with-refer"), { desc = "Replace ':refer :all' with ':refer [...]'" })
-    vim.keymap.set("n", "crra", run_immediately("replace-refer-all-with-alias"), { desc = "Replace ':refer :all' with alias" })
+    vim.keymap.set("n", "crml", run_with_input("move-to-let", { prompt = "Binding name:" }),
+      { desc = "Move expression to let" })
+    vim.keymap.set("n", "crpf", run_with_input("promote-fn", { prompt = "Function name:" }),
+      { desc = "Promote #() to fn, or fn to defn" })
+    vim.keymap.set("n", "crrr", run_immediately("replace-refer-all-with-refer"),
+      { desc = "Replace ':refer :all' with ':refer [...]'" })
+    vim.keymap.set("n", "crra", run_immediately("replace-refer-all-with-alias"),
+      { desc = "Replace ':refer :all' with alias" })
     vim.keymap.set("n", "crrk", run_immediately("restructure-keys"), { desc = "Restructure keys" })
-    vim.keymap.set("n", "crscc", run_with_select("change-coll", { prompt = "New type:" }, { "map", "list", "set", "vector" }), { desc = "Switch collection to {}, (), #{}, []" })
+    vim.keymap.set("n", "crscc",
+      run_with_select("change-coll", { prompt = "New type:" }, { "map", "list", "set", "vector" }),
+      { desc = "Switch collection to {}, (), #{}, []" })
     vim.keymap.set("n", "crscm", run_immediately("change-coll", "map"), { desc = "Switch collection to {}" })
     vim.keymap.set("n", "crscv", run_immediately("change-coll", "vector"), { desc = "Switch collection to []" })
     vim.keymap.set("n", "crscl", run_immediately("change-coll", "list"), { desc = "Switch collection to ()" })
