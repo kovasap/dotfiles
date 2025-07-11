@@ -21,6 +21,8 @@ function dump(o)
   end
 end
 
+local not_in_google3 = string.find(vim.fn.getcwd(), '/google/src') == nil
+
 --                          /// Plugin Management ///
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -101,10 +103,12 @@ local plugins_spec = {
   { 'L3MON4D3/LuaSnip' },
   'saadparwaiz1/cmp_luasnip',
   { 'hrsh7th/nvim-cmp' },
-  { 'nvim-treesitter/nvim-treesitter',
+  {
+    'nvim-treesitter/nvim-treesitter',
     lazy = false,
     branch = 'master',
-    build = ':TSUpdate' },
+    build = ':TSUpdate'
+  },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'nvim-treesitter/nvim-treesitter-context' },
   { 'nvim-treesitter/playground' },
@@ -1046,6 +1050,8 @@ vim.cmd [[
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
+  -- To get python working, you may need to install an OS package like
+  -- https://aur.archlinux.org/packages/python-tree-sitter
   ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql' },
   sync_install = false,
   highlight = { enable = true },
