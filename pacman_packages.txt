@@ -26,6 +26,7 @@ gamemode
 gamescope
 gdm
 git
+github-cli
 gnome-desktop
 goverlay
 grub
@@ -139,6 +140,7 @@ xorg-xwininfo
 xorg-xwud
 xsensors
 xterm
+yapf
 yarn
 zip
 zsh
