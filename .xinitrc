@@ -33,6 +33,10 @@ xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Spee
 xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
 xinput --set-prop "pointer:Razer Razer Naga V2 HyperSpeed" "libinput Accel Speed" -0.3
 xinput --set-prop "pointer:Razer Razer Naga V2 HyperSpeed" "libinput Accel Profile Enabled" 0, 1, 0
+xinput --set-prop "pointer:Corsair CORSAIR SLIPSTREAM WIRELESS USB Receiver" "libinput Accel Speed" -0.3
+xinput --set-prop "pointer:Corsair CORSAIR SLIPSTREAM WIRELESS USB Receiver" "libinput Accel Profile Enabled" 0, 1, 0
+
+
 
 
 # natural scrolling for thinkpad touchpad
