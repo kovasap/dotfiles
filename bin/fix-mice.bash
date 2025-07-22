@@ -22,6 +22,6 @@ xinput --set-prop "pointer:Corsair CORSAIR SLIPSTREAM WIRELESS USB Receiver" "li
 # See https://stackoverflow.com/questions/18755967/how-to-make-a-program-that-finds-ids-of-xinput-devices-and-sets-xinput-some-set/18756948#18756948
 for id in `xinput --list|grep 'Corsair CORSAIR DARKSTAR RGB WIRELESS Gaming Mouse'|perl -ne 'while (m/id=(\d+)/g){print "$1\n";}'`; do
   notify-send -t 50000  "Mouse with id $(id) fixed"
-  xinput --set-prop $id "libinput Accel Speed" -0.3
+  xinput --set-prop $id "libinput Accel Speed" -0.25
   xinput --set-prop $id "libinput Accel Profile Enabled" 0, 1, 0
 done
