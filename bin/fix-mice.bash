@@ -24,7 +24,7 @@ xinput --set-prop "pointer:Razer Razer Naga V2 HyperSpeed" "libinput Accel Profi
 xinput --set-prop "pointer:Corsair CORSAIR SLIPSTREAM WIRELESS USB Receiver" "libinput Accel Speed" -0.3
 xinput --set-prop "pointer:Corsair CORSAIR SLIPSTREAM WIRELESS USB Receiver" "libinput Accel Profile Enabled" 0, 1, 0
 
-xinput --set-prop "pointer:Turtle Beach Kone XP Air Dongle" "libinput Accel Speed" -0.2
+xinput --set-prop "pointer:Turtle Beach Kone XP Air Dongle" "libinput Accel Speed" -0.15
 xinput --set-prop "pointer:Turtle Beach Kone XP Air Dongle" "libinput Accel Profile Enabled" 0, 1, 0
 
 # Need to do this loop and set by id because xinput cannot handle multiple
