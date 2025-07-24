@@ -243,7 +243,9 @@ keys.extend([
 
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod], 'f', lazy.function(movescreens, -2)),
+    Key([mod], 'Left', lazy.function(movescreens, -2)),
     Key([mod], 'p', lazy.function(movescreens, 2)),
+    Key([mod], 'Right', lazy.function(movescreens, 2)),
 
     # Carry a window to the next group pairing
     Key([mod], 'r', lazy.function(window_to_adjacent_group_pair, 1)),
@@ -257,6 +259,9 @@ keys.extend([
     Key([mod], 'period', lazy.layout.shrink()),
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
+
+    Key([mod], 'b', lazy.window.kill()),
+    Key([mod], 'BackSpace', lazy.window.kill()),
 
     # This part is not working for some reason at the moment.  I think it
     # works when i switch away from the image clipboard content and back
@@ -284,13 +289,11 @@ keys.extend([
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
 
-    Key([mod], 'b', lazy.window.kill()),
-
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
 
     # Open text prompt to open any program on the system
-    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'grave', lazy.spawn('j4-dmenu-desktop')),
     # Open xmenu for a visual way to open programs
     Key([mod], 'Delete', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
@@ -371,6 +374,8 @@ mouse = [
     Click([mod], 'Button5', lazy.layout.shrink()),
     Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
     Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
+    Click([mod], 'Button8', lazy.function(window_to_paired_group)),
+    Click([mod], 'Button9', lazy.function(swap_primary_secondary_screens)),
 ]
 
 # @hook.subscribe.client_focus
