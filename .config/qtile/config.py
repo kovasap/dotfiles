@@ -249,8 +249,8 @@ mouse = [
     Click([mod], 'Button5', lazy.layout.shrink()),
     Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
     Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
-    Click([mod], 'Button8', lazy.function(window_to_paired_group)),
-    Click([mod], 'Button9', lazy.function(swap_primary_secondary_screens)),
+    Click([mod], 'Button9', lazy.function(window_to_paired_group)),
+    Click([mod], 'Button8', lazy.function(swap_primary_secondary_screens)),
 ]
 
 
