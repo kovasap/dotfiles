@@ -225,6 +225,35 @@ def window_to_adjacent_group_pair(qtile, offset):
   cur_screen.group.current_window.togroup(next_group_letter, switch_group=False)
   movescreens(qtile, offset * 2)
 
+def get_float_drag_position(qtile):
+  # TODO make it so that this code always ensures that the mouse cursor is in
+  # the floating window when dragging, preferring to not move the window to the
+  # mouse cursor location, but doing so if necessary
+  cur_window = qtile.current_screen.group.current_window
+  return (qtile.core.get_mouse_position()[0] - 200,
+          qtile.core.get_mouse_position()[1] - 200)
+
+mouse = [
+    # Drag windows around.
+    Drag([mod], 'Button1', lazy.window.set_position_floating(),
+         start=lazy.function(get_float_drag_position)),
+    Click([mod], 'Button1', lazy.window.enable_floating()),
+    Click([mod], 'Button3', lazy.window.disable_floating()),
+    Drag([mod], 'Button2', lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Drag([mod, 'control'], 'Button3', lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    # Rearrange and resize windows with mouse wheel
+    # For MonadTall layout
+    Click([mod], 'Button4', lazy.layout.grow()),
+    Click([mod], 'Button5', lazy.layout.shrink()),
+    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
+    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
+    Click([mod], 'Button9', lazy.function(window_to_paired_group)),
+    Click([mod], 'Button8', lazy.function(swap_primary_secondary_screens)),
+]
+
+
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
@@ -243,7 +272,9 @@ keys.extend([
 
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod], 'f', lazy.function(movescreens, -2)),
+    Key([mod], 'Left', lazy.function(movescreens, -2)),
     Key([mod], 'p', lazy.function(movescreens, 2)),
+    Key([mod], 'Right', lazy.function(movescreens, 2)),
 
     # Carry a window to the next group pairing
     Key([mod], 'r', lazy.function(window_to_adjacent_group_pair, 1)),
@@ -257,6 +288,9 @@ keys.extend([
     Key([mod], 'period', lazy.layout.shrink()),
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
+
+    Key([mod], 'b', lazy.window.kill()),
+    Key([mod], 'BackSpace', lazy.window.kill()),
 
     # This part is not working for some reason at the moment.  I think it
     # works when i switch away from the image clipboard content and back
@@ -284,13 +318,11 @@ keys.extend([
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
 
-    Key([mod], 'b', lazy.window.kill()),
-
     # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
     Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
 
     # Open text prompt to open any program on the system
-    Key([mod], 'BackSpace', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod], 'grave', lazy.spawn('j4-dmenu-desktop')),
     # Open xmenu for a visual way to open programs
     Key([mod], 'Delete', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
@@ -343,35 +375,6 @@ keys.extend([
             'maim -s | tee ~/clipboard.png | '
             'xclip -selection clipboard -t image/png; ')),   
 ])
-
-def sum_elementwise(t1, t2):
-  return tuple([sum(x) for x in zip(t1,t2)])
-
-def get_float_drag_position(qtile):
-  # TODO make it so that this code always ensures that the mouse cursor is in
-  # the floating window when dragging, preferring to not move the window to the
-  # mouse cursor location, but doing so if necessary
-  cur_window = qtile.current_screen.group.current_window
-  return (qtile.core.get_mouse_position()[0] - 200,
-          qtile.core.get_mouse_position()[1] - 200)
-
-mouse = [
-    # Drag windows around.
-    Drag([mod], 'Button1', lazy.window.set_position_floating(),
-         start=lazy.function(get_float_drag_position)),
-    Click([mod], 'Button1', lazy.window.enable_floating()),
-    Click([mod], 'Button3', lazy.window.disable_floating()),
-    Drag([mod], 'Button2', lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Drag([mod, 'control'], 'Button3', lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    # Rearrange and resize windows with mouse wheel
-    # For MonadTall layout
-    Click([mod], 'Button4', lazy.layout.grow()),
-    Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
-    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
-]
 
 # @hook.subscribe.client_focus
 # def client_focused(client):

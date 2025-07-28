@@ -19,21 +19,7 @@ setxkbmap -option "caps:escape_shifted_capslock"
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
-# This changes the mouse sensitivity via a matrix that transforms mouse
-# coordinates to screen coordinates.
-# see https://askubuntu.com/questions/172972/configure-mouse-speed-not-pointer-acceleration
-xinput --set-prop "pointer:Razer Razer DeathAdder Essential White Edition" "Coordinate Transformation Matrix" 0.4 0.0 0.0 0.0 0.4 0.0 0.0 0.0 1.0
-# The coordinate transformation matrix sometimes leads to to the cursor jumping to the top corner, 
-# see https://unix.stackexchange.com/a/639730/537424.
-# Use of acceleration with the selected "flat" profile works to get around
-# this, since I don't care about using acceleration myself.
-xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Speed" -0.2
-xinput --set-prop "pointer:Corsair CORSAIR SABRE RGB PRO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
-xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Speed" -0.5
-xinput --set-prop "pointer:Logitech G502 HERO Gaming Mouse" "libinput Accel Profile Enabled" 0, 1, 0
-xinput --set-prop "pointer:Razer Razer Naga V2 HyperSpeed" "libinput Accel Speed" -0.3
-xinput --set-prop "pointer:Razer Razer Naga V2 HyperSpeed" "libinput Accel Profile Enabled" 0, 1, 0
-
+~/bin/fix-mice.bash
 
 # natural scrolling for thinkpad touchpad
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Natural Scrolling Enabled' 1
