@@ -12,6 +12,7 @@ IMG:/usr/share/icons/hicolor/32x32/apps/calibre-gui.png	Ebooks (calibre)	calibre
 IMG:./.local/share/icons/mementodb.svg	MementoDB	/opt/mementodb/bin/mementodb
 Terminal (xterm)	xterm
 IMG:/usr/share/icons/Adwaita/symbolic/status/audio-volume-high-symbolic.svg	Audio	pavucontrol-qt
+IMG:/usr/share/icons/hicolor/48x48/apps/blueman.png	Blueman	blueman-manager
 Qtile Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
 Kill picom	pkill picom
 Run picom	picom
