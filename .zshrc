@@ -199,6 +199,9 @@ bindkey -s '^S' '~/bin/view-scrollback.zsh\n'
 # Make ctrl-w exit, just as it does for vim and chrome
 bindkey -s '^W' '^D'
 
+# Control-backspace to go by word
+bindkey '^W' backward-kill-word
+
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 unsetopt autocd
