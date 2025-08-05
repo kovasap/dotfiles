@@ -1528,11 +1528,15 @@ nvim_lsp.clangd.setup {
 
 --                          /// Language - Kotlin ///
 
-nvim_lsp.kotlin_language_server.setup{
+-- Download standalone zip (very large) from
+-- https://github.com/Kotlin/kotlin-lsp/releases and link the kotlin-lsp.sh
+-- script to your $PATH.
+vim.lsp.config('kotlin_lsp', {
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
   filetypes = { "kotlin" , "kt", "kts"},
-  -- If you don't update you $PATH
-  -- cmd = { os.getenv( "HOME" ) .. "/language_servers/build/install/bin/kotlin_language_server" },
-}
+})
+vim.lsp.enable('kotlin_lsp')
 
 --                          /// Language - Clojure ///
 
