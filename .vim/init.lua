@@ -1052,7 +1052,7 @@ vim.cmd [[
 require('nvim-treesitter.configs').setup {
   -- To get python working, you may need to install an OS package like
   -- https://aur.archlinux.org/packages/python-tree-sitter
-  ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql' },
+  ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql', 'kotlin' },
   sync_install = false,
   highlight = { enable = true },
   -- TODO Re-enable when this works better for python.
@@ -1526,6 +1526,13 @@ nvim_lsp.clangd.setup {
   },
 }
 
+--                          /// Language - Kotlin ///
+
+nvim_lsp.kotlin_language_server.setup{
+  filetypes = { "kotlin" , "kt", "kts"},
+  -- If you don't update you $PATH
+  -- cmd = { os.getenv( "HOME" ) .. "/language_servers/build/install/bin/kotlin_language_server" },
+}
 
 --                          /// Language - Clojure ///
 
