@@ -1,12 +1,14 @@
+autokey-common
+autokey-qt
 babashka-bin
 clj-kondo-bin
 clojure-lsp-bin
 downgrade
 gdm-settings
 gdrive
+gemini-cli
 google-chrome
 heroic-games-launcher-bin
-joker
 lyricsfinder
 mementodb
 memtest86-efi
