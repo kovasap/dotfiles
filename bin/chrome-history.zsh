@@ -15,7 +15,7 @@ c () {
 
   sqlite3 -separator $sep /tmp/h \
     "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
+     from urls order by visit_count desc" |
   awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
   # absolute fzf path is necessary when running this from qtile for some reason
   /home/kovas/.fzf/bin/fzf --ansi --multi |
