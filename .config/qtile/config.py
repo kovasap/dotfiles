@@ -561,6 +561,14 @@ wireless_interface = subprocess.run(
     shell=True, capture_output=True).stdout.decode('utf-8').strip()
 
 
+def get_systray():
+  try:
+    return [widget.Systray()]
+  except Exception as e:
+    logger.warning(e)
+    return []
+
+
 def get_widgets(systray=False):
   return [
       widget.TextBox('<->', name='swap windows',
@@ -664,7 +672,7 @@ def get_widgets(systray=False):
               'us colemak_dh': 'cl'
           }),
       widget.TextBox(' | ', name='separator'),
-  ] + ([widget.Systray()] if systray else []) + [
+  ] + (get_systray() if systray else []) + [
       widget.TextBox(' | ', name='separator'),
       widget.Clock(
         format='%Y-%m-%d %a %I:%M %p'),
