@@ -2,10 +2,8 @@
     "type": "script",
     "description": "Bbros Up",
     "store": {},
-    "modes": [
-        3
-    ],
-    "usageCount": 56,
+    "modes": [],
+    "usageCount": 59,
     "prompt": false,
     "omitTrigger": false,
     "showInTrayMenu": false,
@@ -19,7 +17,7 @@
     },
     "hotkey": {
         "modifiers": [],
-        "hotKey": "f"
+        "hotKey": null
     },
     "filter": {
         "regex": "Battle Brothers 1.5.1.7",
