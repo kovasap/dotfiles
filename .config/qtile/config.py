@@ -372,7 +372,7 @@ keys.extend([
         spawn_multi_cmd(
             # https://github.com/naelstrof/maim/issues/182
             'pkill picom',
-            'maim -s | tee ~/clipboard.png | '
+            'maim -s | tee ~/clipboard_$(date +%s).png | '
             'xclip -selection clipboard -t image/png; ')),   
 ])
 
