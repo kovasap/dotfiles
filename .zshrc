@@ -289,7 +289,9 @@ path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
 zplug load
 
+setopt no_nomatch
 for d in $HOME/bin/*/bin; do export PATH="$PATH:$d"; done
+setopt nomatch
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.poetry/bin:$PATH:$HOME/.cargo/bin:$HOME/google_dotfiles:/usr/local/bin:/usr/games"
 if [[ $(hostname) == *googlers* ]]; then
   # eval "$(~/.linuxbrew/bin/brew shellenv)"
