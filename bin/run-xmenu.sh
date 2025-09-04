@@ -17,6 +17,7 @@ Qtile Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
 Kill picom	pkill picom
 Run picom	picom
 MangoHud Config	goverlay
+Simple Screen Recorder	simplescreenrecorder
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-shutdown-symbolic.svg	Sleep		systemctl suspend
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-shutdown-symbolic.svg	Shutdown		poweroff
 IMG:/usr/share/icons/Adwaita/symbolic/actions/system-reboot-symbolic.svg	Reboot			reboot
