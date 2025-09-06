@@ -43,7 +43,9 @@ lib32-mangohud
 lib32-systemd
 lib32-vulkan-radeon
 libconfig
+libdbusmenu-gtk2
 libev
+libmpeg2
 lightdm
 lightdm-gtk-greeter
 linux
@@ -85,6 +87,7 @@ qt6ct
 qtile
 radeontop
 ranger
+rclone
 redshift
 rlwrap
 steam
@@ -93,8 +96,11 @@ syncthing
 the_silver_searcher
 thunar
 thunar-archive-plugin
+tk
 udiskie
 udisks2
+vlc
+vlc-plugin-ffmpeg
 vulkan-radeon
 wine
 wine-mono
