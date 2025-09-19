@@ -316,8 +316,8 @@ keys.extend([
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
 
-    Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
-    Key([mod], "g", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
+    # Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
+    # Key([mod], "g", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
     Key([mod], 'BackSpace', lazy.window.kill()),
 
     # This part is not working for some reason at the moment.  I think it
@@ -358,8 +358,12 @@ keys.extend([
         Key([mod], 't', lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
         Key([mod], 'c', lazy.spawn('google-chrome-stable')),
         Key([mod], 'f', lazy.spawn('thunar')),
-        Key([mod], 's', lazy.spawn('steam')),
-        Key([mod], 'g', lazy.spawn('strawberry')),
+        # These windows are "unique" - they only allow a single instance across
+        # all screens/groups.  So we summon/toggle them here instead of making
+        # new instances.
+        Key([mod], "s", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
+        Key([mod], 'g', lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
+        Key([mod], 'd', lazy.function(summon_window, Match(wm_class="vesktop"), "vesktop")),
     ]),
 
     # If this binding is changed, make sure to also change the reference to it
