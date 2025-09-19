@@ -9,7 +9,7 @@ from typing import List  # noqa: F401
 from libqtile.command.base import expose_command
 from libqtile import bar, hook, layout, widget
 from libqtile import qtile
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 
@@ -233,6 +233,34 @@ def get_float_drag_position(qtile):
   return (qtile.core.get_mouse_position()[0] - 200,
           qtile.core.get_mouse_position()[1] - 200)
 
+# This doesn't work for some reason
+# def position_strawberry(qtile, window):
+#   window.set_position(0, 100)
+#   window.set_size_floating(2000, 1000)
+#   window.enable_floating()
+
+def summon_window(qtile, match, cmd):
+  moved_window = False
+  for group in qtile.groups:
+    for window in group.windows:
+      if window.match(match):
+        if group.name == qtile.current_group.name:
+          window.kill()
+          return
+        window.togroup(qtile.current_group.name)
+        # position_strawberry(qtile, window)
+        moved_window = True
+        break
+    if moved_window:
+      break
+  if not moved_window:
+    qtile.spawn(cmd)
+    # for window in qtile.current_group.windows:
+    #   if window.match(Match(wm_class="strawberry")):
+    #     logger.warning('positioning')
+    #     position_strawberry(qtile, window)
+
+
 mouse = [
     # Drag windows around.
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
@@ -264,11 +292,10 @@ keys.extend([
     Key([mod, 'control'], 's', lazy.layout.shuffle_down_wraparound()),
 
     Key([mod], 'Tab', lazy.prev_screen()),
+    Key([mod, 'control'], 'Tab', lazy.layout.flip()),
 
     Key([mod], 'a', lazy.function(window_to_paired_group)),
     Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
-
-    Key([mod], 'g', lazy.layout.flip()),
 
     # Cycle through groups on all screens at once (like on chromeos)
     Key([mod], 'f', lazy.function(movescreens, -2)),
@@ -289,7 +316,8 @@ keys.extend([
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
 
-    Key([mod], 'b', lazy.window.kill()),
+    Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
+    Key([mod], "g", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
     Key([mod], 'BackSpace', lazy.window.kill()),
 
     # This part is not working for some reason at the moment.  I think it
@@ -338,7 +366,6 @@ keys.extend([
     # in setup-monitors.bash.
     Key([mod, 'shift'], 'Escape', lazy.function(lambda qt: qt.restart())),
     Key([mod, 'control'], 'Escape',lazy.restart()),
-    Key([mod, 'control'], 'Tab', lazy.shutdown()),
 
     # Audio
     Key([], 'XF86AudioRaiseVolume',
