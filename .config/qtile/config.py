@@ -172,13 +172,12 @@ for n in group_letters:
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
 
-groups = [
+groups.append(
     ScratchPad("scratchpad", [
         # define a drop down terminal.
         # it is placed in the upper third of screen by default.
         DropDown("website", "kitty env RUN='cd ~/website; nv content/docs' zsh", height=0.6),
-        ]),
-]
+        ]))
 
 def movescreens(qtile, offset):
   # Make it so that when we are moving screens we are always doing so with a
