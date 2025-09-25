@@ -172,6 +172,14 @@ for n in group_letters:
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
 
+groups = [
+    ScratchPad("scratchpad", [
+        # define a drop down terminal.
+        # it is placed in the upper third of screen by default.
+        DropDown("website", "kitty env RUN='cd ~/website; nv content/docs' zsh", height=0.6),
+        ]),
+]
+
 def movescreens(qtile, offset):
   # Make it so that when we are moving screens we are always doing so with a
   # group pair.
@@ -317,7 +325,7 @@ keys.extend([
     Key([mod], 'bracketleft', lazy.layout.minimize()),
 
     # Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
-    # Key([mod], "g", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
+    Key([mod], 'g', lazy.group['scratchpad'].dropdown_toggle('website')),
     Key([mod], 'BackSpace', lazy.window.kill()),
 
     # This part is not working for some reason at the moment.  I think it
