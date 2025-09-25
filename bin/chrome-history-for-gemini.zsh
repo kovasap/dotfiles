@@ -18,7 +18,7 @@ WHERE
 ORDER BY
   urls.last_visit_time DESC;" > ~/history_titles.txt
 
-  gemini -p "Summarize the web activity in the ~/history_titles.txt file."
+  gemini -p "Give a detailed summary of the web activity in the history_titles.txt file in the current directory, giving a bulletted list of examples for each category of activity you find."
 }
 
 c $1

@@ -16,6 +16,7 @@ phoronix-test-suite
 pwvucontrol
 python-tree-sitter
 qdirstat-bin
+simplescreenrecorder
 slack-desktop
 syncthingtray-qt6
 ventoy
