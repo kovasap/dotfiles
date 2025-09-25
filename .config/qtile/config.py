@@ -174,8 +174,6 @@ for n in group_letters:
 
 groups.append(
     ScratchPad("scratchpad", [
-        # define a drop down terminal.
-        # it is placed in the upper third of screen by default.
         DropDown("website", "kitty env RUN='cd ~/website; nv content/docs' zsh", height=0.6),
         ]))
 
