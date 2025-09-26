@@ -74,7 +74,26 @@ local plugins_spec = {
   { 'zhimsel/vim-stay' },
   -- Better directory browsing.  Access the directory the current file is in with
   -- the - key.
-  { 'stevearc/oil.nvim' },
+  {
+    'stevearc/oil.nvim',
+    -- For some unknown reason, on some machines the oil config gets overwritten by
+    -- a startup script IF I try to load these options via require("oil").setup()
+    -- down below.  So I MUST specify it here.
+    opts = {
+      default_file_explorer = true,
+      prompt_save_on_select_new_entry = false,
+      skip_confirm_for_simple_edits = true,
+      keymaps = {
+        ["<CR>"] = "actions.select",
+        ["<C-l>"] = "actions.refresh",
+        ["g?"] = "actions.show_help",
+        -- These conflict with my custom mappings for all buffer types
+        ["<C-p>"] = false,
+        ["<C-s>"] = false,
+      },
+      use_default_keymaps = false,
+    }
+  },
   { 'tpope/vim-eunuch' },
   -- Make it so that when a buffer is deleted, the window stays.
   { 'qpkorr/vim-bufkill' },
@@ -477,27 +496,6 @@ map('n', 'yl',
 -- sometimes, this should prevent that
 vim.o.autochdir = false
 
--- For some unknown reason, on some machines the oil config gets overwritten by
--- a startup script.  So I load it last here with a VimEnter autocommand to
--- make sure this is the config I end up with.
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function()
-    require("oil").setup({
-      default_file_explorer = true,
-      prompt_save_on_select_new_entry = false,
-      skip_confirm_for_simple_edits = true,
-      keymaps = {
-        ["<CR>"] = "actions.select",
-        ["<C-l>"] = "actions.refresh",
-        ["g?"] = "actions.show_help",
-        -- These conflict with my custom mappings for all buffer types
-        ["<C-p>"] = false,
-        ["<C-s>"] = false,
-      },
-      use_default_keymaps = false,
-    })
-  end,
-})
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
 map('n', 'm', ':wincmd W<CR>')
@@ -1534,7 +1532,7 @@ nvim_lsp.clangd.setup {
 vim.lsp.config('kotlin_lsp', {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  filetypes = { "kotlin" , "kt", "kts"},
+  filetypes = { "kotlin", "kt", "kts" },
 })
 vim.lsp.enable('kotlin_lsp')
 
