@@ -233,12 +233,6 @@ def get_float_drag_position(qtile):
   return (qtile.core.get_mouse_position()[0] - 200,
           qtile.core.get_mouse_position()[1] - 200)
 
-# This doesn't work for some reason
-# def position_strawberry(qtile, window):
-#   window.set_position(0, 100)
-#   window.set_size_floating(2000, 1000)
-#   window.enable_floating()
-
 def summon_window(qtile, match, cmd):
   moved_window = False
   for group in qtile.groups:
@@ -248,17 +242,12 @@ def summon_window(qtile, match, cmd):
           window.kill()
           return
         window.togroup(qtile.current_group.name)
-        # position_strawberry(qtile, window)
         moved_window = True
         break
     if moved_window:
       break
   if not moved_window:
     qtile.spawn(cmd)
-    # for window in qtile.current_group.windows:
-    #   if window.match(Match(wm_class="strawberry")):
-    #     logger.warning('positioning')
-    #     position_strawberry(qtile, window)
 
 
 mouse = [
