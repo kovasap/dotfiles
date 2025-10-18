@@ -311,6 +311,7 @@ keys.extend([
     Key([mod], 'bracketleft', lazy.layout.minimize()),
 
     # Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
+    Key([mod], "b", lazy.window.set_position_floating(2559,-1)),
     Key([mod], 'g', lazy.group['scratchpad'].dropdown_toggle('website')),
     Key([mod], 'BackSpace', lazy.window.kill()),
 
