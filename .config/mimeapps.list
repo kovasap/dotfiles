@@ -11,3 +11,4 @@ inode/directory=thunar.desktop
 
 [Added Associations]
 x-scheme-handler/http=google-chrome.desktop;
+application/vnd.microsoft.portable-executable=wine.desktop;
