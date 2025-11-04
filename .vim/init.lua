@@ -280,7 +280,6 @@ require('flash').setup({
   }
 })
 
-require('leap').set_default_keymaps()
 vim.keymap.set('n', 's', '<Plug>(leap)')
 vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
 vim.keymap.set({ 'x', 'o' }, 's', '<Plug>(leap-forward)')
@@ -1254,8 +1253,6 @@ vim.cmd('set foldmethod=expr')
 vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
 vim.cmd('set foldlevelstart=99')
 
-local nvim_lsp = require('lspconfig')
-
 vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
 
 -- execute an lsp command at given position allowing extra arguments
@@ -1408,9 +1405,9 @@ vim.api.nvim_create_autocmd(
 
 --                          /// Language - Lua ///
 
-nvim_lsp.lua_ls.setup {
+vim.lsp.config('lua_ls', {
   on_attach = on_attach
-}
+})
 
 pcall(function()
   vim.lsp.config('lua_ls', {
@@ -1485,7 +1482,7 @@ end)
 -- https://github.com/neovim/nvim-lspconfig/commit/9100b3af6e310561167361536fd162bbe588049a
 -- for config tips.
 if not_in_google3 then
-  nvim_lsp.pylsp.setup {
+  vim.lsp.config('pylsp', {
     on_attach = function(client, bufnr)
       -- No pyls formatting when using Google config.
       if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
@@ -1506,7 +1503,7 @@ if not_in_google3 then
         }
       }
     }
-  }
+  })
 end
 -- Auto add imports from file ~/.vim/python-imports.cfg
 map('n', 'gai', ':ImportName<CR>')
@@ -1515,14 +1512,14 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2')
 
 --                          /// Language - C++ ///
 
-nvim_lsp.clangd.setup {
+vim.lsp.config('clangd', {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   cmd = {
     "clangd",
     "--offset-encoding=utf-16",
   },
-}
+})
 
 --                          /// Language - Kotlin ///
 
@@ -1615,9 +1612,9 @@ autocmd BufReadPost *.cljs :AutoConjureSelect
 )
 -- https://clojure-lsp.github.io/clojure-lsp/installation/
 -- sudo bash < <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install)
-nvim_lsp.clojure_lsp.setup {
+vim.lsp.config('clojure_lsp', {
   on_attach = on_attach
-}
+})
 
 
 --                          /// Language - CSV ///
@@ -1641,13 +1638,13 @@ vim.cmd('autocmd FileType dts setlocal textwidth=300')
 -- Need to run this to install:
 -- npm i -g vscode-langservers-extracted
 
-nvim_lsp.html.setup {
+vim.lsp.config('html', {
   on_attach = on_attach
-}
-nvim_lsp.cssls.setup {
+})
+vim.lsp.config('cssls', {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-}
+})
 
 --                          /// Language - LaTeX ///
 
@@ -1683,5 +1680,5 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 
 --                          /// Machine Specific Config Files ///
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
-  require('google_dotfiles/google').load_google_config(nvim_lsp, on_attach)
+  require('google_dotfiles/google').load_google_config(on_attach)
 end
