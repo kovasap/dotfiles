@@ -1615,7 +1615,7 @@ autocmd BufReadPost *.cljs :AutoConjureSelect
 vim.lsp.config('clojure_lsp', {
   on_attach = on_attach
 })
-
+vim.lsp.enable('clojure_lsp')
 
 --                          /// Language - CSV ///
 
