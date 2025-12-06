@@ -23,7 +23,6 @@ DEFAULT_SYMBOLS = {
     b'obsolete_str': '&'.encode(),
 }
 
-
 @command(b'figstatus', [], b'hg figstatus')
 def figstatus(ui, repo, fs=b'', **opts):
   """ Outputs the status of the current Fig repository as follows
