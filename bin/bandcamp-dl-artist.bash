@@ -13,5 +13,7 @@ cat bandcamp-link.txt
 for album in $(cat bandcamp-link.txt); do (bandcamp-dl -r --base-dir . --template "%{artist} - %{album}/%{track} - %{title}" $album); done
 rm bandcamp-link.txt
 
+cp -r * ~/all-music/music-from-google-drive/
+
 # This is my "music" dir in Google Drive
-for d in *; do gdrive files upload --recursive --parent 1ahywjLw_cL4Tg1IJgl30jfpvmcvCZVs3 "$d"; done
+# for d in *; do gdrive files upload --recursive --parent 1ahywjLw_cL4Tg1IJgl30jfpvmcvCZVs3 "$d"; done
