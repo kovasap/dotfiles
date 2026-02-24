@@ -4,6 +4,7 @@ xmenu <<EOF | sh &
 Config
 	Setup Monitors (exclude hdmi)	setup-monitors.bash forked exclude_hdmi
 	Setup Monitors	setup-monitors.bash forked
+	Fix mice	fix-mice.bash
 	Kill picom	pkill picom
 	Run picom	picom
 	Qtile Logs	kitty zsh -c "nvim ~/.local/share/qtile/qtile.log;read"'
