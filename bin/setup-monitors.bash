@@ -8,11 +8,9 @@
 # udev will wait for our script to finish before the monitor is available
 # for use, so we will use the `at` command to run our command again as
 # another user:
-if [ "$1" != "dry_run" ]; then
-    if [ "$1" != "forked" ]; then
-        echo "$(dirname $0)/$(basename $0) forked" | at now
-        exit
-    fi
+if [ "$1" != "dry_run" ] && [ "$1" != "forked" ]; then
+    echo "$(dirname $0)/$(basename $0) forked" | at now
+    exit
 fi
 
 # udev runs as root, so we need to tell it how to connect to the X server:
@@ -20,7 +18,10 @@ fi
 export XAUTHORITY=/home/kovas/.Xauthority
 
 # order matters, outputs will be laid out left to right
-outputs=('DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'HDMI-1' 'DP2' 'DP1' 'HDMI1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0' 'HDMI-0')
+outputs=('DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0' )
+if [[ "$2" != "exclude_hdmi" ]]; then
+    outputs+=('HDMI1' 'HDMI-0' 'HDMI-1')
+fi
 xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
@@ -65,6 +66,9 @@ for o in "${outputs[@]}"; do
                other_output_config='--mode 2560x1440 --rate 144'
             elif [ "$o" == "HDMI-1" ]; then
                other_output_config='--mode 1920x1080'
+               if [[ $(hostname) == 'frostyarch' ]]; then
+                 relative_loc="--left-of $main_output"
+               fi
             else 
                other_output_config=$default_other_output_config
             fi
