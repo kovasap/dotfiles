@@ -1,3 +1,4 @@
 startup --max_idle_secs=0
 # build --show_progress_rate_limit=1
 test --test_output=streamed
+import %workspace%/java/com/google/search/next/servers/mars/tools/blazerc/mars.blazerc
