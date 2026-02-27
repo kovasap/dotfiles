@@ -8,7 +8,10 @@ x-scheme-handler/mailto=google-chrome.desktop
 x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/tel=google-chrome.desktop
 inode/directory=thunar.desktop
+x-scheme-handler/fdm=freedownloadmanager_fdm_up.desktop
+video/x-matroska=mpv.desktop
 
 [Added Associations]
 x-scheme-handler/http=google-chrome.desktop;
 application/vnd.microsoft.portable-executable=wine.desktop;
+video/x-matroska=mpv.desktop;
