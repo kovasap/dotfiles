@@ -1045,6 +1045,8 @@ vim.cmd [[
   command! TSHighlightCapturesUnderCursor :lua require'nvim-treesitter-playground.hl-info'.show_hl_captures()<cr>
 ]]
 
+vim.lsp.set_log_level('ERROR')
+
 -- Adds multicolored parenthesis to make it easier to see how they match up.
 require('nvim-treesitter.configs').setup {
   -- To get python working, you may need to install an OS package like
