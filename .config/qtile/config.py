@@ -335,7 +335,7 @@ keys.extend([
     Key([mod], 'v', lazy.spawn('copyq menu')),
     Key([mod], 'z',
         spawn_multi_cmd(
-            'setup-monitors.bash forked &> ~/setup-monitors.log')),
+            'setup-monitors.bash forked exclude_hdmi &> ~/setup-monitors.log')),
     Key([mod, 'control'], 'z',
         spawn_multi_cmd(
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
