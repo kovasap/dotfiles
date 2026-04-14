@@ -4,7 +4,11 @@ nohup copyq &
 
 nm-applet &
 
+# Only try to run if it isn't already running
+if ! pgrep -x "udiskie" > /dev/null
+then
 udiskie &
+fi
 
 # https://github.com/Martchus/syncthingtray/issues/357#issuecomment-3148557080
 nohup syncthingtray-qt6 --single-instance &

@@ -85,6 +85,9 @@ sudo systemctl start systemd-resolved
 sudo systemctl start systemd-networkd
 ln -sf ../run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
+# Game Audio Fix
+echo "PULSE_LATENCY_MSEC=100" | sudo tee -a /etc/environment >/dev/null
+
 # Time
 timedatectl set-ntp true
 

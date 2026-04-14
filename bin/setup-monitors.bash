@@ -18,10 +18,7 @@ fi
 export XAUTHORITY=/home/kovas/.Xauthority
 
 # order matters, outputs will be laid out left to right
-outputs=('DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0' )
-if [[ "$2" != "exclude_hdmi" ]]; then
-    outputs+=('HDMI1' 'HDMI-0' 'HDMI-1')
-fi
+outputs=('HDMI1' 'HDMI-0' 'HDMI-1' 'HDMI-A-0' "DisplayPort-3" "DisplayPort-2" "DisplayPort-1" 'DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0')
 xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
@@ -57,14 +54,17 @@ relative_loc="--right-of $main_output"
 relative_loc="$relative_loc --primary"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
+    if [[ "$o" == *"HDMI"* && "$2" == "exclude_hdmi" ]]; then
+        continue
+    fi
     if [ "$o" != "$main_output" ]; then
         if [ -n "$connected" ]; then
             # See https://unix.stackexchange.com/a/502883
             # mouse_flicker_fix="--scale 0.9999x0.9999"
             mouse_flicker_fix=""
-            if [ "$o" == "DP-2" ]; then
+            if [ "$o" == "DisplayPort-1" ]; then
                other_output_config='--mode 2560x1440 --rate 144'
-            elif [ "$o" == "HDMI-1" ]; then
+            elif [ "$o" == "HDMI-A-0" ]; then
                other_output_config='--mode 1920x1080'
                if [[ $(hostname) == 'frostyarch' ]]; then
                  relative_loc="--left-of $main_output"

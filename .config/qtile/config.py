@@ -335,7 +335,7 @@ keys.extend([
     Key([mod], 'v', lazy.spawn('copyq menu')),
     Key([mod], 'z',
         spawn_multi_cmd(
-            'setup-monitors.bash forked &> ~/setup-monitors.log')),
+            'setup-monitors.bash forked exclude_hdmi &> ~/setup-monitors.log')),
     Key([mod, 'control'], 'z',
         spawn_multi_cmd(
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
@@ -359,6 +359,9 @@ keys.extend([
         Key([mod], "s", lazy.function(summon_window, Match(wm_class="steam"), "steam")),
         Key([mod], 'g', lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
         Key([mod], 'd', lazy.function(summon_window, Match(wm_class="vesktop"), "vesktop")),
+        Key([mod], 'b', lazy.spawn('pkill picom')),
+        Key([mod], 'p', lazy.spawn('picom')),
+        Key([mod], 'v', lazy.spawn('xdotool key "XF86LogGrabInfo"')),
     ]),
 
     # If this binding is changed, make sure to also change the reference to it
