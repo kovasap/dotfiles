@@ -326,9 +326,9 @@ keys.extend([
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
     Key([mod], 's', lazy.group.prev_window()),
-    Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
+    Key([mod, 'control'], 's', lazy.layout.shuffle_up()),
     Key([mod], 't', lazy.group.next_window()),
-    Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
+    Key([mod, 'control'], 't', lazy.layout.shuffle_down()),
 
     Key([mod], 'g', lazy.prev_screen()),
 

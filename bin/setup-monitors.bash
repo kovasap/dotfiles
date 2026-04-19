@@ -18,7 +18,7 @@ fi
 export XAUTHORITY=/home/kovas/.Xauthority
 
 # order matters, outputs will be laid out left to right
-outputs=('HDMI1' 'HDMI-0' 'HDMI-1' 'HDMI-A-0' "DisplayPort-3" "DisplayPort-2" "DisplayPort-1" 'DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0')
+outputs=('HDMI1' 'HDMI-0' 'HDMI-1' 'HDMI-A-0' "DisplayPort-4" "DisplayPort-3" "DisplayPort-2" "DisplayPort-1" 'DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0')
 xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then

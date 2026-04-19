@@ -7,6 +7,7 @@ IMG:/usr/share/icons/hicolor/48x48/apps/org.xfce.thunar.png	Files	thunar
 Config
 	Setup Monitors (exclude hdmi)	setup-monitors.bash forked exclude_hdmi
 	Setup Monitors	setup-monitors.bash forked
+	Arandr	arandr
 	Fix mice	fix-mice.bash
 	Kill picom	pkill picom
 	Run picom	picom
