@@ -172,10 +172,10 @@ for n in group_letters:
       Key([mod, 'shift'], n, lazy.function(window_to_group, n)),
   ])
 
-groups.append(
-    ScratchPad("scratchpad", [
-        DropDown("website", "kitty env RUN='cd ~/website; nv content/docs' zsh", height=0.6),
-        ]))
+# groups.append(
+#     ScratchPad("scratchpad", [
+#         DropDown("website", "kitty env RUN='cd ~/website; nv content/docs' zsh", height=0.6),
+#         ]))
 
 def movescreens(qtile, offset):
   # Make it so that when we are moving screens we are always doing so with a
@@ -279,75 +279,16 @@ mouse = [
 # Key name reference:
 # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.py
 keys.extend([
-    Key([mod], 't', lazy.group.next_window()),
-    Key([mod, 'control'], 't', lazy.group.prev_window()),
+    # --------------- Left Hand - Top Row -------------------------------------
 
-    Key([mod], 's', lazy.layout.shuffle_up_wraparound()),
-    Key([mod, 'control'], 's', lazy.layout.shuffle_down_wraparound()),
-
-    Key([mod], 'Tab', lazy.prev_screen()),
-    Key([mod, 'control'], 'Tab', lazy.layout.flip()),
-
-    Key([mod], 'a', lazy.function(window_to_paired_group)),
-    Key([mod, 'control'], 'a', lazy.function(window_to_paired_group_then_swap)),
-
-    # Cycle through groups on all screens at once (like on chromeos)
-    Key([mod], 'f', lazy.function(movescreens, -2)),
-    Key([mod], 'Left', lazy.function(movescreens, -2)),
-    Key([mod], 'p', lazy.function(movescreens, 2)),
-    Key([mod], 'Right', lazy.function(movescreens, 2)),
-
-    # Carry a window to the next group pairing
-    Key([mod], 'r', lazy.function(window_to_adjacent_group_pair, 1)),
-    Key([mod], 'x', lazy.function(window_to_adjacent_group_pair, -1)),
-
-    Key([mod], 'q', lazy.function(swap_primary_secondary_screens)),
-
-    # Skip managed ignores groups already on a screen.
-    # Key([mod], 'o', lazy.screen.toggle_group()),
-    Key([mod], 'comma', lazy.layout.grow()),
-    Key([mod], 'period', lazy.layout.shrink()),
-    Key([mod], 'bracketright', lazy.layout.maximize()),
-    Key([mod], 'bracketleft', lazy.layout.minimize()),
-
-    # Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
-    Key([mod], "b", lazy.window.set_position_floating(2559,-1)),
-    Key([mod], 'g', lazy.group['scratchpad'].dropdown_toggle('website')),
-    Key([mod], 'BackSpace', lazy.window.kill()),
-
-    # This part is not working for some reason at the moment.  I think it
-    # works when i switch away from the image clipboard content and back
-    # to it with copyq.
-    # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
-    # Take an entire screenshot:
-    # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
-    Key([mod],
-        'space',
-        lazy.widget['keyboardlayout'].next_keyboard(),
-        desc='Next keyboard layout.'),
-    Key([mod, 'control'], 'space', lazy.hide_show_bar(), desc='Hides the bar'),
-
-    Key([mod], 'slash', lazy.spawn("kitty zsh -c 'chrome-history.zsh'")),
-    Key([mod, 'control'], 'slash',
-        lazy.spawn("kitty zsh -c 'chrome-history.zsh 1'")),
-    Key([mod], 'c', lazy.spawn('copyq next')),
-    Key([mod], 'd', lazy.spawn('copyq previous')),
-    Key([mod], 'v', lazy.spawn('copyq menu')),
-    Key([mod], 'z',
-        spawn_multi_cmd(
-            'setup-monitors.bash forked exclude_hdmi &> ~/setup-monitors.log')),
-    Key([mod, 'control'], 'z',
-        spawn_multi_cmd(
-            'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
     Key([mod], 'Escape', lazy.spawn('screensaver.sh')),
 
-    # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
-    Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
+    # Useful for putting a fixed sized game window in the top corner so it
+    # takes up the whole screen when at the proper resolution.
+    Key([mod], 'q', lazy.window.set_position_floating(2559,-1)),
+    Key([mod, 'control'], 'q', lazy.layout.maximize()),
+    Key([mod], 'minus', lazy.layout.minimize()),
 
-    # Open text prompt to open any program on the system
-    Key([mod], 'grave', lazy.spawn('j4-dmenu-desktop')),
-    # Open xmenu for a visual way to open programs
-    Key([mod], 'Delete', lazy.spawn('run-xmenu.sh')),
     # Open programs with a keychord
     KeyChord([mod], 'w', [
         Key([mod], 't', lazy.spawn("kitty env RUN='cd $(< ~/lastdir)' zsh")),
@@ -363,6 +304,84 @@ keys.extend([
         Key([mod], 'p', lazy.spawn('picom')),
         Key([mod], 'v', lazy.spawn('xdotool key "XF86LogGrabInfo"')),
     ]),
+
+    # Cycle through groups on all screens at once (like on chromeos)
+    # with control, carry a window to the next group pairing
+    Key([mod], 'f', lazy.function(movescreens, -2)),
+    Key([mod, 'control'], 'f', lazy.function(window_to_adjacent_group_pair, -1)),
+    Key([mod], 'p', lazy.function(movescreens, 2)),
+    Key([mod, 'control'], 'p', lazy.function(window_to_adjacent_group_pair, 1)),
+
+
+    Key([mod], 'b', lazy.function(swap_primary_secondary_screens)),
+    Key([mod, 'control'], 'b', lazy.function(window_to_paired_group)),
+    # With symbol layer held enabled
+    Key([mod], 'plus', lazy.function(window_to_paired_group_then_swap)),
+
+    # --------------- Left Hand - Middle Row ----------------------------------
+
+    Key([mod], 'a', lazy.widget['keyboardlayout'].next_keyboard()),
+
+    Key([mod], 'r', lazy.layout.flip()),
+    Key([mod, 'control'], 'r', lazy.next_layout()),
+
+    Key([mod], 's', lazy.group.prev_window()),
+    Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
+    Key([mod], 't', lazy.group.next_window()),
+    Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
+
+    Key([mod], 'g', lazy.prev_screen()),
+
+    Key([mod, 'control'], 'g', lazy.window.kill()),
+    Key([mod], 'BackSpace', lazy.window.kill()),
+
+    # --------------- Left Hand - Bottom Row ----------------------------------
+
+    Key([mod], 'z',
+        spawn_multi_cmd(
+            'setup-monitors.bash forked exclude_hdmi &> ~/setup-monitors.log')),
+    Key([mod, 'control'], 'z',
+        spawn_multi_cmd(
+            'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
+
+    Key([mod], 'x', lazy.hide_show_bar()),
+    Key([mod], 'c', lazy.spawn('copyq next')),
+    Key([mod], 'd', lazy.spawn('copyq previous')),
+    Key([mod], 'v', lazy.spawn('copyq menu')),
+
+    # --------------- Left Hand - Thumb ----------------------------------
+
+    # Open text prompt to open any program on the system
+    Key([mod], 'grave', lazy.spawn('j4-dmenu-desktop')),
+
+    # --------------- Right Hand -------------------------------------------
+
+    Key([mod], 'slash', lazy.spawn("kitty zsh -c 'chrome-history.zsh'")),
+    Key([mod, 'control'], 'slash',
+        lazy.spawn("kitty zsh -c 'chrome-history.zsh 1'")),
+    # Skip managed ignores groups already on a screen.
+    # Key([mod], 'o', lazy.screen.toggle_group()),
+    Key([mod], 'comma', lazy.layout.grow()),
+    Key([mod], 'period', lazy.layout.shrink()),
+    Key([mod], 'bracketright', lazy.layout.maximize()),
+    Key([mod], 'bracketleft', lazy.layout.minimize()),
+
+    # Key([mod], "b", lazy.function(summon_window, Match(wm_class="strawberry"), "strawberry")),
+    # Key([mod], 'g', lazy.group['scratchpad'].dropdown_toggle('website')),
+
+    # This part is not working for some reason at the moment.  I think it
+    # works when i switch away from the image clipboard content and back
+    # to it with copyq.
+    # 'xclip –selection clipboard –t image/png –o > ~/clipboard.png'])),
+    # Take an entire screenshot:
+    # lazy.spawn('scrot -s -e 'mv $f ~/pictures/screenshots/'')
+
+
+    # Key([mod], 'u', lazy.spawn('kitty /bin/zsh -c dl-and-play-yt.bash')),
+    Key([mod], 'o', lazy.spawn('nvim-textarea.bash')),
+
+    # Open xmenu for a visual way to open programs
+    Key([mod], 'Delete', lazy.spawn('run-xmenu.sh')),
 
     # If this binding is changed, make sure to also change the reference to it
     # in setup-monitors.bash.
@@ -491,7 +510,7 @@ custom_monad_3col = layout.MonadThreeCol(
 class CustomMonadTall(layout.MonadTall):
 
   @expose_command()
-  def shuffle_up_wraparound(self):
+  def shuffle_up(self):
       """Shuffle the client up the stack, or all the way around if at the end"""
       idx = self.clients._current_idx
       if idx > 0:
@@ -505,7 +524,7 @@ class CustomMonadTall(layout.MonadTall):
       self.group.focus(self.clients.current_client)
 
   @expose_command()
-  def shuffle_down_wraparound(self):
+  def shuffle_down(self):
       """Shuffle the client down the stack, or all the way around if at the end"""
       idx = self.clients._current_idx
       if idx + 1 < len(self.clients):
@@ -543,6 +562,7 @@ custom_monad_tall = CustomMonadTall(
 
 layouts = [
     custom_monad_tall,
+    layout.Spiral(**layout_theme),
     # layout.Max(**layout_theme),
     # layout.Floating(**layout_theme),
     # layout.Zoomy(
