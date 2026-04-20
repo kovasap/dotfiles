@@ -30,9 +30,9 @@ except ModuleNotFoundError:
 
 @hook.subscribe.startup
 def autostart():
-    subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
+  subprocess.call(os.path.expanduser('~/.config/qtile/autostart.sh'))
 
-# I wish this worked... 
+# I wish this worked...
 # @hook.subscribe.startup_complete
 # def reset_monitors():
 #     subprocess.call(['zsh', '-c', 'setup-monitors.bash forked &> ~/setup-monitors.log'])
@@ -220,7 +220,7 @@ def window_to_paired_group_then_swap(qtile):
 def window_to_adjacent_group_pair(qtile, offset):
   cur_screen, _ = get_two_main_screens(qtile)
   cur_group_letter = cur_screen.group.name[0]
-  cur_group_idx = group_letters.index(cur_group_letter) 
+  cur_group_idx = group_letters.index(cur_group_letter)
   next_group_idx = cur_group_idx + offset
   if next_group_idx >= len(group_letters):
     next_group_idx = next_group_idx - len(group_letters)
@@ -267,10 +267,10 @@ mouse = [
          start=lazy.window.get_size()),
     # Rearrange and resize windows with mouse wheel
     # For MonadTall layout
-    Click([mod], 'Button4', lazy.layout.grow()),
-    Click([mod], 'Button5', lazy.layout.shrink()),
-    Click([mod, 'control'], 'Button5', lazy.layout.shuffle_down_wraparound()),
-    Click([mod, 'control'], 'Button4', lazy.layout.shuffle_up_wraparound()),
+    Click([mod], 'Button4', lazy.layout.grow().when(layout='custommonadtall'), lazy.layout.grow_main().when(layout='spiral')),
+    Click([mod], 'Button5', lazy.layout.shrink().when(layout='custommonadtall'), lazy.layout.shrink_main().when(layout='spiral')),
+    Click([mod, 'control'], 'Button4', lazy.layout.increase_ratio()),
+    Click([mod, 'control'], 'Button5', lazy.layout.decrease_ratio()),
     Click([mod], 'Button9', lazy.function(window_to_paired_group)),
     Click([mod], 'Button8', lazy.function(swap_primary_secondary_screens)),
 ]
@@ -326,9 +326,9 @@ keys.extend([
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
     Key([mod], 's', lazy.group.prev_window()),
-    Key([mod, 'control'], 's', lazy.layout.shuffle_up()),
+    Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
     Key([mod], 't', lazy.group.next_window()),
-    Key([mod, 'control'], 't', lazy.layout.shuffle_down()),
+    Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
 
     Key([mod], 'g', lazy.prev_screen()),
 
@@ -361,8 +361,8 @@ keys.extend([
         lazy.spawn("kitty zsh -c 'chrome-history.zsh 1'")),
     # Skip managed ignores groups already on a screen.
     # Key([mod], 'o', lazy.screen.toggle_group()),
-    Key([mod], 'comma', lazy.layout.grow()),
-    Key([mod], 'period', lazy.layout.shrink()),
+    Key([mod], 'comma', lazy.layout.grow().when(layout='custommonadtall'), lazy.layout.grow_main().when(layout='spiral')),
+    Key([mod], 'period', lazy.layout.shrink().when(layout='custommonadtall'), lazy.layout.shrink_main().when(layout='spiral')),
     Key([mod], 'bracketright', lazy.layout.maximize()),
     Key([mod], 'bracketleft', lazy.layout.minimize()),
 
@@ -421,17 +421,17 @@ keys.extend([
             # https://github.com/naelstrof/maim/issues/182
             'pkill picom',
             'maim -s | tee ~/clipboard_$(date +%s).png | '
-            'xclip -selection clipboard -t image/png; ')),   
+            'xclip -selection clipboard -t image/png; ')),
 ])
 
 # @hook.subscribe.client_focus
 # def client_focused(client):
 #     client.bring_to_front()
-# 
+#
 # @hook.subscribe.client_mouse_enter
 # def client_mouse_enter(client):
 #   client.group.focus(client)
-# 
+#
 # @hook.subscribe.current_screen_change
 # def screen_change():
 #   cur_window = qtile.current_screen.group.current_window
@@ -496,46 +496,35 @@ def custom_configure_layout(self, client, screen_rect):
   client.unhide()
 
 
-custom_monad_3col = layout.MonadThreeCol(
-    ratio=0.67, min_secondary_size=100, main_centered=False,
-    new_client_position='after_current',
-    # Strangely, change_size works for secondary window changes in pixels, and
-    # change_ratio works for main window changes in percent of size.
-    change_size=60, **layout_theme)
-# See https://stackoverflow.com/a/46757134
-# custom_monad_3col.configure = custom_configure_layout.__get__(
-#     custom_monad_3col, layout.MonadThreeCol)
-
-
 class CustomMonadTall(layout.MonadTall):
 
   @expose_command()
-  def shuffle_up(self):
-      """Shuffle the client up the stack, or all the way around if at the end"""
-      idx = self.clients._current_idx
-      if idx > 0:
-        new_idx = idx - 1
-      else:
-        new_idx = len(self.clients.clients) - 1
-      self.clients.clients[idx], self.clients.clients[new_idx] = (
-          self.clients.clients[new_idx], self.clients.clients[idx])
-      self.clients.current_index = new_idx
-      self.group.layout_all()
-      self.group.focus(self.clients.current_client)
+  def shuffle_down(self):
+    """Shuffle the client down the stack, or all the way around if at the end"""
+    idx = self.clients._current_idx
+    if idx > 0:
+      new_idx = idx - 1
+    else:
+      new_idx = len(self.clients.clients) - 1
+    self.clients.clients[idx], self.clients.clients[new_idx] = (
+        self.clients.clients[new_idx], self.clients.clients[idx])
+    self.clients.current_index = new_idx
+    self.group.layout_all()
+    self.group.focus(self.clients.current_client)
 
   @expose_command()
-  def shuffle_down(self):
-      """Shuffle the client down the stack, or all the way around if at the end"""
-      idx = self.clients._current_idx
-      if idx + 1 < len(self.clients):
-        new_idx = idx + 1
-      else:
-        new_idx = 0 
-      self.clients.clients[idx], self.clients.clients[new_idx] = (
-          self.clients.clients[new_idx], self.clients.clients[idx])
-      self.clients.current_index = new_idx
-      self.group.layout_all()
-      self.group.focus(self.clients.current_client)
+  def shuffle_up(self):
+    """Shuffle the client up the stack, or all the way around if at the end"""
+    idx = self.clients._current_idx
+    if idx + 1 < len(self.clients):
+      new_idx = idx + 1
+    else:
+      new_idx = 0
+    self.clients.clients[idx], self.clients.clients[new_idx] = (
+        self.clients.clients[new_idx], self.clients.clients[idx])
+    self.clients.current_index = new_idx
+    self.group.layout_all()
+    self.group.focus(self.clients.current_client)
 
   # This is an attempt to solve the problem where when dragging a window
   # between different screens, the window appears behind existing windows on
@@ -559,16 +548,18 @@ custom_monad_tall = CustomMonadTall(
 # custom_monad_tall.configure = types.MethodType(
 #     custom_configure_layout, custom_monad_tall)
 
+spiral_layout_theme = dict(**layout_theme)
+# Margin for this layout is per window, so double that of monad
+spiral_layout_theme['margin'] = 1
 
 layouts = [
     custom_monad_tall,
-    layout.Spiral(**layout_theme),
+    layout.Spiral(**spiral_layout_theme),
     # layout.Max(**layout_theme),
     # layout.Floating(**layout_theme),
     # layout.Zoomy(
     #   columnwidth=20,
     #   **layout_theme),
-    # custom_monad_3col,
 ]
 
 widget_defaults = dict(
@@ -714,7 +705,7 @@ def get_widgets(systray=False):
           foreground=colors['color8'],
           # Colemak is useful on a normal keyboard (like a laptop keyboard).
           configured_keyboards=(['us colemak_dh', 'us']
-                                if socket.gethostname() != 'frostyarch' else 
+                                if socket.gethostname() != 'frostyarch' else
                                 ['us', 'us colemak_dh']),
           display_map={
               'us': 'qw',
