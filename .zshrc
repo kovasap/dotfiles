@@ -8,6 +8,8 @@
 # Uncomment to profile zsh startup
 # zmodload zsh/zprof
 
+echo "my config"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -45,6 +47,8 @@ function precmd () {
 # --------------------------- P10K Prompt -----------------------------------
 
 zplug romkatv/powerlevel10k, as:theme, depth:1
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -240,16 +244,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
 
-# Faster git add/commit/push
-unalias gp
-function gp {
-    git add -u
-    git commit -m "$1"
-    git push
-}
-
-unalias gcl
-
 # bc - An arbitrary precision calculator language
 function = {
   echo "$@" | bc -l
@@ -308,4 +302,15 @@ fi
 
 # Anything in the RUN env var will be executed on startup.
 eval "$RUN"
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+source $ZSH/oh-my-zsh.sh
+
+# Faster git add/commit/push
+unalias gp
+function gp {
+    git add -u
+    git commit -m "$1"
+    git push
+}
+
+unalias gcl
