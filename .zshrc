@@ -8,8 +8,6 @@
 # Uncomment to profile zsh startup
 # zmodload zsh/zprof
 
-echo "my config"
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -117,7 +115,6 @@ precmd_functions+=(_fix_cursor)
 
 bindkey -M vicmd 'e' down-line-or-history
 
-
 # Use system clipboard with vi mode
 zplug "kutsan/zsh-system-clipboard"
 
@@ -208,7 +205,7 @@ bindkey -s '^W' '^D'
 # Control-backspace to go by word
 bindkey '^W' backward-kill-word
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting"
 
 unsetopt autocd
 
