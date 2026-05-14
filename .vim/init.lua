@@ -150,7 +150,7 @@ local plugins_spec = {
   { 'whonore/vim-sentencer' },
   { 'ruanyl/vim-gh-line' },
   { 'folke/flash.nvim' },
-  { 'ggandor/leap.nvim' },
+  { url = "https://codeberg.org/andyg/leap.nvim" },
   { 'guns/vim-sexp' },
   { 'romainl/vim-cool' },
   { 'echasnovski/mini.nvim' },
