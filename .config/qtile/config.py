@@ -254,6 +254,29 @@ def summon_window(qtile, match, cmd):
   if not moved_window:
     qtile.spawn(cmd)
 
+# Focus the next window across all screens
+def focus_next_window_all_screens(qtile, offset):
+    all_windows = []
+    # Collect all windows from every screen
+    for s in qtile.screens:
+        all_windows.extend(s.group.windows)
+    
+    if not all_windows:
+        return
+
+    # Find currently focused window
+    current_index = 0
+    focused_window = qtile.current_window
+    if focused_window in all_windows:
+        current_index = all_windows.index(focused_window)
+    
+    # Calculate next index
+    next_index = (current_index + offset) % len(all_windows)
+    next_window = all_windows[next_index]
+    
+    qtile.focus_screen(qtile.screens.index(next_window.group.screen))
+    qtile.current_screen.group.focus(next_window)
+
 
 mouse = [
     # Drag windows around.
@@ -309,9 +332,10 @@ keys.extend([
     # with control, carry a window to the next group pairing
     Key([mod], 'f', lazy.function(movescreens, -2)),
     Key([mod, 'control'], 'f', lazy.function(window_to_adjacent_group_pair, -1)),
+    Key([mod, 'shift'], 'f', lazy.screen.prev_group()),
     Key([mod], 'p', lazy.function(movescreens, 2)),
     Key([mod, 'control'], 'p', lazy.function(window_to_adjacent_group_pair, 1)),
-
+    Key([mod, 'shift'], 'p', lazy.screen.next_group()),
 
     Key([mod], 'b', lazy.function(swap_primary_secondary_screens)),
     Key([mod, 'control'], 'b', lazy.function(window_to_paired_group)),
@@ -325,15 +349,12 @@ keys.extend([
     Key([mod], 'r', lazy.layout.flip()),
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
-    Key([mod], 's', lazy.group.prev_window()),
+    Key([mod], 's', lazy.function(focus_next_window_all_screens, -1)),
     Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
-    Key([mod], 't', lazy.group.next_window()),
+    Key([mod], 't', lazy.function(focus_next_window_all_screens, 1)),
     Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
 
-    Key([mod], 'g', lazy.prev_screen()),
-
-    Key([mod, 'control'], 'g', lazy.window.kill()),
-    Key([mod], 'BackSpace', lazy.window.kill()),
+    Key([mod], 'g', lazy.hide_show_bar()),
 
     # --------------- Left Hand - Bottom Row ----------------------------------
 
@@ -344,7 +365,8 @@ keys.extend([
         spawn_multi_cmd(
             'setup-monitors.bash forked rotated &> ~/setup-monitors.log')),
 
-    Key([mod], 'x', lazy.hide_show_bar()),
+    Key([mod], 'x', lazy.window.kill()),
+    Key([mod], 'BackSpace', lazy.window.kill()),
     Key([mod], 'c', lazy.spawn('copyq next')),
     Key([mod], 'd', lazy.spawn('copyq previous')),
     Key([mod], 'v', lazy.spawn('copyq menu')),
