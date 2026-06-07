@@ -15,7 +15,7 @@ merge = vimdiff
 
 # uncomment to disable command output pagination
 # (see 'hg help pager' for details)
-# paginate = never
+paginate = never
 
 [google-change-tags]
 default.markdown=true

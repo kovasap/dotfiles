@@ -46,6 +46,8 @@ function precmd () {
 
 zplug romkatv/powerlevel10k, as:theme, depth:1
 
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -112,7 +114,6 @@ precmd_functions+=(_fix_cursor)
 # bindkey -M vicmd 'j' history-substring-search-down
 
 bindkey -M vicmd 'e' down-line-or-history
-
 
 # Use system clipboard with vi mode
 zplug "kutsan/zsh-system-clipboard"
@@ -204,7 +205,7 @@ bindkey -s '^W' '^D'
 # Control-backspace to go by word
 bindkey '^W' backward-kill-word
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting"
 
 unsetopt autocd
 
@@ -239,16 +240,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
-
-# Faster git add/commit/push
-unalias gp
-function gp {
-    git add -u
-    git commit -m "$1"
-    git push
-}
-
-unalias gcl
 
 # bc - An arbitrary precision calculator language
 function = {
@@ -308,4 +299,15 @@ fi
 
 # Anything in the RUN env var will be executed on startup.
 eval "$RUN"
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+source $ZSH/oh-my-zsh.sh
+
+# Faster git add/commit/push
+unalias gp
+function gp {
+    git add -u
+    git commit -m "$1"
+    git push
+}
+
+unalias gcl

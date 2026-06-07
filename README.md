@@ -110,6 +110,8 @@ yay -S - < yay_packages.txt
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Install all apt dependencies
+sed 's/#.*//' packages-to-install-headless.txt | xargs sudo apt install -y
+# Only install for graphical systems
 sed 's/#.*//' packages-to-install.txt | xargs sudo apt install -y
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
