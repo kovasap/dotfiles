@@ -63,7 +63,8 @@ local plugins_spec = {
   -- Automatically align code.
   { 'junegunn/vim-easy-align' },
   -- Highlight current word with cursor on it across whole buffer.
-  { 'RRethy/vim-illuminate' },
+  -- Currently broken because of treesitter incompatability?
+  -- { 'RRethy/vim-illuminate' },
   -- Animates window resizing.
   { 'camspiers/animate.vim' },
   { 'lukas-reineke/indent-blankline.nvim' },
@@ -124,7 +125,6 @@ local plugins_spec = {
   { 'hrsh7th/nvim-cmp' },
   {
     'nvim-treesitter/nvim-treesitter',
-    lazy = false,
     branch = 'master',
     build = ':TSUpdate'
   },
@@ -333,11 +333,7 @@ command! TrimWhitespace call TrimWhitespace()
 )
 
 -- Repeatable hotkeys to surround text objects with quotes/parens/etc.
-require("nvim-surround").setup({
-  keymaps = { -- vim-surround style keymaps
-    visual = "F",
-  },
-})
+vim.keymap.set("v", "F", "<Plug>(nvim-surround-visual)", {})
 
 -- Automatically close parens.
 -- local npairs = require('nvim-autopairs')
@@ -347,7 +343,8 @@ require("nvim-surround").setup({
 
 --                          /// Visuals ///
 
-require('illuminate').configure()
+-- vim-illuminate disabled for now
+-- require('illuminate').configure()
 
 -- Show tabs as actual characters.
 vim.wo.list = true
