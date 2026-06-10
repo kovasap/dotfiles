@@ -351,7 +351,7 @@ keys.extend([
 
     Key([mod], 's', lazy.function(focus_next_window_all_screens, -1)),
     Key([mod, 'control'], 's', lazy.function(focus_next_window_all_screens, 1)),
-    Key([mod], 't', lazy.layout.swap_main()),
+    Key([mod], 't', lazy.layout.shuffle_to_top()),
     Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
     # Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
     # Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
@@ -543,6 +543,20 @@ class CustomMonadTall(layout.MonadTall):
     idx = self.clients._current_idx
     if idx + 1 < len(self.clients):
       new_idx = idx + 1
+    else:
+      new_idx = 0
+    self.clients.clients[idx], self.clients.clients[new_idx] = (
+        self.clients.clients[new_idx], self.clients.clients[idx])
+    self.clients.current_index = new_idx
+    self.group.layout_all()
+    self.group.focus(self.clients.current_client)
+
+  @expose_command()
+  def shuffle_to_top(self):
+    """Shuffle the client up the stack, or all the way around if at the end"""
+    idx = self.clients._current_idx
+    if idx == 0:
+      new_idx = len(self.clients) - 1
     else:
       new_idx = 0
     self.clients.clients[idx], self.clients.clients[new_idx] = (
