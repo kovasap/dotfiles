@@ -350,11 +350,14 @@ keys.extend([
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
     Key([mod], 's', lazy.function(focus_next_window_all_screens, -1)),
-    Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
-    Key([mod], 't', lazy.function(focus_next_window_all_screens, 1)),
+    Key([mod, 'control'], 's', lazy.function(focus_next_window_all_screens, 1)),
+    Key([mod], 't', lazy.layout.swap_main()),
     Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
+    # Key([mod, 'control'], 's', lazy.layout.shuffle_down()),
+    # Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
 
-    Key([mod], 'g', lazy.hide_show_bar()),
+    Key([mod], 'g', lazy.function(window_to_paired_group)),
+    # Key([mod], 'g', lazy.hide_show_bar()),
 
     # --------------- Left Hand - Bottom Row ----------------------------------
 
