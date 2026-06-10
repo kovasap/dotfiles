@@ -76,14 +76,6 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-# ------------------------- Fuzzy Searching (FZF) ------------------------- 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey -r "^T"
-bindkey -r "^[c"
-bindkey "^ " fzf-history-widget
-
-
 # ------------------------- Vi Mode ------------------------- 
 
 # Change cursor shape for different vi modes.
@@ -311,3 +303,11 @@ function gp {
 }
 
 unalias gcl
+
+# ------------------------- Fuzzy Searching (FZF) ------------------------- 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey -r "^T"
+bindkey -r "^[c"
+bindkey "^ " fzf-history-widget
+bindkey "^R" fzf-history-widget
