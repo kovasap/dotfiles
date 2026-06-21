@@ -1,2 +1,2 @@
 export QT_QPA_PLATFORMTHEME=qt6ct
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"

@@ -702,7 +702,7 @@ def get_widgets(systray=False):
       widget.DF(
           foreground=colors['color8'],
           mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
-          format='{uf}/{s}{m} free on {p}',
+          format='{uf:.0f}/{s:.0f}{m} free on {p}',
           visible_on_warn=False),
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**graph_args),
