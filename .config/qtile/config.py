@@ -278,6 +278,20 @@ def focus_next_window_all_screens(qtile, offset):
     qtile.current_screen.group.focus(next_window)
 
 
+def rotate_screens(qtile):
+    """Rotates the groups between the first two screens."""
+    # Get the current groups on screen 0 and screen 1
+    screen0 = qtile.screens[0]
+    screen1 = qtile.screens[1]
+    
+    group0 = screen0.group
+    group1 = screen1.group
+
+    # Swap them
+    screen0.set_group(group1)
+    screen1.set_group(group0)
+
+
 mouse = [
     # Drag windows around.
     Drag([mod], 'Button1', lazy.window.set_position_floating(),
@@ -338,7 +352,7 @@ keys.extend([
     Key([mod, 'shift'], 'p', lazy.screen.next_group()),
 
     Key([mod], 'b', lazy.function(swap_primary_secondary_screens)),
-    Key([mod, 'control'], 'b', lazy.function(window_to_paired_group)),
+    Key([mod, 'control'], 'b', lazy.function(rotate_screens)),
     # With symbol layer held enabled
     Key([mod], 'plus', lazy.function(window_to_paired_group_then_swap)),
 
