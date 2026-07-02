@@ -784,7 +784,13 @@ def get_widgets(systray=False):
       widget.CPUGraph(mouse_callbacks={
           'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
       },
-                      **purple_graph_args),
+                      **purple_graph_args)
+] + ([
+      ColoredMemoryGraph(mouse_callbacks={
+          'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
+      },
+                         **green_graph_args)
+  ] if MemoryGraph is not None else []) + [
       widget.ThermalSensor(
           tag_sensor='Tdie',
           threshold=85,
@@ -805,19 +811,6 @@ def get_widgets(systray=False):
       GpuMemoryGraph(
           mouse_callbacks={'Button1': lambda: qtile.spawn('amdgpu_top --gui')},
           **green_graph_args),
-      widget.TextBox(' | ', name='separator'),
-      widget.TextBox('Mem',
-                     foreground=colors['color8'],
-                     name='memory_label',
-                     mouse_callbacks={
-                         'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
-                     })
-  ] + ([
-      ColoredMemoryGraph(mouse_callbacks={
-          'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
-      },
-                         **green_graph_args)
-  ] if MemoryGraph is not None else []) + [
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**green_graph_args),
       widget.TextBox(' | ', name='separator'),
