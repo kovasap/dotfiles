@@ -6,6 +6,7 @@ import time
 import types
 from typing import List  # noqa: F401
 import json
+import xcffib.xfixes
 
 from libqtile.command.base import expose_command
 from libqtile import bar, hook, layout, widget
@@ -15,6 +16,9 @@ from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 from libqtile.widget.graph import _Graph
 from libqtile.widget import base as widget_base
+from libqtile.backend.x11 import core
+
+core.EVENT_TO_HANDLER[xcffib.xfixes.SelectionNotifyEvent] = "handle_SelectionNotify"
 
 # If using pipx to install qtile, use `pipx inject qtile psutil xlib` to make
 # sure these libraries are available.
