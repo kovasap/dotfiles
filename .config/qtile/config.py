@@ -5,6 +5,8 @@ import subprocess
 import time
 import types
 from typing import List  # noqa: F401
+import json
+import xcffib.xfixes
 
 from libqtile.command.base import expose_command
 from libqtile import bar, hook, layout, widget
@@ -12,6 +14,11 @@ from libqtile import qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Screen, Match, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
+from libqtile.widget.graph import _Graph
+from libqtile.widget import base as widget_base
+from libqtile.backend.x11 import core
+
+core.EVENT_TO_HANDLER[xcffib.xfixes.SelectionNotifyEvent] = "handle_SelectionNotify"
 
 # If using pipx to install qtile, use `pipx inject qtile psutil xlib` to make
 # sure these libraries are available.
@@ -256,40 +263,40 @@ def summon_window(qtile, match, cmd):
 
 # Focus the next window across all screens
 def focus_next_window_all_screens(qtile, offset):
-    all_windows = []
-    # Collect all windows from every screen
-    for s in qtile.screens:
-        all_windows.extend(s.group.windows)
-    
-    if not all_windows:
-        return
+  all_windows = []
+  # Collect all windows from every screen
+  for s in qtile.screens:
+    all_windows.extend(s.group.windows)
 
-    # Find currently focused window
-    current_index = 0
-    focused_window = qtile.current_window
-    if focused_window in all_windows:
-        current_index = all_windows.index(focused_window)
-    
-    # Calculate next index
-    next_index = (current_index + offset) % len(all_windows)
-    next_window = all_windows[next_index]
-    
-    qtile.focus_screen(qtile.screens.index(next_window.group.screen))
-    qtile.current_screen.group.focus(next_window)
+  if not all_windows:
+    return
+
+  # Find currently focused window
+  current_index = 0
+  focused_window = qtile.current_window
+  if focused_window in all_windows:
+    current_index = all_windows.index(focused_window)
+
+  # Calculate next index
+  next_index = (current_index + offset) % len(all_windows)
+  next_window = all_windows[next_index]
+
+  qtile.focus_screen(qtile.screens.index(next_window.group.screen))
+  qtile.current_screen.group.focus(next_window)
 
 
 def rotate_screens(qtile):
-    """Rotates the groups between the first two screens."""
-    # Get the current groups on screen 0 and screen 1
-    screen0 = qtile.screens[0]
-    screen1 = qtile.screens[1]
-    
-    group0 = screen0.group
-    group1 = screen1.group
+  """Rotates the groups between the first two screens."""
+  # Get the current groups on screen 0 and screen 1
+  screen0 = qtile.screens[0]
+  screen1 = qtile.screens[1]
 
-    # Swap them
-    screen0.set_group(group1)
-    screen1.set_group(group0)
+  group0 = screen0.group
+  group1 = screen1.group
+
+  # Swap them
+  screen0.set_group(group1)
+  screen1.set_group(group0)
 
 
 mouse = [
@@ -625,11 +632,19 @@ extension_defaults = widget_defaults.copy()
 
 graph_args = dict(
     samples=100,
-    graph_color=colors['color2'],
-    fill_color=colors['color2'] + '.3',
     border_color=colors['background'] + '.5',
     width=40,
     foreground=colors['color8'],
+)
+green_graph_args = dict(
+    graph_color=colors['color2'],
+    fill_color=colors['color2'] + '.3',
+    **graph_args
+)
+purple_graph_args = dict(
+    graph_color=colors['color5'],
+    fill_color=colors['color5'] + '.3',
+    **graph_args
 )
 
 
@@ -661,71 +676,160 @@ def get_systray():
     logger.warning(e)
     return []
 
+def amdgpu_metadata():
+  """Retrieves the amdgpu metadata"""
+  output = subprocess.check_output(
+      "amdgpu_top -J -d".split(), stderr=subprocess.DEVNULL
+  )
+  parsed = json.loads(output)[0]
+  vram = parsed["VRAM"]
+  activity = parsed["gpu_activity"]
+  data = {}
+  data["MemTotal"] = int(vram["Total VRAM"]["value"] / 1024)
+  data["MemUsed"] = int(vram["Total VRAM Usage"]["value"] / 1024)
+  data["GTTTotal"] = int(vram["Total GTT"]["value"] / 1024)
+  data["GTTUsed"] = int(vram["Total GTT Usage"]["value"] / 1024)
+  data["GFXPercentLoad"] = int(activity["GFX"]["value"])
+  data["MemoryPercentLoad"] = int(activity["Memory"]["value"])
+  # logger.warning(data)
+  return data
+
+class GpuMemoryGraph(_Graph):
+  orientations = widget_base.ORIENTATION_HORIZONTAL
+  fixed_upper_bound = True
+
+  def __init__(self, **config):
+    _Graph.__init__(self, **config)
+    val = self._getvalues()
+    self.maxvalue = val["MemTotal"]
+
+    mem = val["MemUsed"]
+    self.fulfill(mem)
+
+  def _getvalues(self):
+    return amdgpu_metadata()
+
+  def update_graph(self):
+    val = self._getvalues()
+    self.push(val["MemUsed"])
+
+class GpuUsageGraph(_Graph):
+  orientations = widget_base.ORIENTATION_HORIZONTAL
+  fixed_upper_bound = True
+
+  def __init__(self, **config):
+    _Graph.__init__(self, **config)
+    val = self._getvalues()
+    self.maxvalue = 100
+    self.fulfill(val["GFXPercentLoad"])
+
+  def _getvalues(self):
+    return amdgpu_metadata()
+
+  def update_graph(self):
+    val = self._getvalues()
+    self.push(val["GFXPercentLoad"])
 
 def get_widgets(systray=False):
   return [
-      widget.TextBox('<->', name='swap windows',
-                     markup=False,
-        foreground=colors['color3'],
-        mouse_callbacks={'Button1': lambda: swap_primary_secondary_screens(qtile)}),
+      widget.TextBox(
+          '<->',
+          name='swap windows',
+          markup=False,
+          foreground=colors['color3'],
+          mouse_callbacks={
+              'Button1': lambda: swap_primary_secondary_screens(qtile)
+          }),
       widget.GroupBox(disable_drag=True,
                       highlight_method='line',
                       highlight_color=['000000', colors['color2']],
                       this_screen_border=colors['color10'],
                       this_current_screen_border=colors['color2'],
                       active=colors['color7']),
-      widget.TextBox('|<-', name='move window left',
-                     markup=False,
-        foreground=colors['color3'],
-        mouse_callbacks={'Button1': lambda: window_to_adjacent_group_pair(qtile, -1)}),
-      widget.TextBox('->|', name='move window right',
-                     markup=False,
-        foreground=colors['color3'],
-        mouse_callbacks={'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)}),
+      widget.TextBox(
+          '|<-',
+          name='move window left',
+          markup=False,
+          foreground=colors['color3'],
+          mouse_callbacks={
+              'Button1': lambda: window_to_adjacent_group_pair(qtile, -1)
+          }),
+      widget.TextBox(
+          '->|',
+          name='move window right',
+          markup=False,
+          foreground=colors['color3'],
+          mouse_callbacks={
+              'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)
+          }),
       # widget.CurrentLayoutIcon(
       #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
       #     scale=0.8,),
-      widget.WindowName(
-        mouse_callbacks={'Button3': lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))}),
+      widget.WindowName(mouse_callbacks={
+          'Button3':
+              lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))
+      }),
       widget.TextBox('X',
                      foreground=colors['color1'],
                      mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
-        foreground=colors['color2'],
-        mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
-        max_width=50, timeout=None),
+          foreground=colors['color2'],
+          mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
+          max_width=50,
+          timeout=None),
       widget.TextBox(' | ', name='separator'),
-      widget.TextBox('CPU', name='cpu_label',
+      widget.TextBox('CPU',
+                     name='cpu_label',
                      foreground=colors['color8'],
-                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}),
-      widget.CPUGraph(mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}, **graph_args),
-      widget.ThermalSensor(tag_sensor='Tdie', threshold=85,
-                           foreground=colors['color8'],
-                           mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")}
-                           ),
-      widget.TextBox(' | ', name='separator'),
-      widget.TextBox('Mem',
-                     foreground=colors['color8'],
-                     name='memory_label',
-                     mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")})
-      ] + ([ColoredMemoryGraph(mouse_callbacks={'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")}, **graph_args)] if MemoryGraph is not None else []) + [
-      # widget.TextBox('Net', name='net_label'),
-      # widget.NetGraph(**graph_args),
-      widget.TextBox(' | ', name='separator'),
-      widget.DF(
+                     mouse_callbacks={
+                         'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
+                     }),
+      widget.CPUGraph(mouse_callbacks={
+          'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
+      },
+                      **purple_graph_args)
+] + ([
+      ColoredMemoryGraph(mouse_callbacks={
+          'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
+      },
+                         **green_graph_args)
+  ] if MemoryGraph is not None else []) + [
+      widget.ThermalSensor(
+          tag_sensor='Tdie',
+          threshold=85,
           foreground=colors['color8'],
-          mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
-          format='{uf:.0f}/{s:.0f}{m} free on {p}',
-          visible_on_warn=False),
+          mouse_callbacks={
+              'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")
+          }),
+      widget.TextBox(' | ', name='separator'),
+      widget.TextBox('GPU',
+                     name='gpu_label',
+                     foreground=colors['color8'],
+                     mouse_callbacks={
+                         'Button1': lambda: qtile.spawn("amdgpu_top --gui")
+                     }),
+      GpuUsageGraph(
+          mouse_callbacks={'Button1': lambda: qtile.spawn('amdgpu_top --gui')},
+          **purple_graph_args),
+      GpuMemoryGraph(
+          mouse_callbacks={'Button1': lambda: qtile.spawn('amdgpu_top --gui')},
+          **green_graph_args),
+      # widget.TextBox('Net', name='net_label'),
+      # widget.NetGraph(**green_graph_args),
+      widget.TextBox(' | ', name='separator'),
+      widget.DF(foreground=colors['color8'],
+                mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
+                format='{uf:.0f}/{s:.0f}{m} free on {p}',
+                visible_on_warn=False),
       # TODO figure out why this doesn't work
-      # widget.HDDBusyGraph(**graph_args),
+      # widget.HDDBusyGraph(**green_graph_args),
       # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/volume-icon.png',
       # #              margin_y=4),
       # widget.TextBox('vol:', name='volume_label'),
       # widget.Volume(fmt='{}'),
-      ] + ([
+  ] + ([
       widget.TextBox(' | ', name='separator'),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
       widget.TextBox('bat:', name='battery_label'),
@@ -735,7 +839,7 @@ def get_widgets(systray=False):
           discharge_char='-',
           update_interval=15,  # seconds
       ),
-      ] if socket.gethostname() != 'frostyarch' else []) + [
+  ] if socket.gethostname() != 'frostyarch' else []) + [
       # widget.TextBox(' | ', name='separator'),
       # # widget.Image(filename='~/.config/qtile/icons/brightness-icon.png',
       # #              margin_x=1,
@@ -757,9 +861,8 @@ def get_widgets(systray=False):
       widget.KeyboardLayout(
           foreground=colors['color8'],
           # Colemak is useful on a normal keyboard (like a laptop keyboard).
-          configured_keyboards=(['us colemak_dh', 'us']
-                                if socket.gethostname() != 'frostyarch' else
-                                ['us', 'us colemak_dh']),
+          configured_keyboards=(['us colemak_dh', 'us'] if socket.gethostname()
+                                != 'frostyarch' else ['us', 'us colemak_dh']),
           display_map={
               'us': 'qw',
               'us colemak_dh': 'cl'
@@ -767,8 +870,7 @@ def get_widgets(systray=False):
       widget.TextBox(' | ', name='separator'),
   ] + (get_systray() if systray else []) + [
       widget.TextBox(' | ', name='separator'),
-      widget.Clock(
-        format='%Y-%m-%d %a %I:%M %p'),
+      widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
 
 
