@@ -1,4 +1,5 @@
 import os
+import shutil
 import socket
 import shlex
 import subprocess
@@ -18,7 +19,10 @@ from libqtile.widget.graph import _Graph
 from libqtile.widget import base as widget_base
 from libqtile.backend.x11 import core
 
-core.EVENT_TO_HANDLER[xcffib.xfixes.SelectionNotifyEvent] = "handle_SelectionNotify"
+try:
+  core.EVENT_TO_HANDLER[xcffib.xfixes.SelectionNotifyEvent] = "handle_SelectionNotify"
+except AttributeError as e:
+  pass
 
 # If using pipx to install qtile, use `pipx inject qtile psutil xlib` to make
 # sure these libraries are available.
@@ -802,6 +806,7 @@ def get_widgets(systray=False):
           mouse_callbacks={
               'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")
           }),
+] + ([
       widget.TextBox(' | ', name='separator'),
       widget.TextBox('GPU',
                      name='gpu_label',
@@ -822,6 +827,7 @@ def get_widgets(systray=False):
                 mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
                 format='{uf:.0f}/{s:.0f}{m} free on {p}',
                 visible_on_warn=False),
+] if shutil.which('amdgpu_top') is not None else []) + [
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**green_graph_args),
       # widget.TextBox(' | ', name='separator'),
