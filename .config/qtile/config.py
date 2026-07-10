@@ -800,7 +800,7 @@ def get_widgets(systray=False):
                          **green_graph_args)
   ] if MemoryGraph is not None else []) + [
       widget.ThermalSensor(
-          tag_sensor='Tdie',
+          tag_sensor='CPU',
           threshold=85,
           foreground=colors['color8'],
           mouse_callbacks={
