@@ -1578,6 +1578,36 @@ vim.cmd('autocmd Filetype markdown setlocal spell spelllang=en_us')
 vim.cmd('autocmd FileType markdown set foldmethod=expr')
 
 
+-- Create an autocommand group for Markdown files
+local markdown_group = vim.api.nvim_create_augroup("MarkdownSkeleton", { clear = true })
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+    group = markdown_group,
+    pattern = "*.md",
+    callback = function()
+        -- Get the filename without the path (e.g., "my-file.md")
+        local filename = vim.fn.expand("%:t:r")
+        
+        -- Replace dashes and underscores with spaces for a cleaner title
+        local title = filename:gsub("[-_]", " ")
+        
+        -- Capitalize the first letter of each word
+        title = title:gsub("(%a)([%w_']*)", function(first, rest)
+            return first:upper() .. rest
+        end)
+        
+        -- Define the lines to insert (Markdown H1 title and an empty line)
+        local lines = { "# " .. title, "" }
+        
+        -- Set the lines at the top of the buffer
+        vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+        
+        -- Move the cursor to the end of the file so you can start typing
+        vim.api.nvim_win_set_cursor(0, { #lines, 0 })
+    end,
+})
+
+
 --                          /// Language - ZMK Config ///
 
 vim.cmd('autocmd FileType dts setlocal textwidth=300')
