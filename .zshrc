@@ -191,12 +191,6 @@ source ~/gemini_api_key.zsh
 # Open scrollback in vim
 bindkey -s '^S' '~/bin/view-scrollback.zsh\n' 
 
-# Make ctrl-w exit, just as it does for vim and chrome
-bindkey -s '^W' '^D'
-
-# Control-backspace to go by word
-bindkey '^W' backward-kill-word
-
 zplug "zsh-users/zsh-syntax-highlighting"
 
 unsetopt autocd
@@ -311,3 +305,8 @@ bindkey -r "^T"
 bindkey -r "^[c"
 bindkey "^ " fzf-history-widget
 bindkey "^R" fzf-history-widget
+
+# Make ctrl-w exit, just as it does for vim and chrome
+exit_zsh() { exit }
+zle -N exit_zsh
+bindkey '^W' exit_zsh
