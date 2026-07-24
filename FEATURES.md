@@ -2,8 +2,44 @@
 
 ## Walkthrough Video Script
 
-To record and share this config, I should make a video of doing some simple
-tasks that touch many of my config's features.  It would go something like this:
+### Feature by Feature
+
+ - Hello!
+
+#### MonadTall Layout
+
+ - Qtile is a tiling window manager
+ - Open and close some windows
+ - Used to use Xmonad, used to it
+ - Can swap primary column
+ - Can send window to primary and back
+ - Almost always in tile mode, but can float windows as well
+
+#### Picom
+
+ - Talk about picom, turn it on/off, show config file
+   - Transparency
+   - Animations
+   - Selective Dimming
+
+#### Qtile Workspaces
+
+ - Many pairs of workspaces, used per "project"
+ - I find usually I like to have one workspace for primary interaction, and a
+   secondary for reference material or to dump windows I don't use often.
+ - Can jump to primary by pressing mod+key
+ - Can click to go to specific workspace
+ - Can cycle through
+ - Can bring windows along for the ride when cycling (also via mouse)
+ - Can swap easily - super nice when on a single screen like a laptop
+ - Can send windows back and forth
+
+#### Qtile Bar
+
+(go through rest of the bar widgets and click on them)
+
+
+### Website Editing
 
 1. I want to make some updates to my website, specifically the keyboard layout
    page.
