@@ -1,1 +1,2 @@
-/home/kovas/.local/kitty.app/bin/kitty
+#!/bin/sh
+exec /usr/bin/kitty --single-instance "$@"

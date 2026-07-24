@@ -451,8 +451,8 @@ map('n', 'M', ':wincmd w<CR>')
 
 map('n', '<C-l>', ':')
 
--- Make vertical split with ctrl-t, moving the next split.
-map('n', '<C-t>', ':vsplit | wincmd w<CR>')
+-- Make vertical split with ctrl-g, moving the next split.
+map('n', '<C-g>', ':vsplit | wincmd w<CR>')
 
 -- Gets number of windows that are not floating (actually show buffer contents).
 local function get_num_windows()
