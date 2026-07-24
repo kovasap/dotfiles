@@ -59,7 +59,8 @@ with open(os.path.expanduser('~/.config/kitty/kitty.conf'), 'r') as f:
 if theme_filepath:
   with open(theme_filepath, 'r') as f:
     for line in f:
-      colors[line.split()[0]] = line.split()[1].upper()
+      if line.strip() and not line.startswith('#'):
+        colors[line.split()[0]] = line.split()[1].upper()
 
 
 # ----------------- Custom Group Logic ------------------------------------
@@ -369,7 +370,7 @@ keys.extend([
     # --------------- Left Hand - Middle Row ----------------------------------
 
     Key([mod], 'a', lazy.widget['keyboardlayout'].next_keyboard()),
-
+ 
     Key([mod], 'r', lazy.layout.flip()),
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
@@ -381,7 +382,7 @@ keys.extend([
     # Key([mod, 'control'], 't', lazy.layout.shuffle_up()),
 
     Key([mod], 'g', lazy.function(window_to_paired_group)),
-    # Key([mod], 'g', lazy.hide_show_bar()),
+    Key([mod, 'control'], 'g', lazy.hide_show_bar()),
 
     # --------------- Left Hand - Bottom Row ----------------------------------
 

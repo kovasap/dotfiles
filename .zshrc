@@ -307,6 +307,7 @@ bindkey "^ " fzf-history-widget
 bindkey "^R" fzf-history-widget
 
 # Make ctrl-w exit, just as it does for vim and chrome
+# Note that I rebound ctrl+o to ctrl+w in ~/.config/kitty/kitty.conf
 exit_zsh() { exit }
 zle -N exit_zsh
-bindkey '^W' exit_zsh
+bindkey '^O' exit_zsh

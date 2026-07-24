@@ -478,7 +478,8 @@ end
 vim.g.scrollview_auto_workarounds = 0
 
 -- Close windows, then the whole session, with C-w
-vim.keymap.set("n", "<C-w>", function()
+-- Note that I rebound ctrl+o to ctrl+w in ~/.config/kitty/kitty.conf
+vim.keymap.set("n", "<C-o>", function()
     local win_amount = get_num_windows()
     if win_amount == 1 then
       vim.cmd(':wqa<CR>')
