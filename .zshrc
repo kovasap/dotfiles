@@ -158,10 +158,10 @@ fi
 
 # ------------------------- Kitty Support -------------------------
 if [ -x "$(which kitty)" ]; then
-  alias ssh='kitty +kitten ssh'
+  alias ssh='kitten ssh'
 fi
 
-alias icat='kitty +kitten icat'
+alias icat='kitten icat'
 
 
 # ------------------------- Python -------------------------
