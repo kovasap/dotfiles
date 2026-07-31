@@ -472,6 +472,14 @@ keys.extend([
             'pkill picom',
             'maim -s | tee ~/clipboard_$(date +%s).png | '
             'xclip -selection clipboard -t image/png; ')),
+    Key(
+        ['shift'],
+        'Print',
+        spawn_multi_cmd(
+            # https://github.com/naelstrof/maim/issues/182
+            'pkill picom',
+            'maim | tee ~/clipboard_$(date +%s).png | '
+            'xclip -selection clipboard -t image/png; ')),
 ])
 
 # @hook.subscribe.client_focus
