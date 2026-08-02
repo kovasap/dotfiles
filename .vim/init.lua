@@ -125,12 +125,15 @@ local plugins_spec = {
   { 'hrsh7th/nvim-cmp' },
   {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'master',
+    branch = 'main',
+    -- branch = 'master',
     build = ':TSUpdate'
   },
-  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main'
+  },
   { 'nvim-treesitter/nvim-treesitter-context' },
-  { 'nvim-treesitter/playground' },
+  -- { 'nvim-treesitter/playground' },
   { 'HiPhish/rainbow-delimiters.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'nvim-lua/lsp-status.nvim' },
@@ -996,7 +999,7 @@ vim.cmd [[
 vim.lsp.set_log_level('ERROR')
 
 -- Adds multicolored parenthesis to make it easier to see how they match up.
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.config').setup {
   -- To get python working, you may need to install an OS package like
   -- https://aur.archlinux.org/packages/python-tree-sitter
   ensure_installed = { 'python', 'clojure', 'luadoc', 'lua', 'markdown', 'vim', 'vimdoc', 'sql', 'kotlin' },
@@ -1012,7 +1015,27 @@ require('nvim-treesitter.configs').setup {
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines
     termcolors = { '3', '4', '1', '3', '4', '1', '3', '4' }
   },
-  textobjects = {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
+
+require 'nvim-treesitter-textobjects'.setup {
     lsp_interop = {
       enable = true,
       peek_definition_code = {
@@ -1049,26 +1072,7 @@ require('nvim-treesitter.configs').setup {
         ["[M"] = "@function.outer",
         ["[]"] = "@class.outer",
       },
-    },
-  },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
-    },
-  }
+    }
 }
 
 require 'treesitter-context'.setup {
