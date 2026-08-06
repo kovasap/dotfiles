@@ -44,12 +44,12 @@ function precmd () {
 
 # --------------------------- P10K Prompt -----------------------------------
 
-zplug romkatv/powerlevel10k, as:theme, depth:1
+# zplug romkatv/powerlevel10k, as:theme, depth:1
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # TODO Check out this:
 # https://medium.com/@henrebotha/how-to-write-an-asynchronous-zsh-prompt-b53e81720d32
@@ -311,3 +311,5 @@ bindkey "^R" fzf-history-widget
 exit_zsh() { exit }
 zle -N exit_zsh
 bindkey '^O' exit_zsh
+
+eval "$(starship init zsh)"
