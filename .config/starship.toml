@@ -1,0 +1,22 @@
+[nodejs]
+disabled = true
+
+[bun]
+disabled = true
+
+[java]
+disabled = true
+
+[python]
+disabled = true
+
+[custom.jj]
+when = "jj-starship detect"
+shell = ["jj-starship"]
+format = "$output "
+
+[git_branch]
+disabled = true
+
+[git_status]
+disabled = true
