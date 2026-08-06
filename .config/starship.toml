@@ -12,8 +12,11 @@ disabled = true
 
 [custom.jj]
 when = "jj-starship detect"
-shell = ["jj-starship"]
 format = "$output "
+shell = ["jj-starship", "--no-symbol", "--no-git-id"]
+
+[git_commit]
+disabled = true
 
 [git_branch]
 disabled = true
