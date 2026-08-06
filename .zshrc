@@ -59,29 +59,7 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 # ------------------------- Vi Mode ------------------------- 
 
-# Change cursor shape for different vi modes.
-# See https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-  VI_KEYMAP=$KEYMAP
-  zle reset-prompt
-  zle -R
-}
-zle -N zle-keymap-select
-# Use beam shape cursor for each new command.
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-precmd_functions+=(_fix_cursor)
+zplug "jeffreytse/zsh-vi-mode"
 
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
@@ -217,31 +195,6 @@ alias calc="="
 
 # Don't feed long commands to a pager program.
 unset LESS
-
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 path=("${(@)path:#"/home/kovas/.virtualenvs/qtile/bin"}")
 
