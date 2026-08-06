@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # Uncomment to profile zsh startup
 # zmodload zsh/zprof
 
@@ -41,18 +34,6 @@ function precmd () {
   # Print window title
   print -Pn "\e]0;$hg_name$git_name - $(hostname)\a"
 }
-
-# --------------------------- P10K Prompt -----------------------------------
-
-# zplug romkatv/powerlevel10k, as:theme, depth:1
-
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# TODO Check out this:
-# https://medium.com/@henrebotha/how-to-write-an-asynchronous-zsh-prompt-b53e81720d32
 
 # ------------------------- Completion -------------------------------
 
