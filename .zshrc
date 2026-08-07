@@ -238,18 +238,23 @@ function gp {
 
 unalias gcl
 
-# ------------------------- Fuzzy Searching (FZF) ------------------------- 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey -r "^T"
-bindkey -r "^[c"
-bindkey "^ " fzf-history-widget
-bindkey "^R" fzf-history-widget
-
 # Make ctrl-w exit, just as it does for vim and chrome
 # Note that I rebound ctrl+o to ctrl+w in ~/.config/kitty/kitty.conf
 exit_zsh() { exit }
 zle -N exit_zsh
 bindkey '^O' exit_zsh
 
+# ------------------------- Fuzzy Searching (FZF) ------------------------- 
+
+# Source the fzf stuff after the vi mode plugin initializes, since it
+# overwrites fzf settings.
+zvm_after_init_commands+=('source <(fzf --zsh)')
+bindkey -r "^T"
+bindkey -r "^[c"
+bindkey "^ " fzf-history-widget
+bindkey "^R" fzf-history-widget
+
+# ------------------------- Starship Prompt ------------------------- 
+
+# See config file at ~/.config/starship.toml
 eval "$(starship init zsh)"
