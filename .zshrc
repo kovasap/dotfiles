@@ -35,6 +35,12 @@ function precmd () {
   print -Pn "\e]0;$hg_name$git_name - $(hostname)\a"
 }
 
+# ------------------------- Jujutsu -------------------------------
+
+source <(COMPLETE=zsh jj)
+alias jjl='jj log; jj status'
+alias jjf='jj git fetch; jj new main'
+
 # ------------------------- Completion -------------------------------
 
 # ctrl-l accept the current suggestion by word
