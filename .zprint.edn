@@ -18,9 +18,11 @@
            :list              [:none {:list {:indent 1}}]
            "swap!"            :arg1
            "register!"        :arg1
+           "fn" :arg1
            ; nexus specific formatting
            "register-effect!" :arg1
            "register-expansion!" :arg1
+           "register-action!" :arg1
            ; re-frame specific formatting
            "reg-event-db"     :flow-body
            "reg-event-fx"     :flow-body
