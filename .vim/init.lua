@@ -47,6 +47,15 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 
 local plugins_spec = {
+   {
+  "mfussenegger/nvim-lint",
+  config = function()
+    require("lint").linters_by_ft = {
+      clojure = {"clj-kondo"},
+      -- ... other linters
+    }
+  end,
+  },
   { 'eandrju/cellular-automaton.nvim' },
   { 'yuttie/comfortable-motion.vim' },
   { 'ggvgc/vim-fuzzysearch' },
@@ -120,8 +129,8 @@ local plugins_spec = {
   { 'hrsh7th/cmp-nvim-lua' },
   { 'f3fora/cmp-spell' },
   { 'hrsh7th/cmp-nvim-lsp' },
-  { 'L3MON4D3/LuaSnip' },
-  'saadparwaiz1/cmp_luasnip',
+  -- { 'L3MON4D3/LuaSnip' },
+  -- 'saadparwaiz1/cmp_luasnip',
   { 'hrsh7th/nvim-cmp' },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -863,15 +872,15 @@ local source_names = {
   path = "(Path)",
   calc = "(Calc)",
   cmp_tabnine = "(Tabnine)",
-  luasnip = "(Snippet)",
+  -- luasnip = "(Snippet)",
   buffer = "(Buffer)",
   tmux = "(TMUX)",
   nvim_ciderlsp = "(ML-Autocompletion!)"
 }
 
-local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load()
+-- local luasnip = require("luasnip")
+-- require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_snipmate").lazy_load()
 
 -- require('cmp_ai.config'):setup({
 --   max_lines = 5,
@@ -909,11 +918,11 @@ cmp.setup({
       compare.order,
     },
   },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     luasnip.lsp_expand(args.body)
+  --   end,
+  -- },
   mapping = {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -924,8 +933,8 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+      -- elseif luasnip.expand_or_jumpable() then
+      --   luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -936,8 +945,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      -- elseif luasnip.jumpable(-1) then
+      --   luasnip.jump(-1)
       else
         fallback()
       end
@@ -947,7 +956,7 @@ cmp.setup({
   sources = {
     { name = 'nvim_ciderlsp', priority = 1000 },
     { name = 'nvim_lsp',      priority = 500 },
-    { name = 'luasnip',       priority = 500 },
+    -- { name = 'luasnip',       priority = 500 },
     { name = 'emoji',         priority = 500 },
     { name = 'calc',          priority = 500 },
     { name = 'spell',         priority = 500 },
