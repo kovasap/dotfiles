@@ -39,6 +39,11 @@ function precmd () {
 
 source <(COMPLETE=zsh jj)
 alias jjl='jj log; jj status'
+function jjp {
+    jj bookmark advance
+    jj commit -m "$1"
+    jj git push
+}
 alias jjf='jj git fetch; jj new main'
 
 # ------------------------- Completion -------------------------------
