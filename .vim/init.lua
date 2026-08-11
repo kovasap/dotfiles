@@ -281,17 +281,8 @@ vim.g.CoolTotalMatches = true
 -- Use "gm" to duplicate lines (faster than copy/pasting).
 require('mini.operators').setup({})
 
--- Rename word and prime to replace other occurances
--- Can also search for something then use 'cgn' to "change next searched occurance".
-map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
-map('n', '<localleader>t', '*Ncw<C-r>"')
-map('n', '<localleader>p', '*Ncw')
-
 -- Make U redo
 map('n', 'U', '<C-r>')
-
--- Rename word across file
-map('n', '<localleader>d', ':%s/\\<<C-r><C-w>\\>/')
 
 -- Transform single line code blocks to multi-line ones and vice-versa.
 vim.g.splitjoin_split_mapping = ''
@@ -1216,8 +1207,6 @@ vim.cmd('set foldmethod=expr')
 vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
 vim.cmd('set foldlevelstart=99')
 
-vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
-
 -- execute an lsp command at given position allowing extra arguments
 function execute_at(command_name, file_uri, cursor, ...)
   local row, col = unpack(cursor)
@@ -1267,6 +1256,17 @@ function run_with_select(command_name, opts, select_options)
   end)
 end
 
+vim.api.nvim_set_keymap('n', '<localleader>f', [[:execute "norm! vip:FormatLines\<lt>CR>"<CR>]], { noremap = true })
+
+-- Rename word and prime to replace other occurances
+-- Can also search for something then use 'cgn' to "change next searched occurance".
+map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+map('n', '<localleader>t', '*Ncw<C-r>"')
+map('n', '<localleader>p', '*Ncw')
+
+-- Rename word across file
+map('n', '<localleader>r', ':%s/\\<<C-r><C-w>\\>/')
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -1285,25 +1285,40 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+  -- Hotkeys starting with 't' are all about moving the cursor to different
+  -- places.
   buf_set_keymap('n', 'tT', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'tt', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'tr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'tS', '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<CR>', opts)
+  buf_set_keymap('n', 'ts', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<CR>', opts)
+  buf_set_keymap('n', 'tC', '<cmd>lua vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR})<CR>', opts)
+  buf_set_keymap('n', 'tc', '<cmd>lua vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR})<CR>', opts)
+
+  -- Unused functionality.
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', 'cd', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.diagnostic.jump({count=1, float=true})<CR>', opts)
-  buf_set_keymap('n', 'gE', '<cmd>lua vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR})<CR>', opts)
-  buf_set_keymap('n', 'ge', '<cmd>lua vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR})<CR>', opts)
+
+  -- Hotkeys starting with localleader are all about changing things.
+  buf_set_keymap('n', '<localleader>d', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.keymap.set('n', '<localleader>g', vim.lsp.buf.code_action, { desc = "LSP Code Actions" })
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+
   -- Do not use lsp formatting for languages that I would rather use codefmt
   -- with via the above FormatLines binding.
   if filetype ~= 'clojure' then
     buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
     buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
   else
+    -- Commonly used shortcuts
+    vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
+    vim.keymap.set("n", "<localleader>r", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
+    vim.keymap.set("n", "<localleader>k", run_immediately("destructure-keys"), { desc = "Destructure keys" })
+    vim.keymap.set("n", "<localleader>f", run_with_input("extract-function", { prompt = "Function name:" }),
+      { desc = "Extract function" })
     -- Copied from https://github.com/thegards/dotfiles/blob/76ed05d61039ff657e7ece5ba59d916f551f19ec/neovim/nvimdir/after/ftplugin/clojure.lua
     vim.keymap.set('n', 'cred', run_with_input("extract-to-def", { prompt = "def name:" }), opts)
     vim.keymap.set("n", "crai", run_immediately("add-missing-import"), { desc = "Add import to namespace" })
@@ -1536,27 +1551,27 @@ map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', { silent = true })
 -- for details.
 
 -- Clerk: https://github.com/nextjournal/clerk#neovim--conjure
-vim.cmd(
-  [[
-function! ClerkShow()
-  exe "w"
-  exe "ConjureEval (nextjournal.clerk/show! \"" . expand("%:p") . "\")"
-endfunction
-
-nmap <silent> <localleader>ec :execute ClerkShow()<CR>
-]]
-)
-
-map('n', '<localleader>ed',
-  ':ConjureEval ' ..
-  '(require \'[flow-storm.api :refer [remote-connect]] ' ..
-  -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
-  ')' ..
-  ' (remote-connect)<CR>')
-
--- Generate an example for the spec below the cursor.
-map('n', '<localleader>eg',
-  ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
+-- vim.cmd(
+--   [[
+-- function! ClerkShow()
+--   exe "w"
+--   exe "ConjureEval (nextjournal.clerk/show! \"" . expand("%:p") . "\")"
+-- endfunction
+-- 
+-- nmap <silent> <localleader>ec :execute ClerkShow()<CR>
+-- ]]
+-- )
+-- 
+-- map('n', '<localleader>ed',
+--   ':ConjureEval ' ..
+--   '(require \'[flow-storm.api :refer [remote-connect]] ' ..
+--   -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
+--   ')' ..
+--   ' (remote-connect)<CR>')
+-- 
+-- -- Generate an example for the spec below the cursor.
+-- map('n', '<localleader>eg',
+--   ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
 
 vim.cmd(
   [[
