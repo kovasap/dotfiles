@@ -164,7 +164,9 @@ local plugins_spec = {
   { 'folke/flash.nvim' },
   (function()
     if string.match(vim.uv.os_gethostname(), "googlers") then
-      return { 'ggandor/leap.nvim', commit = '0033bcaefc3cd7cf5a70b28cd356fe4860e5c074'}
+      -- Cannot reach codeberg from this machine for some reason, so fall back
+      -- to old github version.
+      return { 'ggandor/leap.nvim', commit = 'f19d43590c4b6d31188ee1ea2954d2b7558a9e11'}
     else
       return { url = "https://codeberg.org/andyg/leap.nvim" }
     end
