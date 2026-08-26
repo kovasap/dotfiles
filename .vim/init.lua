@@ -162,7 +162,13 @@ local plugins_spec = {
   { 'whonore/vim-sentencer' },
   { 'ruanyl/vim-gh-line' },
   { 'folke/flash.nvim' },
-  { url = "https://git.disroot.org/andyg/leap.nvim" }, -- https://codeberg.org/andyg/leap.nvim" },
+  (function()
+    if string.match(vim.uv.os_gethostname(), "googlers") then
+      return { 'ggandor/leap.nvim', commit = '0033bcaefc3cd7cf5a70b28cd356fe4860e5c074'}
+    else
+      return { url = "https://codeberg.org/andyg/leap.nvim" }
+    end
+  end)(),
   { 'guns/vim-sexp' },
   { 'romainl/vim-cool' },
   { 'echasnovski/mini.nvim' },
