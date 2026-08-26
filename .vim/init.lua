@@ -1317,7 +1317,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
     vim.keymap.set("n", "<localleader>r", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
     vim.keymap.set("n", "<localleader>k", run_immediately("destructure-keys"), { desc = "Destructure keys" })
-    vim.keymap.set("n", "<localleader>f", run_with_input("extract-function", { prompt = "Function name:" }),
+    vim.keymap.set("n", "<localleader>ef", run_with_input("extract-function", { prompt = "Function name:" }),
       { desc = "Extract function" })
     -- Copied from https://github.com/thegards/dotfiles/blob/76ed05d61039ff657e7ece5ba59d916f551f19ec/neovim/nvimdir/after/ftplugin/clojure.lua
     vim.keymap.set('n', 'cred', run_with_input("extract-to-def", { prompt = "def name:" }), opts)
