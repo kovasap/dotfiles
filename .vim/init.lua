@@ -162,7 +162,7 @@ local plugins_spec = {
   { 'whonore/vim-sentencer' },
   { 'ruanyl/vim-gh-line' },
   { 'folke/flash.nvim' },
-  { url = "https://codeberg.org/andyg/leap.nvim" },
+  { url = "https://git.disroot.org/andyg/leap.nvim" }, -- https://codeberg.org/andyg/leap.nvim" },
   { 'guns/vim-sexp' },
   { 'romainl/vim-cool' },
   { 'echasnovski/mini.nvim' },
