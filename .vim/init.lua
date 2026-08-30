@@ -1322,6 +1322,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<localleader>f', [[:execute "norm! vip:lua vim.lsp.buf.format()\<lt>CR>"<CR>]], opts)
     buf_set_keymap('v', '<localleader>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
   else
+    vim.keymap.set('n', '<localleader>f', [[vaF:FormatLines<CR>]], { remap = true, buffer = true })
     -- Commonly used shortcuts
     vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
     vim.keymap.set("n", "<localleader>r", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
@@ -1526,11 +1527,38 @@ vim.lsp.enable('kotlin_lsp')
 -- See ~/.zprint.edn for clojure formatting configuration.  I do not use the
 -- lsp formatter (cljfmt).
 
+-- Remove sexp mapping that conflict with my custom mappings.
 vim.cmd([[
   let g:sexp_enable_insert_mode_mappings = 0
   let s:sexp_mappings = {
     \ 'sexp_move_to_prev_bracket':      '',
     \ 'sexp_move_to_next_bracket':      '',
+    \ 'sexp_align_comments':            '',
+    \ 'sexp_align_comments_top':        '',
+    \ 'sexp_round_head_wrap_list':      '',
+    \ 'sexp_round_tail_wrap_list':      '',
+    \ 'sexp_square_head_wrap_list':     '',
+    \ 'sexp_square_tail_wrap_list':     '',
+    \ 'sexp_curly_head_wrap_list':      '',
+    \ 'sexp_curly_tail_wrap_list':      '',
+    \ 'sexp_round_head_wrap_element':   '',
+    \ 'sexp_round_tail_wrap_element':   '',
+    \ 'sexp_square_head_wrap_element':  '',
+    \ 'sexp_square_tail_wrap_element':  '',
+    \ 'sexp_curly_head_wrap_element':   '',
+    \ 'sexp_curly_tail_wrap_element':   '',
+    \ 'sexp_insert_at_list_head':       '',
+    \ 'sexp_insert_at_list_tail':       '',
+    \ 'sexp_splice_list':               '',
+    \ 'sexp_convolute':                 '',
+    \ 'sexp_clone_list':                '',
+    \ 'sexp_clone_list_sl':             '',
+    \ 'sexp_clone_list_ml':             '',
+    \ 'sexp_clone_element':             '',
+    \ 'sexp_clone_element_sl':          '',
+    \ 'sexp_clone_element_ml':          '',
+    \ 'sexp_raise_list':                '',
+    \ 'sexp_raise_element':             '',
     \ }
 ]])
 
