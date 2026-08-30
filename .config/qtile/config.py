@@ -744,7 +744,7 @@ class GpuUsageGraph(_Graph):
 
 # ----------------- Flip Widget ---------------------------------
 
-# 1. Helper function to check MonadTall's flipped orientation state
+# Helper function to check MonadTall's flipped orientation state
 def get_flip_state(layout):
     if layout.name == "custommonadtall":
         # align == 1 means main pane is on the Right ("il")
@@ -752,18 +752,7 @@ def get_flip_state(layout):
         return "il" if layout.align == 1 else "li"
     return layout.name
 
-# 2. Instantiate the TextBox widget with .flip() callback
-layout_flip_widget = widget.TextBox(
-    text="li",  # Default starting state
-    name="monadtall_flip_state",
-    mouse_callbacks={
-        # Left-click flips the layout orientation side-to-side
-        "Button1": lazy.layout.flip()
-    },
-    foreground=colors['color3'],
-)
-
-# 4. Update the text on layout changes or focus shifts
+# Update the text on layout changes or focus shifts
 @hook.subscribe.layout_change
 def _(layout, group):
     tb = qtile.widgets_map.get("monadtall_flip_state")
@@ -781,12 +770,6 @@ def _(client):
 
 def get_widgets(systray=False):
   return [
-      widget.GroupBox(disable_drag=True,
-                      highlight_method='line',
-                      highlight_color=['000000', colors['color2']],
-                      this_screen_border=colors['color10'],
-                      this_current_screen_border=colors['color2'],
-                      active=colors['color7']),
       widget.TextBox(
           '|<-',
           name='move window left',
@@ -803,15 +786,12 @@ def get_widgets(systray=False):
           mouse_callbacks={
               'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)
           }),
-      layout_flip_widget,
-      widget.TextBox(
-          '<->',
-          name='swap windows',
-          markup=False,
-          foreground=colors['color3'],
-          mouse_callbacks={
-              'Button1': lambda: swap_primary_secondary_screens(qtile)
-          }),
+      widget.GroupBox(disable_drag=True,
+                      highlight_method='line',
+                      highlight_color=['000000', colors['color2']],
+                      this_screen_border=colors['color10'],
+                      this_current_screen_border=colors['color2'],
+                      active=colors['color7']),
       # widget.CurrentLayoutIcon(
       #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
       #     scale=0.8,),
@@ -819,15 +799,42 @@ def get_widgets(systray=False):
           'Button3':
               lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))
       }),
-      widget.TextBox('X',
-                     foreground=colors['color1'],
-                     mouse_callbacks={'Button1': lazy.window.kill()}),
       widget.TextBox(' | ', name='separator'),
       widget.Clipboard(
           foreground=colors['color2'],
-          mouse_callbacks={'Button3': lambda: qtile.spawn('copyq menu')},
+          mouse_callbacks={
+            'Button3': lazy.spawn('copyq menu'),
+            'Button4': lazy.spawn('copyq previous'),
+            'Button5': lazy.spawn('copyq next'),
+            },
           max_width=50,
           timeout=None),
+      widget.TextBox(' | ', name='separator'),
+      widget.TextBox('[X]',
+                     foreground=colors['color1'],
+                     mouse_callbacks={'Button1': lazy.window.kill()}),
+      widget.TextBox(
+          text=" li ",  # Default starting state
+          name="monadtall_flip_state",
+          mouse_callbacks={
+              "Button1": lazy.layout.flip(),
+              "Button3": lazy.layout.shuffle_to_top(),
+              'Button4': lazy.layout.previous(),
+              'Button5': lazy.layout.next(),
+          },
+          foreground=colors['color4'],
+      ),
+      widget.TextBox(
+          '<-->',
+          name='swap windows',
+          markup=False,
+          foreground=colors['color3'],
+          mouse_callbacks={
+              'Button1': lambda: swap_primary_secondary_screens(qtile),
+              'Button3': lambda: window_to_paired_group(qtile),
+              'Button4': lambda: movescreens(qtile, 2),
+              'Button5': lambda: movescreens(qtile, -2),
+          }),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox('CPU',
                      name='cpu_label',
