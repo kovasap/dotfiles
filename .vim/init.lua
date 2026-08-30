@@ -292,12 +292,6 @@ require('mini.operators').setup({})
 -- Make U redo
 map('n', 'U', '<C-r>')
 
--- Transform single line code blocks to multi-line ones and vice-versa.
-vim.g.splitjoin_split_mapping = ''
-vim.g.splitjoin_join_mapping = ''
-map('n', 'SJ', ':SplitjoinJoin<cr>')
-map('n', 'SS', ':SplitjoinSplit<cr>')
-
 -- Delete until the next 'closing' character (quote or brace)
 map('n', "d'", 'd/[\\]\\}\\)\'"]<CR>:let @/ = ""<CR>')
 
@@ -1274,6 +1268,13 @@ map('n', '<localleader>p', '*Ncw')
 
 -- Rename word across file
 map('n', '<localleader>r', ':%s/\\<<C-r><C-w>\\>/')
+
+
+-- Transform single line code blocks to multi-line ones and vice-versa.
+vim.g.splitjoin_split_mapping = ''
+vim.g.splitjoin_join_mapping = ''
+map('n', '<localleader>j', ':SplitjoinJoin<cr>')
+map('n', '<localleader>s', ':SplitjoinSplit<cr>')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
