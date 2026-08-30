@@ -17,14 +17,14 @@ fi
 # export DISPLAY=:1
 export XAUTHORITY=/home/kovas/.Xauthority
 
-# order matters, outputs will be laid out left to right
-outputs=('HDMI1' 'HDMI-0' 'HDMI-1' 'HDMI-A-0' "DisplayPort-4" "DisplayPort-3" "DisplayPort-2" "DisplayPort-1" 'DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0')
+# order matters, outputs will be laid out right to left
+outputs=("DisplayPort-1" "DisplayPort-4" "DisplayPort-3" "DisplayPort-2" 'DP-5' 'DP-2' 'DP-1' 'DP-1-8' 'DP-2-8' 'DP-2-1' 'DP-1-2' 'DP-2-2' 'DP-1-1' 'DP2' 'DP1' 'DP1-1' 'DP1-8' 'DP-3-8' 'DP-3-1' 'DP-3' 'DP-0.8' 'DP-4' 'DP-4.8' 'DP-0' 'HDMI1' 'HDMI-0' 'HDMI-1' 'HDMI-A-0')
 xrandr_output=$(xrandr)
 
 if [[ $(hostname) == 'frostyarch' ]]; then
     echo 'frostyarch'
-    main_output="DP-4"
-    main_output_config="--auto"
+    main_output="DisplayPort-1"
+    main_output_config='--mode 2560x1440 --rate 144'
     default_other_output_config='--auto'
 else
     main_output="eDP-1"
@@ -49,9 +49,9 @@ if [ "$2" == "rotated" ]; then
 else
     xrandr_cmd="$xrandr_cmd --rotate normal"
 fi
-relative_loc="--right-of $main_output"
+relative_loc="--left-of $main_output"
 # Make second screen primary
-relative_loc="$relative_loc --primary"
+# relative_loc="$relative_loc --primary"
 for o in "${outputs[@]}"; do
     connected=$(echo "$xrandr_output" | grep "^$o connected")
     if [[ "$o" == *"HDMI"* && "$2" == "exclude_hdmi" ]]; then
@@ -66,14 +66,14 @@ for o in "${outputs[@]}"; do
                other_output_config='--mode 2560x1440 --rate 144'
             elif [ "$o" == "HDMI-A-0" ]; then
                other_output_config='--mode 1920x1080'
-               if [[ $(hostname) == 'frostyarch' ]]; then
-                 relative_loc="--left-of $main_output"
-               fi
+               # if [[ $(hostname) == 'frostyarch' ]]; then
+               #   relative_loc="--left-of DisplayPort-3"
+               # fi
             else 
                other_output_config=$default_other_output_config
             fi
             xrandr_cmd="$xrandr_cmd --output $o $mouse_flicker_fix $other_output_config $relative_loc"
-            relative_loc="--right-of $o"
+            relative_loc="--left-of $o"
         fi
     fi
 done
