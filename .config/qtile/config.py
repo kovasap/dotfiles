@@ -742,16 +742,45 @@ class GpuUsageGraph(_Graph):
     val = self._getvalues()
     self.push(val["GFXPercentLoad"])
 
+# ----------------- Flip Widget ---------------------------------
+
+# 1. Helper function to check MonadTall's flipped orientation state
+def get_flip_state(layout):
+    if layout.name == "custommonadtall":
+        # align == 1 means main pane is on the Right ("il")
+        # align == 0 means main pane is on the Left ("li")
+        return "il" if layout.align == 1 else "li"
+    return layout.name
+
+# 2. Instantiate the TextBox widget with .flip() callback
+layout_flip_widget = widget.TextBox(
+    text="li",  # Default starting state
+    name="monadtall_flip_state",
+    mouse_callbacks={
+        # Left-click flips the layout orientation side-to-side
+        "Button1": lazy.layout.flip()
+    },
+    foreground=colors['color3'],
+)
+
+# 4. Update the text on layout changes or focus shifts
+@hook.subscribe.layout_change
+def _(layout, group):
+    tb = qtile.widgets_map.get("monadtall_flip_state")
+    if tb:
+        tb.update(get_flip_state(layout))
+
+# Hook into client focus/layout tweaks to keep state immediately in sync after click
+@hook.subscribe.client_focus
+def _(client):
+    tb = qtile.widgets_map.get("monadtall_flip_state")
+    if tb and qtile.current_layout:
+        tb.update(get_flip_state(qtile.current_layout))
+
+# ----------------------------------------------------------------
+
 def get_widgets(systray=False):
   return [
-      widget.TextBox(
-          '<->',
-          name='swap windows',
-          markup=False,
-          foreground=colors['color3'],
-          mouse_callbacks={
-              'Button1': lambda: swap_primary_secondary_screens(qtile)
-          }),
       widget.GroupBox(disable_drag=True,
                       highlight_method='line',
                       highlight_color=['000000', colors['color2']],
@@ -773,6 +802,15 @@ def get_widgets(systray=False):
           foreground=colors['color3'],
           mouse_callbacks={
               'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)
+          }),
+      layout_flip_widget,
+      widget.TextBox(
+          '<->',
+          name='swap windows',
+          markup=False,
+          foreground=colors['color3'],
+          mouse_callbacks={
+              'Button1': lambda: swap_primary_secondary_screens(qtile)
           }),
       # widget.CurrentLayoutIcon(
       #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
