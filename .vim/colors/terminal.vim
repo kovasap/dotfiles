@@ -150,6 +150,9 @@ hi IncSearch cterm=reverse ctermbg=2
 " For TinyGlimmer
 hi CurSearch ctermbg=8
 
+hi NeoCodeiumSuggestion ctermfg=8
+hi NeoCodeiumSingleLineLabel cterm=bold ctermfg=8
+
 hi SpellBad cterm=none ctermfg=1 ctermbg=none
 hi SpellCap cterm=none ctermfg=1 ctermbg=none
 hi SpellLocal cterm=none ctermfg=1 ctermbg=none
