@@ -47,14 +47,14 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.maplocalleader = " "
 
 local plugins_spec = {
-   {
-  "mfussenegger/nvim-lint",
-  config = function()
-    require("lint").linters_by_ft = {
-      clojure = {"clj-kondo"},
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      require("lint").linters_by_ft = {
+        clojure = {"clj-kondo"},
       -- ... other linters
-    }
-  end,
+      }
+    end,
   },
   { 'eandrju/cellular-automaton.nvim' },
   { 'yuttie/comfortable-motion.vim' },
@@ -193,7 +193,7 @@ local plugins_spec = {
       return { url = "https://codeberg.org/andyg/leap.nvim" }
     end
   end)(),
-  { 'guns/vim-sexp' },
+  { 'guns/vim-sexp'},
   { 'romainl/vim-cool' },
   { 'echasnovski/mini.nvim' },
   { "MunifTanjim/nui.nvim" },
@@ -203,7 +203,29 @@ local plugins_spec = {
     "cksidharthan/mentor.nvim",
     opts = {
       tips = {
-        "Use :Inspect with cursor above text to see why it is colored the way it is."
+        "Use :Inspect with cursor above text to see why it is colored the way it is.",
+        "Text objects: 'vaw' selects a word including whitespace",
+        "Text objects: 'vas' selects a sentence",
+        "Text objects: 'vap' selects a paragraph",
+        "Text objects: 'va(' selects a block including parentheses",
+        "Text objects: 'va\"' selects text including double quotes",
+        "Text objects: 'va{' selects text including curly braces",
+        "Text objects: 'va[' selects text including square brackets",
+        "Text objects: 'vi]' selects text inside square brackets",
+        "Text objects: 'vit' selects text inside an HTML/XML tag",
+        "Text objects: 'vat' selects an HTML/XML tag block including the tags",
+        "Modification: '<localleader>j' joins code blocks using SplitJoin.",
+        "Modification: '<localleader>s' splits code blocks using SplitJoin.",
+        "Modification: '<localleader>r' renames a work across the whole file.",
+        "Modification: '<localleader>t' prepares to rename a word in locations you choose.",
+        "Modification: '<localleader>p' prepares to rename a word in locations you choose and deletes it.",
+        "Modification: '<localleader>d' starts a language server rename.",
+        "Modification: '<localleader>g' opens the code actions panel.",
+        "Modification: '<localleader>f' reformats the current paragraph or form.",
+        "Clojure: '<localleader>i' inlines a symbol.",
+      },
+      defaults = {
+        enabled = false
       }
     }
   },
@@ -507,17 +529,17 @@ vim.g.scrollview_auto_workarounds = 0
 -- Close windows, then the whole session, with C-w
 -- Note that I rebound ctrl+o to ctrl+w in ~/.config/kitty/kitty.conf
 vim.keymap.set("n", "<C-o>", function()
-    local win_amount = get_num_windows()
-    if win_amount == 1 then
-      vim.cmd(':wqa<CR>')
-    else
-      vim.cmd('wincmd q')
-    end
-  end,
-  {
-    noremap = true,
-    nowait = true
-  })
+  local win_amount = get_num_windows()
+  if win_amount == 1 then
+    vim.cmd(':wqa<CR>')
+  else
+    vim.cmd('wincmd q')
+  end
+end,
+{
+  noremap = true,
+  nowait = true
+})
 
 -- Do this automatically when the vim window is resized.
 vim.cmd('autocmd VimResized * wincmd =')
@@ -643,9 +665,9 @@ vim.g.fzf_mru_exclude = '/tmp/\\|google3/'
 -- vim uses when the command line exceeds the size of the command window.  The
 -- separate function does not show the FZFMru command in the window.
 vim.api.nvim_create_user_command('MRU', function()
-    vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
-  end,
-  { nargs = 0, desc = 'Find most recently used files.' }
+  vim.cmd ":FZFMru -m -x --no-sort --tiebreak=index --nth=-1,.. --delimiter=/ --preview 'batcat --color=always --style=plain --theme=base16 {}'"
+end,
+{ nargs = 0, desc = 'Find most recently used files.' }
 )
 map('n', "'", ":MRU<CR>")
 -- The '10000 part of this will make it so that 1000 oldfiles are remembered (the
@@ -948,8 +970,8 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
+        -- elseif luasnip.expand_or_jumpable() then
+        --   luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -960,8 +982,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      -- elseif luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
+        -- elseif luasnip.jumpable(-1) then
+        --   luasnip.jump(-1)
       else
         fallback()
       end
@@ -1060,43 +1082,43 @@ require('nvim-treesitter.config').setup {
 }
 
 require 'nvim-treesitter-textobjects'.setup {
-    lsp_interop = {
-      enable = true,
-      peek_definition_code = {
-        ["gi"] = "@function.outer",
-        ["gI"] = "@class.outer",
-      },
+  lsp_interop = {
+    enable = true,
+    peek_definition_code = {
+      ["gi"] = "@function.outer",
+      ["gI"] = "@class.outer",
     },
-    select = {
-      enable = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
+  },
+  select = {
+    enable = true,
+    keymaps = {
+      -- You can use the capture groups defined in textobjects.scm
+      ["af"] = "@function.outer",
+      ["if"] = "@function.inner",
+      ["ac"] = "@class.outer",
+      ["ic"] = "@class.inner",
     },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    }
+  },
+  move = {
+    enable = true,
+    set_jumps = true, -- whether to set jumps in the jumplist
+    goto_next_start = {
+      ["]m"] = "@function.outer",
+      ["]]"] = "@class.outer",
+    },
+    goto_next_end = {
+      ["]M"] = "@function.outer",
+      ["]["] = "@class.outer",
+    },
+    goto_previous_start = {
+      ["[m"] = "@function.outer",
+      ["[["] = "@class.outer",
+    },
+    goto_previous_end = {
+      ["[M"] = "@function.outer",
+      ["[]"] = "@class.outer",
+    },
+  }
 }
 
 require 'treesitter-context'.setup {
@@ -1346,7 +1368,9 @@ local on_attach = function(client, bufnr)
   else
     vim.keymap.set('n', '<localleader>f', [[vaF:FormatLines<CR>]], { remap = true, buffer = true })
     -- Commonly used shortcuts
-    vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol" })
+    -- Remove conflicting vim-sexp mapping using buffer = bufnr on our
+    -- bindings, otherwise the sexp bindings will take precedence.
+    vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol", buffer = bufnr })
     vim.keymap.set("n", "<localleader>r", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
     vim.keymap.set("n", "<localleader>k", run_immediately("destructure-keys"), { desc = "Destructure keys" })
     vim.keymap.set("n", "<localleader>ef", run_with_input("extract-function", { prompt = "Function name:" }),
@@ -1426,8 +1450,8 @@ pcall(function()
       if client.workspace_folders then
         local path = client.workspace_folders[1].name
         if
-            path ~= vim.fn.stdpath('config')
-            and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+          path ~= vim.fn.stdpath('config')
+          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
         then
           return
         end
@@ -1450,18 +1474,18 @@ pcall(function()
           checkThirdParty = false,
           library = {
             vim.env.VIMRUNTIME
-            -- Depending on the usage, you might want to add additional paths
-            -- here.
-            -- '${3rd}/luv/library'
-            -- '${3rd}/busted/library'
+          -- Depending on the usage, you might want to add additional paths
+          -- here.
+          -- '${3rd}/luv/library'
+          -- '${3rd}/busted/library'
           }
-          -- Or pull in all of 'runtimepath'.
-          -- NOTE: this is a lot slower and will cause issues when working on
-          -- your own configuration.
-          -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-          -- library = {
-          --   vim.api.nvim_get_runtime_file('', true),
-          -- }
+        -- Or pull in all of 'runtimepath'.
+        -- NOTE: this is a lot slower and will cause issues when working on
+        -- your own configuration.
+        -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+        -- library = {
+        --   vim.api.nvim_get_runtime_file('', true),
+        -- }
         }
       })
     end,
@@ -1549,42 +1573,6 @@ vim.lsp.enable('kotlin_lsp')
 -- See ~/.zprint.edn for clojure formatting configuration.  I do not use the
 -- lsp formatter (cljfmt).
 
--- Remove sexp mapping that conflict with my custom mappings.
-vim.cmd([[
-  let g:sexp_enable_insert_mode_mappings = 0
-  let s:sexp_mappings = {
-    \ 'sexp_move_to_prev_bracket':      '',
-    \ 'sexp_move_to_next_bracket':      '',
-    \ 'sexp_align_comments':            '',
-    \ 'sexp_align_comments_top':        '',
-    \ 'sexp_round_head_wrap_list':      '',
-    \ 'sexp_round_tail_wrap_list':      '',
-    \ 'sexp_square_head_wrap_list':     '',
-    \ 'sexp_square_tail_wrap_list':     '',
-    \ 'sexp_curly_head_wrap_list':      '',
-    \ 'sexp_curly_tail_wrap_list':      '',
-    \ 'sexp_round_head_wrap_element':   '',
-    \ 'sexp_round_tail_wrap_element':   '',
-    \ 'sexp_square_head_wrap_element':  '',
-    \ 'sexp_square_tail_wrap_element':  '',
-    \ 'sexp_curly_head_wrap_element':   '',
-    \ 'sexp_curly_tail_wrap_element':   '',
-    \ 'sexp_insert_at_list_head':       '',
-    \ 'sexp_insert_at_list_tail':       '',
-    \ 'sexp_splice_list':               '',
-    \ 'sexp_convolute':                 '',
-    \ 'sexp_clone_list':                '',
-    \ 'sexp_clone_list_sl':             '',
-    \ 'sexp_clone_list_ml':             '',
-    \ 'sexp_clone_element':             '',
-    \ 'sexp_clone_element_sl':          '',
-    \ 'sexp_clone_element_ml':          '',
-    \ 'sexp_raise_list':                '',
-    \ 'sexp_raise_element':             '',
-    \ }
-]])
-
-
 -- For Conjure
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
@@ -1616,18 +1604,18 @@ map('n', '<localleader>cc', ':ConjureConnect 9000<CR>', { silent = true })
 --   exe "w"
 --   exe "ConjureEval (nextjournal.clerk/show! \"" . expand("%:p") . "\")"
 -- endfunction
--- 
+--
 -- nmap <silent> <localleader>ec :execute ClerkShow()<CR>
 -- ]]
 -- )
--- 
+--
 -- map('n', '<localleader>ed',
 --   ':ConjureEval ' ..
 --   '(require \'[flow-storm.api :refer [remote-connect]] ' ..
 --   -- '\'[debux.cs.core :as d :refer-macros [dbg dbgn dbg_ dbgn_]]' ..
 --   ')' ..
 --   ' (remote-connect)<CR>')
--- 
+--
 -- -- Generate an example for the spec below the cursor.
 -- map('n', '<localleader>eg',
 --   ':execute "ConjureEval (gen/generate (s/gen " . expand("<cWORD>") . "))"<CR>')
@@ -1670,29 +1658,29 @@ vim.cmd('autocmd FileType markdown set foldmethod=expr')
 local markdown_group = vim.api.nvim_create_augroup("MarkdownSkeleton", { clear = true })
 
 vim.api.nvim_create_autocmd("BufNewFile", {
-    group = markdown_group,
-    pattern = "*.md",
-    callback = function()
-        -- Get the filename without the path (e.g., "my-file.md")
-        local filename = vim.fn.expand("%:t:r")
-        
-        -- Replace dashes and underscores with spaces for a cleaner title
-        local title = filename:gsub("[-_]", " ")
-        
-        -- Capitalize the first letter of each word
-        title = title:gsub("(%a)([%w_']*)", function(first, rest)
-            return first:upper() .. rest
-        end)
-        
-        -- Define the lines to insert (Markdown H1 title and an empty line)
-        local lines = { "# " .. title, "" }
-        
-        -- Set the lines at the top of the buffer
-        vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
-        
-        -- Move the cursor to the end of the file so you can start typing
-        vim.api.nvim_win_set_cursor(0, { #lines, 0 })
-    end,
+  group = markdown_group,
+  pattern = "*.md",
+  callback = function()
+    -- Get the filename without the path (e.g., "my-file.md")
+    local filename = vim.fn.expand("%:t:r")
+
+    -- Replace dashes and underscores with spaces for a cleaner title
+    local title = filename:gsub("[-_]", " ")
+
+    -- Capitalize the first letter of each word
+    title = title:gsub("(%a)([%w_']*)", function(first, rest)
+      return first:upper() .. rest
+    end)
+
+    -- Define the lines to insert (Markdown H1 title and an empty line)
+    local lines = { "# " .. title, "" }
+
+    -- Set the lines at the top of the buffer
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+
+    -- Move the cursor to the end of the file so you can start typing
+    vim.api.nvim_win_set_cursor(0, { #lines, 0 })
+  end,
 })
 
 
@@ -1750,3 +1738,4 @@ vim.cmd('autocmd FileType bzl setlocal shiftwidth=4 tabstop=4')
 if vim.fn.filereadable(vim.fn.expand('~/google_dotfiles/google.lua')) ~= 0 then
   require('google_dotfiles/google').load_google_config(on_attach)
 end
+
