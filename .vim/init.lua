@@ -1,3 +1,6 @@
+-- Lazy plugin fix
+vim.env.GIT_CONFIG_PARAMETERS = "'init.defaultRefFormat=files'"
+
 --                          /// Utilities ///
 
 -- Taken from https://oroques.dev/notes/neovim-init
