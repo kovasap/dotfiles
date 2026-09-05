@@ -82,6 +82,8 @@ hi LspDiagnosticsDefaultWarning cterm=bold ctermfg=3
 hi LspDiagnosticsDefaultInformation cterm=bold ctermfg=3
 hi LspDiagnosticsDefaultHint cterm=bold ctermfg=3
 
+hi DiagnosticUnderlineError cterm=underline ctermbg=0 ctermfg=1
+hi DiagnosticUnderlineInfo cterm=underline ctermbg=0 guisp=0
 hi LspDiagnosticsUnderlineError cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineWarning cterm=underline ctermbg=0
 hi LspDiagnosticsUnderlineInformation cterm=underline ctermbg=0

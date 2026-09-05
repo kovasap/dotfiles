@@ -226,6 +226,7 @@ local plugins_spec = {
         "Modification: '<localleader>g' opens the code actions panel.",
         "Modification: '<localleader>f' reformats the current paragraph or form.",
         "Clojure: '<localleader>i' inlines a symbol.",
+        "Searching: '?' lets you jump to any line in open buffers.",
       },
       defaults = {
         enabled = false
@@ -1330,7 +1331,7 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', 'ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
   -- Hotkeys starting with localleader are all about changing things.
-  buf_set_keymap('n', '<localleader>d', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<localleader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   vim.keymap.set('n', '<localleader>g', vim.lsp.buf.code_action, { desc = "LSP Code Actions" })
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
 
@@ -1345,9 +1346,11 @@ local on_attach = function(client, bufnr)
     -- Remove conflicting vim-sexp mapping using buffer = bufnr on our
     -- bindings, otherwise the sexp bindings will take precedence.
     vim.keymap.set("n", "<localleader>i", run_immediately("inline-symbol"), { desc = "Inline Symbol", buffer = bufnr })
-    vim.keymap.set("n", "<localleader>r", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
+    vim.keymap.set("n", "<localleader>b", run_immediately("add-missing-libspec"), { desc = "Add missing require" })
     vim.keymap.set("n", "<localleader>k", run_immediately("destructure-keys"), { desc = "Destructure keys" })
-    vim.keymap.set("n", "<localleader>e", run_with_input("extract-function", { prompt = "Function name:" }),
+    vim.keymap.set("n", "<localleader>l", run_with_input("move-to-let", { prompt = "Binding name:" }),
+      { desc = "Move expression to let" })
+    vim.keymap.set("n", "<localleader>d", run_with_input("extract-function", { prompt = "Function name:" }),
       { desc = "Extract function" })
     -- Copied from https://github.com/thegards/dotfiles/blob/76ed05d61039ff657e7ece5ba59d916f551f19ec/neovim/nvimdir/after/ftplugin/clojure.lua
     vim.keymap.set('n', 'cred', run_with_input("extract-to-def", { prompt = "def name:" }), opts)
