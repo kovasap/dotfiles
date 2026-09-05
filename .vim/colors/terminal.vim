@@ -7,7 +7,7 @@ if exists('syntax_on')
 endif
 
 hi Normal ctermfg=7
-hi Comment ctermfg=8
+hi Comment ctermfg=4
 hi default link shComment Comment
 hi default link vimLineComment Comment
 hi Constant ctermfg=7
@@ -95,20 +95,6 @@ hi IlluminatedWordWrite cterm=underline
 hi default link MiniMapSymbolLine Comment
 hi default link MiniMapSymbolView Comment
 
-" this is what gets overlaid on the bad text
-hi ALEError cterm=underline ctermbg=0
-hi ALEWarning cterm=underline ctermbg=0
-hi ALEInfo cterm=underline ctermbg=0
-hi ALEStyleError cterm=underline ctermbg=5
-hi ALEStyleWarning cterm=underline ctermbg=0
-
-" this is what gets put in the gutter on the left of the line numbers
-hi ALEErrorSign cterm=bold ctermfg=5 ctermbg=8
-hi ALEWarningSign cterm=bold ctermfg=3 ctermbg=8
-hi ALEInfoSign cterm=bold ctermfg=3 ctermbg=8
-hi ALEStyleErrorSign cterm=bold ctermfg=5 ctermbg=8
-hi ALEStyleWarningSign cterm=bold ctermfg=3 ctermbg=8
-
 " what will be used to hi similar words
 hi illuminatedWord cterm=bold
 
@@ -144,7 +130,7 @@ hi PmenuSel ctermfg=8 ctermbg=6 cterm=none
 hi PmenuSbar ctermfg=8 ctermbg=5 cterm=none
 hi PmenuThumb ctermfg=8 ctermbg=7 cterm=none
 hi FoldColumn ctermfg=3
-hi Search ctermbg=5 cterm=underline
+hi Search ctermbg=12 cterm=underline
 hi IncSearch cterm=reverse ctermbg=2
 
 " For TinyGlimmer
@@ -188,7 +174,7 @@ hi @markup.heading.2.markdown ctermfg=5
 hi @markup.heading.3.markdown ctermfg=2
 hi @markup.heading.4.markdown ctermfg=6
 
-hi default link LeapBackdrop Comment
+hi LeapBackdrop ctermfg=8
 hi LeapMatch ctermfg=1 term=bold
 hi LeapLabel ctermfg=1 term=bold
 
