@@ -196,7 +196,11 @@ local plugins_spec = {
       return { url = "https://codeberg.org/andyg/leap.nvim" }
     end
   end)(),
-  { 'julienvincent/nvim-paredit' },
+  { 'julienvincent/nvim-paredit',
+    config = function()
+      require("nvim-paredit").setup()
+    end
+  },
   { 'romainl/vim-cool' },
   { 'echasnovski/mini.nvim' },
   { "MunifTanjim/nui.nvim" },
@@ -1551,6 +1555,7 @@ vim.lsp.enable('kotlin_lsp')
 -- lsp formatter (cljfmt).
 
 -- For Conjure
+vim.cmd('let g:conjure#mapping#prefix = "<localleader>c"')
 vim.cmd('let g:conjure#eval#result_register="+"')
 vim.cmd('let g:conjure#log#wrap = v:true')
 vim.cmd('let g:conjure#mapping#doc_word = v:false')
