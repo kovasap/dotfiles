@@ -370,7 +370,7 @@ keys.extend([
     # --------------- Left Hand - Middle Row ----------------------------------
 
     Key([mod], 'a', lazy.widget['keyboardlayout'].next_keyboard()),
- 
+
     Key([mod], 'r', lazy.layout.flip()),
     Key([mod, 'control'], 'r', lazy.next_layout()),
 
@@ -746,27 +746,28 @@ class GpuUsageGraph(_Graph):
 
 # Helper function to check MonadTall's flipped orientation state
 def get_flip_state(layout):
-    if layout.name == "custommonadtall":
-        # align == 1 means main pane is on the Right ("il")
-        # align == 0 means main pane is on the Left ("li")
-        return "il" if layout.align == 1 else "li"
-    return layout.name
+  if layout.name == "custommonadtall":
+    # align == 1 means main pane is on the Right ("il")
+    # align == 0 means main pane is on the Left ("li")
+    return "il" if layout.align == 1 else "li"
+  return layout.name
 
 # Update the text on layout changes or focus shifts
 @hook.subscribe.layout_change
 def _(layout, group):
-    tb = qtile.widgets_map.get("monadtall_flip_state")
-    if tb:
-        tb.update(get_flip_state(layout))
+  tb = qtile.widgets_map.get("monadtall_flip_state")
+  if tb:
+    tb.update(get_flip_state(layout))
 
 # Hook into client focus/layout tweaks to keep state immediately in sync after click
 @hook.subscribe.client_focus
 def _(client):
-    tb = qtile.widgets_map.get("monadtall_flip_state")
-    if tb and qtile.current_layout:
-        tb.update(get_flip_state(qtile.current_layout))
+  tb = qtile.widgets_map.get("monadtall_flip_state")
+  if tb and qtile.current_layout:
+    tb.update(get_flip_state(qtile.current_layout))
 
 # ----------------------------------------------------------------
+
 
 def get_widgets(systray=False):
   return [
@@ -800,19 +801,22 @@ def get_widgets(systray=False):
               lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))
       }),
       widget.TextBox(' | ', name='separator'),
-      widget.Clipboard(
-          foreground=colors['color2'],
-          mouse_callbacks={
-            'Button3': lazy.spawn('copyq menu'),
-            'Button4': lazy.spawn('copyq previous'),
-            'Button5': lazy.spawn('copyq next'),
-            },
-          max_width=50,
-          timeout=None),
+      widget.Clipboard(foreground=colors['color2'],
+                       mouse_callbacks={
+                           'Button3': lazy.spawn('copyq menu'),
+                           'Button4': lazy.spawn('copyq previous'),
+                           'Button5': lazy.spawn('copyq next'),
+                       },
+                       max_width=50,
+                       timeout=None),
       widget.TextBox(' | ', name='separator'),
       widget.TextBox('[X]',
                      foreground=colors['color1'],
-                     mouse_callbacks={'Button1': lazy.window.kill()}),
+                     mouse_callbacks={
+                         'Button1': lazy.window.kill(),
+                         'Button4': lazy.layout.grow(),
+                         'Button5': lazy.layout.shrink(),
+                     }),
       widget.TextBox(
           text=" li ",  # Default starting state
           name="monadtall_flip_state",
@@ -846,7 +850,7 @@ def get_widgets(systray=False):
           'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
       },
                       **purple_graph_args)
-] + ([
+  ] + ([
       ColoredMemoryGraph(mouse_callbacks={
           'Button1': lambda: qtile.spawn("kitty zsh -c 'htop'")
       },
@@ -859,14 +863,13 @@ def get_widgets(systray=False):
           mouse_callbacks={
               'Button1': lambda: qtile.spawn("kitty zsh -c 'sensors; zsh'")
           }),
-] + ([
+  ] + ([
       widget.TextBox(' | ', name='separator'),
-      widget.TextBox('GPU',
-                     name='gpu_label',
-                     foreground=colors['color8'],
-                     mouse_callbacks={
-                         'Button1': lambda: qtile.spawn("amdgpu_top --gui")
-                     }),
+      widget.TextBox(
+          'GPU',
+          name='gpu_label',
+          foreground=colors['color8'],
+          mouse_callbacks={'Button1': lambda: qtile.spawn("amdgpu_top --gui")}),
       GpuUsageGraph(
           mouse_callbacks={'Button1': lambda: qtile.spawn('amdgpu_top --gui')},
           **purple_graph_args),
@@ -880,7 +883,7 @@ def get_widgets(systray=False):
                 mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
                 format='{uf:.0f}/{s:.0f}{m} free on {p}',
                 visible_on_warn=False),
-] if shutil.which('amdgpu_top') is not None else []) + [
+  ] if shutil.which('amdgpu_top') is not None else []) + [
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**green_graph_args),
       # widget.TextBox(' | ', name='separator'),
