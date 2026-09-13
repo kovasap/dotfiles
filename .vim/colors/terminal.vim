@@ -8,29 +8,31 @@ endif
 
 hi Normal ctermfg=7
 hi Comment ctermfg=4
-hi default link shComment Comment
-hi default link vimLineComment Comment
-hi Constant ctermfg=7
+hi Keyword ctermfg=2 cterm=bold
 hi String ctermfg=2
-hi link @string.regexp String
-hi link @string.special String
-hi link @string.special.symbol String
-hi link @string.special.path String
-hi link @lsp.type.keyword.clojure String
-hi link @spell.clojure Comment
+
+hi Constant ctermfg=7
+hi Identifier cterm=none ctermfg=7
+hi Function ctermfg=6
 hi Character ctermfg=10
 hi Number ctermfg=3
 hi Boolean ctermfg=3
 hi Float ctermfg=3
-
-hi Identifier cterm=none ctermfg=7
-hi Function ctermfg=6
-
 hi Statement ctermfg=3
 hi Conditional ctermfg=1
+
+
+hi default link shComment Comment
+hi default link vimLineComment Comment
+hi link @string.regexp String
+hi link @string.special String
+hi link @string.special.symbol String
+hi link @string.special.path String
+hi link @lsp.type.keyword.clojure Keyword
+hi link @spell.clojure Comment
+
 hi default link Repeat Statement
 hi default link Label Statement
-hi default link Keyword Statement
 hi default link Exception Statement
 hi default link Operator Statement
 
