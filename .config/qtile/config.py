@@ -771,6 +771,15 @@ def _(client):
 
 def get_widgets(systray=False):
   return [
+      widget.GroupBox(disable_drag=True,
+                      highlight_method='line',
+                      highlight_color=['000000', colors['color2']],
+                      this_screen_border=colors['color10'],
+                      this_current_screen_border=colors['color2'],
+                      active=colors['color7']),
+      # widget.CurrentLayoutIcon(
+      #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
+      #     scale=0.8,),
       widget.TextBox(
           '|<-',
           name='move window left',
@@ -787,15 +796,6 @@ def get_widgets(systray=False):
           mouse_callbacks={
               'Button1': lambda: window_to_adjacent_group_pair(qtile, 1)
           }),
-      widget.GroupBox(disable_drag=True,
-                      highlight_method='line',
-                      highlight_color=['000000', colors['color2']],
-                      this_screen_border=colors['color10'],
-                      this_current_screen_border=colors['color2'],
-                      active=colors['color7']),
-      # widget.CurrentLayoutIcon(
-      #     # custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
-      #     scale=0.8,),
       widget.WindowName(mouse_callbacks={
           'Button3':
               lambda: qtile.spawn(os.path.expanduser('~/bin/run-xmenu.sh'))
