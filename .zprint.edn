@@ -1,7 +1,7 @@
 ; For clojure autoformatting.
 ; https://cljdoc.org/d/zprint/zprint/1.1.2/doc/zprint-reference
 {:style   [:hiccup :justified]
- :map     {:comma? false :indent 0}
+ :map     {:comma? false :indent 0 :justify? true}
  :binding {:force-nl? true
            ; This is important for parinfer compatability
            :indent    0}
