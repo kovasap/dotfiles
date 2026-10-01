@@ -878,11 +878,6 @@ def get_widgets(systray=False):
           **green_graph_args),
       # widget.TextBox('Net', name='net_label'),
       # widget.NetGraph(**green_graph_args),
-      widget.TextBox(' | ', name='separator'),
-      widget.DF(foreground=colors['color8'],
-                mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
-                format='{uf:.0f}/{s:.0f}{m} free on {p}',
-                visible_on_warn=False),
   ] if shutil.which('amdgpu_top') is not None else []) + [
       # TODO figure out why this doesn't work
       # widget.HDDBusyGraph(**green_graph_args),
@@ -891,6 +886,11 @@ def get_widgets(systray=False):
       # #              margin_y=4),
       # widget.TextBox('vol:', name='volume_label'),
       # widget.Volume(fmt='{}'),
+      widget.TextBox(' | ', name='separator'),
+      widget.DF(foreground=colors['color8'],
+                mouse_callbacks={'Button1': lambda: qtile.spawn('qdirstat')},
+                format='{uf:.0f}/{s:.0f}{m} free on {p}',
+                visible_on_warn=False),
   ] + ([
       widget.TextBox(' | ', name='separator'),
       # widget.Image(filename='~/.config/qtile/icons/battery-icon.png'),
