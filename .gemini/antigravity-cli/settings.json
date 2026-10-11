@@ -1,12 +1,19 @@
 {
+  "model": "Gemini 3.7 Flash (Medium)",
   "permissions": {
     "allow": [
-      "command(find src test -type f)",
-      "command(npx shadow-cljs compile test)",
+      "command(find)",
+      "command(clojure-lsp)",
+      "command(npx shadow-cljs)",
       "command(git grep)",
       "command(git log)",
       "command(which)",
-      "command(git status)"
+      "command(git status)",
+      "command(head)",
+      "command(zprint)",
+      "command(git diff)",
+      "command(jj status)",
+      "command(jj diff)"
     ]
   },
   "trustedWorkspaces": [
