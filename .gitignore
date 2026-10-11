@@ -1,3 +1,4 @@
 *
 !.config/starship.toml
 !.config/mpv/mpv.conf
+!.gemini/antigravity-cli/settings.json

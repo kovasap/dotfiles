@@ -263,3 +263,7 @@ bindkey "^R" fzf-history-widget
 
 # See config file at ~/.config/starship.toml
 eval "$(starship init zsh)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kovas/.local/bin:$PATH"

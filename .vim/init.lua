@@ -325,8 +325,8 @@ map('n', 'k', 'gk')
 
 -- Smooth scrolling
 vim.g.comfortable_motion_no_default_key_mappings = true
-map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10j', { silent = true })
-map('n', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10k', { silent = true })
+map('n', '<PageDown>', ':call comfortable_motion#flick(50)<CR>10jzz', { silent = true })
+map('n', '<PageUp>', ':call comfortable_motion#flick(-50)<CR>10kzz', { silent = true })
 map('v', '<PageDown>', '10jzz', { silent = true })
 map('v', '<PageUp>', '10kzz', { silent = true })
 

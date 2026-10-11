@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "command(find src test -type f)",
+      "command(npx shadow-cljs compile test)",
+      "command(git grep)",
+      "command(git log)",
+      "command(which)",
+      "command(git status)"
+    ]
+  },
+  "trustedWorkspaces": [
+    "/home/kovas/yatg"
+  ]
+}

@@ -10,6 +10,7 @@ x-scheme-handler/tel=google-chrome.desktop
 inode/directory=thunar.desktop
 x-scheme-handler/fdm=freedownloadmanager_fdm_up.desktop
 video/x-matroska=mpv.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
 [Added Associations]
 x-scheme-handler/http=google-chrome.desktop;
