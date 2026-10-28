@@ -11,7 +11,7 @@ udiskie &
 fi
 
 # https://github.com/Martchus/syncthingtray/issues/357#issuecomment-3148557080
-nohup syncthingtray-qt6 --single-instance &
+nohup syncthingtray --single-instance &
 
 # Mount all drives when starting up
 udiskie-mount -a
