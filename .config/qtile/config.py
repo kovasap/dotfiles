@@ -932,6 +932,9 @@ def get_widgets(systray=False):
       widget.TextBox(' | ', name='separator'),
   ] + (get_systray() if systray else []) + [
       widget.TextBox(' | ', name='separator'),
+      # Update timezone with
+      # sudo timedatectl set-timezone "$(curl -s 'http://ip-api.com/line?fields=timezone')"
+      # then restart qtile.
       widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
   ]
 
