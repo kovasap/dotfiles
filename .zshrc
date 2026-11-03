@@ -44,7 +44,7 @@ function jjp {
     jj commit -m "$1"
     jj git push
 }
-alias jjf='jj git fetch; jj new main'
+alias jjf='jj git fetch; jj new "trunk()"'
 
 # ------------------------- Completion -------------------------------
 
