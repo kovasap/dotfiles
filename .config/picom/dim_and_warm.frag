@@ -68,6 +68,9 @@ vec4 window_shader() {
     // float brightness = dot(c3, vec3(0.2126, 0.7152, 0.0722));
     // c3 = mix(c3, background_color, brightness/3);
 
+    // Make all colors more like the background_color
+    // c3 = mix(c3, background_color, 0.3);
+
     // Makes dark colors green
     // c = vec4(hueShift(vec3(c), 1.8*3.1415), c.a);
 
