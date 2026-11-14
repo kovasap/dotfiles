@@ -13,10 +13,19 @@
       "command(zprint)",
       "command(git diff)",
       "command(jj status)",
-      "command(jj diff)"
+      "command(jj diff)",
+      "command(ls)",
+      "command(echo)",
+      "command(jj log)",
+      "command(jj show)",
+      "command(git clone)",
+      "command(rg)",
+      "command(sort)"
     ]
   },
+  "notifications": true,
   "trustedWorkspaces": [
-    "/home/kovas/yatg"
+    "/home/kovas/yatg",
+    "/home/kovas/mod_learning_weapons"
   ]
 }
